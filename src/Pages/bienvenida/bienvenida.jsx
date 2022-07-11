@@ -1,23 +1,21 @@
 import React, { useState } from 'react';
 import './bienvenida.css';
-import { NavbarBrand, Button } from 'reactstrap';
-import {authentication} from '../../firebase/firebase'
-import {getAuth,SignInWithPopup, GoogleAuthProvider, signInWithPopup} from "firebase/auth"
-
+import { NavbarBrand } from 'reactstrap';
+import { Button } from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
+import {PopUpAccess} from '../Access/popUpAccess'
 
 
 
 function Bienvenida() {
-  const signInWithGoogle=()=>{
-    const provider= new GoogleAuthProvider();
-    signInWithPopup(authentication, provider)
-    .then((re=>{
-      console.log(re);
-    }) 
-    .catch((err)=>{
-      console.log(err)
-    }))
-  }
+
+const [show, setShow]=useState(false)
+ 
+const handleShow=()=>setShow(true)
+const handleClose=()=>setShow(false)
+
+
+
 
   return (
     <div className="Bienvenida">
@@ -26,11 +24,12 @@ function Bienvenida() {
       CEpoint
     </NavbarBrand>
    <div className="d-grid gap-2  d-md-flex justify-content-md-end">
-  <button onClick={signInWithGoogle} class="btn btn-success me-md-4" type="button">Iniciar Sesion</button>
+  <button onClick={handleShow} class="btn btn-success me-md-4" type="button">Iniciar Sesion</button>
+  
   
 </div>
      </nav>
-
+ 
 
 
 
@@ -64,9 +63,14 @@ function Bienvenida() {
         <span className="visually-hidden">Next</span>
       </button>
     </div>
+//modal 
 
-//Imagen principal (carrusel de servicios) pruebita 
-prueba
+<Modal show={show}>
+  <Modal.Body>
+    <PopUpAccess/>
+  </Modal.Body>
+</Modal>
+
 
 //Pie de pagina 
     </div>
