@@ -3,16 +3,29 @@ import React, { useState } from 'react';
 import './App.css';
 import { NavbarBrand } from 'reactstrap';
 import Bienvenida from "./Pages/bienvenida/bienvenida"
-import {Route, Routes} from 'react-router-dom'
-import {Signup} from './Signup'
-import {Loginup} from './Loginup'
-
-
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {Signup} from '../src/Pages/Access/Signup'
+import {Loginup} from '../src/Pages/Access/Loginup'
+import Account from './Pages/perfil/Account';
+import Totalogin from '../src/Pages/Access/Totalogin'
+import Totalsignup from '../src/Pages/Access/Totalsignup'
+import { AuthContextProvider } from './context/AuthContext';
 function App() {
    
   return (
     <div className="App">
-    
+   <AuthContextProvider>
+   <Router>
+   <Routes>
+      <Route exact path="/" element={<Bienvenida/>} />
+    <Route  path="/login" element={<Totalogin/>} />
+    <Route  path="/signup" element={<Totalsignup/>} />
+    <Route  path="/account" element={<Account/>} />
+      </Routes>
+  </Router>
+   
+     </AuthContextProvider>   
+  
 
 
 
@@ -21,3 +34,4 @@ function App() {
 }
 
 export default App;
+//

@@ -3,7 +3,7 @@ import './bienvenida.css';
 import { NavbarBrand } from 'reactstrap';
 import { Button } from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
-import {PopUpAccess} from '../Access/popUpAccess'
+import {Loginup} from '../Access/Loginup'
 
 
 
@@ -63,16 +63,16 @@ const handleClose=()=>setShow(false)
         <span className="visually-hidden">Next</span>
       </button>
     </div>
-//modal 
+
 
 <Modal show={show}>
   <Modal.Body>
-    <PopUpAccess/>
+    <Loginup/>
   </Modal.Body>
 </Modal>
 
 
-//Pie de pagina 
+
     </div>
   );
 }
