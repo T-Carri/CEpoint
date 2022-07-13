@@ -1,0 +1,30 @@
+.a1{
+    width: 17%;
+    height: 80%;
+    background-color: dimgrey;
+    margin-top: 0%;
+    margin-right: 50%;
+    margin-left: 0%;
+    position: absolute;
+
+}
+.a21{
+    height: 50%;
+    width: 40%;
+     margin-top: 2%;
+    margin-right: 50%;
+    margin-left: 20%;
+    position: absolute;
+}
+
+button.btnx1.btn.btn-success{
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 70%;
+}
+
+.asignador{
+    margin-left: 70px;  
+    margin-top: 20px;
+    padding: 20px;
+}
