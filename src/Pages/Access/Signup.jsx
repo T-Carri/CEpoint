@@ -6,16 +6,21 @@ import { UserAuth } from '../../context/AuthContext';
 export const Signup = () => {
   const [email, setEmail]= useState('')
   const [password, setPassword] = useState('')
+  const [passwordConf, setPasswordConf] = useState('')
   const [error, setError] =useState('')
    const {createUser}= UserAuth()
   const navigate = useNavigate()
 
   const handleSubmit = async (e)=> {
     e.preventDefault();
-    setError('')
+    if (password.current.value!== passwordConf.current.value){
+      return setError("Password do not match")
+    } 
+
     try{
+      setError('')
       await createUser(email, password);
-      navigate('/account')
+      navigate('/login')
     } catch(e) {
       setError(e.message)
       console.log(e.message)
@@ -40,7 +45,11 @@ export const Signup = () => {
 <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} required>
 </Form.Control>
 </Form.Group>
-
+<Form.Group id="password-confirm">
+<Form.Label>Password Confirmation</Form.Label>
+<Form.Control type="password" onChange={(e) => setPasswordConf(e.target.value)} required>
+</Form.Control>
+</Form.Group>
 <button className='border border-blue-500 bg-blue-600 hover:bg-blue-500 w-full p-4 my-2 text-white'>
           Sign Up
         </button>

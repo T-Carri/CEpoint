@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import {Form, Button, Card} from 'react-bootstrap'
+import {Form, Button, Card, Alert} from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
@@ -41,9 +41,10 @@ export const Loginup=()=> {
 
   return (
     <>
-    <Card>
+    <Card >
       <Card.Body>
         <h2>Inicia sesion </h2>
+        {error&&<Alert variant="danger">{error}</Alert>}
         <Form onClick={handleSubmit}>
 <Form.Group id="email">
 <Form.Label>Email</Form.Label>
@@ -56,7 +57,7 @@ export const Loginup=()=> {
 </Form.Control>
 </Form.Group>
 
-<Button>Entrar</Button>
+<Button type="submit">Entrar</Button>
 
 
     </Form>
@@ -68,7 +69,9 @@ export const Loginup=()=> {
 </div>
       </Card.Body>
     </Card>
-    
+    <div className="w-100 text-center mt-2">
+      Need an account? <Link to="/signup">Sign up</Link>
+    </div>
     </>
     
 
