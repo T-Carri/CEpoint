@@ -42,7 +42,7 @@ const Account=()=> {
     
 </div>
 <div className="a21"  >  
- <Card className="cardContenedora" style={{ width: '70rem', height:'35em'}}>
+ <Card className="cardContenedora" style={{ width: '60em', height:'30em'}}>
       <Card.Body>
         <Card.Title>Asignador</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">controles para asignar a residentes proyectos</Card.Subtitle>
@@ -67,6 +67,8 @@ const Account=()=> {
     
       -CONTROL DE ALMACEN POR Qr (APP)
       -INTERFAZ DE ASISTENCIA RECIBIDO EN "JSON (y)"
+               tecnologias analizado: Ajax y axios para actualizar y detectar cuando recibo datos. 
+                
       -CONVERTIDOR DE JSON A STRIN Y VICEVERSA 
       -INTEGRAR SOCKET.IO
       -SE TENDRA QUE HACER UN SERVER BACK END POSIBLEMENTE 

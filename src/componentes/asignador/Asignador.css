@@ -6,3 +6,11 @@ button#dropdown-button-dark-example2.dropdown-toggle.btn.btn-secondary{
     margin-top: 4%;
     margin-bottom:4%;
 }
+select.form-select{
+    width: 100%;
+    margin-top: 3%;
+}
+/*div.fila.col{
+    width: 60%;
+}*/
+button.enviar.btn.btn-
