@@ -24,7 +24,7 @@ export default class Asignador extends Component {
               <Row>
                <Col>
                 <h6>Residente</h6>
-   <Form.Select  onChange={(e)=>setState4} aria-label="Default select example">
+   <Form.Select   aria-label="Default select example">
       <option>Elige</option>
       <option value="1">1A</option>
       <option value="2">1A2B</option>
