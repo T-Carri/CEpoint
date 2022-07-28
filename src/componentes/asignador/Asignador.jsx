@@ -3,14 +3,33 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 import './Asignador.css'
 import {Row, Form, Col, Button} from 'react-bootstrap'
+
+
 export default class Asignador extends Component {
+  constructor (props){
+    super(props); 
+      this.state= {
+        list: []
+      }
+    
+  }
+  componentDidMount(){
+    this.prueba();
+  }
  
   //const [residente1, setResidente1] = useState(''); 
   
+prueba= () => {
+  fetch('http://localhost:3000/prueba')
+  .then(res=>res.json())
+  .then(list =>this.setState({list}))
+} 
+
 
 
 
     render() {
+      const {list} = this.state; 
         return (
             <div>
               <Row>
@@ -92,7 +111,22 @@ export default class Asignador extends Component {
               </Row>
               </div>
               <Button className='enviar' variant="success">Enviar</Button>
-            </div>
+            </div>,
+
+
+<div>
+{list.length?(
+  <div>
+    {list.map((item)=>{
+      return(
+        <div>{item}</div>
+      )
+    })}
+  </div>
+): (<div>
+  <h1> no list items found</h1>
+</div>)}
+</div>
         )
     }
 }

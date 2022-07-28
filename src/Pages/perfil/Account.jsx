@@ -75,6 +75,8 @@ const Account=()=> {
       CONECTAR AXIOS (CEpoint) CON EXPRESS (server)
 
        .</p>
+
+       <p>User Email: {user && user.email}</p>
   </div>
 
 
