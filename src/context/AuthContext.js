@@ -18,7 +18,7 @@ export const AuthContextProvider = ({ children }) => {
   const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password).then(
       ()=>{
-        axios.post('http://localhost:8800/api/auth/signup ', { email, password })
+        axios.post('https://cepointbackend.herokuapp.com/api/auth/signup ', { email, password })
         .then(function (response) {
           // handle success
           console.log(response);
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }) => {
    const signIn = (email, password) =>  {
     return signInWithEmailAndPassword(auth, email, password).then(
       ()=>{
-        axios.post('http://localhost:8800/api/auth/login ', { email, password })
+        axios.post('https://cepointbackend.herokuapp.com/api/auth/login ', { email, password })
         .then(function (res) {
           
           console.log(res);

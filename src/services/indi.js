@@ -50,7 +50,7 @@ formData.append('Bandeja de Proyectos 4', asignacionData.Proyecto_de_res_4)
 
         const response= await axios({  
 
-            url: `http://localhost:8800/planAsignacion`,
+            url: `https://cepointbackend.herokuapp.com/planAsignacion`,
             method: 'POST',
             data: formData
         
