@@ -16,6 +16,7 @@ export const Loginup=()=> {
     setError('')
     try {
       await signIn(email, password)
+      
       navigate('/account')
     } catch (e) {
       setError(e.message)

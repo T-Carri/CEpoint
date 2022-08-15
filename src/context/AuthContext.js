@@ -6,22 +6,63 @@ import {
   onAuthStateChanged,
 } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
+import axios from 'axios'
+import {useDispatch} from "react-redux"
+import {loginFailure, loginStart, loginSuccess, logout} from "../redux/UserSlice"
 
 const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-
+  const dispatch=useDispatch();
   const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password);
+    return createUserWithEmailAndPassword(auth, email, password).then(
+      ()=>{
+        axios.post('http://localhost:8800/api/auth/signup ', { email, password })
+        .then(function (response) {
+          // handle success
+          console.log(response);
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        }); 
+     
+      }
+    )
+    
+      
+    
+    
   };
 
    const signIn = (email, password) =>  {
-    return signInWithEmailAndPassword(auth, email, password)
+    return signInWithEmailAndPassword(auth, email, password).then(
+      ()=>{
+        axios.post('http://localhost:8800/api/auth/login ', { email, password })
+        .then(function (res) {
+          
+          console.log(res);
+          dispatch(loginStart())
+          // handle success
+          dispatch( loginSuccess(res.data))
+          
+        })
+        .catch(function (error) {
+          // handle error
+          dispatch(loginFailure());
+
+          console.log(error);
+        }); 
+     
+      }
+    )
    }
+
 
   const logout = () => {
       return signOut(auth)
+
   }
 
   useEffect(() => {

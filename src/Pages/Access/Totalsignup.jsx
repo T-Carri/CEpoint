@@ -4,6 +4,10 @@ import GoogleButton from 'react-google-button'
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 
+
+
+
+
    function Totalsignup() {
     
     
@@ -19,6 +23,8 @@ import { UserAuth } from '../../context/AuthContext';
       if (password!== passwordConf){
         return setError("Password do not match")
       } 
+
+
   
       try{
         setError('')
@@ -32,14 +38,18 @@ import { UserAuth } from '../../context/AuthContext';
   
 
     
-   
+   /*const fetchingData = async (e) => {
+    axios.post("/auth/signup", {email, password})
+    setError(e.message)
+    console.log(e.message)
+   }*/
     
     
     
     
       return (
         <div className="Bienvenida">
-         <nav className="navbar navbar-expand-lg bg-warning w-100 p-5 h-150 d-inline-block">
+         <nav className="navbar navbar-expand-lg bg-warnig w-100 p-5 h-150 d-inline-block">
          <NavbarBrand className="logo" href="/">
           CEpoint
         </NavbarBrand>

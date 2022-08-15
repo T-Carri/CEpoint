@@ -1,18 +1,26 @@
-import {Form, Button, Card, NavbarBrand} from 'react-bootstrap'
+import { Button, Card, NavbarBrand} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import './Account.css'
-import Asignador from '../../componentes/asignador/Asignador';
-
-
-
-
-
+import Asignador1 from '../../componentes/asignador/Asignador1';
+import {saveAsignacion} from '../../services/indi'
 
 const Account=()=> {
-    const {user,logout}= UserAuth();
-    const navigate = useNavigate();
 
+
+  const {logout}= UserAuth();
+    const navigate = useNavigate();
+ 
+
+const handleSubmit= (data)=>{
+  saveAsignacion(data)
+  console.log(data)
+}
+
+
+
+    
+    
     const handleLogout = async()=>{
       try{
         await logout(); 
@@ -23,7 +31,11 @@ const Account=()=> {
       
       }
     };
-      
+   
+    
+
+
+
     return (
         <div className="Bienvenida">
          <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
@@ -44,11 +56,11 @@ const Account=()=> {
 <div className="a21"  >  
  <Card className="cardContenedora" style={{ width: '60em', height:'30em'}}>
       <Card.Body>
-        <Card.Title>Asignador</Card.Title>
+        <Card.Title>Asignador test</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">controles para asignar a residentes proyectos</Card.Subtitle>
       
       
-       <div className="asignador" ><Asignador/></div>
+       <div className="asignador" ><Asignador1 handleSubmit={handleSubmit}/></div>
         
       </Card.Body>
     </Card></div>
@@ -75,8 +87,6 @@ const Account=()=> {
       CONECTAR AXIOS (CEpoint) CON EXPRESS (server)
 
        .</p>
-
-       <p>User Email: {user && user.email}</p>
   </div>
 
 
