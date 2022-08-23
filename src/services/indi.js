@@ -18,19 +18,19 @@ export async function saveAsignacion(asignacionData ){
 
         console.log(asignacionData)
         
-       const formData = {
-    
-        Residente1: asignacionData.Residente1,
-BandejaProyecto1: asignacionData.Proyecto_de_res_1,
-Residente2: asignacionData.Residente2,
-BandejadeProyectos2: asignacionData.Proyecto_de_res_2, 
-Residente3: asignacionData.Residente3,
-BandejadeProyectos3: asignacionData.Proyecto_de_res_3,
-Residente4: asignacionData.Residente4,
-BandejadeProyectos4: asignacionData.Proyecto_de_res_4
+       const formData = [
+        { residente: asignacionData.Residente1,
+          proyecto: asignacionData.Proyecto_de_res_1 },
+        { residente: asignacionData.Residente2,
+          proyecto: asignacionData.Proyecto_de_res_2,},
+        { residente: asignacionData.Residente3,
+          proyecto: asignacionData.Proyecto_de_res_3},       
+        { residente: asignacionData.Residente4,
+          proyecto: asignacionData.Proyecto_de_res_4}
 
 
-       }
+        
+       ]
       /*  
         const formData = new FormData() 
 
@@ -50,13 +50,14 @@ formData.append('Bandeja de Proyectos 4', asignacionData.Proyecto_de_res_4)
 
         const response= await axios({  
 
-            url: `https://cepointbackend.herokuapp.com/planAsignacion`,
+            url: `http://localhost:8800/planAsignacion`,
             method: 'POST',
             data: formData
         
         })
         
  //TODO Agregar id de usuario que guarda asignacion, checar useSelector de redux
+ //https://cepointbackend.herokuapp.com
         return response
     }catch(e){
         console.log(e)
