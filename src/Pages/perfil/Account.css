@@ -23,6 +23,16 @@ button.btnx1.btn.btn-success{
     width: 70%;
 }
 
+button.btnx2.btn.btn-primary{
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 70%;
+}
+button.btnx3.btn.btn-primary{
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 70%;
+}
 .asignador{
     margin-left: 70px;  
     margin-top: 20px;
