@@ -3,7 +3,7 @@ import {Row, Form, Col, Button, Spinner, Table, Card} from 'react-bootstrap'
 
 
 
-const Asignador1 = ({handleSubmit})=>{
+export const Asignador1 = ({handleSubmit})=>{
 
   
 const [formValues, setFormValues] = useState(
@@ -308,7 +308,7 @@ const handleChangeProy4 = event => {
   
 } 
 
-export default Asignador1
+
 
 
 
