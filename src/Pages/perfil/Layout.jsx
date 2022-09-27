@@ -1,6 +1,4 @@
-import { Outlet } from "react-router-dom"
 import { Button, Card, NavbarBrand} from 'react-bootstrap'
-
 import { UserAuth } from '../../context/AuthContext';
 import './Account.css'
 import Asignador1 from '../../componentes/asignador/Asignador1';
@@ -11,7 +9,8 @@ import {
   Switch, 
   Route, 
   Routes,
-  useNavigate
+  useNavigate, 
+  Outlet
 } from 'react-router-dom';
 import Horario from '../../componentes/Horario'
 import Prueba from '../../componentes/Prueba'
@@ -79,10 +78,7 @@ export const Layout= () => {
  <Outlet/>
     
      </div>
-       
-        
-        
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" >
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" >
           
     
           <div class="offcanvas-header">
@@ -112,13 +108,8 @@ export const Layout= () => {
     
     
     
-            </div>
-       
-       
-        
-        
-        
-            </div>
+</div>
+</div>
   )
 }
 

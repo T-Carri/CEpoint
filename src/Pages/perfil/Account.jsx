@@ -14,11 +14,7 @@ import {Asignador1} from '../../componentes/asignador/Asignador1';
 import { Bienvenida } from '../../componentes/Bienvenida';
 export default function Account() {
 
-  
-
-
-
-  return (
+   return (
 
     <Routes>
   <Route path="/" element={<Layout/>} >
