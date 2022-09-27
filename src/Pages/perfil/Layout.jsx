@@ -12,8 +12,8 @@ import {
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-import Horario from '../../componentes/Horario'
-import Prueba from '../../componentes/Prueba'
+import Horario from '../../componentes/horario/Horario'
+
  
 
 
@@ -69,6 +69,7 @@ export const Layout= () => {
     <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
     <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>
     <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>
+    <Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>
     </div>
    
    

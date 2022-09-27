@@ -6,15 +6,14 @@ import {Row, Form, Col, Button, Spinner, Table, Card} from 'react-bootstrap'
 export const Asignador1 = ({handleSubmit})=>{
 
   
-const [formValues, setFormValues] = useState(
-    []
-  ) 
-const handleChange = (event) => {
+const [formValues, setFormValues] = useState([]) 
 
-  const {name, value} = event.target
-setFormValues({
+const handleChange = (event) => {
+const {name, value} = event.target
+    setFormValues({
   ...formValues, [name]: value })
 }
+
 const _handleSubmit = (e) => {
   e.preventDefault()
 handleSubmit({...formValues})
