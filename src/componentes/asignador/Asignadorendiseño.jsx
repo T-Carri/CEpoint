@@ -1,10 +1,13 @@
-import React from 'react'
-import {Row, Form, Col, Button, Spinner, Table, Card} from 'react-bootstrap'
-
+import React, {useState} from 'react'
+import { Card, Container, Toast, Button} from 'react-bootstrap'
+import './Asignador.css'
 export const Asignadorendiseño = () => {
+  
+  const [show, setShow] = useState(false);
+  
   return (
     
-    <Card className="cardContenedora" style={{ width: '60em', height:'30em'}}>
+    <Container className="cardContenedora" style={{ width: '70em', height:'45em'}}>
     <Card.Body>
       <Card.Title>Asignador</Card.Title>
       <Card.Subtitle className="mb-2 text-muted">controles para asignar a residentes proyectos</Card.Subtitle>
@@ -12,12 +15,24 @@ export const Asignadorendiseño = () => {
     
      <div className="asignador" >
 
-    <h1>asignador diseño</h1>
-</div>
+    <Card className='formAsignacion' style={{ display:'inline-block', width: '45em', height:'30em'}}>
+   
+    
+    </Card>
+
+ <Card className='asignaciones' style={{display:'inline-block', width: '15em', height:'30em'}}>
+
+    </Card>    
+    </div>
       
     </Card.Body>
-  </Card>
+  </Container>
   
 
   )
 }
+
+//TODO: crear area de creacion de asignacion y asignaciones 
+
+//-Al crear form{obra, ubicacion, residente, no. semana por itineracion automatico}
+//{}

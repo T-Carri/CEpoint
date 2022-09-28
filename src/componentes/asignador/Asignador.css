@@ -13,3 +13,10 @@ select.form-select{
 /*div.fila.col{
     width: 60%;
 */
+div.asignaciones.card{
+    background-color: lightslategray;
+}
+div.formAsignacion.card{
+    margin-right: 10px;
+    margin-top: -40px;
+}

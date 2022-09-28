@@ -53,17 +53,25 @@ export const Layout= () => {
       };
   
   return (
-    <div className="Bienvenida">
-             <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
-             <NavbarBrand className="logo" href="/">
-              CEpoint 
-            </NavbarBrand>
-           <div className="d-grid gap-2  d-md-flex justify-content-md-end">
-         
-       <Button onClick={handleLogout}>logout</Button>
-          
-        </div>
-             </nav>
+
+    
+    <section className="cepoint">
+<div className="Bienvenida">
+    {/* //navbar */}
+          <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
+          <NavbarBrand className="logo" href="/">
+           CEpoint 
+         </NavbarBrand>
+        <div className="d-grid gap-2  d-md-flex justify-content-md-end">
+      
+    <Button onClick={handleLogout}>logout</Button>
+       
+     </div>
+          </nav>
+
+
+</div>
+    {/* aside */}
     <div className="a1">
      
     <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
@@ -72,14 +80,17 @@ export const Layout= () => {
     <Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>
     </div>
    
-   
+      {/* //area de herramienta  */}
     <div className="a21"  >  
     
 
  <Outlet/>
     
      </div>
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" >
+     
+     
+      {/* //canvas lateral */}
+     <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" >
           
     
           <div class="offcanvas-header">
@@ -110,7 +121,11 @@ export const Layout= () => {
     
     
 </div>
-</div>
+    </section>
+    
+    
+    
+   
   )
 }
 

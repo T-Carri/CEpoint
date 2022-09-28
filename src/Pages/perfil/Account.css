@@ -9,11 +9,11 @@
 
 }
 .a21{
-    height: 50%;
-    width: 40%;
+    height: 78%;
+    width: 77%;
      margin-top: 2%;
     margin-right: 50%;
-    margin-left: 20%;
+    margin-left: 10%;
     position: absolute;
 }
 
@@ -49,7 +49,7 @@ button.btnx3.btn.btn-danger{
     border-color: black;
 }
 .asignador{
-    margin-left: 70px;  
+    margin-left: 20px;  
     margin-top: 20px;
     padding: 20px;
 }

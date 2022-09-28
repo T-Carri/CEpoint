@@ -2,6 +2,10 @@ import React from 'react'
 
 export const Trabajador = () => {
   return (
-    <div>Trabajador</div>
+    <div>Trabajador
+
+
+      Agregar un buscardor de nombre 
+    </div>
   )
 }

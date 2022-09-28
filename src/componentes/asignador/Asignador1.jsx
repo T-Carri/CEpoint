@@ -1,5 +1,5 @@
 import React,{useState} from 'react'
-import {Row, Form, Col, Button, Spinner, Table, Card} from 'react-bootstrap'
+import {Row, Form, Col, Button, Spinner, Table, Card, Container} from 'react-bootstrap'
 
 
 
@@ -172,7 +172,7 @@ const handleChangeProy4 = event => {
   return(
    
           
-          <Card className="cardContenedora" style={{ width: '60em', height:'30em'}}>
+          <Container className="cardContenedora" style={{ width: '60em', height:'30em'}}>
           <Card.Body>
             <Card.Title>Asignador</Card.Title>
             <Card.Subtitle className="mb-2 text-muted">controles para asignar a residentes proyectos</Card.Subtitle>
@@ -299,7 +299,7 @@ const handleChangeProy4 = event => {
 </div>
             
           </Card.Body>
-        </Card>
+        </Container>
         
         
 
