@@ -48,7 +48,7 @@ export default function Account() {
    
      </Route>
 
-     <Route path="asignadorEndiseño" element={Asignadorendiseño} />
+     <Route path="asignadorEndiseño" element={<Asignadorendiseño/>} />
     
     </Route>
   </Routes> 
