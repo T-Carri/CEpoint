@@ -15,8 +15,12 @@ select.form-select{
 */
 div.asignaciones.card{
     background-color: lightslategray;
+    margin-left: 4em;
 }
 div.formAsignacion.card{
+    
     margin-right: 10px;
-    margin-top: -40px;
+    margin-top: 3px;
+    margin-left: -48px;
 }
+
