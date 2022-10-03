@@ -1,6 +1,8 @@
 import React, {useState} from 'react'
 import { Card, Container, Toast, Button, Form, Row, Col} from 'react-bootstrap'
 import './Asignador.css'
+import {getFirestore, collection, getDocs, doc} from 'firebase/firestore/lite'
+import app from '../../firebase/firebase'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {DateTime} from 'luxon';
@@ -9,7 +11,15 @@ export const Asignadorendiseño = () => {
     const toggleShowA = () => setShowA(!showA);
     const [startDate, setStartDate] = useState(new Date());
     const date = DateTime.now().weekNumber
-  return (
+  
+    //firestore plug
+    const db= getFirestore(app) 
+
+
+
+
+
+    return (
     
     <Container className="cardContenedora" style={{ width: '70em', height:'45em'}}>
     <Card.Body>
@@ -77,3 +87,4 @@ export const Asignadorendiseño = () => {
   )
 }
 
+//TODO: HACER OBJETO QUE CONTENGA EL 
