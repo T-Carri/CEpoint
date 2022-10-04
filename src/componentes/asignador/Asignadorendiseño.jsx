@@ -76,6 +76,7 @@ export const Asignadorendiseño = () => {
     </Card>
 
  <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em'}}>
+       
 
     </Card>    
     </div>
