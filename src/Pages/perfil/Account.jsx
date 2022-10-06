@@ -17,7 +17,71 @@ import {Semana} from '../../componentes/horario/Semana'
 import {Trabajador} from '../../componentes/horario/Trabajador'
 import { Asignadorendiseño } from '../../componentes/asignador/Asignadorendiseño';
 import { Presupuesto } from '../../componentes/horario/Presupuesto';
+import { getFirestore } from 'firebase/firestore/lite';
+import { doc, collection, setDoc, getDoc} from "firebase/firestore"
+import { getAuth } from "firebase/auth";
+import { UserAuth } from '../../context/AuthContext';
+import app from '../../firebase/firebase';
+import { useState } from 'react';
+
 export default function Account() {
+const [userRol, setUserRol] =useState()
+const {user} = UserAuth()
+const db =getFirestore(app)
+
+const auth = getAuth();
+const dato= auth.currentUser;
+
+if (dato !== null) {
+  dato.providerData.forEach((profile) => {
+    console.log("Sign-in provider: " + profile.locaId);
+    console.log("  Email: " + profile.email);
+    
+  });
+}
+ 
+
+if (dato!==null){
+  
+  console.log( "uid", dato.uid )
+
+}
+
+
+
+/* const r15 =db.collection('users').doc('${dato.uid}')
+const docuCifrada=  getDoc(r15)
+const infoFinal =docuCifrada.data().rol;
+console.log("r15:",infoFinal) */
+
+
+
+
+
+    /* async function getRol(uid){
+        const docuRef= doc(db, `users/${uid}`);
+        const docuCifrada = await getDoc(docuRef);
+        const infoFinal= docuCifrada.data().rol;
+        return infoFinal; 
+        }
+    function setUserWithFirebaseAndRol(user){
+        getRol(user.uid).then((rol)=>{
+            const userData={
+                uid: user.uid, 
+                email: user.email,
+                rol: rol,
+    
+            }
+           setUserRol(userData);
+            
+        }).then(setUserWithFirebaseAndRol(user))
+    
+    }
+    
+ */    
+  
+         console.log("user rol:", userRol);
+         console.log("test from account:",user)  
 
    return (
 

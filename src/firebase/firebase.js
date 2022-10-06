@@ -3,13 +3,12 @@ import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from "firebase/auth"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCNS5zc3tRF0yDyA4mQ63ndxyVMyhPRDEU",
-  authDomain: "ce2000point.firebaseapp.com",
-  projectId: "ce2000point",
-  storageBucket: "ce2000point.appspot.com",
-  messagingSenderId: "96210590626",
-  appId: "1:96210590626:web:3541b79f1e75a22b87f0fb",
-  measurementId: "G-071QD5JEKF"
+  apiKey: "AIzaSyAm7viCssewXhk4XDPL0RGDUmXjkgrLP3Y",
+  authDomain: "cepoint-e27bf.firebaseapp.com",
+  projectId: "cepoint-e27bf",
+  storageBucket: "cepoint-e27bf.appspot.com",
+  messagingSenderId: "872968881565",
+  appId: "1:872968881565:web:498265f8437dec7fb95b74"
 };
 
 // Initialize Firebase

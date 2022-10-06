@@ -5,64 +5,54 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth';
+import app from '../firebase/firebase';
 import { auth } from '../firebase/firebase';
 import axios from 'axios'
-import {useDispatch} from "react-redux"
-import {loginFailure, loginStart, loginSuccess, logout} from "../redux/UserSlice"
 
+
+import { getFirestore } from 'firebase/firestore/lite';
+import { doc, collection, setDoc, getDoc} from "firebase/firestore"
 const UserContext = createContext();
+export const UserAuth = () => {
+  return useContext(UserContext);
+};
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  const dispatch=useDispatch();
+  // const dispatch=useDispatch();
+  const firestore= getFirestore(app)
+  
+  //version normal 
   const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password).then(
-      ()=>{
-        axios.post('https://cepointbackend.herokuapp.com/api/auth/signup ', { email, password })
-        .then(function (response) {
-          // handle success
-          console.log(response);
-        })
-        .catch(function (error) {
-          // handle error
-          console.log(error);
-        }); 
-     
-      }
-    )
-    
-      
+    return createUserWithEmailAndPassword(auth, email, password)
     
     
   };
+  //version firestore
+ /*  async function  createUser(email, password, rol){
+    const infoUsuario = await createUserWithEmailAndPassword(
+        auth, 
+       
+        email, 
+        password
+    ).then((currentUser)=>{
+        return currentUser;
+    });
+//aqui escribir datos del usuario de firebase
+console.log(infoUsuario.user.ui)
+const docuRef= doc(firestore, `users/ ${infoUsuario.user.uid} `);
+setDoc(docuRef, {correo:email, rol:rol});
+} */
 
    const signIn = (email, password) =>  {
-    return signInWithEmailAndPassword(auth, email, password).then(
-      ()=>{
-        axios.post('https://cepointbackend.herokuapp.com/api/auth/login ', { email, password })
-        .then(function (res) {
-          
-          console.log(res);
-          dispatch(loginStart())
-          // handle success
-          dispatch( loginSuccess(res.data))
-          
-        })
-        .catch(function (error) {
-          // handle error
-          dispatch(loginFailure());
-
-          console.log(error);
-        }); 
-     
-      }
-    )
+    return signInWithEmailAndPassword(auth, email, password)
+    
    }
 
 
   const logout = () => {
       return signOut(auth)
-
+      
   }
 
   useEffect(() => {
@@ -82,9 +72,7 @@ export const AuthContextProvider = ({ children }) => {
   );
 };
 
-export const UserAuth = () => {
-  return useContext(UserContext);
-};
+
 
 
 
