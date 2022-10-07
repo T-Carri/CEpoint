@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from "firebase/auth"
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyAm7viCssewXhk4XDPL0RGDUmXjkgrLP3Y",
   authDomain: "cepoint-e27bf.firebaseapp.com",

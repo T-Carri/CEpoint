@@ -10,8 +10,9 @@ import Totalogin from '../src/Pages/Access/Totalogin'
 import Totalsignup from '../src/Pages/Access/Totalsignup'
 import { AuthContextProvider } from './context/AuthContext';
 import ProtectedRoute from '../src/Pages/Access/ProtectedRoute'; 
+import ProtectedRouteRol from './Pages/perfil/ProtectedRouteRol';
 import {useSelector} from 'react-redux';
-// import {tesstAcces} from './Pages/perfil/tesstAcces';
+ import {tesstAcces} from './Pages/perfil/tesstAcces';
 function App() {
 
   
@@ -24,9 +25,13 @@ function App() {
       <Route exact path="/" element={<Bienvenida/>} />
     <Route  path="/login" element={<Totalogin/>} />
     <Route  path="/signup" element={<Totalsignup/>} />
-    <Route  path="/account/*" element={ <ProtectedRoute>
+    <Route  path="/account/*" element={ 
+                <ProtectedRoute>
+                <ProtectedRouteRol>
                 <Account/>
+                </ProtectedRouteRol>
               </ProtectedRoute> } />
+    <Route path="/client" element={<tesstAcces/>}/>
       </Routes>
   </Router>
    

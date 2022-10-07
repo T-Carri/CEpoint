@@ -47,7 +47,7 @@ if (dato!==null){
 
 }
 
-
+const id = dato.uid
 
 /* const r15 =db.collection('users').doc('${dato.uid}')
 const docuCifrada=  getDoc(r15)

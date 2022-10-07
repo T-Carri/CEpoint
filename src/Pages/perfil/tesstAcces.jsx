@@ -10,6 +10,6 @@ const firebase = getFirestore(app)
 console.log("test:", user)
     return (
 
-    <RouterAdmin/>
+    <h1>cliente</h1>
   )
 }
