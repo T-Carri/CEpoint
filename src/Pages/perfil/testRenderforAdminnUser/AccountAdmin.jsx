@@ -1,8 +1,8 @@
 import { Button, Card, NavbarBrand} from 'react-bootstrap'
-import { useAuth } from '../../context/AuthContext';
-import './Account.css'
-import Asignador1 from '../../componentes/asignador/Asignador1';
-import {saveAsignacion} from '../../services/indi'
+import { UserAuth } from '../../../context/AuthContext';
+import '../Account.css'
+import Asignador1 from '../../../componentes/asignador/Asignador1';
+import {saveAsignacion} from '../../../services/indi'
 import React, {useState} from 'react'
 import { 
   BrowserRouter as Router, 
@@ -12,14 +12,14 @@ import {
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-import Horario from '../../componentes/horario/Horario'
+import Horario from '../../../componentes/horario/Horario'
 
  
 
 
 export const AccountAdmin= () => {
     
-  const {logout}= useAuth();
+  const {logout}= UserAuth();
   const navigate = useNavigate();
   
   // const[pulsadoHorario, setPulsadoHorario] = useState(false);

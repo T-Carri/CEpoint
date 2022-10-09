@@ -19,13 +19,13 @@ import Horario from '../../componentes/horario/Horario'
 
 export const Layout= () => {
     
-  const {logout}= UserAuth();
+  const {logout, user}= UserAuth();
   const navigate = useNavigate();
   
   // const[pulsadoHorario, setPulsadoHorario] = useState(false);
   // const[pulsadoAsignacion, setPulsadoAsignacion] = useState(false); 
   // const [welcome, setWelcome] = useState(true);
-   
+  console.log(user)
   
   //NAVEGACION DE PAGINA
   const handleSubmit= (data)=>{

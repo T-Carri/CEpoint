@@ -1,4 +1,4 @@
-import './Account.css'
+import '../Account.css'
 
 import { 
   BrowserRouter as Router, 
@@ -7,16 +7,16 @@ import {
   Routes,
   useNavigate
 } from 'react-router-dom';
-import {Horario} from '../../componentes/horario/Horario'
+import {Horario} from '../../../componentes/horario/Horario'
 
-import {Asignador1} from '../../componentes/asignador/Asignador1';
-import { Bienvenida } from '../../componentes/Bienvenida';
-import {Ubicacion} from '../../componentes/horario/Ubicacion'
-import {Obra} from '../../componentes/horario/Obra'
-import {Semana} from '../../componentes/horario/Semana'
-import {Trabajador} from '../../componentes/horario/Trabajador'
-import { Asignadorendiseño } from '../../componentes/asignador/Asignadorendiseño';
-import { Presupuesto } from '../../componentes/horario/Presupuesto';
+import {Asignador1} from '../../../componentes/asignador/Asignador1';
+import { Bienvenida } from '../../../componentes/Bienvenida';
+import {Ubicacion} from '../../../componentes/horario/Ubicacion'
+import {Obra} from '../../../componentes/horario/Obra'
+import {Semana} from '../../../componentes/horario/Semana'
+import {Trabajador} from '../../../componentes/horario/Trabajador'
+import { Asignadorendiseño } from '../../../componentes/asignador/Asignadorendiseño';
+import { Presupuesto } from '../../../componentes/horario/Presupuesto';
 import { AccountUser } from './AccountUser';
 export default function RouterUser() {
 

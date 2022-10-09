@@ -28,21 +28,7 @@ export const AuthContextProvider = ({ children }) => {
     
     
   };
-  //version firestore
- /*  async function  createUser(email, password, rol){
-    const infoUsuario = await createUserWithEmailAndPassword(
-        auth, 
-       
-        email, 
-        password
-    ).then((currentUser)=>{
-        return currentUser;
-    });
-//aqui escribir datos del usuario de firebase
-console.log(infoUsuario.user.ui)
-const docuRef= doc(firestore, `users/ ${infoUsuario.user.uid} `);
-setDoc(docuRef, {correo:email, rol:rol});
-} */
+ 
 
    const signIn = (email, password) =>  {
     return signInWithEmailAndPassword(auth, email, password)
@@ -75,7 +61,21 @@ setDoc(docuRef, {correo:email, rol:rol});
 
 
 
-
+ //version firestore
+ /*  async function  createUser(email, password, rol){
+    const infoUsuario = await createUserWithEmailAndPassword(
+        auth, 
+       
+        email, 
+        password
+    ).then((currentUser)=>{
+        return currentUser;
+    });
+//aqui escribir datos del usuario de firebase
+console.log(infoUsuario.user.ui)
+const docuRef= doc(firestore, `users/ ${infoUsuario.user.uid} `);
+setDoc(docuRef, {correo:email, rol:rol});
+} */
 
 
 

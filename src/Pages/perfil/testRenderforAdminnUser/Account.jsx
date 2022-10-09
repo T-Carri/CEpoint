@@ -1,18 +1,33 @@
 import React from "react";   
 import RouterAdmin from "./RouterAdmin";
 import RouterUser from "./RouterUser";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc, collection, setDoc, getDoc} from "firebase/firestore"
+import { useEffect, useState} from "react"
 
-import {app} from "../../firebase/firebase";
-import { getAuth, signOut } from "firebase/auth";
+function Account() {
+  const [userRol, setUserRol] =useState()
+  const auth = getAuth();
+  const dato= auth.currentUser;
+  if (dato!==null){
+    console.log( "uid", dato.uid )
+  }
 
-const auth = getAuth(app);
+  useEffect(()=>{
+    const querydb=getFirestore();
+    const queryDoc = doc(querydb, "users", dato.uid);
+    getDoc(queryDoc).then(res => {
+      setUserRol(res.data().rol)
+      console.log( res.data().rol)
+ }    )
+  },[]) 
 
-function Account({ user }) {
-  console.log(user);
-  return (
+console.log(userRol);
+
+return (
     <div>
      
-      {user.rol === "admin" ? <RouterAdmin/> : <RouterUser/>}
+      {userRol === "admin" ? <RouterAdmin/> : <RouterUser/>}
     </div>
   );
 }
