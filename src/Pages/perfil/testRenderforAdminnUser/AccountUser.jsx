@@ -60,7 +60,7 @@ export const AccountUser= () => {
     {/* //navbar */}
           <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
           <NavbarBrand className="logo" href="/">
-           CEpoint 
+           CEpoint usuario
          </NavbarBrand>
         <div className="d-grid gap-2  d-md-flex justify-content-md-end">
       

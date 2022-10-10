@@ -8,7 +8,8 @@ import {
   useNavigate
 } from 'react-router-dom';
 import {Horario} from '../../../componentes/horario/Horario'
-
+//import {AccountAdmin} from './AccountAdmin'
+import {AccountUser}from './AccountUser'
 import {Asignador1} from '../../../componentes/asignador/Asignador1';
 import { Bienvenida } from '../../../componentes/Bienvenida';
 import {Ubicacion} from '../../../componentes/horario/Ubicacion'
@@ -17,8 +18,9 @@ import {Semana} from '../../../componentes/horario/Semana'
 import {Trabajador} from '../../../componentes/horario/Trabajador'
 import { Asignadorendiseño } from '../../../componentes/asignador/Asignadorendiseño';
 import { Presupuesto } from '../../../componentes/horario/Presupuesto';
-import { AccountUser } from './AccountUser';
-export default function RouterUser() {
+import ProtectedRouteAsignador from '../ProtectedRouteAsignador'
+
+export default function RouterAdmin() {
 
    return (
 
@@ -31,11 +33,20 @@ export default function RouterUser() {
   
   <Route 
   path="asignador" 
-  element={<Asignador1 />}  />
+  element={ 
+  <ProtectedRouteAsignador>
+       <Asignador1 />  
+  </ProtectedRouteAsignador>
+       }/>
+
   
   <Route 
    path="horario"
-   element={<Horario/>} 
+   element={
+  
+   <Horario/>
+  
+  } 
    >  
    <Route path='presupuesto' element={<Presupuesto/>}/> 
    <Route path='ubicacion' element={<Ubicacion/>}/> 
@@ -46,7 +57,12 @@ export default function RouterUser() {
    
      </Route>
 
-     <Route path="asignadorEndiseño" element={<Asignadorendiseño/>} />
+     <Route path="asignadorEndiseño" element={
+     <ProtectedRouteAsignador>
+     <Asignadorendiseño/>
+     </ProtectedRouteAsignador>
+     
+     } />
     
     </Route>
   </Routes> 
@@ -54,6 +70,48 @@ export default function RouterUser() {
   )
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* import '../Account.css'
+import { 
+  BrowserRouter as Router, 
+  Switch, 
+  Route, 
+  Routes,
+  useNavigate
+} from 'react-router-dom';
+import { Bienvenida } from '../../../componentes/Bienvenida';
+import { AccountUser } from './AccountUser';
+
+export default function RouterUser() {
+  
+
+   return (
+
+    <Routes>
+   <Route path="/" element={<AccountUser/>} >
+       <Route 
+       index 
+       element={<Bienvenida />} 
+       />
+  
+  </Route>
+  </Routes> 
+
+  )
+}
+ */
 
 //TODO: BOTONES RENDERIZABLES DE COMPONENTES
 
