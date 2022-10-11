@@ -12,10 +12,7 @@ export const Asignadorendiseño = () => {
     const [startDate, setStartDate] = useState(new Date());
     const date = DateTime.now().weekNumber
   
-    //firestore plug
-    const db= getFirestore(app) 
-
-
+    
 
 
 
@@ -77,7 +74,7 @@ export const Asignadorendiseño = () => {
 
  <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em'}}>
        
-
+//aqui recibir asignaciones usar memo
     </Card>    
     </div>
       

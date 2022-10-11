@@ -34,9 +34,9 @@ export default function RouterAdmin() {
   <Route 
   path="asignador" 
   element={ 
-  <ProtectedRouteAsignador>
+ 
        <Asignador1 />  
-  </ProtectedRouteAsignador>
+  
        }/>
 
   
@@ -58,9 +58,9 @@ export default function RouterAdmin() {
      </Route>
 
      <Route path="asignadorEndiseño" element={
-     <ProtectedRouteAsignador>
+    
      <Asignadorendiseño/>
-     </ProtectedRouteAsignador>
+     
      
      } />
     

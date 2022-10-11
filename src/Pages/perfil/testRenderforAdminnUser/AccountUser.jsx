@@ -3,29 +3,39 @@ import { UserAuth } from '../../../context/AuthContext';
 import '../Account.css'
 import Asignador1 from '../../../componentes/asignador/Asignador1';
 import {saveAsignacion} from '../../../services/indi'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { 
   BrowserRouter as Router, 
-  Switch, 
-  Route, 
-  Routes,
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-import Horario from '../../../componentes/horario/Horario'
-
- 
+import Horario from '../../../componentes/horario/Horario';
+import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
+import {getAuth} from "firebase/auth";
 
 
 export const AccountUser= () => {
-    
-  const {logout}= UserAuth();
-  const navigate = useNavigate();
-  
-  // const[pulsadoHorario, setPulsadoHorario] = useState(false);
-  // const[pulsadoAsignacion, setPulsadoAsignacion] = useState(false); 
-  // const [welcome, setWelcome] = useState(true);
-   
+const [asignador, setAsignador]= useState()
+const [lectorAsistencia, setLectorAsistencia]= useState()
+const auth= getAuth();
+const dato= auth.currentUser;
+
+
+useEffect(()=>{
+  const querydb=getFirestore();
+  const queryDoc = doc(querydb, "users", dato.uid);
+  getDoc(queryDoc).then(res => {
+    setAsignador(res.data().asignador)
+   console.log("Es asignador?:", res.data().asignador)
+   setLectorAsistencia(res.data().lectoreAsistencia)
+   console.log("Es lector?:", res.data().lectoreAsistencia)  
+  } )
+},[])
+
+
+const {logout}= UserAuth();
+const navigate = useNavigate();
+
   
   //NAVEGACION DE PAGINA
   const handleSubmit= (data)=>{
@@ -73,11 +83,13 @@ export const AccountUser= () => {
 </div>
     {/* aside */}
     <div className="a1">
-     
-    <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
-    <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>
-    <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>
-    <Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>
+     {asignador && <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>}
+     {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>}    
+     {asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>}
+     <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
+    
+    
+    
     </div>
    
       {/* //area de herramienta  */}
