@@ -1,20 +1,67 @@
 import React, {useState} from 'react'
 import { Card, Container, Toast, Button, Form, Row, Col} from 'react-bootstrap'
 import './Asignador.css'
-import {getFirestore, collection, getDocs, doc} from 'firebase/firestore/lite'
-import app from '../../firebase/firebase'
+import {getFirestore, collection, getDocs, doc, onSnapshot} from 'firebase/firestore'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {DateTime} from 'luxon';
+import { getAuth } from 'firebase/auth'; 
+import { db } from '../../firebase/firebase';
+import { useEffect } from 'react';
+
+
 export const Asignadorendiseño = () => {
     const [showA, setShowA] = useState(true);
     const toggleShowA = () => setShowA(!showA);
     const [startDate, setStartDate] = useState(new Date());
     const date = DateTime.now().weekNumber
   
+    const auth = getAuth()
+    const dato =auth.currentUser; 
+
+    const [asig, setAsign]= useState([]);
+
+
     
+const getLinks = async () => { await
+  onSnapshot(doc(db, "users", dato.uid),(e)=>{
+    const docs= [];
+    console.log("curren data:", e.data().checador.asignaciones)
+    var x=e.data().checador.asignaciones;
+    x.forEach(element => {
+          docs.push({...element})
+      console.log("foreach:", element)
+    });
+    setAsign(docs);
+    console.log("docs:", docs)
+    });
+    
+  }
 
-
+useEffect(()=>{
+  getLinks()
+},[])
+console.log("asignaciones", asig)
+ const dat=["1", "2", "3"]
+/* 
+const getLinks = async () => { doc(db, "users", dato.uid).onSnapshot( (querySnapshot)=>{
+    const docs= [];
+    querySnapshot.map((doc) => { 
+      docs.push({...doc.data().checador.asignaciones});
+    });
+    setAsign(docs);  
+  })
+}
+useEffect(()=>{
+  getLinks()
+},[])
+ */
+    //consulta en todos los docs
+ /* const unsub = onSnapshot(doc(db, "users", dato.uid), (doc)=>{
+   
+        console.log("Current data: ", doc.data().checador);
+ 
+} )  */
 
     return (
     
@@ -73,8 +120,37 @@ export const Asignadorendiseño = () => {
     </Card>
 
  <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em'}}>
-       
-//aqui recibir asignaciones usar memo
+       <div>
+
+ {asig.map((da, index)=>(
+
+<div key={index}>
+<Card id='asignacion'>
+  <Card.Body>
+  <h7> Presupuesto:<strong>{da.presupuesto}</strong></h7>
+  <br/>
+  <h7>Obra: 
+    <strong> 
+     {da.obra}
+    </strong>
+     </h7>
+     <br/>
+<h7>
+  Residente: <strong>
+    {da.residente}
+  </strong>
+</h7>
+
+  </Card.Body>
+</Card>
+
+</div>
+
+ )
+            )}
+
+       </div>
+
     </Card>    
     </div>
       

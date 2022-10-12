@@ -2,7 +2,7 @@ import React from "react";
 import RouterAdmin from "./RouterAdmin";
 import RouterUser from "./RouterUser";
 import { getAuth } from "firebase/auth";
-import { getFirestore, doc, collection, setDoc, getDoc} from "firebase/firestore"
+import { getFirestore, doc, getDoc} from "firebase/firestore"
 import { useEffect, useState} from "react"
 
 function Account() {

@@ -17,12 +17,10 @@ import {Semana} from '../../componentes/horario/Semana'
 import {Trabajador} from '../../componentes/horario/Trabajador'
 import { Asignadorendiseño } from '../../componentes/asignador/Asignadorendiseño';
 import { Presupuesto } from '../../componentes/horario/Presupuesto';
-import { getFirestore, doc, collection, setDoc, getDoc} from "firebase/firestore"
+import { getFirestore, doc, getDoc} from "firebase/firestore"
 import { getAuth } from "firebase/auth";
 import { UserAuth } from '../../context/AuthContext';
-import app from '../../firebase/firebase';
 import { useState } from 'react';
-import userExist from '../../firebase/firebase'
 import { useEffect } from 'react';
 export default function Account() {
 const [userRol, setUserRol] =useState()
@@ -41,7 +39,7 @@ if (dato !== null) {
   console.log( "uid", dato.uid )
 }
 console.log("rol?", doc)
-const id = dato.uid
+
 console.log("user rol:", userRol);
 console.log("test from account:",user)  
 

@@ -24,3 +24,6 @@ div.formAsignacion.card{
     margin-left: -48px;
 }
 
+div#asignacion.card{
+    background-color: #ed3e12;
+}
