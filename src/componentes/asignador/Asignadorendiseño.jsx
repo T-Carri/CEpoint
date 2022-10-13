@@ -1,21 +1,23 @@
 import React, {useState} from 'react'
 import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import './Asignador.css'
-import {getFirestore, collection, getDocs, doc, onSnapshot} from 'firebase/firestore'
+import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, setDoc} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import { useEffect } from 'react';
 import { FormAsignador } from './FormAsignador'
 import {DateTime} from 'luxon';
+
+
 export const Asignadorendiseño = () => {
     const [showA, setShowA] = useState(true);
     const toggleShowA = () => setShowA(!showA);
     const date = DateTime.now().weekNumber
-  
     const auth = getAuth()
     const dato =auth.currentUser; 
-
     const [asig, setAsign]= useState([]);
+  
+
 
 
     
@@ -37,21 +39,23 @@ const getLinks = async () => { await
 useEffect(()=>{
   getLinks()
 },[])
+
+
+
+
 console.log("asignaciones", asig)
- 
-/* 
-const getLinks = async () => { doc(db, "users", dato.uid).onSnapshot( (querySnapshot)=>{
-    const docs= [];
-    querySnapshot.map((doc) => { 
-      docs.push({...doc.data().checador.asignaciones});
+
+
+const addOrEdit = async (addOrEdit) => {
+  const databaseRef= doc(db, "users", dato.uid)
+  await 
+  updateDoc(databaseRef, {
+     "checador.asignaciones": arrayUnion(addOrEdit)  
     });
-    setAsign(docs);  
-  })
+    
+
 }
-useEffect(()=>{
-  getLinks()
-},[])
- */
+ 
     //consulta en todos los docs
  /* const unsub = onSnapshot(doc(db, "users", dato.uid), (doc)=>{
    
@@ -82,7 +86,7 @@ useEffect(()=>{
             <small> #{date} semana</small>
           </Toast.Header>
           <Toast.Body>
-           <FormAsignador/>
+           <FormAsignador addOrEdit={addOrEdit}/>
           </Toast.Body>
         </Toast>
     </Card.Body>
@@ -91,25 +95,27 @@ useEffect(()=>{
  <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em'}}>
        <div>
 
- {asig.map((da, index)=>(
+ {asig.map((da)=>(
 
-<div key={index}>
-<Card id='asignacion'>
+<div key={da.obra} >
+<Card id='a1' >
   <Card.Body>
-  <h7> Presupuesto:<strong>{da.presupuesto}</strong></h7>
+  <h6> Presupuesto:<strong>{da.presupuesto}</strong></h6>
   <br/>
-  <h7>Obra: 
+  <h6>Obra: 
     <strong> 
      {da.obra}
     </strong>
-     </h7>
+     </h6>
      <br/>
-<h7>
+<h6>
   Residente: <strong>
     {da.residente}
   </strong>
-</h7>
+</h6>
 
+<br/>
+<Button className='1a' variant='secondary' size='md'  >Asignar adicional</Button>
   </Card.Body>
 </Card>
 

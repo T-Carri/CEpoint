@@ -21,7 +21,7 @@ const ProtectedRouteAsignador = ({ children }) => {
 
 
  
-if (asignador!=true) {
+if (asignador!==true) {
     return <Navigate to='./' />;
   }
   return children;
