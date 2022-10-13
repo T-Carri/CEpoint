@@ -1,19 +1,15 @@
 import React, {useState} from 'react'
-import { Card, Container, Toast, Button, Form, Row, Col} from 'react-bootstrap'
+import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import './Asignador.css'
 import {getFirestore, collection, getDocs, doc, onSnapshot} from 'firebase/firestore'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import {DateTime} from 'luxon';
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import { useEffect } from 'react';
-
-
+import { FormAsignador } from './FormAsignador'
+import {DateTime} from 'luxon';
 export const Asignadorendiseño = () => {
     const [showA, setShowA] = useState(true);
     const toggleShowA = () => setShowA(!showA);
-    const [startDate, setStartDate] = useState(new Date());
     const date = DateTime.now().weekNumber
   
     const auth = getAuth()
@@ -42,7 +38,7 @@ useEffect(()=>{
   getLinks()
 },[])
 console.log("asignaciones", asig)
- const dat=["1", "2", "3"]
+ 
 /* 
 const getLinks = async () => { doc(db, "users", dato.uid).onSnapshot( (querySnapshot)=>{
     const docs= [];
@@ -86,34 +82,7 @@ useEffect(()=>{
             <small> #{date} semana</small>
           </Toast.Header>
           <Toast.Body>
-            <Form>
-                <Row><Col> <Form.Group className="mb-2" >
-        <Form.Label>Residente</Form.Label>
-        <Form.Control type="String" placeholder="Agrega residente" />
-       
-            </Form.Group></Col><Col> <Form.Group className="mb-2" >
-        <Form.Label>Ubicacion</Form.Label>
-        <Form.Control type="String" placeholder="Agrega Ubicacion" />
-       
-            </Form.Group></Col></Row>
-            <Row><Col> <Form.Group className="mb-2" >
-        <Form.Label>Numero de presupuesto</Form.Label>
-        <Form.Control type="String" placeholder="Codigo de presupuestso" />
-       
-            </Form.Group></Col></Row>
-            <Row><Col> <Form.Group className="mb-2" >
-        <Form.Label>Fecha inicio</Form.Label>
-        <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} />
-       
-            </Form.Group></Col></Row>
-            <Row><Col> <Form.Group className="mb-2" >
-        <Form.Label>Fecha Final</Form.Label>
-        <DatePicker selected={startDate} onChange={(date:Date) => setStartDate(date)} />
-       
-            </Form.Group></Col>
-        <Col><Button className='1a' variant='success' size='lg'  >Enviar</Button>
-        </Col></Row>
-            </Form>
+           <FormAsignador/>
           </Toast.Body>
         </Toast>
     </Card.Body>
