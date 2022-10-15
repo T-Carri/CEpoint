@@ -16,6 +16,9 @@ select.form-select{
 div.asignaciones.card{
     background-color: lightslategray;
     margin-left: 4em;
+    overflow: hidden;
+    overflow-y: scroll;
+
 }
 div.formAsignacion.card{
     

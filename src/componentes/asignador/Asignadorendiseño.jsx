@@ -23,6 +23,7 @@ export const Asignadorendiseño = () => {
     
 const getLinks = async () => { await
   onSnapshot(doc(db, "users", dato.uid),(e)=>{
+
     const docs= [];
     console.log("curren data:", e.data().checador.asignaciones)
     var x=e.data().checador.asignaciones;
@@ -92,12 +93,12 @@ const addOrEdit = async (addOrEdit) => {
     </Card.Body>
     </Card>
 
- <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em'}}>
+ <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em' }}>
        <div>
 
  {asig.map((da)=>(
 
-<div key={da.obra} >
+<div key={da.presupuesto} >
 <Card id='a1' >
   <Card.Body>
   <h6> Presupuesto:<strong>{da.presupuesto}</strong></h6>
