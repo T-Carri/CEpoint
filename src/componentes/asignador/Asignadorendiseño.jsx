@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import './Asignador.css'
-import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, setDoc} from 'firebase/firestore'
+import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import { useEffect } from 'react';
@@ -18,9 +18,42 @@ export const Asignadorendiseño = () => {
     const [asig, setAsign]= useState([]);
   
 
-
-
     
+
+   
+    const getLinks = onSnapshot(doc(db, "asignaciones" ), (querySnapshot) => {
+      const cities = [];
+      querySnapshot.forEach((doc) => {
+          cities.push(doc.data().obra);
+      });
+      console.log("queryTest ", cities);
+    });
+
+/* 
+
+    const getLinks = async () => { 
+      await onSnapshot(doc(db, "asignaciones" ),(e)=>{
+    
+        const docs= [];
+        //var x=e.data()
+        e.forEach((element) => {
+             // docs.push(element.data())
+          console.log("foreach:", element)
+        });
+        setAsign(docs);
+        console.log("docs:", docs)
+        });
+
+        
+      }
+ */
+
+
+
+
+
+
+/*     
 const getLinks = async () => { await
   onSnapshot(doc(db, "users", dato.uid),(e)=>{
 
@@ -36,18 +69,23 @@ const getLinks = async () => { await
     });
     
   }
-
+ */
 useEffect(()=>{
   getLinks()
 },[])
 
-
-
+//TODO: AGREGAR A COLECCION "asignaciones", una asignacion
+//con id automatico
+//it's ready
+const addOrEdit = async (addOrEdit) => {
+  const databaseRef=await  addDoc(collection(db, "asignaciones"), addOrEdit);
+}
 
 console.log("asignaciones", asig)
 
-
-const addOrEdit = async (addOrEdit) => {
+//esta constante publica en la base de datos, anexa un elemento nuevo a un array
+//atento aqui porque asi mas o menos sera una asistencia en native  
+/*const addOrEdit = async (addOrEdit) => {
   const databaseRef= doc(db, "users", dato.uid)
   await 
   updateDoc(databaseRef, {
@@ -55,7 +93,7 @@ const addOrEdit = async (addOrEdit) => {
     });
     
 
-}
+}*/
  
     //consulta en todos los docs
  /* const unsub = onSnapshot(doc(db, "users", dato.uid), (doc)=>{

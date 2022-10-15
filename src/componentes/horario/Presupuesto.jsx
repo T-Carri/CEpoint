@@ -12,21 +12,6 @@ export const Presupuesto = () => {
    
 
 
-
-  
-/* 
-  const getPresupuestos = async () =>{
-    const q = query(collection(db, 'users'), where("ocupado","!==", true))
-
-
-    const querySnapshot = await onSnapshot(q, (r)=>
-      r.forEach((doc)=>{
-      console.log("query:", doc )
-    }));
-      
-}
-    */
-
 const getPresupuestos =async () => {
 
   const q = query(collection(db, 'users'), where("ocupado","==", true))
@@ -37,13 +22,6 @@ const getPresupuestos =async () => {
       console.log(doc.id, "=>", doc.data());
     })
   }
-
-
-
-
-
-
- 
 
 
 

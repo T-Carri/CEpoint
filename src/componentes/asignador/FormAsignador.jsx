@@ -2,18 +2,21 @@ import React, {useState} from 'react'
 import {  Button, Form, Row, Col} from 'react-bootstrap'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
+import { getAuth } from 'firebase/auth'; 
 
 
 
 export const FormAsignador = (props) => {
     const [startDate, setStartDate] = useState(new Date());
-    
+    const auth = getAuth()
+    const dato =auth.currentUser; 
 const formAsig= {
+  activa: true,
   horario:'', 
   obra: '', 
+  idAsignador: dato.uid,
   presupuesto: '',
-  registroAsistencia:[],
+  asistencias:[],
   residente: '',
   ubicacion: '',
  
