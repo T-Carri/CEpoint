@@ -16,7 +16,7 @@ import {Ubicacion} from '../../../componentes/horario/Ubicacion'
 import {Obra} from '../../../componentes/horario/Obra'
 import {Semana} from '../../../componentes/horario/Semana'
 import {Trabajador} from '../../../componentes/horario/Trabajador'
-import { Asignadorendiseño } from '../../../componentes/asignador/Asignadorendiseño';
+import { Asignadorendiseño}  from '../../../componentes/asignador/Asignadorendiseño';
 import { Presupuesto } from '../../../componentes/horario/Presupuesto';
 import ProtectedRouteAsignador from '../ProtectedRouteAsignador'
 

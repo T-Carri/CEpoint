@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, setDoc, where, collection, query, getDocs, get} from 'firebase/firestore'
-import { Card, Container, Toast, Button, } from 'react-bootstrap'
+import { Card, Container, Toast, Button } from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
-
+import './Horario.css'
 export const Presupuesto = () => {
   const auth = getAuth()
   const dato =auth.currentUser; 
@@ -14,16 +14,29 @@ export const Presupuesto = () => {
 
 const getPresupuestos =async () => {
 
-  const q = query(collection(db, 'users'), where("ocupado","==", true))
-  const userRef =await getDocs(q) 
-  
-  
-    userRef.forEach((doc)=>{
-      console.log(doc.id, "=>", doc.data());
+  const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
+  await onSnapshot(q, (query)=>{
+    const data=[]
+    query.forEach((doc)=>{
+      data.push(doc.data())
     })
+    console.log("datossss", data)
+    setPresupuesto(data)
+  })
+  
+  
   }
 
-
+//consulta para checador
+   /*  const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
+ const getLinks = onSnapshot(q, (query)=>{
+  const data=[]
+  query.forEach((doc)=>{
+    data.push(doc.data())
+  })
+  console.log("datossss", data)
+  setAsign(data)
+ }) */  
 
 
   useEffect(()=>{
@@ -33,26 +46,40 @@ const getPresupuestos =async () => {
   
   return (
 <Card>  
-{/* 
-  
-{
-  Presupuestos.map((presupuesto)=>(
 
-<div key={presupuesto.presupuesto}>
+  <div className='presupuestos'>
+    
+
+    
+  {
+  Presupuestos.map((presupuesto)=>(
+    <Button variant="danger" 
+     classname={presupuesto.presupuesto}
+   
+      >{presupuesto.presupuesto}</Button>
+
+))
+}
+
+    
+    
+    
+      </div>
+
+</Card>
+  )
+}
+
+
+
+
+{/* <div key={presupuesto.presupuesto}>
   <Card id="botonPresupuestos">
    <h6>{presupuesto.presupuesto}</h6>
    </Card>
 
 </div>
-
-
-  ))
-}
  */}
-</Card>
-  )
-}
-
 
  /* 
   const getPresupuestos = async () =>{

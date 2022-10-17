@@ -40,3 +40,10 @@ button.trabajador.btn.btn-warning{
     width: 150px;
 }
 
+div.presupuestos{
+    height: 100px;
+    background-color: dimgrey;
+    overflow: hidden;
+    overflow-x: scroll;
+}
+

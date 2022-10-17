@@ -1,15 +1,14 @@
 import React, {useState} from 'react'
 import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import './Asignador.css'
-import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection} from 'firebase/firestore'
+import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import { useEffect } from 'react';
 import { FormAsignador } from './FormAsignador'
 import {DateTime} from 'luxon';
 
-
-export const Asignadorendiseño = () => {
+ export const Asignadorendiseño = () => {
     const [showA, setShowA] = useState(true);
     const toggleShowA = () => setShowA(!showA);
     const date = DateTime.now().weekNumber
@@ -18,39 +17,23 @@ export const Asignadorendiseño = () => {
     const [asig, setAsign]= useState([]);
   
 
-    
-
-   
-    const getLinks = onSnapshot(doc(db, "asignaciones" ), (querySnapshot) => {
-      const cities = [];
-      querySnapshot.forEach((doc) => {
-          cities.push(doc.data().obra);
-      });
-      console.log("queryTest ", cities);
-    });
-
-/* 
-
-    const getLinks = async () => { 
-      await onSnapshot(doc(db, "asignaciones" ),(e)=>{
-    
-        const docs= [];
-        //var x=e.data()
-        e.forEach((element) => {
-             // docs.push(element.data())
-          console.log("foreach:", element)
-        });
-        setAsign(docs);
-        console.log("docs:", docs)
-        });
-
-        
-      }
- */
+//TODO: HACER FUNCION DE ELIMINACION DE DATOS EN CAMPOS Y LOANDING PARA CUANDO ENVIAS LOS DATOS
 
 
+const getLinks =async()=>{
+  const q = query(collection(db, "asignaciones"))
+  await onSnapshot(q, (query)=>{
+   const data=[]
+   query.forEach((doc)=>{
+     data.push(doc.data())
+   })
+   console.log("datossss", data)
+   setAsign(data)
+  })
 
+}
 
+ 
 
 
 /*     
@@ -136,7 +119,7 @@ console.log("asignaciones", asig)
 
  {asig.map((da)=>(
 
-<div key={da.presupuesto} >
+<div key={da.obra} >
 <Card id='a1' >
   <Card.Body>
   <h6> Presupuesto:<strong>{da.presupuesto}</strong></h6>
@@ -174,5 +157,7 @@ console.log("asignaciones", asig)
 
   )
 }
+
+
 
 //TODO: HACER OBJETO QUE CONTENGA EL 
