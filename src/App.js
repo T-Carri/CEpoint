@@ -13,6 +13,7 @@ import ProtectedRoute from '../src/Pages/Access/ProtectedRoute';
 //import ProtectedRouteRol from './Pages/perfil/ProtectedRouteRol';
 import {useSelector} from 'react-redux';
  //import {tesstAcces} from './Pages/perfil/tesstAcces';
+ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   

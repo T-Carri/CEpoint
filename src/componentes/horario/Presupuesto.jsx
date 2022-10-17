@@ -1,108 +1,141 @@
 import React, {useState, useEffect} from 'react'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, setDoc, where, collection, query, getDocs, get} from 'firebase/firestore'
-import { Card, Container, Toast, Button } from 'react-bootstrap'
+import { Card, Container, Toast, Button, Accordion } from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import './Horario.css'
+import { async } from '@firebase/util';
+import { RenderHoras } from './RenderHoras';
 export const Presupuesto = () => {
   const auth = getAuth()
   const dato =auth.currentUser; 
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
+  const [value, setValue] = useState();
    
+  const getPresupuestos =async () => {
 
-
-const getPresupuestos =async () => {
-
-  const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
-  await onSnapshot(q, (query)=>{
-    const data=[]
-    query.forEach((doc)=>{
-      data.push(doc.data())
-    })
-    console.log("datossss", data)
-    setPresupuesto(data)
-  })
+    const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
+    await onSnapshot(q, (query)=>{
+      const data=[]
+      query.forEach((doc)=>{
+        data.push(doc.data())
+      })
+      // console.log("datossss", data)
+      setPresupuesto(data)
+    }) }
   
-  
-  }
-
-//consulta para checador
-   /*  const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
- const getLinks = onSnapshot(q, (query)=>{
-  const data=[]
-  query.forEach((doc)=>{
-    data.push(doc.data())
-  })
-  console.log("datossss", data)
-  setAsign(data)
- }) */  
-
-
-  useEffect(()=>{
-    getPresupuestos();
-    
-  },[])
-  
-  return (
-<Card>  
-
-  <div className='presupuestos'>
-    
-
-    
-  {
-  Presupuestos.map((presupuesto)=>(
-    <Button variant="danger" 
-     classname={presupuesto.presupuesto}
-   
-      >{presupuesto.presupuesto}</Button>
-
-))
-}
-
-    
-    
-    
-      </div>
-
-</Card>
-  )
-}
-
-
-
-
-{/* <div key={presupuesto.presupuesto}>
-  <Card id="botonPresupuestos">
-   <h6>{presupuesto.presupuesto}</h6>
-   </Card>
-
-</div>
- */}
-
- /* 
-  const getPresupuestos = async () =>{
-  
-    await onSnapshot(doc(db, "users", dato.uid), (e)=>{
-
-     const asistencias = [];
-     const presupuestos= []; 
-
+    useEffect(()=>{
+      getPresupuestos()
+      // getSemanas()
      
-      var y= e.data().checador.asignaciones;     
-       y.forEach(element=>{
-         presupuestos.push({...element})    
-         console.log("asignaciones:", element)
-      
-      var z= element.registroAsistencia.where(element.registroAsistencia, "!==","empty");
-        z.forEach(r=>{
-          asistencias.push({...r})
-          console.log("ASISTENCIAS PERRISIMO:", r)
-        }) /* asistencias.push 
-     })
-setAsistencias(asistencias);
-setPresupuesto(presupuestos);
-  })
+    },[])
+
+
+    
+/* const getSemanas = async (asistencias, presupuesto) => {
+  asistencias.forEach(()=>{
+    return(
+    console.log(presupuesto, ":",asistencias),
+    setAsistencias({...asistencias}),
+    console.log("hook:",Asistencias)
+    
+    
+
+    )
+
+  } )
+
 }
- */
+
+
+
+
+
+ function semanas() {
+Asistencias.forEach((e)=>{
+<h1>{e.trabajador}</h1>
+
+}) } */
+
+  
+
+    
+    return (
+  <Card>  
+  
+    <div className='presupuestos'>
+    {
+    Presupuestos.map((presupuesto)=>(
+      <Button variant="danger" 
+           id={presupuesto.obra}
+       classname={presupuesto.obra}
+       value={presupuesto.presupuesto}
+       onClick={
+    (e)=>{
+       
+      // setValue(e.target.value)
+      // setAsistencias({...presupuesto.asistencias})    
+       console.log(presupuesto.asistencias)
+
+       presupuesto.asistencias.map((e)=>(
+         console.log(e.semana),
+         console.log(e.trabajador),
+         document.getElementById("prueba").innerHTML=  "<Button variant='success' onClick={()=>(console.log('click'))}>"+ e.semana +"</Button>"
+       ))
+         
+        
+       
+     
+
+        // document.getElementById("prueba").innerHTML=<RenderHoras RenderHoras={presupuesto.asistencias}   />
+    }
+        
+        }
+       
+       >
+        {presupuesto.presupuesto}
+        </Button>))
+    }
+  
+  </div>
+  
+  <div>
+   
+
+
+  <Card id="prueba" className='lg'>
+
+   
+  </Card>
+
+  </div>
+  
+  </Card>
+    )
+  }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+  
