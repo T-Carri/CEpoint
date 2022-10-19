@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, setDoc, where, collection, query, getDocs, get} from 'firebase/firestore'
-import { Card, Container, Toast, Button, Accordion } from 'react-bootstrap'
+import { updateDoc, arrayUnion, doc, onSnapshot, setDoc, where, collection, query, getDocs, get} from 'firebase/firestore'
+import { Card, Container, Toast, Button, Accordion, Table } from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import './Horario.css'
@@ -57,7 +57,45 @@ export const Presupuesto = () => {
   <Card id="prueba" className='lg'>
 {Asistencias.map((e)=>(
          console.log("desde mapeo asistencias", e),
-         <Button variant="success">Semana #{e.semana}</Button>
+          
+         <Accordion>
+         <Accordion.Item eventKey={e.semana}>
+           <Accordion.Header>Semana # {e.semana}</Accordion.Header>
+           <Accordion.Body>
+           <Table responsive="sm">
+        <thead>
+          <tr>
+            <th>#{e.semana}</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miercoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sabado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>{e.trabajador + "Entrada:"+ Date(e.entrada)} </td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+            <td>Table cell</td>
+          </tr>
+         
+        </tbody>
+      </Table>
+      
+           </Accordion.Body>
+         </Accordion.Item>
+       </Accordion>
+         
+
+
+
+         //<Button variant="success">Semana #{e.semana}</Button>
          ))}
    
   </Card>

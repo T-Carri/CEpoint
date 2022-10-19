@@ -9,7 +9,7 @@ const navigate = useNavigate();
     <Container className="cardContenedora" style={{ width: '60em', height:'30em'}}>
     <Card.Body>
       <Card.Title>Registros de asistencia</Card.Title>
-      <Card.Subtitle className="mb-2 text-muted">controles para asignar a residentes proyectos</Card.Subtitle>
+      <Card.Subtitle className="mb-2 text-muted">Consulta las asistencias segun el criterio de busqueda </Card.Subtitle>
     
         
      <div className="horario" >
