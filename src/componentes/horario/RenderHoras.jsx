@@ -1,9 +1,12 @@
-import React from 'react'
+
+import React, {useState } from 'react'
 
 export const RenderHoras = (dato) => {
-  return (
-    dato.map(element => {
-        <h1>{element.trabajador}</h1>  
-    })
-  )
+  console.log(dato)
+
+/* dato.forEach(element => {
+  return (<h1>{element.trabajador}</h1>)
+});
+   */
+
 }

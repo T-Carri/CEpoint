@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useMemo} from 'react'
 import { updateDoc, arrayUnion, doc, onSnapshot, setDoc, where, collection, query, getDocs, get} from 'firebase/firestore'
 import { Card, Container, Toast, Button, Accordion, Table } from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
+import { useTable } from 'react-table';
 import { db } from '../../firebase/firebase';
 import './Horario.css'
 import { async } from '@firebase/util';
@@ -31,8 +32,52 @@ export const Presupuesto = () => {
      
     },[])
 
-
-  
+    /* const data = React.useMemo( () => [
+     {
+       col1: 'Hello',
+       col2: 'World',
+     },
+     {
+       col1: 'react-table',
+       col2: 'rocks',
+     },
+     {
+       col1: 'whatever',
+       col2: 'you want',
+     },
+   ],
+   [])
+    const columns = React.useMemo(
+        () => [
+           
+            {
+                Header: 'Nombre', 
+                accessor: 'nombre' 
+            }, 
+            {
+                Header: 'Entrada', 
+                accessor: 'entrada'
+    
+            },
+            {
+                Header: 'Salida', 
+                accessor: 'entrada'
+    
+            }
+        ]
+    )
+    
+    const tableInstance = useTable({ columns, data })
+    
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        rows,
+        prepareRow,
+      } = tableInstance
+    
+    */
 
     
     return (
@@ -65,29 +110,27 @@ export const Presupuesto = () => {
            <Table responsive="sm">
         <thead>
           <tr>
-            <th>#{e.semana}</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miercoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
-            <th>Sabado</th>
+            <th>Semana</th>
+            
+            <th>Nombre</th>
+            <th>Entrada</th>
+            <th>Salida</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>1</td>
-            <td>{e.trabajador + "Entrada:"+ Date(e.entrada)} </td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
-            <td>Table cell</td>
+            <td>{e.semana}</td>
+            <td>{e.trabajador} </td>
+            <td>{Date(e.entrada)}</td>
+            <td>{Date(e.salida)}</td>
+         
           </tr>
          
         </tbody>
       </Table>
       
+      
+
            </Accordion.Body>
          </Accordion.Item>
        </Accordion>
@@ -119,7 +162,7 @@ export const Presupuesto = () => {
 
 
 
-
+/*   */
 
 
 
@@ -168,4 +211,4 @@ Asistencias.forEach((e)=>{
 
 
 
-  
+         
