@@ -21,17 +21,87 @@ export const Presupuesto = () => {
       query.forEach((doc)=>{
         data.push(doc.data())
       })
-      // console.log("datossss", data)
+  
       setPresupuesto(data)
     }) }
   
     useEffect(()=>{
       getPresupuestos()
-      // getSemanas()
+      
      
     },[])
 
 
+  
+
+    
+    return (
+  <Card>  
+  
+    <div className='presupuestos'>
+    {
+    Presupuestos.map((presupuesto)=>(
+      <Button variant="danger" 
+           id={presupuesto.obra}
+       className={presupuesto.obra}
+       value={presupuesto.presupuesto}
+       onClick={
+    (e)=>{
+      console.log("objeto completo:", presupuesto.asistencias)
+      setAsistencias(presupuesto.asistencias)
+      console.log("asistencias:", Asistencias)       
+    }} > {presupuesto.presupuesto} </Button>))
+    }
+  </div>
+  <div>
+  <Card id="prueba" className='lg'>
+{Asistencias.map((e)=>(
+         console.log("desde mapeo asistencias", e),
+         <Button variant="success">Semana #{e.semana}</Button>
+         ))}
+   
+  </Card>
+  
+  </div>
+  
+  </Card>
+   )
+  }
+   
+   
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /* presupuesto.asistencias.map((e)=>( 
+    console.log(e.semana),
+    console.log(e.trabajador),
+     dat.push()     
+ document.getElementById("prueba").innerHTML=  "<Button variant='success' >"+ e.semana +"</Button>"
+      
+
+  ))
+
+
+*/
+
+
+
+
+  
     
 /* const getSemanas = async (asistencias, presupuesto) => {
   asistencias.forEach(()=>{
@@ -58,84 +128,6 @@ Asistencias.forEach((e)=>{
 
 }) } */
 
-  
-
-    
-    return (
-  <Card>  
-  
-    <div className='presupuestos'>
-    {
-    Presupuestos.map((presupuesto)=>(
-      <Button variant="danger" 
-           id={presupuesto.obra}
-       classname={presupuesto.obra}
-       value={presupuesto.presupuesto}
-       onClick={
-    (e)=>{
-       
-      // setValue(e.target.value)
-      // setAsistencias({...presupuesto.asistencias})    
-       console.log(presupuesto.asistencias)
-
-       presupuesto.asistencias.map((e)=>(
-         console.log(e.semana),
-         console.log(e.trabajador),
-         document.getElementById("prueba").innerHTML=  "<Button variant='success' onClick={()=>(console.log('click'))}>"+ e.semana +"</Button>"
-       ))
-         
-        
-       
-     
-
-        // document.getElementById("prueba").innerHTML=<RenderHoras RenderHoras={presupuesto.asistencias}   />
-    }
-        
-        }
-       
-       >
-        {presupuesto.presupuesto}
-        </Button>))
-    }
-  
-  </div>
-  
-  <div>
-   
-
-
-  <Card id="prueba" className='lg'>
-
-   
-  </Card>
-
-  </div>
-  
-  </Card>
-    )
-  }
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
 
   
