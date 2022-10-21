@@ -1,20 +1,16 @@
-import React, {useState, useEffect, useMemo} from 'react'
-import { updateDoc, arrayUnion, doc, onSnapshot, setDoc, where, collection, query, getDocs, get} from 'firebase/firestore'
-import { Card, Container, Toast, Button, Accordion, Table } from 'react-bootstrap'
+import React, {useState, useEffect} from 'react'
+import { onSnapshot,  where, collection, query} from 'firebase/firestore'
+import { Card, Button, Accordion, Table} from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
-import { useTable } from 'react-table';
 import { db } from '../../firebase/firebase';
 import './Horario.css'
-import { async } from '@firebase/util';
-import moment from 'moment' 
-import { RenderHoras } from './RenderHoras';
+
 export const Presupuesto = () => {
   const auth = getAuth()
   const dato =auth.currentUser; 
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
-  const [value, setValue] = useState();
-   
+  const [itinerante, setItinerante] = useState([])
   const getPresupuestos =async () => {
 
     const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
@@ -29,49 +25,46 @@ export const Presupuesto = () => {
   
     useEffect(()=>{
       getPresupuestos()
+      
     },[])
       
      
-/*
-    const filtracion = Asistencias.filter()
 
-    function check(datos){
-
-    }*/ 
-
-/* Asistencias.map((e)=>(
-  console.log(e.semana)
-))  */
   
-/* function groupById(array){
-return array.reduce((axx, current)=>{
+console.log("hook: ", Asistencias);
+
+const AsistenciasPresupuesto = (props) => {
+
  
-  const foundItem = axx.find(it.semana===current.semana)
+      
+    return props.reduce((past, current)=>{
+      const foundItem =  past.find(it => it.semana === current.semana)
+      console.log('past:', past);
+     const r= []
+     r.push(past);
+     setItinerante(r)
+     console.log('r:', r);
+      if (foundItem ){
+   foundItem.data=foundItem.data
+   ?[...foundItem.data, {'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida}]
+   :[{ 'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida   }]
+}else{ past.push( {
+  'semana': current.semana,
+  'data': [{
+    'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida
+  }]
+} ) }  
 
-  if(foundItem){ 
-    foundItem.data= foundItem.data 
-    ?[...foundItem, {'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida}]
-    :[{
-      'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida
-    }]
+ 
+return past;
 
-  } else {
-    axx.push(
-      {
-        'semana': current.semana,
-        'data': [{
-          'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida
-        }]
-      }
-    )
-  }  return axx;
+    }, [])}
 
-
-},[])
-
-}
-console.log("reduce: ", groupById(Asistencias));  
-console.log("hook: ", Asistencias); */
+   
+    
+     
+     console.log('itinerante:', itinerante);
+   
     return (
   <Card>  
   
@@ -84,61 +77,68 @@ console.log("hook: ", Asistencias); */
        value={presupuesto.presupuesto}
        onClick={
     (e)=>{
+      //e.preventDefault()
+      
       console.log("objeto completo:", presupuesto.asistencias)
       setAsistencias(presupuesto.asistencias)
+      AsistenciasPresupuesto(Asistencias)
       console.log("asistencias:", Asistencias)       
     }} > {presupuesto.presupuesto} </Button>))
     }
   </div>
-  <div>
+        <div>
   <Card id="prueba" className='lg'>
-{
-  
+      {
+itinerante.map((e=> (
  
-Asistencias.map((e)=>(
+ e.map((r)=>(
+console.log('desde mapa:', r.data),
+<Accordion>
+<Accordion.Item eventKey={r.semana}>
+  <Accordion.Header>{r.semana}</Accordion.Header>
+  <Accordion.Body>
+
+  <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Trabajador</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+        </tr>
+      </thead>
+      <tbody>
+      {
+  r.data.map((s)=>( 
+    console.log('mapa s:', s),
     
-          console.log("desde mapeo asistencias", e),
-          
-         <Accordion>
-         <Accordion.Item eventKey={e.semana}>
-           <Accordion.Header>Semana # {e.semana}</Accordion.Header>
-           <Accordion.Body>
-           <Table responsive="sm">
-        <thead>
-          <tr>
-            <th>Semana</th>
-            
-            <th>Nombre</th>
-            <th>Entrada</th>
-            <th>Salida</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{e.semana}</td>
-            <td>{e.trabajador} </td>
-            <td>{ 
-               "Datos entrada:  "+ e.entrada
-            }</td>
-            <td>{Date(e.salida)}</td>
-         
-          </tr>
-         
-        </tbody>
-      </Table>
-      
+    <tr>
+       <td>{s.trabajador}</td>
+       <td>{"seconds" + s.entrada}</td>
+       <td>{"nano"+ s.salida}</td>
+     </tr>
       
 
-           </Accordion.Body>
-         </Accordion.Item>
-       </Accordion>
-         
-
-
-
-         //<Button variant="success">Semana #{e.semana}</Button>
-         ))}
    
+    
+
+  ))
+} 
+</tbody>
+     
+    </Table>
+
+
+
+
+  </Accordion.Body>
+</Accordion.Item>
+</Accordion>
+
+))
+ 
+)))
+
+      }
   </Card>
   
   </div>
@@ -147,8 +147,7 @@ Asistencias.map((e)=>(
    )
   }
    
-   
-
+    
 
 
    
@@ -256,8 +255,71 @@ Asistencias.map((e)=>(
 Asistencias.forEach((e)=>{
 <h1>{e.trabajador}</h1>
 
-}) } */
+}) }  
 
 
+
+
+
+
+
+
+
+{
+  
+  
+Asistencias.map((e)=>(
+    
+          console.log("desde mapeo asistencias", e),
+          
+         <Accordion> 
+         <Accordion.Item eventKey={e.semana}>
+           <Accordion.Header>Semana # {e.semana}</Accordion.Header>
+           <Accordion.Body>
+           <Table responsive="sm">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            
+            <th>Nombre</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{e.semana}</td>
+            <td>{e.trabajador} </td>
+            <td>{ 
+               "Datos entrada:  "+ e.entrada
+            }</td>
+            <td>{Date(e.salida)}</td>
+         
+          </tr>
+         
+        </tbody>
+      </Table>
+      
+      
+
+           </Accordion.Body>
+         </Accordion.Item>
+       </Accordion>
+         
+
+
+
+         //<Button variant="success">Semana #{e.semana}</Button>
+         ))} 
+
+
+
+
+
+
+
+
+
+*/
 
          

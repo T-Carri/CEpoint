@@ -113,7 +113,7 @@ function groupById(array) {
     return array.reduce((acc, current) => {
         const foundItem = acc.find(it => it.id === current.id);
 
-        if (foundItem) {
+        if (foundItem ) {
             foundItem.data = foundItem.data
                 ? [...foundItem.data, { 'fecha': current.fecha, 'observacion': current.observacion }]
                 : [{ 'fecha': current.fecha, 'observacion': current.observacion }];

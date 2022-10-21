@@ -24,7 +24,7 @@ const handleClose=()=>setShow(false)
       CEpoint
     </NavbarBrand>
    <div className="d-grid gap-2  d-md-flex justify-content-md-end">
-  <button onClick={handleShow} class="btn btn-success me-md-4" type="button">Iniciar Sesion</button>
+  <button onClick={handleShow} className="btn btn-success me-md-4" type="button">Iniciar Sesion</button>
   
   
 </div>
