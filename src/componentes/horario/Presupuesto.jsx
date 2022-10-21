@@ -6,6 +6,7 @@ import { useTable } from 'react-table';
 import { db } from '../../firebase/firebase';
 import './Horario.css'
 import { async } from '@firebase/util';
+import moment from 'moment' 
 import { RenderHoras } from './RenderHoras';
 export const Presupuesto = () => {
   const auth = getAuth()
@@ -28,9 +29,138 @@ export const Presupuesto = () => {
   
     useEffect(()=>{
       getPresupuestos()
+    },[])
       
      
-    },[])
+/*
+    const filtracion = Asistencias.filter()
+
+    function check(datos){
+
+    }*/ 
+
+/* Asistencias.map((e)=>(
+  console.log(e.semana)
+))  */
+  
+/* function groupById(array){
+return array.reduce((axx, current)=>{
+ 
+  const foundItem = axx.find(it.semana===current.semana)
+
+  if(foundItem){ 
+    foundItem.data= foundItem.data 
+    ?[...foundItem, {'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida}]
+    :[{
+      'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida
+    }]
+
+  } else {
+    axx.push(
+      {
+        'semana': current.semana,
+        'data': [{
+          'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida
+        }]
+      }
+    )
+  }  return axx;
+
+
+},[])
+
+}
+console.log("reduce: ", groupById(Asistencias));  
+console.log("hook: ", Asistencias); */
+    return (
+  <Card>  
+  
+    <div className='presupuestos'>
+    {
+    Presupuestos.map((presupuesto)=>(
+      <Button variant="danger" 
+           id={presupuesto.obra}
+       className={presupuesto.obra}
+       value={presupuesto.presupuesto}
+       onClick={
+    (e)=>{
+      console.log("objeto completo:", presupuesto.asistencias)
+      setAsistencias(presupuesto.asistencias)
+      console.log("asistencias:", Asistencias)       
+    }} > {presupuesto.presupuesto} </Button>))
+    }
+  </div>
+  <div>
+  <Card id="prueba" className='lg'>
+{
+  
+ 
+Asistencias.map((e)=>(
+    
+          console.log("desde mapeo asistencias", e),
+          
+         <Accordion>
+         <Accordion.Item eventKey={e.semana}>
+           <Accordion.Header>Semana # {e.semana}</Accordion.Header>
+           <Accordion.Body>
+           <Table responsive="sm">
+        <thead>
+          <tr>
+            <th>Semana</th>
+            
+            <th>Nombre</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{e.semana}</td>
+            <td>{e.trabajador} </td>
+            <td>{ 
+               "Datos entrada:  "+ e.entrada
+            }</td>
+            <td>{Date(e.salida)}</td>
+         
+          </tr>
+         
+        </tbody>
+      </Table>
+      
+      
+
+           </Accordion.Body>
+         </Accordion.Item>
+       </Accordion>
+         
+
+
+
+         //<Button variant="success">Semana #{e.semana}</Button>
+         ))}
+   
+  </Card>
+  
+  </div>
+  
+  </Card>
+   )
+  }
+   
+   
+
+
+
+   
+
+
+
+
+
+
+
+
+/* 
 
     /* const data = React.useMemo( () => [
      {
@@ -79,90 +209,9 @@ export const Presupuesto = () => {
     
     */
 
-    
-    return (
-  <Card>  
-  
-    <div className='presupuestos'>
-    {
-    Presupuestos.map((presupuesto)=>(
-      <Button variant="danger" 
-           id={presupuesto.obra}
-       className={presupuesto.obra}
-       value={presupuesto.presupuesto}
-       onClick={
-    (e)=>{
-      console.log("objeto completo:", presupuesto.asistencias)
-      setAsistencias(presupuesto.asistencias)
-      console.log("asistencias:", Asistencias)       
-    }} > {presupuesto.presupuesto} </Button>))
-    }
-  </div>
-  <div>
-  <Card id="prueba" className='lg'>
-{Asistencias.map((e)=>(
-         console.log("desde mapeo asistencias", e),
-          
-         <Accordion>
-         <Accordion.Item eventKey={e.semana}>
-           <Accordion.Header>Semana # {e.semana}</Accordion.Header>
-           <Accordion.Body>
-           <Table responsive="sm">
-        <thead>
-          <tr>
-            <th>Semana</th>
-            
-            <th>Nombre</th>
-            <th>Entrada</th>
-            <th>Salida</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{e.semana}</td>
-            <td>{e.trabajador} </td>
-            <td>{Date(e.entrada)}</td>
-            <td>{Date(e.salida)}</td>
-         
-          </tr>
-         
-        </tbody>
-      </Table>
-      
-      
-
-           </Accordion.Body>
-         </Accordion.Item>
-       </Accordion>
-         
 
 
 
-         //<Button variant="success">Semana #{e.semana}</Button>
-         ))}
-   
-  </Card>
-  
-  </div>
-  
-  </Card>
-   )
-  }
-   
-   
-
-
-
-   
-
-
-
-
-
-
-
-
-/*   */
 
 
 
