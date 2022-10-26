@@ -31,14 +31,14 @@ export default function RouterAdmin() {
   element={<Bienvenida />} 
   />
   
-  <Route 
+  {/* <Route 
   path="asignador" 
   element={ 
     <ProtectedRouteAsignador>
     <Asignador1 />  
 </ProtectedRouteAsignador>
        }/>
-
+ */}
 <Route path="usuarios" element={<CreadorUsuarios/> } />
   <Route 
    path="horario"
@@ -59,7 +59,10 @@ export default function RouterAdmin() {
 
      <Route path="asignadorEndiseño" element={
     
-     <Asignadorendiseño/>
+    <ProtectedRouteAsignador>
+      <Asignadorendiseño/>
+    </ProtectedRouteAsignador>
+
      
      
      } />

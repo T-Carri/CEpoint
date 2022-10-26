@@ -1,0 +1,32 @@
+button#dropdown-button-dark-example1.dropdown-toggle.btn.btn-secondary{
+    margin-top: 4%;
+    margin-bottom:4%;
+}
+button#dropdown-button-dark-example2.dropdown-toggle.btn.btn-secondary{
+    margin-top: 4%;
+    margin-bottom:4%;
+}
+select.form-select{
+    width: 100%;
+    margin-top: 3%;
+}
+/*div.fila.col{
+    width: 60%;
+*/
+div.usuarios.card{
+    background-color: lightslategray;
+    margin-left: 4em;
+    overflow: hidden;
+    overflow-y: scroll;
+
+}
+div.formUsuarios.card{
+    
+    margin-right: 10px;
+    margin-top: 3px;
+    margin-left: -48px;
+}
+
+div#a1{
+    background-color: #ed3e12;
+}

@@ -73,7 +73,10 @@ const navigate = useNavigate();
     {/* //navbar */}
           <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
           <NavbarBrand className="logo" href="/">
-           CEpoint usuario
+            <strong>
+           CEpoint
+
+            </strong>
          </NavbarBrand>
         <div className="d-grid gap-2  d-md-flex justify-content-md-end">
       
@@ -86,10 +89,11 @@ const navigate = useNavigate();
 </div>
     {/* aside */}
     <div className="a1">
-     {asignador && <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>}
+     {Usuario &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>Usuarios</Button>}
+    
      {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>}    
-     {asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>}
-     {Usuario &&<Button variant='warning' className="btnx3" onClick={()=>{navigate("usuarios")}}>Usuarios</Button>}
+     {asignador &&<Button variant='primary' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador</Button>}
+     
      <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
     
     

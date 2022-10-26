@@ -86,6 +86,15 @@ return past;
     }} > {presupuesto.presupuesto} </Button>))
     }
   </div>
+
+<dir id="canal">
+ 
+ 
+
+</dir>
+
+
+
         <div>
   <Card id="prueba" className='lg'>
       {

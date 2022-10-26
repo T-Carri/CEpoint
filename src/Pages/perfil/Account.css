@@ -42,6 +42,13 @@ button.btnx3.btn.btn-danger{
     width: 70%;
    
 }
+button.btnx1.btn.btn-warning{
+    margin-left: 30px;
+    margin-top: 30px;
+    width: 70%;
+    display: flex;
+   
+}
 .asignador{
     margin-left: 20px;  
     margin-top: 20px;
