@@ -17,6 +17,7 @@ import {getAuth} from "firebase/auth";
 export const AccountUser= () => {
 const [asignador, setAsignador]= useState()
 const [lectorAsistencia, setLectorAsistencia]= useState()
+const [Usuario, setUsuario]= useState()
 const auth= getAuth();
 const dato= auth.currentUser;
 
@@ -28,11 +29,13 @@ useEffect(()=>{
     setAsignador(res.data().asignador)
    console.log("Es asignador?:", res.data().asignador)
    setLectorAsistencia(res.data().lectoreAsistencia)
-   console.log("Es lector?:", res.data().lectoreAsistencia)  
+   console.log("Es lector?:", res.data().lectoreAsistencia)
+   setUsuario(res.data().usator)
+    
   } )
 },[])
 
-
+console.log(Usuario) 
 const {logout}= UserAuth();
 const navigate = useNavigate();
 
@@ -86,6 +89,7 @@ const navigate = useNavigate();
      {asignador && <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>}
      {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>}    
      {asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>}
+     {Usuario &&<Button variant='warning' className="btnx3" onClick={()=>{navigate("usuarios")}}>Usuarios</Button>}
      <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
     
     

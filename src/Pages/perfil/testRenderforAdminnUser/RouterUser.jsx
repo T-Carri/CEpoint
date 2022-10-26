@@ -19,7 +19,7 @@ import {Trabajador} from '../../../componentes/horario/Trabajador'
 import { Asignadorendiseño}  from '../../../componentes/asignador/Asignadorendiseño';
 import { Presupuesto } from '../../../componentes/horario/Presupuesto';
 import ProtectedRouteAsignador from '../ProtectedRouteAsignador'
-
+import {CreadorUsuarios} from '../../../componentes/usuarios/CreadorUsuarios'
 export default function RouterAdmin() {
 
    return (
@@ -34,12 +34,12 @@ export default function RouterAdmin() {
   <Route 
   path="asignador" 
   element={ 
- 
-       <Asignador1 />  
-  
+    <ProtectedRouteAsignador>
+    <Asignador1 />  
+</ProtectedRouteAsignador>
        }/>
 
-  
+<Route path="usuarios" element={<CreadorUsuarios/> } />
   <Route 
    path="horario"
    element={
@@ -65,6 +65,10 @@ export default function RouterAdmin() {
      } />
     
     </Route>
+  
+   
+   
+   
   </Routes> 
 
   )
