@@ -3,12 +3,32 @@ import {  Button, Form, Row, Col} from 'react-bootstrap'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getAuth } from 'firebase/auth'; 
-
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
 
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
     const [email, setEmail]= useState('')
     const [password, setPassword]= useState('')
+    const [radioValueAsis, setRadioValueAsis] = useState(false);
+    const [radioValueAsig, setRadioValueAsig] = useState(false);
+    const [radioValueChec, setRadioValueChec] = useState(false);
+    const radiosAsis = [
+      { name: 'Deshabilitado', value: false },
+      { name: 'Habilitar', value: true },
+      
+    ];
+    const radiosAsig = [
+      { name: 'Deshabilitado', value: false },
+      { name: 'Habilitar', value: true },
+      
+    ];
+    const radiosChec = [
+      { name: 'Deshabilitado', value: false },
+      { name: 'Habilitar', value: true },
+      
+    ];
+  
 
 const auth = getAuth()
 const dato =auth.currentUser; 
@@ -53,15 +73,22 @@ const handleSubmit = (e) =>  {
     <Row>
         <Col> <Form.Group className="mb-2" >
                  <Form.Label>Email</Form.Label>
-<Form.Control type="String" name="email" onChange={handleInputChange} placeholder="Agrega residente" />
+<Form.Control type="String" name="email" onChange={handleInputChange} placeholder="Correo" />
               </Form.Group></Col>
        <Col> <Form.Group className="mb-2" >
                 <Form.Label>Password</Form.Label>
-<Form.Control type="String" name="password" onChange={handleInputChange} placeholder="Agrega Ubicacion"  />
+<Form.Control type="String" name="password" onChange={handleInputChange} placeholder="password"  />
            </Form.Group></Col>
 </Row>
 <Row>
-<Col><Form.Select name='empresas'  onChange={handleInputChange} aria-label="Default select example">
+<Col> <Form.Group className="mb-2" >
+               <Form.Label>Nombre del trabajador</Form.Label>
+<Form.Control type="String" name="obra" onChange={handleInputChange} placeholder="Nombre" />
+
+            </Form.Group></Col>
+<Col>
+<Form.Label>Elige su empresa</Form.Label>
+<Form.Select name='empresas'  onChange={handleInputChange} aria-label="Default select example">
       <option>Empresas</option>
       <option value="CE2000">CE2000</option>
       <option value="SECMA">SECMA</option>
@@ -71,26 +98,66 @@ const handleSubmit = (e) =>  {
       <option value="INMOVILIARIA">INMOVILIARIA</option>
     </Form.Select>
      </Col>
-     <Col> <Form.Group className="mb-2" >
-              <Form.Label>empresa</Form.Label>
-<Form.Control type="String" name="presupuesto" onChange={handleInputChange} placeholder="Codigo de presupuestso" />
+     
 
-           </Form.Group></Col>
-
-       <Col> <Form.Group className="mb-2" >
-               <Form.Label>Obra</Form.Label>
-<Form.Control type="String" name="obra" onChange={handleInputChange} placeholder="Codigo de presupuestso" />
-
-            </Form.Group></Col>
+    
 </Row>
 <Row>
-      <Col><Form.Select name='horario'  onChange={handleInputChange} aria-label="Default select example">
-      <option>Turno</option>
-      <option value="matutino">Matutino</option>
-      <option value="vespertino">Vespertino</option>
-      <option value="nocturno">Nocturno</option>
-    </Form.Select>
-     </Col>
+
+<Col>  
+     <Form.Label><strong> Habilitar informacion de asistencias</strong>  </Form.Label>
+     <ButtonGroup>
+        {radiosAsis.map((radio, idx) => (
+          <ToggleButton
+            key={idx}
+            id={`radio-${idx}`}
+            type="radio"
+            variant={idx % 2 ? 'outline-warning' : 'outline-danger'}
+            name="radio1"
+            value={radio.value}
+            checked={radioValueAsis === radio.value}
+            onChange={(e) => setRadioValueAsis(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup></Col>
+      <Col>  
+     <Form.Label><strong> Asignador</strong>  </Form.Label>
+     <ButtonGroup>
+        {radiosAsig.map((radio, idx) => (
+          <ToggleButton
+            key={idx}
+            id={`radio-${idx}`}
+            type="radio"
+            variant={idx % 2 ? 'outline-warning' : 'outline-danger'}
+            name="radio2"
+            value={radio.value}
+            checked={radioValueAsig === radio.value}
+            onChange={(e) => setRadioValueAsig(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup></Col>
+      <Col>  
+     <Form.Label><strong> Habilitar Checador</strong>  </Form.Label>
+     <ButtonGroup>
+        {radiosChec.map((radio, idx) => (
+          <ToggleButton
+            key={idx}
+            id={`radio-${idx}`}
+            type="radio"
+            variant={idx % 2 ? 'outline-warning' : 'outline-danger'}
+            name="radio3"
+            value={radio.value}
+            checked={radioValueChec === radio.value}
+            onChange={(e) => setRadioValueChec(e.currentTarget.value)}
+          >
+            {radio.name}
+          </ToggleButton>
+        ))}
+      </ButtonGroup></Col>
      <Col>
         <Button className='1a' variant='success' size='lg' type="submit"  >Enviar</Button>
      </Col>
