@@ -1,18 +1,19 @@
 import React, {useState} from 'react'
 import {  Button, Form, Row, Col} from 'react-bootstrap'
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-//import { getAuth } from 'firebase/auth'; 
+import { getAuth } from 'firebase/auth'; 
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { UserAuth } from '../../context/AuthContext';
 import { db } from '../../firebase/firebase';
 
-import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where,} from 'firebase/firestore'
-import { useEffect } from 'react';
-export const FormCreadorUser = () => {
+import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where, setDoc} from 'firebase/firestore'
+export const FormCreadorUser1 = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
     const [error, setError] = useState('');
-    
+    const [email, setEmail]= useState('')
+    const [password, setPassword]= useState('')
     const {createUser} = UserAuth();
     const [radioValueAsis, setRadioValueAsis] = useState('1');
     const [radioValueAsig, setRadioValueAsig] = useState('3');
@@ -31,16 +32,17 @@ export const FormCreadorUser = () => {
       { name: 'Habilitar', value: '6' },
       ];
       
+const auth = getAuth()
+const dato =auth.currentUser; 
 
-
- const formCreatorUser= {
+const formCreatorUser= {
   activo: false ,
-  asignador: radioValueAsig ==='1'? false: true,
-  checador: radioValueChec ==='5'? false: true,
-  email: '', 
-  password: '',
+  asignador: asignador(),
+  checador:checador(),
+  email: email, 
+  password: password,
   empresa:'', 
-  lectoreAsistencia :radioValueAsis ==='3'? false: true, 
+  lectoreAsistencia :asistencia(), 
   nombre: '',
   ocupado: false,  
   perfil: '', 
@@ -48,34 +50,57 @@ export const FormCreadorUser = () => {
   usator: false, 
   fechaDeCreacion: Date()
 
+}
+
+
+const checador =()=>(radioValueChec ==='5'? false: true )
+const asistencia =()=>(radioValueAsis ==='3'? false: true )
+const asignador =()=>(radioValueAsig ==='1'? false: true )
+const [values, setValues] = useState(formCreatorUser)
+ //TODO: HANDLE
+ 
+ const handleInputChange = (e) =>{
+  const {name, value} = e.target;
+  setValues({...values, [name]: value}); 
+  
+  
+ }
+ 
+
+ //way 1 actually doesnt work
+
+
+
+
+
+ 
+
+const handleSubmit = async (e) =>  {
+  e.preventDefault(); 
+  const Email =e.target.elements.email.value;
+  const Password = e.target.elements.password.value;
+  const Asignador = asignador();
+  const Checador = checador();
+  const Asistencias = asistencia();
+  const Empresa = e.target.elements.empresa.value;
+  const Nombre =  e.target.elements.nombre.value;
+  const Perfil = e.target.elements.perfil.value;
+  setError('')
+  
+  try {
+    await createUser(Email, Password, Asignador, Checador, Asistencias, Empresa, Nombre, Perfil)
+    
+  } catch (e) {
+    setError(e.message)
+    console.log(e.message)
+  }
 } 
 
 
-const [values, setValues] = useState(formCreatorUser)
-const [email, setEmail]= useState(values.rol)
-
-const [password, setPassword]= useState('')
- //TODO: HANDLE
 
 
-  const handleInputChange = (e) =>{
-  const {name, value} = e.target;
-  setValues({...values, [name]: value}); 
-  setEmail(values.email);
-  setPassword(values.password);
-  
- }  
-
-
- /* 
- console.log('values totales: ', values)
- 
- console.log('values totales email: ', values.email)
- console.log('email:', email) */
-
-
- /* 
-const handleregisterUser = async (e)=> {
+/* 
+const registerUser = async (e)=> {
   e.preventDefault();
   try{
     setError('')
@@ -87,81 +112,6 @@ const handleregisterUser = async (e)=> {
   }
 };
  */
-
-
-
-/* const auth = getAuth()
-const dato =auth.currentUser;  */
-
-/* const handleSubmit = async (e)=> {
-  e.preventDefault();
-  
-  setError('')
-  try{
-     await createUser( email, password);
- 
-  } catch(e) {
-    setError(e.message)
-    console.log(e.message)
-  }
-};
- */
-
-
-
-
-
-
- //TODO: ONCHANGE
-/* 
-async function registrarUsuario(email,password, asignador, checador, asistencias, empresa, nombre, perfil){
-const inforUsuario = await createUser(email, password).then(
-  (usuarioFirebase)=> {
-    return usuarioFirebase;
-  }
-);
-console.log(inforUsuario.user.uid);
-const docuRef =doc(db, `users/${inforUsuario.user.uid}`);
-setDoc(docuRef, {
-
-  activo: false ,
-  asignador: asignador,
-  checador:checador,
-  email: email, 
-  password: password,
-  empresa: empresa, 
-  lectoreAsistencia : asistencias, 
-  nombre: nombre,
-  ocupado: false,  
-  perfil: perfil, 
-  rol: 'usuario',
-  usator: false, 
-  fechaDeCreacion: Date()
-
-
-} )
-
-
-}
- 
-
-const handleSubmit = (e) =>  {
-  e.preventDefault(); 
-  const Email =e.target.elements.email.value;
-  const Password = e.target.elements.password.value;
-  const Asignador = asignador();
-  const Checador = checador();
-  const Asistencias = asistencia();
-  const Empresa = e.target.elements.empresa.value;
-  const Nombre =  e.target.elements.nombre.value;
-  const Perfil = e.target.elements.perfil.value;
-  
-  registrarUsuario(Email, Password, Asignador, Checador, Asistencias, Empresa, Nombre, Perfil)
-
-}  */
-
-
-
 /* function todos(){
   registerUser();
   handleSubmit();
@@ -174,22 +124,22 @@ const handleSubmit = (e) =>  {
     <Row>
         <Col> <Form.Group className="mb-2" >
                  <Form.Label>Email</Form.Label>
-<Form.Control type="String" name="email" id='email' onChange={handleInputChange} placeholder="Correo" />
+<Form.Control type="String" name="email" id='email' onChange={(e)=>setEmail(e.target.value)} placeholder="Correo" />
               </Form.Group></Col>
        <Col> <Form.Group className="mb-2" >
                 <Form.Label>Password</Form.Label>
-<Form.Control type="String" name="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="password"  />
+<Form.Control type="String" name="password"  id='password' onChange={(e)=>setPassword(e.target.value)} placeholder="password"  />
            </Form.Group></Col>
 </Row>
 <Row>
 <Col> <Form.Group className="mb-2" >
                <Form.Label>Nombre del trabajador</Form.Label>
-<Form.Control type="String" name="nombre" id='nombre'  onChange={handleInputChange}  placeholder="Nombre" />
+<Form.Control type="String" name="nombre" id='nombre' onChange={handleInputChange} placeholder="Nombre" />
 
             </Form.Group></Col>
 <Col>
 <Form.Label>Elige su empresa</Form.Label>
-<Form.Select name='empresa' id='empresa'   onChange={handleInputChange}  aria-label="Default select example">
+<Form.Select name='empresa' id='empresa'  onChange={handleInputChange} aria-label="Default select example">
       <option>Empresas</option>
       <option value="CE2000">CE2000</option>
       <option value="SECMA">SECMA</option>
@@ -207,7 +157,7 @@ const handleSubmit = (e) =>  {
 <Col>
  <Form.Group className="mb-2" >
    <Form.Label>Perfil</Form.Label>
-   <Form.Control type="String" name="perfil" id='perfil'  onChange={handleInputChange}  placeholder="Perfil del trabajador" />
+   <Form.Control type="String" name="perfil" id='perfil' onChange={handleInputChange} placeholder="Perfil del trabajador" />
 
   </Form.Group>
 </Col>
