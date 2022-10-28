@@ -15,13 +15,39 @@ export const CreadorUsuarios = () => {
   const toggleShowB = () => setShowB(!showB);
    
 
-/* //TODO: AGREGAR A COLECCION "asignaciones", una asignacion
-//con id automatico
-//it's ready
-const addOrEdit = async (addOrEdit) => {
-  const databaseRef=await  addDoc(collection(db, "asignaciones"), addOrEdit);
-  }
- */  
+//agregar usuarios sin activar 
+const [Userun, setUserun]=useState([])
+const getUsersUnable = async()=>{
+  const UU = query(collection(db, "users"),where("activo","==", false))
+  await  onSnapshot(UU, (Q)=>{
+    const dato=[]
+
+    Q.forEach((element) => {
+
+      dato.push(element.data())
+      
+    });
+
+    setUserun(dato)
+  })
+
+
+
+}
+
+console.log('so?:', Userun)
+//const {UidUser}= FormCreadorUser()
+//console.log('UID IN CREATOR USER:', UidUser)
+useEffect(()=>{
+  getUsersUnable()
+  
+},[])
+  
+
+//objetivo hacer que con boton 
+
+
+
 
 
   return (
@@ -43,7 +69,7 @@ const addOrEdit = async (addOrEdit) => {
 
     <Button variant='success' onClick={toggleShowA} className="mb-2">
           <strong>+</strong>  Crear usuario
-        </Button>
+        </Button>   <br />
         <Toast show={showA} onClose={toggleShowA} style={{width:'50em', height:'40em'}}>
           <Toast.Header>
            
@@ -54,44 +80,46 @@ const addOrEdit = async (addOrEdit) => {
            <FormCreadorUser />
           </Toast.Body>
         </Toast>
-    <Button>
+
+    <Button variant='warning'>
       Ver usuarios
         </Button>
+   
+   
     </Card.Body>
     </Card>
 
  <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em' }}>
        <div>
-
- {/* {asig.map((da)=>(
-
-<div key={da.obra} >
-<Card id='a1' >
+ {
+  Userun.map((e)=>
+  (
+<div  >
+<Card id='cuentaInactiva' >
   <Card.Body>
-  <h6> Presupuesto:<strong>{da.presupuesto}</strong></h6>
+  <h6> Trabajador:<strong>{e.nombre}</strong></h6>
   <br/>
-  <h6>Obra: 
+  <h6>Email: 
     <strong> 
-     {da.obra}
+     {e.email}
     </strong>
      </h6>
      <br/>
 <h6>
-  Residente: <strong>
-    {da.residente}
+  Empresa: <strong>
+    {e.empresa}
   </strong>
 </h6>
 
 <br/>
-<Button className='1a' variant='secondary' size='md'  >Asignar adicional</Button>
+<Button className='UPDATE' variant='secondary' size='md'  >Activar</Button>
   </Card.Body>
 </Card>
 
-</div>
-
- )
-            )} */}
-
+</div>)
+  )
+}
+ 
        </div>
 
     </Card>    

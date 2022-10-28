@@ -7,12 +7,12 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import { UserAuth } from '../../context/AuthContext';
 import { db } from '../../firebase/firebase';
 
-import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where,} from 'firebase/firestore'
+import {getFirestore, setDoc, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where,} from 'firebase/firestore'
 import { useEffect } from 'react';
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
     const [error, setError] = useState('');
-    
+    const [UidUser, setUidUser]=useState('')
     const {createUser} = UserAuth();
     const [radioValueAsis, setRadioValueAsis] = useState('1');
     const [radioValueAsig, setRadioValueAsig] = useState('3');
@@ -48,11 +48,11 @@ export const FormCreadorUser = () => {
   usator: false, 
   fechaDeCreacion: Date()
 
-} 
+ }
 
 
 const [values, setValues] = useState(formCreatorUser)
-const [email, setEmail]= useState(values.rol)
+const [email, setEmail]= useState('')
 
 const [password, setPassword]= useState('')
  //TODO: HANDLE
@@ -66,111 +66,51 @@ const [password, setPassword]= useState('')
   
  }  
 
-
- /* 
- console.log('values totales: ', values)
- 
- console.log('values totales email: ', values.email)
- console.log('email:', email) */
-
-
- /* 
-const handleregisterUser = async (e)=> {
+ const handleregisterUser = async (e)=> {
   e.preventDefault();
   try{
     setError('')
-    await createUser(email, password);
-    alert.message('Usuario creado correctamente :)')
-  } catch(e) {
-    setError(e.message)
-    console.log(e.message)
-  }
-};
- */
-
-
-
-/* const auth = getAuth()
-const dato =auth.currentUser;  */
-
-/* const handleSubmit = async (e)=> {
-  e.preventDefault();
-  
-  setError('')
-  try{
-     await createUser( email, password);
- 
-  } catch(e) {
-    setError(e.message)
-    console.log(e.message)
-  }
-};
- */
-
-
-
-
-
-
- //TODO: ONCHANGE
-/* 
-async function registrarUsuario(email,password, asignador, checador, asistencias, empresa, nombre, perfil){
-const inforUsuario = await createUser(email, password).then(
-  (usuarioFirebase)=> {
-    return usuarioFirebase;
-  }
-);
-console.log(inforUsuario.user.uid);
-const docuRef =doc(db, `users/${inforUsuario.user.uid}`);
-setDoc(docuRef, {
-
+   const infouser = await createUser(email, password);
+    console.log(infouser.user.uid)
+     setUidUser(infouser.user.uid)
+const docuRef =doc(db, `users/${infouser.user.uid}`);
+setDoc(docuRef, { 
   activo: false ,
-  asignador: asignador,
-  checador:checador,
-  email: email, 
-  password: password,
-  empresa: empresa, 
-  lectoreAsistencia : asistencias, 
-  nombre: nombre,
-  ocupado: false,  
-  perfil: perfil, 
+  asignador: values.asignador,
+  checador: values.checador,
+  email: values.email, 
+  password: values.password,
+  empresa:values.empresa, 
+  lectoreAsistencia : values.lectoreAsistencia, 
+  nombre: values.nombre,
+  ocupado: values.ocupado,  
+  perfil: values.perfil, 
   rol: 'usuario',
   usator: false, 
   fechaDeCreacion: Date()
+ }
+ )
 
 
-} )
-
-
-}
- 
-
-const handleSubmit = (e) =>  {
-  e.preventDefault(); 
-  const Email =e.target.elements.email.value;
-  const Password = e.target.elements.password.value;
-  const Asignador = asignador();
-  const Checador = checador();
-  const Asistencias = asistencia();
-  const Empresa = e.target.elements.empresa.value;
-  const Nombre =  e.target.elements.nombre.value;
-  const Perfil = e.target.elements.perfil.value;
-  
-  registrarUsuario(Email, Password, Asignador, Checador, Asistencias, Empresa, Nombre, Perfil)
-
-}  */
+  } catch(e) {
+    setError(e.message)
+    console.log(e.message)
+  }
+};
 
 
 
-/* function todos(){
-  registerUser();
-  handleSubmit();
-} */
+
+
+
+
+
+
 
   return (
 
 
-<Form  /* onSubmit={handleSubmit} */ >
+<Form    onSubmit={handleregisterUser}   >
     <Row>
         <Col> <Form.Group className="mb-2" >
                  <Form.Label>Email</Form.Label>
@@ -178,7 +118,7 @@ const handleSubmit = (e) =>  {
               </Form.Group></Col>
        <Col> <Form.Group className="mb-2" >
                 <Form.Label>Password</Form.Label>
-<Form.Control type="String" name="password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="password"  />
+<Form.Control type="String" name="password" id='password' onChange={handleInputChange} placeholder="password"  />
            </Form.Group></Col>
 </Row>
 <Row>

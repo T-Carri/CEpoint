@@ -37,3 +37,6 @@ button.crearUser.btn.btn-success.btn-lg{
     margin-top: 4px;
 
 } 
+div#cuentaInactiva{
+    background-color: #ecc71f;
+}

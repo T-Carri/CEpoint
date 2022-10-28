@@ -89,10 +89,13 @@ const navigate = useNavigate();
 </div>
     {/* aside */}
     <div className="a1">
-     {Usuario &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>Usuarios</Button>}
+     {Usuario &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
+      <strong>Usuarios
+        </strong></Button>}
     
-     {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>}    
-     {asignador &&<Button variant='primary' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador</Button>}
+     {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}> <strong>Asistencia</strong></Button>}    
+     {asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
+     <strong> Asignador  </strong> </Button>}
      
      <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
     
