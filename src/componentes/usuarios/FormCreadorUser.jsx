@@ -87,7 +87,8 @@ setDoc(docuRef, {
   perfil: values.perfil, 
   rol: 'usuario',
   usator: false, 
-  fechaDeCreacion: Date()
+  fechaDeCreacion: Date(), 
+  UID:infouser.user.uid
  }
  )
 
