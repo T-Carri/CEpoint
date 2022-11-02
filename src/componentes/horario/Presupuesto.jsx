@@ -46,12 +46,12 @@ const AsistenciasPresupuesto = (props) => {
      console.log('r:', r);
       if (foundItem ){
    foundItem.data=foundItem.data
-   ?[...foundItem.data, {'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida}]
-   :[{ 'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida   }]
+   ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
+   :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
 }else{ past.push( {
   'semana': current.semana,
   'data': [{
-    'trabajador': current.trabajador,'entrada':current.entrada, 'salida': current.salida
+    'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date
   }]
 } ) }  
 
@@ -67,37 +67,33 @@ return past;
    
     return (
   <Card>  
-  
-    <div className='presupuestos'>
-    {
+   <div className='presupuestos'>
+   {
     Presupuestos.map((presupuesto)=>(
       <Button variant="danger" 
            id={presupuesto.obra}
        className={presupuesto.obra}
        value={presupuesto.presupuesto}
        onClick={
-    (e)=>{
-      //e.preventDefault()
+             (e)=>{
+             //e.preventDefault()
+             console.log("objeto completo:", presupuesto.asistencias)
+             setAsistencias(presupuesto.asistencias)
+             AsistenciasPresupuesto(Asistencias)
+             console.log("asistencias:", Asistencias)       
       
-      console.log("objeto completo:", presupuesto.asistencias)
-      setAsistencias(presupuesto.asistencias)
-      AsistenciasPresupuesto(Asistencias)
-      console.log("asistencias:", Asistencias)       
-    }} > {presupuesto.presupuesto} </Button>))
+    }}> {presupuesto.presupuesto} </Button>))
     }
   </div>
+  
 
-<dir id="canal">
- 
- 
-
-</dir>
 
 
 
         <div>
-  <Card id="prueba" className='lg'>
-      {
+           <Card id="prueba" className='lg'>
+      
+           {
 itinerante.map((e=> (
  
  e.map((r)=>(
@@ -110,9 +106,9 @@ console.log('desde mapa:', r.data),
   <Table striped bordered hover>
       <thead>
         <tr>
-          <th>Trabajador</th>
-          <th>Entrada</th>
-          <th>Salida</th>
+        <th>Trabajador</th>
+             <th>Asistencia</th>
+             <th>Tiempo</th>
         </tr>
       </thead>
       <tbody>
@@ -121,9 +117,9 @@ console.log('desde mapa:', r.data),
     console.log('mapa s:', s),
     
     <tr>
-       <td>{s.trabajador}</td>
-       <td>{"seconds" + s.entrada}</td>
-       <td>{"nano"+ s.salida}</td>
+         <td>{s.trabajador}</td>
+          <td>{s.tipoAsistencia}</td>
+          <td>{s.date}</td>
      </tr>
       
 
@@ -148,10 +144,9 @@ console.log('desde mapa:', r.data),
 )))
 
       }
-  </Card>
   
-  </div>
-  
+            </Card>
+         </div>
   </Card>
    )
   }
@@ -163,108 +158,84 @@ console.log('desde mapa:', r.data),
 
 
 
+{/* 
 
+  <div className='presupuestos'>
+   {{ {
+    Presupuestos.map((presupuesto)=>(
+      <Button variant="danger" 
+           id={presupuesto.obra}
+       className={presupuesto.obra}
+       value={presupuesto.presupuesto}
+       onClick={
+    (e)=>{
+      //e.preventDefault()
+      
+      console.log("objeto completo:", presupuesto.asistencias)
+      setAsistencias(presupuesto.asistencias)
+      AsistenciasPresupuesto(Asistencias)
+      console.log("asistencias:", Asistencias)       
+    }} > {presupuesto.presupuesto} </Button>))
+    }
+  </div>
 
+segmentoo
 
+itinerante.map((e=> (
+ 
+ e.map((r)=>(
+console.log('desde mapa:', r.data)
+<Accordion>
+<Accordion.Item eventKey={r.semana}>
+  <Accordion.Header>{r.semana}</Accordion.Header>
+  <Accordion.Body>
 
-
-/* 
-
-    /* const data = React.useMemo( () => [
-     {
-       col1: 'Hello',
-       col2: 'World',
-     },
-     {
-       col1: 'react-table',
-       col2: 'rocks',
-     },
-     {
-       col1: 'whatever',
-       col2: 'you want',
-     },
-   ],
-   [])
-    const columns = React.useMemo(
-        () => [
-           
-            {
-                Header: 'Nombre', 
-                accessor: 'nombre' 
-            }, 
-            {
-                Header: 'Entrada', 
-                accessor: 'entrada'
+  <Table striped bordered hover>
+      <thead>
+        <tr>
+          <th>Trabajador</th>
+          <th>Asistencia</th>
+          <th>Tiempo</th>
+        
+        </tr>
+      </thead>
+      <tbody>
+      {
+  r.data.map((s)=>( 
+    console.log('mapa s:', s)
     
-            },
-            {
-                Header: 'Salida', 
-                accessor: 'entrada'
-    
-            }
-        ]
-    )
-    
-    const tableInstance = useTable({ columns, data })
-    
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-      } = tableInstance
-    
-    */
-
-
-
-
-
-
-
-
- /* presupuesto.asistencias.map((e)=>( 
-    console.log(e.semana),
-    console.log(e.trabajador),
-     dat.push()     
- document.getElementById("prueba").innerHTML=  "<Button variant='success' >"+ e.semana +"</Button>"
+    <tr>
+       <td>{s.trabajador}</td>
+       <td>{s.tipoAsistencia}</td>
+       <td>{s.date}</td>
+       
+     </tr>
       
 
+   
+    
+
   ))
+} 
+</tbody>
+     
+    </Table>
 
 
-*/
 
 
+  </Accordion.Body>
+</Accordion.Item>
+</Accordion>
 
+))
+ 
+)))
 
+       }
+  </Card>
   
-    
-/* const getSemanas = async (asistencias, presupuesto) => {
-  asistencias.forEach(()=>{
-    return(
-    console.log(presupuesto, ":",asistencias),
-    setAsistencias({...asistencias}),
-    console.log("hook:",Asistencias)
-    
-    
-
-    )
-
-  } )
-
-}
-
-
-
-
-
- function semanas() {
-Asistencias.forEach((e)=>{
-<h1>{e.trabajador}</h1>
-
-}) }  
+  </div> 
 
 
 
@@ -275,60 +246,58 @@ Asistencias.forEach((e)=>{
 
 
 {
-  
-  
-Asistencias.map((e)=>(
-    
-          console.log("desde mapeo asistencias", e),
+  itinerante.map((e=> (
+ 
+    e.map((r)=>(
+   console.log('desde mapa:', r.data)
+   <Accordion>
+   <Accordion.Item eventKey={r.semana}>
+     <Accordion.Header>{r.semana}</Accordion.Header>
+     <Accordion.Body>
+   
+     <Table striped bordered hover>
+     <thead>
+           <tr>
+             <th>Trabajador</th>
+             <th>Asistencia</th>
+             <th>Tiempo</th>
+           
+           </tr>
+         </thead>
+         <tbody>
+         {
+     r.data.map((s)=>( 
+       console.log('mapa s:', s)
+       <tr>
+          <td>{s.trabajador}</td>
+          <td>{s.tipoAsistencia}</td>
+          <td>{s.date}</td>
+       </tr>
+       
+       ))
+      } 
+   </tbody>
+    </Table>
           
-         <Accordion> 
-         <Accordion.Item eventKey={e.semana}>
-           <Accordion.Header>Semana # {e.semana}</Accordion.Header>
-           <Accordion.Body>
-           <Table responsive="sm">
-        <thead>
-          <tr>
-            <th>Semana</th>
-            
-            <th>Nombre</th>
-            <th>Entrada</th>
-            <th>Salida</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{e.semana}</td>
-            <td>{e.trabajador} </td>
-            <td>{ 
-               "Datos entrada:  "+ e.entrada
-            }</td>
-            <td>{Date(e.salida)}</td>
+    </Accordion.Body>
          
-          </tr>
-         
-        </tbody>
-      </Table>
+   </Accordion.Item>
+   
       
-      
-
-           </Accordion.Body>
-         </Accordion.Item>
-       </Accordion>
-         
-
-
-
-         //<Button variant="success">Semana #{e.semana}</Button>
-         ))} 
+     </Accordion>
+       
+   
+        
+   
+   
+   
+   
+  }
 
 
 
 
 
-
-
-
-
-*/
+*/}
 
          
