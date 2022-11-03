@@ -10,9 +10,9 @@ import UsuariosContext from '../../context/UsuariosContext';
 
 
 export const CreadorUsuarios = () => {
-  const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador}=useContext(UsuariosContext)
+  const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
-const toggleShowA = () => setShowA(!showA);
+  const toggleShowA = () => setShowA(!showA);
 
    
 
@@ -62,7 +62,16 @@ useEffect(()=>{
           </Toast.Body>
         </Toast>
       
-    
+    <div className='content-users'>
+                
+                
+      <h1>renderizar los usuarios por tipo</h1>
+
+    </div>
+
+
+
+
     </Card.Body>
     </Card>
 
@@ -97,9 +106,13 @@ useEffect(()=>{
 
 <br/>
 <Button className='UPDATE' variant='secondary' size='md' onClick={async()=>{
-  setActualizador(e.UID).then( 
-    
-  )
+try {
+  setActualizador(e.UID)
+    activateUser()
+} catch (error) {
+  console.log(error)
+}
+  
 }} >Activar</Button>
   </Card.Body>
 </Card>

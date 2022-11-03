@@ -5,6 +5,7 @@ const UsuariosContext = createContext( )
 export default UsuariosContext;
 
 export const UsuariosProvider = ({children}) => {
+       
        const [Usuarios, setUsuarios] = useState([])  
        const [Userun, setUserun]=useState([]) 
        const [Actualizador, setActualizador] = useState('') 
@@ -40,11 +41,16 @@ export const UsuariosProvider = ({children}) => {
                //ver la forma de activar        
    
    const activateUser = async()=>{
-    const
+    const AU = doc(db, "users", Actualizador)
+    await updateDoc(AU,
+      
+      {
+        activo: true
+      })
    }
    
        return (
-           <UsuariosContext.Provider value={{Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador}}>
+           <UsuariosContext.Provider value={{Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}}>
            {children}
            </UsuariosContext.Provider>
      )

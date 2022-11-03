@@ -184,8 +184,8 @@ const [password, setPassword]= useState('')
   
  }  
  
-console.log(values)
-console.log(Perfil)
+console.log("values:", values)
+console.log(formCreatorUser)
  
  const handleregisterUser = async (e)=> {
   e.preventDefault();
@@ -205,7 +205,7 @@ setDoc(docuRef, {
   lectoreAsistencia : values.lectoreAsistencia, 
   nombre: values.nombre,
   ocupado: values.ocupado,  
-  perfil: values.perfil, 
+  perfil: Perfil.toString(), 
   rol: 'usuario',
   usator: false, 
   fechaDeCreacion: Date(), 
@@ -286,7 +286,7 @@ useEffect(
   
     <SelectSearch options={options} 
      /* renderValue={options} */  search
-      value={Perfil} onChange={setPerfil} name="Perfil" placeholder="Elige el perfil" />
+      value={Perfil} onChange={setPerfil} name="perfil" placeholder="Elige el perfil" />
 
   </Form.Group>
 </Col>
