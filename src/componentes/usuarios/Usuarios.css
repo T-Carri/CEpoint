@@ -40,3 +40,9 @@ button.crearUser.btn.btn-success.btn-lg{
 div#cuentaInactiva{
     background-color: #ecc71f;
 }
+div.inactivos.card{
+    background-color: lightslategray;
+    margin-left: 1em;
+    overflow: hidden;
+    overflow-y: scroll;
+}

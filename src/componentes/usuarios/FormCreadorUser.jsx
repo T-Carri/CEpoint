@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef, useContext, useEffect} from 'react'
 import {  Button, Form, Row, Col} from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 //import { getAuth } from 'firebase/auth'; 
@@ -6,47 +6,165 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { UserAuth } from '../../context/AuthContext';
 import { db } from '../../firebase/firebase';
-
+import SelectSearch from "react-select-search";
+import 'react-select-search/style.css'
+import UsuariosContext from '../../context/UsuariosContext';
 import {getFirestore, setDoc, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where,} from 'firebase/firestore'
-import { useEffect } from 'react';
+
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
+  const {Usuarios, getUsuarios} = useContext(UsuariosContext)    
+
+
     const [error, setError] = useState('');
     const [UidUser, setUidUser]=useState('')
     const {createUser} = UserAuth();
-    const [radioValueAsis, setRadioValueAsis] = useState('1');
-    const [radioValueAsig, setRadioValueAsig] = useState('3');
-    const [radioValueChec, setRadioValueChec] = useState('5');
-    const radiosAsis = [
-      { name: 'Deshabilitado', value: '1' },
-      { name: 'Habilitar', value: '2' },
-       ];
-    
-    const radiosAsig = [
-      { name: 'Deshabilitado', value: '3' },
-      { name: 'Habilitar', value: '4' },
-      ];
-      const radiosChec = [
-        { name: 'Deshabilitado', value: '5' },
-      { name: 'Habilitar', value: '6' },
-      ];
+   
+    const [Perfil, setPerfil] = useState('')
+   
       
 
 
- const formCreatorUser= {
+      const options = [
+        {
+          type: "group",
+          name: "CIVILES",
+          items: [
+            
+            { name: "Residente de obra", value: "Residente de obra" },
+            { name: "Arquitecto proyectista", value: "Arquitecto proyectista" },
+            { name: "Cabo albañil", value: "Cabo albañil" },
+            { name: "Oficial albañil", value: "Oficial albañil" }, 
+            { name: "Ayudante albañil", value: "Ayudante albañil" },
+            { name: "Ayudante general", value: "Ayudante general" },
+            { name: "Operador", value: "Operador" }
+            
+          ] 
+        },
+        {
+          type: "group",
+          name: "SEGURIDAD E HIGIENE",
+          items: [
+            { name: "Coordinador de SHE", value: "Coordinador de SHE" },
+            { name: "Supervision de SHE", value: "Supervision de SHE" }
+           
+          ]
+        },
+        {
+          type: "group",
+          name: "ELECTRICOS",
+          items: [ 
+            { name: "Residente electrico", value: "Residente electrico" },
+            { name: "Oficial electrico", value: "Oficial electrico" },
+            { name: "Ayudante electrico", value: "Ayudante electrico" }      
+          ]
+        }, 
+        {
+          type: "group",
+          name: "HERRERIA",
+          items: [ 
+            { name: " Cabo soldador", value: "Cabo soldador" },
+            { name: "Soldador", value: "Soldador" },
+            { name: "Herrero", value: "Herrero" },
+            { name: "Ayudante de soldador", value: "Ayudante de soldador" },
+            { name: "Maestro aluminiero", value: "Maestro aluminiero" },
+               ]
+        },
+        {
+          type: "group",
+          name: "DIRECCION",
+          items: [ 
+            { name: "Director MacBrick", value: "Director MacBrick" },
+            { name: "Director inmobiliaria", value: "Director inmobiliaria" },
+            { name: "Director SIARSA", value: "Director SIARSA" },
+            { name: "Director SECMA", value: "Director SECMA" }, 
+            { name: "Director CE2000", value: "Director CE2000" },
+            { name: "Director SOLCOM", value: "Director SOLCOM" }     
+          ]
+        },
+        {
+          type: "group",
+          name: "SIARSA",
+          items: [ 
+            { name: "Gerente de operaciones", value: "Gerente de operaciones" },
+            { name: "Tecnico especialista", value: "Tecnico especialista" }
+          ]
+        },
+        {
+          type: "group",
+          name: "SECMA",
+          items: [ 
+            { name: "Proyectos CCTV", value: "Proyectos CCTV" },
+            { name: "Operacion CCTV", value: "Operacion CCTV" },
+            { name: "Tecnico CCTV", value: "Tecnico CCTV" }
+          ]
+        },
+        {
+          type: "group",
+          name: "SOLCOM",
+          items: [ 
+            { name: "Asistente Direccion", value: "Asistente Direccion" }
+          
+          ]
+        },
+        {
+          type: "group",
+          name: "ALMACEN",
+          items: [ 
+            { name: "Chofer", value: "Chofer" }
+          
+          ]
+        }
+
+
+      ];
+      
+      
+      
+     
+      const radiosAsis = [
+        { name: 'Deshabilitado', value: '1' },
+        { name: 'Habilitar', value: '2' }
+         ];
+         const [radioValueAsis, setRadioValueAsis] = useState('1');
+      
+      const radiosAsig = [
+        { name: 'Deshabilitado', value: '3' },
+        { name: 'Habilitar', value: '4' }
+        ];
+        const [radioValueAsig, setRadioValueAsig] = useState('3');
+        const radiosChec = [
+          { name: 'Deshabilitado', value: '5' },
+        { name: 'Habilitar', value: '6' }
+        ];
+        const [radioValueChec, setRadioValueChec] = useState('5');
+ 
+        const formCreatorUser= {
   activo: false ,
-  asignador: radioValueAsig ==='1'? false: true,
-  checador: radioValueChec ==='5'? false: true,
+  asignador:radioValueAsig ==='3'?false:true,
+  checador: radioValueChec ==='5'?false:true,
   email: '', 
   password: '',
   empresa:'', 
-  lectoreAsistencia :radioValueAsis ==='3'? false: true, 
+  lectoreAsistencia: radioValueAsis==='1'?false:true, 
   nombre: '',
   ocupado: false,  
-  perfil: '', 
+  perfil: Perfil.toString(), 
   rol: 'usuario',
   usator: false, 
   fechaDeCreacion: Date()
+
+ }  
+   
+ const formEmpty= {
+
+  email: '', 
+  password: '',
+  empresa:'', 
+   nombre: '',
+ 
+ 
+
 
  }
 
@@ -65,7 +183,10 @@ const [password, setPassword]= useState('')
   setPassword(values.password);
   
  }  
-
+ 
+console.log(values)
+console.log(Perfil)
+ 
  const handleregisterUser = async (e)=> {
   e.preventDefault();
   try{
@@ -76,7 +197,7 @@ const [password, setPassword]= useState('')
 const docuRef =doc(db, `users/${infouser.user.uid}`);
 setDoc(docuRef, { 
   activo: false ,
-  asignador: values.asignador,
+  asignador:values.asignador,
   checador: values.checador,
   email: values.email, 
   password: values.password,
@@ -91,17 +212,31 @@ setDoc(docuRef, {
   UID:infouser.user.uid
  }
  )
-
-
+ setValues({...formEmpty})
+ setRadioValueChec('5')
+ setRadioValueAsig('3')
+ setRadioValueAsis('1')
+ setPerfil('')
   } catch(e) {
     setError(e.message)
     console.log(e.message)
   }
-};
+}; 
 
 
+/* 
 
 
+useEffect( 
+  ()=>{
+
+    
+  }
+  
+,[  handleregisterUser()])
+
+
+ */
 
 
 
@@ -111,21 +246,21 @@ setDoc(docuRef, {
   return (
 
 
-<Form    onSubmit={handleregisterUser}   >
+<Form     onSubmit={handleregisterUser}    >
     <Row>
         <Col> <Form.Group className="mb-2" >
                  <Form.Label>Email</Form.Label>
-<Form.Control type="String" name="email" id='email' onChange={handleInputChange} placeholder="Correo" />
+<Form.Control type="String" name="email" id='email' value={values.email}  onChange={handleInputChange} placeholder="Correo" />
               </Form.Group></Col>
        <Col> <Form.Group className="mb-2" >
                 <Form.Label>Password</Form.Label>
-<Form.Control type="String" name="password" id='password' onChange={handleInputChange} placeholder="password"  />
+<Form.Control type="String" name="password" id='password' value={values.password}  onChange={handleInputChange} placeholder="password"  />
            </Form.Group></Col>
 </Row>
 <Row>
 <Col> <Form.Group className="mb-2" >
                <Form.Label>Nombre del trabajador</Form.Label>
-<Form.Control type="String" name="nombre" id='nombre'  onChange={handleInputChange}  placeholder="Nombre" />
+<Form.Control type="String" name="nombre" id='nombre' value={values.nombre}  onChange={handleInputChange}  placeholder="Nombre" />
 
             </Form.Group></Col>
 <Col>
@@ -148,7 +283,10 @@ setDoc(docuRef, {
 <Col>
  <Form.Group className="mb-2" >
    <Form.Label>Perfil</Form.Label>
-   <Form.Control type="String" name="perfil" id='perfil'  onChange={handleInputChange}  placeholder="Perfil del trabajador" />
+  
+    <SelectSearch options={options} 
+     /* renderValue={options} */  search
+      value={Perfil} onChange={setPerfil} name="Perfil" placeholder="Elige el perfil" />
 
   </Form.Group>
 </Col>

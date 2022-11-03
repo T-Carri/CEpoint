@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'; 
@@ -6,45 +6,26 @@ import './Usuarios.css'
 import { db } from '../../firebase/firebase';
 import { useEffect } from 'react';
 import { FormCreadorUser } from './FormCreadorUser'; 
+import UsuariosContext from '../../context/UsuariosContext';
 
 
 export const CreadorUsuarios = () => {
+  const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
-  const [showB, setShowB] = useState(false);
-  const toggleShowA = () => setShowA(!showA);
-  const toggleShowB = () => setShowB(!showB);
+const toggleShowA = () => setShowA(!showA);
+
    
 
-//agregar usuarios sin activar 
-const [Userun, setUserun]=useState([])
-const getUsersUnable = async()=>{
-  const UU = query(collection(db, "users"),where("activo","==", false))
-  await  onSnapshot(UU, (Q)=>{
-    const dato=[]
-
-    Q.forEach((element) => {
-
-      dato.push(element.data())
-      
-    });
-
-    setUserun(dato)
-  })
-
-
-
-}
 
 console.log('so?:', Userun)
-//const {UidUser}= FormCreadorUser()
-//console.log('UID IN CREATOR USER:', UidUser)
+
 useEffect(()=>{
   getUsersUnable()
-  
+  //getUsuarios()
 },[])
   
 
-//objetivo hacer que con boton 
+
 
 
 
@@ -52,7 +33,7 @@ useEffect(()=>{
 
   return (
      
-    <Container className="cardContenedora" style={{ width: '70em', height:'45em'}}>
+    <Container className="cardContenedora" style={{ width: '100em', height:'60em'}}>
     <Card.Body>
       <Card.Title>Gestion de usuarios</Card.Title>
       <Card.Subtitle className="mb-2 text-muted">controles para controlar usuarios</Card.Subtitle>
@@ -60,14 +41,14 @@ useEffect(()=>{
     
      <div className="usuarios" style={{display:'absolute'}} >
 
-    <Card className='formUsuarios' style={{ display:'inline-block', width: '45em', height:'30em'}}>
+    <Card className='formUsuarios' style={{ display:'inline-block', width: '70em', height:'45em'}}>
    
     <Card.Body>
 
 
 
-
-    <Button variant='success' onClick={toggleShowA} className="mb-2">
+    
+        <Button variant='success' onClick={toggleShowA} className="mb-2">
           <strong>+</strong>  Crear usuario
         </Button>   <br />
         <Toast show={showA} onClose={toggleShowA} style={{width:'50em', height:'40em'}}>
@@ -80,17 +61,13 @@ useEffect(()=>{
            <FormCreadorUser />
           </Toast.Body>
         </Toast>
-
-    <Button variant='warning'>
-      Ver usuarios
-        </Button>
-   
-   
+      
+    
     </Card.Body>
     </Card>
 
- <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em' }}>
-       <div>
+ <Card className='inactivos' style={{position:'absolute', display:'inline-block', width: '15em', height:'45em' }}>
+       
  {
   Userun.map((e)=>
   (
@@ -105,6 +82,13 @@ useEffect(()=>{
     </strong>
      </h6>
      <br/>
+     <h6>Email: 
+    <strong> 
+     {e.UID}
+    </strong>
+     </h6>
+     <br/>
+
 <h6>
   Empresa: <strong>
     {e.empresa}
@@ -112,7 +96,11 @@ useEffect(()=>{
 </h6>
 
 <br/>
-<Button className='UPDATE' variant='secondary' size='md'  >Activar</Button>
+<Button className='UPDATE' variant='secondary' size='md' onClick={async()=>{
+  setActualizador(e.UID).then( 
+    
+  )
+}} >Activar</Button>
   </Card.Body>
 </Card>
 
@@ -120,7 +108,7 @@ useEffect(()=>{
   )
 }
  
-       </div>
+       
 
     </Card>    
     </div>
