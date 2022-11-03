@@ -156,17 +156,6 @@ export const FormCreadorUser = () => {
 
  }  
    
- const formEmpty= {
-
-  email: '', 
-  password: '',
-  empresa:'', 
-   nombre: '',
- 
- 
-
-
- }
 
 
 const [values, setValues] = useState(formCreatorUser)
@@ -205,14 +194,14 @@ setDoc(docuRef, {
   lectoreAsistencia : values.lectoreAsistencia, 
   nombre: values.nombre,
   ocupado: values.ocupado,  
-  perfil: Perfil.toString(), 
+  perfil: formCreatorUser.perfil, 
   rol: 'usuario',
   usator: false, 
   fechaDeCreacion: Date(), 
   UID:infouser.user.uid
  }
  )
- setValues({...formEmpty})
+ setValues({...formCreatorUser})
  setRadioValueChec('5')
  setRadioValueAsig('3')
  setRadioValueAsis('1')

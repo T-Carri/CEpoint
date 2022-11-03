@@ -85,9 +85,9 @@ useEffect(()=>{
   <Card.Body>
   <h6> Trabajador:<strong>{e.nombre}</strong></h6>
   <br/>
-  <h6>Email: 
+  <h6>Empresa: 
     <strong> 
-     {e.email}
+     {e.empresa}
     </strong>
      </h6>
      <br/>
@@ -99,8 +99,8 @@ useEffect(()=>{
      <br/>
 
 <h6>
-  Empresa: <strong>
-    {e.empresa}
+  Perfil: <strong>
+    {e.perfil}
   </strong>
 </h6>
 
