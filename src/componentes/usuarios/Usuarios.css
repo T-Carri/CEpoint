@@ -13,13 +13,13 @@ select.form-select{
 /*div.fila.col{
     width: 60%;
 */
-div.usuarios.card{
+ div.usuarios.card{
     background-color: lightslategray;
     margin-left: 4em;
     overflow: hidden;
     overflow-y: scroll;
 
-}
+} 
 div.formUsuarios.card{
     
     margin-right: 10px;
@@ -45,4 +45,40 @@ div.inactivos.card{
     margin-left: 1em;
     overflow: hidden;
     overflow-y: scroll;
+}
+
+div.civiles{
+background-color: rgb(207, 207, 188);
+
+}
+div.electricos{
+    background-color:  rgb(207, 207, 188);
+
+}
+div.she{
+    background-color:  rgb(207, 207, 188);
+}
+div.herreria{
+    background-color:  rgb(207, 207, 188); 
+}
+div.corporativo{
+    background-color:  rgb(207, 207, 188);   
+}
+div.siarsa{
+    background-color:  rgb(207, 207, 188);
+}
+div.secma{
+    background-color:  rgb(207, 207, 188);
+}
+div.solcom{
+    background-color:  rgb(207, 207, 188);
+}
+  div.content-users.card{
+    position:absolute;
+    margin-left: -1em;
+    overflow-y: scroll;
+}  
+div.trabajadores{
+    background-color:  rgb(141, 141, 131);
+    display: inline-block;
 }

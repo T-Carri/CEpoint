@@ -13,15 +13,73 @@ export const CreadorUsuarios = () => {
   const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
   const toggleShowA = () => setShowA(!showA);
+  const [Civiles, setCiviles] = useState([])
 
    
 
 
-console.log('so?:', Userun)
+console.log('habilitados?:', Userun)
+
+const CivilesWay = (props) => {
+
+return props.reduce((past, current)=>{
+  const foundItem = past.find(it=>it.perfil===current.perfil)
+   console.log('past', past); 
+const r=[]
+r.push(past); 
+setCiviles(r)
+console.log('perfiles', r);
+if(foundItem){
+  foundItem.data=foundItem.data
+  ?[...foundItem.data, {
+   'nombre': current.nombre, 
+   'email': current.email, 
+   'password': current.password,   
+   'Uid':current.UID, 
+   'asignador':current.asignador,
+   'checador': current.checador, 
+   'ocupado': current.ocupado, 
+   'lectoreAsistencia': current.lectoreAsistencia}]
+ :[{ 'nombre': current.nombre, 
+ 'email': current.email, 
+ 'password': current.password,   
+ 'Uid':current.UID, 
+ 'asignador':current.asignador,
+ 'checador': current.checador, 
+ 'ocupado': current.ocupado, 
+ 'lectoreAsistencia': current.lectoreAsistencia}]
+  }else{ past.push(
+    {
+      'perfil': current.perfil, 
+      'data' : [{ 
+        'nombre': current.nombre, 
+        'email': current.email, 
+        'password': current.password,   
+        'Uid':current.UID, 
+        'asignador':current.asignador,
+        'checador': current.checador, 
+        'ocupado': current.ocupado, 
+        'lectoreAsistencia': current.lectoreAsistencia
+        
+      }]
+})}
+return past;
+
+}, [])}
+ 
+
+
+
+
+
+
+
 
 useEffect(()=>{
   getUsersUnable()
-  //getUsuarios()
+  getUsuarios()
+  CivilesWay(Usuarios)
+  //electricosWay(Usuarios)
 },[])
   
 
@@ -62,16 +120,58 @@ useEffect(()=>{
           </Toast.Body>
         </Toast>
       
-    <div className='content-users'>
+    
+      <Card className='content-users' style={{height: '40em'}}>
+
+<Card className='civil'> 
+     <Card.Title>civiles</Card.Title>  
+<div className='civiles'  style={{width: '67.8em', height: '25em' }}> 
+{Civiles.map((e)=>( 
+   e.map((r)=>(
+<div className='trabajadores' style={{width: '16em', height: '10em' }}>
+<Card style={{width: '5em', height: '5em' }}><Card.Title>{r.perfil}</Card.Title></Card>
+  </div>
+   ))
+  
+))}
+</div>
+ </Card>
+ <Card className='electrico'> 
+<Card.Title>Electricos</Card.Title>
+<div className='electricos'  style={{width: '67.8em', height: '25em' }}> 
+
+
+
+</div>
+ </Card>
+ <Card className='shes'> 
+<Card.Title>Seguridad e higiene</Card.Title>
+<div className='she'  style={{width: '67.8em', height: '25em' }}> </div>
+ </Card>
+ <Card className='herrerias'> 
+<Card.Title>Herreria</Card.Title>
+<div className='herreria'  style={{width: '67.8em', height: '25em' }}> </div>
+ </Card>
+ <Card className='corporativos'> 
+<Card.Title>Corporativo </Card.Title>
+<div className='corporativo'  style={{width: '67.8em', height: '25em' }}> </div>
+ </Card>
+ <Card className='siarsas'> 
+<Card.Title>Siarsa</Card.Title>
+<div className='siarsa'  style={{width: '67.8em', height: '25em' }}> </div>
+ </Card>
+ <Card className='secmas'> 
+<Card.Title>Secma</Card.Title>
+<div className='secma'  style={{width: '67.8em', height: '25em'}}> </div>
+ </Card>
+ <Card className='solcoms'> 
+<Card.Title>Solcom</Card.Title>
+<div className='solcom'  style={{width: '67.8em', height: '25em' }}> </div>
+ </Card>
+      </Card>
+            
+   
                 
-                
-      <h1>renderizar los usuarios por tipo</h1>
-
-    </div>
-
-
-
-
     </Card.Body>
     </Card>
 
@@ -135,3 +235,4 @@ try {
 
 
 
+//

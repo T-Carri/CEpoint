@@ -21,6 +21,8 @@ export const FormCreadorUser = () => {
     const {createUser} = UserAuth();
    
     const [Perfil, setPerfil] = useState('')
+    const [Empresa, setEmpresa]= useState('Elige empresa')
+    const [Area, setArea] = useState('')
    
       
 
@@ -138,24 +140,37 @@ export const FormCreadorUser = () => {
         { name: 'Habilitar', value: '6' }
         ];
         const [radioValueChec, setRadioValueChec] = useState('5');
- 
-        const formCreatorUser= {
+    
+        const optionsEmpresas=[
+          {name: 'CE2000', value: 'CE2000'},
+          {name: 'SECMA', value: 'SECMA'},
+          {name: 'SIARSA', value: 'SIARSA'},
+          {name: 'MCBRICK', value: 'MCBRICK'},
+          {name: 'SOLCOM', value: 'SOLCOM'},
+          {name: 'INMOBILIARIA', value: 'INMOBILIARIA'}
+        ]
+           
+     
+
+
+      const formCreatorUser= {
   activo: false ,
-  asignador:radioValueAsig ==='3'?false:true,
-  checador: radioValueChec ==='5'?false:true,
+  asignador: checkIf(radioValueAsig) ,
+  checador: checkIf(radioValueChec) ,
   email: '', 
   password: '',
-  empresa:'', 
-  lectoreAsistencia: radioValueAsis==='1'?false:true, 
+  empresa:searchDato(Empresa), 
+  lectoreAsistencia: checkIf(radioValueAsis) , 
   nombre: '',
   ocupado: false,  
-  perfil: Perfil.toString(), 
+  perfil: searchDato(Perfil),
+  area: searchArea(Perfil), 
   rol: 'usuario',
   usator: false, 
   fechaDeCreacion: Date()
 
- }  
-   
+ }   
+ //radioValueAsis==='1'?false:true
 
 
 const [values, setValues] = useState(formCreatorUser)
@@ -175,7 +190,7 @@ const [password, setPassword]= useState('')
  
 console.log("values:", values)
 console.log(formCreatorUser)
- 
+console.log(Perfil)
  const handleregisterUser = async (e)=> {
   e.preventDefault();
   try{
@@ -186,15 +201,16 @@ console.log(formCreatorUser)
 const docuRef =doc(db, `users/${infouser.user.uid}`);
 setDoc(docuRef, { 
   activo: false ,
-  asignador:values.asignador,
-  checador: values.checador,
+  asignador:checkIf(radioValueAsig) ,
+  checador: checkIf(radioValueChec),
   email: values.email, 
   password: values.password,
-  empresa:values.empresa, 
-  lectoreAsistencia : values.lectoreAsistencia, 
+  empresa:searchDato(Empresa), 
+  lectoreAsistencia : checkIf(radioValueAsis), 
   nombre: values.nombre,
-  ocupado: values.ocupado,  
-  perfil: formCreatorUser.perfil, 
+  ocupado: false,  
+  perfil: searchDato(Perfil),
+  area: searchArea(Perfil),
   rol: 'usuario',
   usator: false, 
   fechaDeCreacion: Date(), 
@@ -206,6 +222,7 @@ setDoc(docuRef, {
  setRadioValueAsig('3')
  setRadioValueAsis('1')
  setPerfil('')
+ setEmpresa('')
   } catch(e) {
     setError(e.message)
     console.log(e.message)
@@ -213,22 +230,134 @@ setDoc(docuRef, {
 }; 
 
 
-/* 
+function searchArea(dato) {
+let area;
+  switch (dato) {
+case "Residente de obra": 
+      area = "CIVIL";
+      break;
+case "Arquitecto proyectista": 
+      area = "CIVIL";
+      break;
+case "Cabo albañil": 
+      area = "CIVIL";
+      break;      
+case "Ayudante albañil": 
+      area = "Civil";
+      break; 
+case "Ayudante general": 
+      area = "CIVIL";
+      break; 
+case "Operador": 
+      area = "CIVIL";
+      break; 
+      case "Director MacBrick": 
+      area = "CIVIL";
+      break; 
+      case "Director inmobiliaria": 
+      area = "CIVIL";
+      break; 
+      case "Director CE2000": 
+      area = "CIVIL";
+      break; 
+case "Coordinador de SHE": 
+      area = "SHE";
+      break; 
+case "Supervision de SHE": 
+      area = "SHE";
+      break; 
+case "Residente electrico": 
+      area = "ELECTRICOS";
+      break; 
+case "Oficial electrico ": 
+      area = "ELECTRICOS";
+      break;
+      case "Ayudante electrico": 
+      area = "ELECTRICOS";
+      break;
+case "Cabo soldador": 
+      area = "HERREROS";
+      break;
+case "Soldador": 
+      area = "HERREROS";
+      break;      
+case "Herrero": 
+      area = "HERREROS";
+      break; 
+case "Ayudante de soldador": 
+      area = "HERREROS";
+      break; 
+case "Maestro aluminiero": 
+      area = "HERREROS";
+      break; 
+case "Director SIARSA": 
+      area = "SIARSA";
+      break; 
+case "Gerente de operaciones": 
+      area = "SIARSA";
+      break; 
+case "Tecnico especialista": 
+      area = "SIARSA";
+      break; 
+case "Director SECMA": 
+       area = "SECMA";
+      break;
+case "Proyectos CCTV": 
+      area = "SECMA";
+      break;
+case "Operativos CCTV": 
+      area = "SECMA";
+      break;
+case "Tecnico CCTV": 
+      area = "SECMA";
+      break;      
+case "Director SOLCOM": 
+      area = "SOLCOM";
+      break; 
+case "Asistente Direccion": 
+      area = "SOLCOM";
+      break; 
+case "Choffer": 
+      area = "CORPORATIVO";
+      break; 
 
+case "Residente de obra": 
+      area = "Civil";
+      break; 
+case "Residente de obra": 
+      area = "Civil";
+      break; 
+case "Residente de obra": 
+    area = "Civil";
+      break;            
 
-useEffect( 
-  ()=>{
-
-    
-  }
   
-,[  handleregisterUser()])
+  }
+  console.log('funcion:', area)
+ //setArea(area)
+return area;
+}
+ 
+
+function searchDato(dato) {
+  return dato;
+}
+
+function checkIf(dato) {
+  if(dato==='1'){
+    return false
+  } else if(dato==='5'){
+    return false
+  } else if (dato ==='3'){
+     return false 
+    } else{
+      return true
+    }
+  
+}
 
 
- */
-
-
-
+console.log('Area:', Area)
 
 
 
@@ -254,15 +383,10 @@ useEffect(
             </Form.Group></Col>
 <Col>
 <Form.Label>Elige su empresa</Form.Label>
-<Form.Select name='empresa' id='empresa'   onChange={handleInputChange}  aria-label="Default select example">
-      <option>Empresas</option>
-      <option value="CE2000">CE2000</option>
-      <option value="SECMA">SECMA</option>
-      <option value="SIARSA">SIARSA</option>
-      <option value="MCBRICK">MCBRICK</option>
-      <option value="SOLCOM">SOLCOM</option>
-      <option value="INMOBILIARIA">INMOBILIARIA</option>
-    </Form.Select>
+
+<SelectSearch options={optionsEmpresas} 
+       search
+      value={Empresa} onChange={setEmpresa} name="empresa" placeholder="Elige la empresa" />
      </Col>
      
 

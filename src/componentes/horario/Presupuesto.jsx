@@ -28,128 +28,128 @@ export const Presupuesto = () => {
       
     },[])
       
+    console.log("hook: ", Asistencias);
      
+    const AsistenciasPresupuesto = (props) => {
 
+      return props.reduce((past, current)=>{
+        const foundItem =  past.find(it => it.semana === current.semana)
+        console.log('past:', past);
+       const r= []
+       r.push(past);
+       setItinerante(r)
+       console.log('r:', r);
+        if (foundItem ){
+     foundItem.data=foundItem.data
+     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
+     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
+  }else{ past.push( {
+    'semana': current.semana,
+    'data': [{
+      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date
+    }]
+  } ) }  
   
-console.log("hook: ", Asistencias);
-
-const AsistenciasPresupuesto = (props) => {
-
- 
-      
-    return props.reduce((past, current)=>{
-      const foundItem =  past.find(it => it.semana === current.semana)
-      console.log('past:', past);
-     const r= []
-     r.push(past);
-     setItinerante(r)
-     console.log('r:', r);
-      if (foundItem ){
-   foundItem.data=foundItem.data
-   ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
-   :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
-}else{ past.push( {
-  'semana': current.semana,
-  'data': [{
-    'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date
-  }]
-} ) }  
-
- 
-return past;
-
-    }, [])}
-
-   
-    
-     
-     console.log('itinerante:', itinerante);
-   
-    return (
-  <Card>  
-   <div className='presupuestos'>
-   {
-    Presupuestos.map((presupuesto)=>(
-      <Button variant="danger" 
-           id={presupuesto.obra}
-       className={presupuesto.obra}
-       value={presupuesto.presupuesto}
-       onClick={
-             (e)=>{
-             //e.preventDefault()
-             console.log("objeto completo:", presupuesto.asistencias)
-             setAsistencias(presupuesto.asistencias)
-             AsistenciasPresupuesto(Asistencias)
-             console.log("asistencias:", Asistencias)       
-      
-    }}> {presupuesto.presupuesto} </Button>))
-    }
-  </div>
+  return past;
   
-
-
-
-
-        <div>
-           <Card id="prueba" className='lg'>
-      
-           {
-itinerante.map((e=> (
- 
- e.map((r)=>(
-console.log('desde mapa:', r.data),
-<Accordion>
-<Accordion.Item eventKey={r.semana}>
-  <Accordion.Header>{r.semana}</Accordion.Header>
-  <Accordion.Body>
-
-  <Table striped bordered hover>
-      <thead>
-        <tr>
-        <th>Trabajador</th>
-             <th>Asistencia</th>
-             <th>Tiempo</th>
-        </tr>
-      </thead>
-      <tbody>
-      {
-  r.data.map((s)=>( 
-    console.log('mapa s:', s),
-    
-    <tr>
-         <td>{s.trabajador}</td>
-          <td>{s.tipoAsistencia}</td>
-          <td>{s.date}</td>
-     </tr>
-      
-
-   
-    
-
-  ))
-} 
-</tbody>
+      }, [])}
+  
      
-    </Table>
-
-
-
-
-  </Accordion.Body>
-</Accordion.Item>
-</Accordion>
-
-))
- 
-)))
-
+      
+       
+       console.log('itinerante:', itinerante);
+     
+      return (
+    <Card>  
+     <div className='presupuestos'>
+     {
+      Presupuestos.map((presupuesto)=>(
+        <Button variant="danger" 
+             id={presupuesto.obra}
+         className={presupuesto.obra}
+         value={presupuesto.presupuesto}
+         onClick={
+               (e)=>{
+               //e.preventDefault()
+               console.log("objeto completo:", presupuesto.asistencias)
+               setAsistencias(presupuesto.asistencias)
+               AsistenciasPresupuesto(Asistencias)
+               console.log("asistencias:", Asistencias)       
+        
+      }}> {presupuesto.presupuesto} </Button>))
       }
+    </div>
+    
   
-            </Card>
-         </div>
-  </Card>
-   )
-  }
+  
+  
+  
+          <div>
+             <Card id="prueba" className='lg'>
+        
+             {
+  itinerante.map((e=> (
+   
+   e.map((r)=>(
+  console.log('desde mapa:', r.data),
+  <Accordion>
+  <Accordion.Item eventKey={r.semana}>
+    <Accordion.Header>{r.semana}</Accordion.Header>
+    <Accordion.Body>
+  
+    <Table striped bordered hover>
+        <thead>
+          <tr>
+          <th>Trabajador</th>
+               <th>Asistencia</th>
+               <th>Tiempo</th>
+          </tr>
+        </thead>
+        <tbody>
+        {
+    r.data.map((s)=>( 
+      console.log('mapa s:', s),
+      
+      <tr>
+           <td>{s.trabajador}</td>
+            <td>{s.tipoAsistencia}</td>
+            <td>{s.date}</td>
+       </tr>
+        
+  
+     
+      
+  
+    ))
+  } 
+  </tbody>
+       
+      </Table>
+  
+  
+  
+  
+    </Accordion.Body>
+  </Accordion.Item>
+  </Accordion>
+  
+  ))
+   
+  )))
+  
+        }
+    
+              </Card>
+           </div>
+    </Card>
+     )
+    }
+
+
+ 
+      
+
+ 
    
     
 

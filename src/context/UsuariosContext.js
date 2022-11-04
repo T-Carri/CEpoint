@@ -11,16 +11,15 @@ export const UsuariosProvider = ({children}) => {
        const [Actualizador, setActualizador] = useState('') 
   //obten todos los usuarios hacer un reducer para  
     const getUsuarios =async()=>{
-        const q = query(collection(db, "users"))
+        const q = query(collection(db, "users"),where("activo","==", true))
         await onSnapshot(q, (query)=>{
          const data=[]
          query.forEach((doc)=>{
            data.push(doc.data())
          })
-         console.log("usuarios", data)
+         console.log("Habilitados", data)
          setUsuarios(data)
         })
-      
       }
 
             //obtengo usuarios que no estan activados 
@@ -47,7 +46,13 @@ export const UsuariosProvider = ({children}) => {
       {
         activo: true
       })
-   }
+   } 
+
+
+
+
+
+
    
        return (
            <UsuariosContext.Provider value={{Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}}>
