@@ -1,9 +1,9 @@
 import React, {useState, useContext} from 'react'
 import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
-import { getAuth } from 'firebase/auth'; 
+
 import './Usuarios.css'
-import { db } from '../../firebase/firebase';
+
 import { useEffect } from 'react';
 import { FormCreadorUser } from './FormCreadorUser'; 
 import UsuariosContext from '../../context/UsuariosContext';

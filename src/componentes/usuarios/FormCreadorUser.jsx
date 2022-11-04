@@ -261,7 +261,7 @@ useEffect(
       <option value="SIARSA">SIARSA</option>
       <option value="MCBRICK">MCBRICK</option>
       <option value="SOLCOM">SOLCOM</option>
-      <option value="INMOVILIARIA">INMOVILIARIA</option>
+      <option value="INMOBILIARIA">INMOBILIARIA</option>
     </Form.Select>
      </Col>
      
@@ -279,6 +279,12 @@ useEffect(
 
   </Form.Group>
 </Col>
+<Col>
+        <Button className='crearUser' variant='success' size='lg' type="submit" >Crear</Button>
+     </Col>
+</Row>
+<Row>
+
 </Row>
 <Row>
 
@@ -346,9 +352,7 @@ useEffect(
       </ButtonGroup>
     
 </Row>
-<Col>
-        <Button className='crearUser' variant='success' size='lg' type="submit" >Enviar</Button>
-     </Col>
+
 </Form>
   )
 }
