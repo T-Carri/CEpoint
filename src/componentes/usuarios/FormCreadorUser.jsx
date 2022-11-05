@@ -10,6 +10,7 @@ import SelectSearch from "react-select-search";
 import 'react-select-search/style.css'
 import UsuariosContext from '../../context/UsuariosContext';
 import {getFirestore, setDoc, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where,} from 'firebase/firestore'
+import { async } from '@firebase/util';
 
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
@@ -153,56 +154,61 @@ export const FormCreadorUser = () => {
      
 
 
-      const formCreatorUser= {
-  activo: false ,
-  asignador: checkIf(radioValueAsig) ,
-  checador: checkIf(radioValueChec) ,
-  email: '', 
-  password: '',
-  empresa:searchDato(Empresa), 
-  lectoreAsistencia: checkIf(radioValueAsis) , 
-  nombre: '',
-  ocupado: false,  
-  perfil: searchDato(Perfil),
-  area: searchArea(Perfil), 
-  rol: 'usuario',
-  usator: false, 
-  fechaDeCreacion: Date()
+    const formCreatorUser= {
+        email: '', 
+        password: '',
+        nombre: ''
+      
 
  }   
  //radioValueAsis==='1'?false:true
 
 
-const [values, setValues] = useState(formCreatorUser)
-const [email, setEmail]= useState('')
-
-const [password, setPassword]= useState('')
+const [values, setValues] = useState('')
+const [Email, setEmail]= useState('')
+const [Password, setPassword]= useState('')
+const [Nombre, setNombre] = useState('')
  //TODO: HANDLE
 
 
-  const handleInputChange = (e) =>{
+  const handleInputChange = async (e) =>{
   const {name, value} = e.target;
-  setValues({...values, [name]: value}); 
-  setEmail(values.email);
-  setPassword(values.password);
+ await setValues({...values, [name]: value}); 
+     setEmail(values.email)
+   setPassword(values.password)
+   setNombre(values.nombre)
+   setPassword(values.password)
   
- }  
+ }   
  
+
+/*  useEffect(   
+  handleInputChange()
+   ,[]) */
 console.log("values:", values)
-console.log(formCreatorUser)
+//console.log(formCreatorUser)
 console.log(Perfil)
+console.log('Perfil search', searchDato(Perfil) )
+console.log('Area:', searchArea(Perfil))
+console.log(Empresa)
+console.log('empresa search', searchDato(Empresa) )
+
+console.log(Email)
+console.log(Password)
+console.log( 'nombre:', Nombre)
+
  const handleregisterUser = async (e)=> {
   e.preventDefault();
   try{
     setError('')
-   const infouser = await createUser(email, password);
+   const infouser = await createUser(values.email, values.password);
     console.log(infouser.user.uid)
      setUidUser(infouser.user.uid)
 const docuRef =doc(db, `users/${infouser.user.uid}`);
 setDoc(docuRef, { 
   activo: false ,
-  asignador:checkIf(radioValueAsig) ,
-  checador: checkIf(radioValueChec),
+  asignador:  checkIf(radioValueAsig),
+  checador:checkIf(radioValueChec) ,
   email: values.email, 
   password: values.password,
   empresa:searchDato(Empresa), 
@@ -241,7 +247,10 @@ case "Arquitecto proyectista":
       break;
 case "Cabo albañil": 
       area = "CIVIL";
-      break;      
+      break; 
+      case "Oficial albañil": 
+      area = "CIVIL";
+      break;       
 case "Ayudante albañil": 
       area = "Civil";
       break; 
@@ -269,7 +278,7 @@ case "Supervision de SHE":
 case "Residente electrico": 
       area = "ELECTRICOS";
       break; 
-case "Oficial electrico ": 
+case "Oficial electrico": 
       area = "ELECTRICOS";
       break;
       case "Ayudante electrico": 
@@ -317,19 +326,11 @@ case "Director SOLCOM":
 case "Asistente Direccion": 
       area = "SOLCOM";
       break; 
-case "Choffer": 
+case "Chofer": 
       area = "CORPORATIVO";
       break; 
 
-case "Residente de obra": 
-      area = "Civil";
-      break; 
-case "Residente de obra": 
-      area = "Civil";
-      break; 
-case "Residente de obra": 
-    area = "Civil";
-      break;            
+         
 
   
   }
@@ -357,7 +358,7 @@ function checkIf(dato) {
 }
 
 
-console.log('Area:', Area)
+
 
 
 
