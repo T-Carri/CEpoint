@@ -3,11 +3,16 @@ import {  Button, Form, Row, Col} from 'react-bootstrap'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getAuth } from 'firebase/auth'; 
-
-
+import { useContext } from 'react';
+import UsuariosContext from '../../context/UsuariosContext';
+import { useEffect } from 'react';
+import SelectSearch from "react-select-search";
 
 export const FormAsignador = (props) => {
     const [startDate, setStartDate] = useState(new Date());
+    const [UserChecador, setUserChecador] = useState('')
+    const [Residente, setResidente] = useState('')
+    const {Usuarios,getUsuarios}=useContext(UsuariosContext) 
     const auth = getAuth()
     const dato =auth.currentUser; 
 const formAsig= {
@@ -41,17 +46,66 @@ const handleSubmit = (e) =>  {
 }
 
 
+const finderChecador = (props) => {
+  return props.reduce((past, current)=>{
+    const foundIndex = past.find(it=>it.perfil===current.perfil)
+    console.log('ver reduce resultados:', past)
+    const r=[]
+    r.push(past)
+    setUserChecador(past)
+    if(foundIndex){
+      foundIndex.data=foundIndex.data
+      ?[...foundIndex.data, {
+        'nombre': current.nombre, 
+        'value': current.UID
+      }]
+      :[{ 'nombre': current.nombre, 
+           'value': current.UID}]
+    }else{ past.push(
+      { 
+      
+        'perfil': current.perfil,
+        'data': [{
+          'nombre': current.nombre,
+          'uid':current.UID
+        }]
+      } )}
+      return past;
+  }, [])}
 
-//agregar onChange con handleInputChange and name=""
-
+  useEffect( 
+    ()=>{
+      finderChecador(Usuarios)
+    
+      getUsuarios()
+    }
+      ,[]) 
+ 
+    console.log('Usuarios desde asignador:',Usuarios)
+    console.log('userchecador',UserChecador)
+   
   return (
 
 
     <Form onSubmit={handleSubmit}>
     <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Residente</Form.Label>
-<Form.Control type="String" name="residente" onChange={handleInputChange} placeholder="Agrega residente" />
+ <Form.Select>
+ <option>Open this select menu</option>
+ {
+    UserChecador.map((e)=>(
+<option value={e.perfil}>{e.perfil}</option>
+      
+    ))
+    
+  } 
+ 
 
+
+ </Form.Select>
+  
+ 
+ 
 </Form.Group></Col><Col> <Form.Group className="mb-2" >
 <Form.Label>Ubicacion</Form.Label>
 <Form.Control type="String" name="ubicacion" onChange={handleInputChange} placeholder="Agrega Ubicacion"  />

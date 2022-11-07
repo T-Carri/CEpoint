@@ -22,9 +22,11 @@ import { getAuth } from "firebase/auth";
 import { UserAuth } from '../../context/AuthContext';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import UserContext from '../../context/AuthContext';
+import { useContext } from 'react';
 export default function Account() {
 const [userRol, setUserRol] =useState()
-const {user} = UserAuth()
+const {user} = useContext(UserContext)
 
 const auth = getAuth();
 const dato= auth.currentUser;
@@ -41,11 +43,11 @@ if (dato !== null) {
 console.log("rol?", doc)
 
 console.log("user rol:", userRol);
-console.log("test from account:",user)  
+console.log("test from account:",user.uid)  
 
 useEffect(()=>{
   const querydb=getFirestore();
-  const queryDoc = doc(querydb, "users", dato.uid);
+  const queryDoc = doc(querydb, "users", user.uid);
   getDoc(queryDoc).then(res => console.log( res.data().rol)
   
   )

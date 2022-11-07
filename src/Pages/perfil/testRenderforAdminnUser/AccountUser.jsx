@@ -3,7 +3,7 @@ import { UserAuth } from '../../../context/AuthContext';
 import '../Account.css'
 import Asignador1 from '../../../componentes/asignador/Asignador1';
 import {saveAsignacion} from '../../../services/indi'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { 
   BrowserRouter as Router, 
   useNavigate, 
@@ -12,9 +12,10 @@ import {
 import Horario from '../../../componentes/horario/Horario';
 import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
 import {getAuth} from "firebase/auth";
-
+import UserContext from '../../../context/AuthContext';
 
 export const AccountUser= () => {
+  const {user} = useContext(UserContext)
 const [asignador, setAsignador]= useState()
 const [lectorAsistencia, setLectorAsistencia]= useState()
 const [Usuario, setUsuario]= useState()
@@ -24,7 +25,7 @@ const dato= auth.currentUser;
 
 useEffect(()=>{
   const querydb=getFirestore();
-  const queryDoc = doc(querydb, "users", dato.uid);
+  const queryDoc = doc(querydb, "users", user.uid);
   getDoc(queryDoc).then(res => {
     setAsignador(res.data().asignador)
    console.log("Es asignador?:", res.data().asignador)
@@ -35,7 +36,7 @@ useEffect(()=>{
   } )
 },[])
 
-console.log(Usuario) 
+console.log(user.uid) 
 const {logout}= UserAuth();
 const navigate = useNavigate();
 

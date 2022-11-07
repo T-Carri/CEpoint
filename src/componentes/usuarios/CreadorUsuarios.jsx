@@ -1,5 +1,5 @@
-import React, {useState, useContext} from 'react'
-import { Card, Container, Toast, Button, } from 'react-bootstrap'
+import React, {useState, useContext, useRef} from 'react'
+import { Card, Container, Toast, Button, Modal } from 'react-bootstrap'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
 
 import './Usuarios.css'
@@ -12,18 +12,24 @@ import UsuariosContext from '../../context/UsuariosContext';
 export const CreadorUsuarios = () => {
   const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
-  const toggleShowA = () => setShowA(!showA);
+  const toggleShowA   = () => setShowA(!showA);
   const [Civiles, setCiviles] = useState([])
+  const [Id, setId] = useState('') 
+  console.log('id:', Id)
+   //overlay
+   const [show, setShow] = useState(false);
 
-   
+   const handleClose = () => setShow(false);
+   const handleShow = () => setShow(true);
 
+  
 
 console.log('habilitados?:', Userun)
 
 const CivilesWay = (props) => {
 
 return props.reduce((past, current)=>{
-  const foundItem = past.find(it=>it.perfil===current.perfil)
+  const foundItem = past.find(it=>it.area===current.area)
    console.log('past', past); 
 const r=[]
 r.push(past); 
@@ -32,7 +38,8 @@ console.log('perfiles', r);
 if(foundItem){
   foundItem.data=foundItem.data
   ?[...foundItem.data, {
-   'nombre': current.nombre, 
+   'nombre': current.nombre,
+   'perfil':current.perfil, 
    'email': current.email, 
    'password': current.password,   
    'Uid':current.UID, 
@@ -41,6 +48,7 @@ if(foundItem){
    'ocupado': current.ocupado, 
    'lectoreAsistencia': current.lectoreAsistencia}]
  :[{ 'nombre': current.nombre, 
+ 'perfil':current.perfil,
  'email': current.email, 
  'password': current.password,   
  'Uid':current.UID, 
@@ -50,18 +58,22 @@ if(foundItem){
  'lectoreAsistencia': current.lectoreAsistencia}]
   }else{ past.push(
     {
-      'perfil': current.perfil, 
-      'data' : [{ 
-        'nombre': current.nombre, 
-        'email': current.email, 
-        'password': current.password,   
-        'Uid':current.UID, 
-        'asignador':current.asignador,
-        'checador': current.checador, 
-        'ocupado': current.ocupado, 
-        'lectoreAsistencia': current.lectoreAsistencia
-        
-      }]
+      'area': current.area, 
+      'data':
+                 [{ 
+                  'nombre': current.nombre,
+                  'perfil':current.perfil, 
+                  'email': current.email, 
+                  'password': current.password,   
+                  'Uid':current.UID, 
+                  'asignador':current.asignador,
+                  'checador': current.checador, 
+                  'ocupado': current.ocupado, 
+                  'lectoreAsistencia': current.lectoreAsistencia
+                  
+                }]
+      
+
 })}
 return past;
 
@@ -85,7 +97,7 @@ useEffect(()=>{
 
 
 
-
+console.log('Usuarios desde creado de usuarios:',Usuarios)
 
 
 
@@ -123,19 +135,92 @@ useEffect(()=>{
     
       <Card className='content-users' style={{height: '40em'}}>
 
-<Card className='civil'> 
-     <Card.Title>civiles</Card.Title>  
-<div className='civiles'  style={{width: '67.8em', height: '25em' }}> 
-{Civiles.map((e)=>( 
-   e.map((r)=>(
-<div className='trabajadores' style={{width: '16em', height: '10em' }}>
-<Card style={{width: '5em', height: '5em' }}><Card.Title>{r.perfil}</Card.Title></Card>
-  </div>
-   ))
-  
+
+{
+ Civiles.map((e)=>(
+  e.map((r)=>(
+<Card className={r.area}> 
+            <Card.Title>{r.area}</Card.Title>  
+<div className='civiles'  style={{width: '67.8em', height: '28em' }} > 
+
+{r.data.map((s)=>(
+ <Card  className='trabajadores' style={{width: '30em', height: '23em' }}>
+<Card.Body>
+
+<Card.Title>{s.perfil}</Card.Title>
+<Card.Title>{s.nombre}</Card.Title>
+<Card.Title>{s.email}</Card.Title>
+<Card.Title>{s.password}</Card.Title>
+<Card.Title>{s.Uid}</Card.Title>
+ 
+ <Button className='actualizarUser' variant='success' onClick={
+  ()=>(
+    handleShow(),
+    setId(s.Uid)
+  )
+  }>
+  Actualizar
+ </Button>
+</Card.Body>
+ <Modal show={show} onHide={handleClose} animation={true}  backdrop="static">
+        <Modal.Header closeButton>
+          <Modal.Title>{Id.toString()}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
+ {/* <Overlay
+        show={show}
+        target={target}
+        placement="top"
+      
+        containerPadding={20}
+      >
+        <Popover id="popover-contained">
+           <Popover.Header as="h3">Actualiza usuario</Popover.Header> 
+          <Popover.Body>
+            <Card>
+      <Card.Body>
+      <Card.Title>{s.nombre}</Card.Title>
+          <Card.Title>{s.perfil}</Card.Title>
+          <Card.Title>{s.email}</Card.Title>
+          <Card.Title>{s.password}</Card.Title>
+          <Card.Title>{s.Uid}</Card.Title>
+        </Card.Body>        
+      
+            </Card>
+          </Popover.Body>
+        </Popover>
+      </Overlay> */}
+ </Card>
+
+
+
 ))}
+
+
+
+
+
+ 
 </div>
  </Card>
+  ))
+ ))
+}
+
+{/* 
+
+
  <Card className='electrico'> 
 <Card.Title>Electricos</Card.Title>
 <div className='electricos'  style={{width: '67.8em', height: '25em' }}> 
@@ -168,7 +253,7 @@ useEffect(()=>{
 <Card.Title>Solcom</Card.Title>
 <div className='solcom'  style={{width: '67.8em', height: '25em' }}> </div>
  </Card>
-      </Card>
+ */}      </Card>
             
    
                 

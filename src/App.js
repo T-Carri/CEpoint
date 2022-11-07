@@ -11,6 +11,7 @@ import Totalsignup from '../src/Pages/Access/Totalsignup'
 import { AuthContextProvider } from './context/AuthContext';
 import { UsuariosProvider } from './context/UsuariosContext';
 import ProtectedRoute from '../src/Pages/Access/ProtectedRoute'; 
+import RouterUser from './Pages/perfil/testRenderforAdminnUser/RouterUser'
 //import ProtectedRouteRol from './Pages/perfil/ProtectedRouteRol';
 import {useSelector} from 'react-redux';
 
@@ -31,11 +32,12 @@ function App() {
     
 
     <Route  path="/account/*" element={ 
-                <ProtectedRoute>
-               
-                <Account/>
+      
+      <ProtectedRoute>
+                <RouterUser/>
+                </ProtectedRoute> 
                 
-              </ProtectedRoute> } />
+              } />
     
       </Routes>
   </Router>

@@ -13,6 +13,7 @@ import axios from 'axios'
 import { getFirestore } from 'firebase/firestore/lite';
 import { doc, collection, setDoc, getDoc} from "firebase/firestore"
 const UserContext = createContext();
+export default UserContext
 export const UserAuth = () => {
   return useContext(UserContext);
 };
@@ -45,6 +46,7 @@ export const AuthContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       console.log(currentUser);
       setUser(currentUser);
+      //console.log(user)
     });
     return () => {
       unsubscribe();

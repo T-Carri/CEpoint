@@ -49,6 +49,12 @@ div.inactivos.card{
 
 div.civiles{
 background-color: rgb(207, 207, 188);
+overflow-y: scroll;
+display: grid;
+    grid-template-columns: auto auto auto auto;
+    column-gap: 50px;
+    row-gap: 10px;
+    padding: 30px;
 
 }
 div.electricos{
@@ -74,11 +80,19 @@ div.solcom{
     background-color:  rgb(207, 207, 188);
 }
   div.content-users.card{
-    position:absolute;
+    
     margin-left: -1em;
     overflow-y: scroll;
 }  
 div.trabajadores{
-    background-color:  rgb(141, 141, 131);
-    display: inline-block;
+    background-color:  rgb(184, 35, 15);
+  color: antiquewhite;
+  text-align: center;
+
+}
+button.actualizarUser.btn.btn-success{
+    width: 20em;
+    height: 4em;
+    margin-top: 15%;
+    
 }

@@ -37,7 +37,8 @@ export const FormCreadorUser = () => {
             { name: "Residente de obra", value: "Residente de obra" },
             { name: "Arquitecto proyectista", value: "Arquitecto proyectista" },
             { name: "Cabo albañil", value: "Cabo albañil" },
-            { name: "Oficial albañil", value: "Oficial albañil" }, 
+            { name: "Oficial albañil", value: "Oficial albañil" },
+            { name: "Oficial medio albañil", value: "Oficial medio albañil" }, 
             { name: "Ayudante albañil", value: "Ayudante albañil" },
             { name: "Ayudante general", value: "Ayudante general" },
             { name: "Operador", value: "Operador" }
@@ -117,8 +118,15 @@ export const FormCreadorUser = () => {
             { name: "Chofer", value: "Chofer" }
           
           ]
+        },
+        {
+          type: "group",
+          name: "CORPORATIVO",
+          items: [ 
+            { name: "Portero", value: "Portero" }
+          
+          ]
         }
-
 
       ];
       
@@ -257,6 +265,9 @@ case "Ayudante albañil":
 case "Ayudante general": 
       area = "CIVIL";
       break; 
+case "Oficial medio albañil": 
+      area = "CIVIL";
+      break;
 case "Operador": 
       area = "CIVIL";
       break; 
@@ -314,7 +325,7 @@ case "Director SECMA":
 case "Proyectos CCTV": 
       area = "SECMA";
       break;
-case "Operativos CCTV": 
+case "Operacion CCTV": 
       area = "SECMA";
       break;
 case "Tecnico CCTV": 
@@ -329,7 +340,9 @@ case "Asistente Direccion":
 case "Chofer": 
       area = "CORPORATIVO";
       break; 
-
+case "Portero": 
+      area = "CORPORATIVO";
+      break; 
          
 
   
