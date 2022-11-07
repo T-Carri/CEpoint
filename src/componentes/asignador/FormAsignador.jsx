@@ -7,12 +7,13 @@ import { useContext } from 'react';
 import UsuariosContext from '../../context/UsuariosContext';
 import { useEffect } from 'react';
 import SelectSearch from "react-select-search";
+import { SelectorChecador } from './SelectorChecador';
 
 export const FormAsignador = (props) => {
     const [startDate, setStartDate] = useState(new Date());
-    const [UserChecador, setUserChecador] = useState('')
+ 
     const [Residente, setResidente] = useState('')
-    const {Usuarios,getUsuarios}=useContext(UsuariosContext) 
+    const {Usuarios, getUsuarios, finderChecador, ableChecador, setActivadorChec, UserChecador, ActivadorChec}=useContext(UsuariosContext) 
     const auth = getAuth()
     const dato =auth.currentUser; 
 const formAsig= {
@@ -22,10 +23,22 @@ const formAsig= {
   idAsignador: dato.uid,
   presupuesto: '',
   asistencias:[],
-  residente: '',
+  residenteUid: '',
   ubicacion: '',
  
 }
+
+
+/* searchUser(formAsig.residente, Usuarios)
+
+const searchUser= (props) =>{
+return props.reduce((past, current)=>{
+  const foundIndex =past.find(it=>it.UID===current.UID)
+})
+} */
+
+console.log('residente', Residente)
+
 const [values, setValues] = useState(formAsig)
  //TODO: HANDLE
  
@@ -41,93 +54,76 @@ const [values, setValues] = useState(formAsig)
 
 const handleSubmit = (e) =>  {
   e.preventDefault(); 
-  console.log(values);
+  console.log( 'VALUES:',values);
   props.addOrEdit(values);
+  setActivadorChec(values.residenteUid)
+   setValues({...formAsig})
 }
 
 
-const finderChecador = (props) => {
-  return props.reduce((past, current)=>{
-    const foundIndex = past.find(it=>it.perfil===current.perfil)
-    console.log('ver reduce resultados:', past)
-    const r=[]
-    r.push(past)
-    setUserChecador(past)
-    if(foundIndex){
-      foundIndex.data=foundIndex.data
-      ?[...foundIndex.data, {
-        'nombre': current.nombre, 
-        'value': current.UID
-      }]
-      :[{ 'nombre': current.nombre, 
-           'value': current.UID}]
-    }else{ past.push(
-      { 
-      
-        'perfil': current.perfil,
-        'data': [{
-          'nombre': current.nombre,
-          'uid':current.UID
-        }]
-      } )}
-      return past;
-  }, [])}
+
 
   useEffect( 
     ()=>{
+     
+      getUsuarios() 
+
       finderChecador(Usuarios)
-    
-      getUsuarios()
-    }
+}
       ,[]) 
- 
-    console.log('Usuarios desde asignador:',Usuarios)
-    console.log('userchecador',UserChecador)
-   
+     
+    //console.log('Usuarios desde asignador:',Usuarios)
+    //console.log('userchecador',UserChecador)
+    console.log( 'VALUES:', values);
+    console.log( 'RESIDENTE:', values.residenteUid);
+    console.log( 'Sera activado:', ActivadorChec);
+    
   return (
 
 
-    <Form onSubmit={handleSubmit}>
+    <Form  onSubmit={handleSubmit}>
     <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Residente</Form.Label>
- <Form.Select>
- <option>Open this select menu</option>
- {
-    UserChecador.map((e)=>(
-<option value={e.perfil}>{e.perfil}</option>
-      
-    ))
-    
-  } 
+{UserChecador&&    
+<Form.Select name="residenteUid" value={values.residenteUid} onChange={handleInputChange}>
+ <option>Open this select menu </option>
+{
+ UserChecador.map((e)=>( 
+     e.map((s)=>( 
+        <option value={s.uid}>{s.nombre}</option>
+       ))
+
+))
+} 
+        </Form.Select>}
+
+
  
-
-
- </Form.Select>
   
  
  
 </Form.Group></Col><Col> <Form.Group className="mb-2" >
 <Form.Label>Ubicacion</Form.Label>
-<Form.Control type="String" name="ubicacion" onChange={handleInputChange} placeholder="Agrega Ubicacion"  />
+<Form.Control type="String" name="ubicacion"  value={values.ubicacion} onChange={handleInputChange} placeholder="Agrega Ubicacion"  />
 
 </Form.Group></Col></Row>
 <Row>
   <Col> <Form.Group className="mb-2" >
 <Form.Label>Numero de presupuesto</Form.Label>
-<Form.Control type="String" name="presupuesto" onChange={handleInputChange} placeholder="Codigo de presupuestso" />
+<Form.Control type="String" name="presupuesto" value={values.presupuesto} onChange={handleInputChange} placeholder="Codigo de presupuestso" />
 
 </Form.Group></Col>
 
 <Col> <Form.Group className="mb-2" >
 <Form.Label>Obra</Form.Label>
-<Form.Control type="String" name="obra" onChange={handleInputChange} placeholder="Codigo de presupuestso" />
+<Form.Control type="String" name="obra" value={values.obra} onChange={handleInputChange} placeholder="Codigo de presupuestso" />
 
 </Form.Group></Col>
 </Row>
 
 <Row>
   <Col>
-  <Form.Select name='horario'  onChange={handleInputChange} aria-label="Default select example">
+  <Form.Select name='horario' value={values.horario} onChange={handleInputChange} aria-label="Default select example">
       <option>Turno</option>
       <option value="matutino">Matutino</option>
       <option value="vespertino">Vespertino</option>
@@ -135,7 +131,17 @@ const finderChecador = (props) => {
     </Form.Select>
   </Col>
 <Col>
-<Button className='1a' variant='success' size='lg' type="submit"  >Enviar</Button>
+<Button className='1a' variant='success' size='lg' type="submit"  onClick={
+  async()=>{
+    try {
+     await ableChecador()
+    } catch (error) {
+      console.log(error)
+    }
+      
+    }
+  
+  }>Enviar</Button>
 </Col>
 </Row>
 </Form>
@@ -147,18 +153,3 @@ const finderChecador = (props) => {
 
 
 
-/*
-<Row><Col> <Form.Group className="mb-2" >
-<Form.Label>Fecha inicio</Form.Label>
-<DatePicker selected={startDate}  name="Fecha_de_inicio" onChange={(date)=>setStartDate(date)} />
-
-</Form.Group></Col></Row>
-<Row><Col> <Form.Group className="mb-2" >
-<Form.Label>Fecha Final</Form.Label>
-<DatePicker selected={startDate} name="Fecha_de_final" onChange={handleInputChange} />
-
-</Form.Group></Col>
-</Row>
-
-
-*/

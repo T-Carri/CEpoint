@@ -106,7 +106,7 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
     <Container className="cardContenedora" style={{ width: '100em', height:'60em'}}>
     <Card.Body>
       <Card.Title>Gestion de usuarios</Card.Title>
-      <Card.Subtitle className="mb-2 text-muted">controles para controlar usuarios</Card.Subtitle>
+      <Card.Subtitle className="mb-2 text-muted">controles para controlar usuarios test</Card.Subtitle>
     
     
      <div className="usuarios" style={{display:'absolute'}} >
@@ -219,14 +219,9 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
 }
 
 {/* 
-
-
  <Card className='electrico'> 
 <Card.Title>Electricos</Card.Title>
 <div className='electricos'  style={{width: '67.8em', height: '25em' }}> 
-
-
-
 </div>
  </Card>
  <Card className='shes'> 
@@ -316,7 +311,6 @@ try {
   
   )
 }
-
 
 
 
