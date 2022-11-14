@@ -1,25 +1,24 @@
-import '../Account.css'
+/* import '../Account.css'
 
 import { 
-  BrowserRouter as Router, 
-  Switch, 
+  BrowserRouter as Router,  
   Route, 
   Routes,
   useNavigate
 } from 'react-router-dom';
-import {Horario} from '../../../componentes/horario/Horario'
+import {Horario} from '../componentes/horario/Horario'
 //import {AccountAdmin} from './AccountAdmin'
-import {AccountUser}from './AccountUser'
-import {Asignador1} from '../../../componentes/asignador/Asignador1';
-import { Bienvenida } from '../../../componentes/Bienvenida';
-import {Ubicacion} from '../../../componentes/horario/Ubicacion'
-import {Obra} from '../../../componentes/horario/Obra'
-import {Semana} from '../../../componentes/horario/Semana'
-import {Trabajador} from '../../../componentes/horario/Trabajador'
-import { Asignadorendiseño}  from '../../../componentes/asignador/Asignadorendiseño';
-import { Presupuesto } from '../../../componentes/horario/Presupuesto';
-import ProtectedRouteAsignador from '../ProtectedRouteAsignador'
-import {CreadorUsuarios} from '../../../componentes/usuarios/CreadorUsuarios'
+import {AccountUser}from '../Pages/perfil/AccountUser'
+import {Asignador1} from '../componentes/asignador/Asignador1';
+import { WelcomeHome} from '../componentes/WelcomeHome';
+import {Ubicacion} from '../../../../componentes/WelcomeHomecion'
+import {Obra} from '../componentes/horario/Obra'
+import {Semana} from '../componentes/horario/Semana'
+import {Trabajador} from '../componentes/horario/Trabajador'
+import { Asignadorendiseño}  from '../componentes/asignador/Asignadorendiseño';
+import { Presupuesto } from '../componentes/horario/Presupuesto';
+import ProtectedRouteAsignador from '../Pages/perfil/ProtectedRouteAsignador'
+import {CreadorUsuarios} from '../componentes/usuarios/CreadorUsuarios'
 export default function RouterAdmin() {
 
    return (
@@ -28,17 +27,9 @@ export default function RouterAdmin() {
   <Route path="/" element={<AccountUser/>} >
   <Route 
   index 
-  element={<Bienvenida />} 
+  element={<WelcomeHome />} 
   />
-  
-  {/* <Route 
-  path="asignador" 
-  element={ 
-    <ProtectedRouteAsignador>
-    <Asignador1 />  
-</ProtectedRouteAsignador>
-       }/>
- */}
+ 
 <Route path="usuarios" element={<CreadorUsuarios/> } />
   <Route 
    path="horario"
@@ -124,4 +115,4 @@ export default function RouterUser() {
 
 
 
-//handleSubmit={handleSubmit} by Asignador1
+//handleSubmit={handleSubmit} by Asignador1 */

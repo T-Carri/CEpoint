@@ -1,10 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Horario.css'
 import {Row, Form, Col, Button, Spinner, Table, Card, Container } from 'react-bootstrap'
 import { Outlet, useNavigate } from 'react-router-dom'
 export const Horario = () => {
 
-const navigate = useNavigate();
+const navigate = useNavigate(); 
+useEffect(()=>{
+  let authToken = sessionStorage.getItem('Auth Token')
+  if(authToken){
+      
+  }
+  if(!authToken){
+      navigate('/')
+  }
+},
+[])
+
   return (
     <Container className="cardContenedora" style={{ width: '60em', height:'30em'}}>
     <Card.Body>
