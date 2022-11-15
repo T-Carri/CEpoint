@@ -63,8 +63,8 @@ div.civiles{
     overflow-x: scroll;
     transform: translateX(-0%);
     row-gap: 5%;
-    padding: 30px;
-    justify-content: center;
+    padding: .25%;
+ 
 }
 
 div.trabajadores{
@@ -76,12 +76,12 @@ div.trabajadores{
   padding: 2%;
   row-gap: 25rem;
   column-gap: 20rem;
-  margin: 1%;
+  margin: 2%;
 }
 
 button.actualizarUser.btn.btn-success{
     width: 50%;
-    height: 20%;
+    height: 10%;
     margin-top: 15%;
     
 }
