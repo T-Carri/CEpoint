@@ -1,35 +1,43 @@
+//habilItado
 import { Button, Card, NavbarBrand} from 'react-bootstrap'
-import { UserAuth } from '../../../context/AuthContext';
-import '../Account.css'
-import Asignador1 from '../../../componentes/asignador/Asignador1';
-import {saveAsignacion} from '../../../services/indi'
-import React, {useState} from 'react'
+import { UserAuth } from '../../context/AuthContext';
+import './Account.css'
+
+import React, { useEffect, useContext} from 'react'
 import { 
-  BrowserRouter as Router, 
-  Switch, 
-  Route, 
-  Routes,
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-import Horario from '../../../componentes/horario/Horario'
 
+
+import UsuariosContext from '../../context/UsuariosContext';
+
+export const AccountUser= () => {
  
-
-
-export const AccountAdmin= () => {
-    
   const {logout}= UserAuth();
   const navigate = useNavigate();
-  
-  // const[pulsadoHorario, setPulsadoHorario] = useState(false);
-  // const[pulsadoAsignacion, setPulsadoAsignacion] = useState(false); 
-  // const [welcome, setWelcome] = useState(true);
-   
+  const {asignador, lectorAsistencia, Usator, accessKey}=useContext(UsuariosContext)
+
+  useEffect(()=>{
+    let authToken = sessionStorage.getItem('Auth Token')
+    if(authToken){
+        navigate('/account')
+    }
+    if(!authToken){
+        navigate('/')
+    }
+},
+
+accessKey(),
+[])
+
+
+
+
   
   //NAVEGACION DE PAGINA
   const handleSubmit= (data)=>{
-    saveAsignacion(data)
+    //saveAsignacion(data)
     console.log(data)
   }
   
@@ -43,8 +51,11 @@ export const AccountAdmin= () => {
   //LOGOUT
   const handleLogout = async()=>{
         try{
-          await logout(); 
-          navigate('/');
+          await logout().then(
+            navigate('/'), 
+            sessionStorage.removeItem('Auth Token')
+           
+          )
           console.log('You are logged out')
         } catch(e) {
           console.log(e.message);
@@ -60,7 +71,10 @@ export const AccountAdmin= () => {
     {/* //navbar */}
           <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
           <NavbarBrand className="logo" href="/">
-           CEpoint administrador
+            <strong>
+           CEpoint
+
+            </strong>
          </NavbarBrand>
         <div className="d-grid gap-2  d-md-flex justify-content-md-end">
       
@@ -73,11 +87,20 @@ export const AccountAdmin= () => {
 </div>
     {/* aside */}
     <div className="a1">
-     
-    <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
-    <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>
-    <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>
-    <Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>
+
+    
+     {Usator &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
+      <strong>Usuarios
+        </strong></Button>}
+    
+     {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}> <strong>Asistencia</strong></Button>}    
+     {asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
+     <strong> Asignador  </strong> </Button>}
+   
+     <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
+    
+    
+    
     </div>
    
       {/* //area de herramienta  */}

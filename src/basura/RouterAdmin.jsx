@@ -10,7 +10,7 @@ import {
 import {Horario} from '../../../componentes/horario/Horario'
 import {AccountAdmin} from './AccountAdmin'
 import {Asignador1} from '../../../componentes/asignador/Asignador1';
-import { Bienvenida } from '../../../componentes/Bienvenida';
+import { Bienvenida } from '../../../componentes/WelcomeHome';
 import {Ubicacion} from '../../../componentes/horario/Ubicacion'
 import {Obra} from '../../../componentes/horario/Obra'
 import {Semana} from '../../../componentes/horario/Semana'

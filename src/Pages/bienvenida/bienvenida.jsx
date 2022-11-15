@@ -1,19 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './bienvenida.css';
 import { NavbarBrand } from 'reactstrap';
 import { Button } from 'react-bootstrap';
 import {Modal} from 'react-bootstrap';
 import {Loginup} from '../Access/Loginup'
-
-
-
+import promocion from './promocion.png'
+import arcore from './arcore.jpg'
+import APP from './APP.png'
+import { 
+  useNavigate
+} from 'react-router-dom';
 function Bienvenida() {
 
 const [show, setShow]=useState(false)
  
 const handleShow=()=>setShow(true)
 const handleClose=()=>setShow(false)
+const navigate = useNavigate()
 
+useEffect(()=>{
+  let authToken = sessionStorage.getItem('Auth Token')
+  if(authToken){
+      navigate('/account')
+  }
+  if(!authToken){
+      navigate('/')
+  }
+},
+
+
+[])
 
 
 
@@ -42,15 +58,18 @@ const handleClose=()=>setShow(false)
       </div>
       <div className="carousel-inner">
         <div className="carousel-item">
-          <svg className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: First slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#777"></rect><text x="50%" y="50%" fill="#555" dy=".3em">First slide</text></svg>
-    
-        </div>
+
+        <img class="d-block w-100" src={promocion} width="800" height="800" alt="First slide"/>
+         
+                </div>
         <div className="carousel-item">
-          <svg className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Second slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#666"></rect><text x="50%" y="50%" fill="#444" dy=".3em">Second slide</text></svg>
+        <img class="d-block w-100" src={APP} width="800" height="800" alt="Second slide"/>
+         
     
         </div>
         <div className="carousel-item active">
-          <svg className="bd-placeholder-img bd-placeholder-img-lg d-block w-100" width="800" height="400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Third slide" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#555"></rect><text x="50%" y="50%" fill="#333" dy=".3em">Third slide</text></svg>
+        
+        <img class="d-block w-100" src={promocion} width="800" height="800" alt="Third slide"/>
     
         </div>
       </div>

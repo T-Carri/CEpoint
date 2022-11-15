@@ -1,45 +1,31 @@
-import { Button, Card, NavbarBrand} from 'react-bootstrap'
+/* import { Button, Card, NavbarBrand} from 'react-bootstrap'
 import { UserAuth } from '../../../context/AuthContext';
 import '../Account.css'
 import Asignador1 from '../../../componentes/asignador/Asignador1';
 import {saveAsignacion} from '../../../services/indi'
-import React, {useState, useEffect, useContext} from 'react'
+import React, {useState} from 'react'
 import { 
   BrowserRouter as Router, 
+  Switch, 
+  Route, 
+  Routes,
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-import Horario from '../../../componentes/horario/Horario';
-import { getFirestore, collection, doc, getDoc } from 'firebase/firestore';
-import {getAuth} from "firebase/auth";
-import UserContext from '../../../context/AuthContext';
+import Horario from '../../../componentes/horario/Horario'
 
-export const AccountUser= () => {
-  const {user} = useContext(UserContext)
-const [asignador, setAsignador]= useState()
-const [lectorAsistencia, setLectorAsistencia]= useState()
-const [Usuario, setUsuario]= useState()
-const auth= getAuth();
-const dato= auth.currentUser;
+ 
 
 
-useEffect(()=>{
-  const querydb=getFirestore();
-  const queryDoc = doc(querydb, "users", user.uid);
-  getDoc(queryDoc).then(res => {
-    setAsignador(res.data().asignador)
-   console.log("Es asignador?:", res.data().asignador)
-   setLectorAsistencia(res.data().lectoreAsistencia)
-   console.log("Es lector?:", res.data().lectoreAsistencia)
-   setUsuario(res.data().usator)
+export const AccountAdmin= () => {
     
-  } )
-},[])
-
-console.log(user.uid) 
-const {logout}= UserAuth();
-const navigate = useNavigate();
-
+  const {logout}= UserAuth();
+  const navigate = useNavigate();
+  
+  // const[pulsadoHorario, setPulsadoHorario] = useState(false);
+  // const[pulsadoAsignacion, setPulsadoAsignacion] = useState(false); 
+  // const [welcome, setWelcome] = useState(true);
+   
   
   //NAVEGACION DE PAGINA
   const handleSubmit= (data)=>{
@@ -71,13 +57,10 @@ const navigate = useNavigate();
     
     <section className="cepoint">
 <div className="Bienvenida">
-    {/* //navbar */}
+    
           <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
           <NavbarBrand className="logo" href="/">
-            <strong>
-           CEpoint
-
-            </strong>
+           CEpoint administrador
          </NavbarBrand>
         <div className="d-grid gap-2  d-md-flex justify-content-md-end">
       
@@ -88,23 +71,15 @@ const navigate = useNavigate();
 
 
 </div>
-    {/* aside */}
-    <div className="a1">
-     {Usuario &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
-      <strong>Usuarios
-        </strong></Button>}
-    
-     {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}> <strong>Asistencia</strong></Button>}    
-     {asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
-     <strong> Asignador  </strong> </Button>}
-     
-     <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
-    
-    
-    
-    </div>
    
-      {/* //area de herramienta  */}
+    <div className="a1">
+     
+    <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
+    <Button className="btnx2" onClick={handleAsignador}>Asignador</Button>
+    <Button className="btnx3" onClick={handleHorario}>Asistencia</Button>
+    <Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>Asignador en prueba</Button>
+    </div>
+ 
     <div className="a21"  >  
     
 
@@ -112,8 +87,7 @@ const navigate = useNavigate();
     
      </div>
      
-     
-      {/* //canvas lateral */}
+   
      <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" >
           
     
@@ -153,3 +127,4 @@ const navigate = useNavigate();
   )
 }
 
+ */
