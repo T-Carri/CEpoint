@@ -103,7 +103,7 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
 
   return (
      
-    <Container className="cardContenedora" style={{ width: '100em', height:'60em'}}>
+    <Container className="cardContenedora" style={{ width: '100em', height:'100%'}}>
     <Card.Body>
       <Card.Title>Gestion de usuarios</Card.Title>
       <Card.Subtitle className="mb-2 text-muted">controles para controlar usuarios test</Card.Subtitle>
@@ -143,7 +143,7 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
 <div className='civiles'  style={{width: '67.8em', height: '28em' }} > 
 
 
-
+<div className='handle left-handle'></div>
 
 {r.data.map((s)=>(
 
@@ -189,7 +189,7 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
 ))}
 
 
-
+<div className='handle right-handle'></div>
  
 </div>
  </Card>
