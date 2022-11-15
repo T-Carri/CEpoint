@@ -44,21 +44,22 @@ div.inactivos.card{
     background-color: lightslategray;
     margin-left: 1em;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-x: scroll;
 }
 
 div.civiles{
-background-color: rgb(207, 207, 188);
-overflow-y: scroll;
-display: grid;
-    grid-template-columns: auto auto auto auto;
-    column-gap: 50px;
-    row-gap: 10px;
+    background-image: url("aurora.jpg");
+    background-size: cover;
+overflow-x: scroll;
+display: flex;
+    
+    
+    row-gap: 5%;
     padding: 30px;
 
 }
 div.electricos{
-    background-color:  rgb(207, 207, 188);
+    background-color:  rgb(211, 211, 53);
 
 }
 div.she{
@@ -88,6 +89,7 @@ div.trabajadores{
     background-color:  rgb(184, 35, 15);
   color: antiquewhite;
   text-align: center;
+  width: 40%;
 
 }
 button.actualizarUser.btn.btn-success{

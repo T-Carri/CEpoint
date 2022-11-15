@@ -7,9 +7,9 @@ import './Usuarios.css'
 import { useEffect } from 'react';
 import { FormCreadorUser } from './FormCreadorUser'; 
 import UsuariosContext from '../../context/UsuariosContext';
+import {  Carousel } from '@trendyol-js/react-carousel';
 
-
-export const CreadorUsuarios = () => {
+export const Usuarios = () => {
   const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
   const toggleShowA   = () => setShowA(!showA);
@@ -135,7 +135,6 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
     
       <Card className='content-users' style={{height: '40em'}}>
 
-
 {
  Civiles.map((e)=>(
   e.map((r)=>(
@@ -143,8 +142,13 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
             <Card.Title>{r.area}</Card.Title>  
 <div className='civiles'  style={{width: '67.8em', height: '28em' }} > 
 
+
+
+
 {r.data.map((s)=>(
- <Card  className='trabajadores' style={{width: '30em', height: '23em' }}>
+
+
+  <Card  className='trabajadores' >
 <Card.Body>
 
 <Card.Title>{s.perfil}</Card.Title>
@@ -178,36 +182,11 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
           </Button>
         </Modal.Footer>
       </Modal>
- {/* <Overlay
-        show={show}
-        target={target}
-        placement="top"
-      
-        containerPadding={20}
-      >
-        <Popover id="popover-contained">
-           <Popover.Header as="h3">Actualiza usuario</Popover.Header> 
-          <Popover.Body>
-            <Card>
-      <Card.Body>
-      <Card.Title>{s.nombre}</Card.Title>
-          <Card.Title>{s.perfil}</Card.Title>
-          <Card.Title>{s.email}</Card.Title>
-          <Card.Title>{s.password}</Card.Title>
-          <Card.Title>{s.Uid}</Card.Title>
-        </Card.Body>        
-      
-            </Card>
-          </Popover.Body>
-        </Popover>
-      </Overlay> */}
  </Card>
 
 
 
 ))}
-
-
 
 
 
@@ -218,37 +197,7 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
  ))
 }
 
-{/* 
- <Card className='electrico'> 
-<Card.Title>Electricos</Card.Title>
-<div className='electricos'  style={{width: '67.8em', height: '25em' }}> 
-</div>
- </Card>
- <Card className='shes'> 
-<Card.Title>Seguridad e higiene</Card.Title>
-<div className='she'  style={{width: '67.8em', height: '25em' }}> </div>
- </Card>
- <Card className='herrerias'> 
-<Card.Title>Herreria</Card.Title>
-<div className='herreria'  style={{width: '67.8em', height: '25em' }}> </div>
- </Card>
- <Card className='corporativos'> 
-<Card.Title>Corporativo </Card.Title>
-<div className='corporativo'  style={{width: '67.8em', height: '25em' }}> </div>
- </Card>
- <Card className='siarsas'> 
-<Card.Title>Siarsa</Card.Title>
-<div className='siarsa'  style={{width: '67.8em', height: '25em' }}> </div>
- </Card>
- <Card className='secmas'> 
-<Card.Title>Secma</Card.Title>
-<div className='secma'  style={{width: '67.8em', height: '25em'}}> </div>
- </Card>
- <Card className='solcoms'> 
-<Card.Title>Solcom</Card.Title>
-<div className='solcom'  style={{width: '67.8em', height: '25em' }}> </div>
- </Card>
- */}      </Card>
+     </Card>
             
    
                 

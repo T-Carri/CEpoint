@@ -88,7 +88,7 @@ accessKey(),
     {/* aside */}
     <div className="a1">
 
-      //accessos por boton ATENTO
+    
      {Usator &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
       <strong>Usuarios
         </strong></Button>}

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './bienvenida.css';
 import { NavbarBrand } from 'reactstrap';
 import { Button } from 'react-bootstrap';
@@ -7,14 +7,29 @@ import {Loginup} from '../Access/Loginup'
 import promocion from './promocion.png'
 import arcore from './arcore.jpg'
 import APP from './APP.png'
-
+import { 
+  useNavigate
+} from 'react-router-dom';
 function Bienvenida() {
 
 const [show, setShow]=useState(false)
  
 const handleShow=()=>setShow(true)
 const handleClose=()=>setShow(false)
+const navigate = useNavigate()
 
+useEffect(()=>{
+  let authToken = sessionStorage.getItem('Auth Token')
+  if(authToken){
+      navigate('/account')
+  }
+  if(!authToken){
+      navigate('/')
+  }
+},
+
+
+[])
 
 
 

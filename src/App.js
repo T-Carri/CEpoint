@@ -14,7 +14,7 @@ import { UsuariosProvider } from './context/UsuariosContext';
 //new feature
 import { AccountUser } from './Pages/perfil/AccountUser';
 import { WelcomeHome } from './componentes/WelcomeHome';
-import { CreadorUsuarios } from './componentes/usuarios/CreadorUsuarios';
+import { Usuarios } from './componentes/usuarios/Usuarios';
 import { Horario } from './componentes/horario/Horario';
 import { Presupuesto } from './componentes/horario/Presupuesto';
 import { Ubicacion } from './componentes/horario/Ubicacion';
@@ -53,7 +53,7 @@ function App() {
 
     <Route index element={<WelcomeHome />}  />
   
-    <Route path="usuarios" element={<CreadorUsuarios/> } />
+    <Route path="usuarios" element={<Usuarios/> } />
 
     <Route  path="horario" element={   <Horario/>  } >  
             <Route path='presupuesto' element={<Presupuesto/>}/> 
