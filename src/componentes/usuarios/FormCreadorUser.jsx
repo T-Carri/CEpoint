@@ -193,55 +193,57 @@ const [Nombre, setNombre] = useState('')
 /*  useEffect(   
   handleInputChange()
    ,[]) */
-console.log("values:", values)
+//console.log("values:", values)
 //console.log(formCreatorUser)
-console.log(Perfil)
-console.log('Perfil search', searchDato(Perfil) )
-console.log('Area:', searchArea(Perfil))
-console.log(Empresa)
-console.log('empresa search', searchDato(Empresa) )
+//console.log(Perfil)
+//console.log('Perfil search', searchDato(Perfil) )
+//console.log('Area:', searchArea(Perfil))
+//console.log(Empresa)
+//console.log('empresa search', searchDato(Empresa) )
 
-console.log(Email)
-console.log(Password)
-console.log( 'nombre:', Nombre)
-
- const handleregisterUser = async (e)=> {
-  e.preventDefault();
-  try{
-    setError('')
-   const infouser = await createUser(values.email, values.password);
-    console.log(infouser.user.uid)
-     setUidUser(infouser.user.uid)
-const docuRef =doc(db, `users/${infouser.user.uid}`);
-setDoc(docuRef, { 
-  activo: false ,
-  asignador:  checkIf(radioValueAsig),
-  checador:checkIf(radioValueChec) ,
-  email: values.email, 
-  password: values.password,
-  empresa:searchDato(Empresa), 
-  lectoreAsistencia : checkIf(radioValueAsis), 
-  nombre: values.nombre,
-  ocupado: false,  
-  perfil: searchDato(Perfil),
-  area: searchArea(Perfil),
-  rol: 'usuario',
-  usator: false, 
-  fechaDeCreacion: Date(), 
-  UID:infouser.user.uid
- }
- )
- setValues({...formCreatorUser})
- setRadioValueChec('5')
- setRadioValueAsig('3')
- setRadioValueAsis('1')
- setPerfil('')
- setEmpresa('')
-  } catch(e) {
-    setError(e.message)
-    console.log(e.message)
-  }
-}; 
+//console.log(Email)
+//console.log(Password)
+//console.log( 'nombre:', Nombre)
+useEffect(()=>{
+  const handleregisterUser = async (e)=> {
+    e.preventDefault();
+    try{
+      setError('')
+     const infouser = await createUser(values.email, values.password);
+      console.log(infouser.user.uid)
+       setUidUser(infouser.user.uid)
+  const docuRef =doc(db, `users/${infouser.user.uid}`);
+  setDoc(docuRef, { 
+    activo: false ,
+    asignador:  checkIf(radioValueAsig),
+    checador:checkIf(radioValueChec) ,
+    email: values.email, 
+    password: values.password,
+    empresa:searchDato(Empresa), 
+    lectoreAsistencia : checkIf(radioValueAsis), 
+    nombre: values.nombre,
+    ocupado: false,  
+    perfil: searchDato(Perfil),
+    area: searchArea(Perfil),
+    rol: 'usuario',
+    usator: false, 
+    fechaDeCreacion: Date(), 
+    UID:infouser.user.uid
+   }
+   )
+   setValues({...formCreatorUser})
+   setRadioValueChec('5')
+   setRadioValueAsig('3')
+   setRadioValueAsis('1')
+   setPerfil('')
+   setEmpresa('')
+    } catch(e) {
+      setError(e.message)
+      console.log(e.message)
+    }
+  };
+},[])
+  
 
 
 function searchArea(dato) {

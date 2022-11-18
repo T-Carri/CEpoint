@@ -15,7 +15,7 @@ export const Usuarios = () => {
   const toggleShowA   = () => setShowA(!showA);
   const [Civiles, setCiviles] = useState([])
   const [Id, setId] = useState('') 
-  console.log('id:', Id)
+  //console.log('id:', Id)
    //overlay
    const [show, setShow] = useState(false);
 
@@ -24,17 +24,17 @@ export const Usuarios = () => {
 
   
 
-console.log('habilitados?:', Userun)
+//console.log('habilitados?:', Userun)
 
 const CivilesWay = (props) => {
 
 return props.reduce((past, current)=>{
   const foundItem = past.find(it=>it.area===current.area)
-   console.log('past', past); 
+ //  console.log('past', past); 
 const r=[]
 r.push(past); 
 setCiviles(r)
-console.log('perfiles', r);
+//console.log('perfiles', r);
 if(foundItem){
   foundItem.data=foundItem.data
   ?[...foundItem.data, {
@@ -92,12 +92,12 @@ useEffect(()=>{
   getUsuarios()
   CivilesWay(Usuarios)
   //electricosWay(Usuarios)
-},[])
+},[Usuarios])
   
 
 
 
-console.log('Usuarios desde creado de usuarios:',Usuarios)
+//console.log('Usuarios desde creado de usuarios:',Usuarios)
 
 
 

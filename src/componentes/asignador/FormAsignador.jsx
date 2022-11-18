@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {  Button, Form, Row, Col} from 'react-bootstrap'
+import {  Button, Form, Row, Col, Alert} from 'react-bootstrap'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getAuth } from 'firebase/auth'; 
@@ -13,7 +13,7 @@ export const FormAsignador = (props) => {
     const [startDate, setStartDate] = useState(new Date());
  
     const [Residente, setResidente] = useState('')
-    const {Usuarios, getUsuarios, finderChecador, ableChecador, setActivadorChec, UserChecador, ActivadorChec}=useContext(UsuariosContext) 
+    const {Usuarios, getUsuarios, finderChecador, ableChecador, setActivadorChec, UserChecador, ActivadorChec, OnlyUser, fetchOnlyUser}=useContext(UsuariosContext) 
     const auth = getAuth()
     const dato =auth.currentUser; 
 const formAsig= {
@@ -48,15 +48,43 @@ const [values, setValues] = useState(formAsig)
   
   
  }
- 
+
+
+// console.log('cheador:  ', checador) 
+ const statusChecador =(parametro)=>{
+if(parametro==false ){
+ableChecador(values.residenteUid)
+}else{
+
+console.log('mistake')
+} }
+
+
+
+/* return(
+  <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+  <Alert.Heading>Este usuario tiene tiene activo el checador!</Alert.Heading>
+  <p>
+   TODO: VER DERTALLES DE DONDE  AGREGAR BOTON PARA DESACTIVAR DE AHI DONDE ESTA
+  </p>
+  <Button>test</Button>
+  
+</Alert>
+
+) */
+
 
  //TODO: ONCHANGE
 
+ 
 const handleSubmit = (e) =>  {
   e.preventDefault(); 
   console.log( 'VALUES:',values);
   props.addOrEdit(values);
   setActivadorChec(values.residenteUid)
+  fetchOnlyUser(values.residenteUid)
+  ableChecador(values.residenteUid)
+  statusChecador(OnlyUser.checador)
    setValues({...formAsig})
 }
 
@@ -67,17 +95,19 @@ const handleSubmit = (e) =>  {
     ()=>{
      
       getUsuarios() 
-
       finderChecador(Usuarios)
+      
+
 }
       ,[]) 
      
     //console.log('Usuarios desde asignador:',Usuarios)
     //console.log('userchecador',UserChecador)
-    console.log( 'VALUES:', values);
-    console.log( 'RESIDENTE:', values.residenteUid);
+   // console.log( 'VALUES:', values);
+    //console.log( 'RESIDENTE:', values.residenteUid);
     console.log( 'Sera activado:', ActivadorChec);
-    
+    {OnlyUser&& console.log('OnlyUser:  ',OnlyUser.checador)}
+    console.log(values.residenteUid)
   return (
 
 
@@ -131,17 +161,17 @@ const handleSubmit = (e) =>  {
     </Form.Select>
   </Col>
 <Col>
-<Button className='1a' variant='success' size='lg' type="submit"  onClick={
-  async()=>{
+<Button className='1a' variant='success' size='lg' type="submit"  /* onClick={
+  ()=>{
     try {
-     await ableChecador()
+     ableChecador()
     } catch (error) {
       console.log(error)
     }
       
     }
   
-  }>Enviar</Button>
+  } */>Enviar</Button>
 </Col>
 </Row>
 </Form>

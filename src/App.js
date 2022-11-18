@@ -22,7 +22,7 @@ import { Obra } from './componentes/horario/Obra';
 import { Semana } from './componentes/horario/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
 import { Asignadorendiseño } from './componentes/asignador/Asignadorendiseño';
-
+import { UsuarioContextProvider } from './context/UsuarioContext';
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,6 +32,7 @@ function App() {
 
   return (
  <AuthContextProvider>
+<UsuarioContextProvider>
     <UsuariosProvider>
     <>
    <Router>
@@ -79,6 +80,7 @@ function App() {
    
     </>
   </UsuariosProvider>
+  </UsuarioContextProvider>
   </AuthContextProvider>   
 
 

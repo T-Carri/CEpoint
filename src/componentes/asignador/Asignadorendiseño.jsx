@@ -27,7 +27,7 @@ const getLinks =async()=>{
    query.forEach((doc)=>{
      data.push(doc.data())
    })
-   console.log("datossss", data)
+   //console.log("datossss", data)
    setAsign(data)
   })
 
@@ -55,7 +55,7 @@ const getLinks = async () => { await
  */
 useEffect(()=>{
   getLinks()
-},[])
+},[asig])
 
 //TODO: AGREGAR A COLECCION "asignaciones", una asignacion
 //con id automatico
@@ -64,7 +64,7 @@ const addOrEdit = async (addOrEdit) => {
   const databaseRef=await  addDoc(collection(db, "asignaciones"), addOrEdit);
 }
 
-console.log("asignaciones", asig)
+//console.log("asignaciones", asig)
 
 //esta constante publica en la base de datos, anexa un elemento nuevo a un array
 //atento aqui porque asi mas o menos sera una asistencia en native  

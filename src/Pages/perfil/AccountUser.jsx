@@ -10,13 +10,13 @@ import {
 } from 'react-router-dom';
 
 
-import UsuariosContext from '../../context/UsuariosContext';
 
+import UsuarioContext from '../../context/UsuarioContext';
 export const AccountUser= () => {
  
   const {logout}= UserAuth();
   const navigate = useNavigate();
-  const {asignador, lectorAsistencia, Usator, accessKey}=useContext(UsuariosContext)
+  const {asignador, lectorAsistencia, Usator, accessKey}=useContext(UsuarioContext)
 
   useEffect(()=>{
     let authToken = sessionStorage.getItem('Auth Token')
