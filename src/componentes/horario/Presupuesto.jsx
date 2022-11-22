@@ -11,17 +11,18 @@ export const Presupuesto = () => {
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
   const [itinerante, setItinerante] = useState([])
+  
   const getPresupuestos =async () => {
-
     const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
     await onSnapshot(q, (query)=>{
       const data=[]
       query.forEach((doc)=>{
         data.push(doc.data())
       })
-  
       setPresupuesto(data)
     }) }
+  
+
   
     useEffect(()=>{
       getPresupuestos()

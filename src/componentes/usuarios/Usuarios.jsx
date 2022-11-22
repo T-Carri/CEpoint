@@ -7,7 +7,7 @@ import './Usuarios.css'
 import { useEffect } from 'react';
 import { FormCreadorUser } from './FormCreadorUser'; 
 import UsuariosContext from '../../context/UsuariosContext';
-import {  Carousel } from '@trendyol-js/react-carousel';
+
 
 export const Usuarios = () => {
   const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}=useContext(UsuariosContext)
@@ -85,11 +85,12 @@ return past;
 
 
 
-
+useEffect(()=>{ 
+  getUsersUnable()
+  getUsuarios()},[])
 
 useEffect(()=>{
-  getUsersUnable()
-  getUsuarios()
+ 
   CivilesWay(Usuarios)
   //electricosWay(Usuarios)
 },[Usuarios])

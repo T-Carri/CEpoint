@@ -13,10 +13,20 @@ export const FormAsignador = (props) => {
     const [startDate, setStartDate] = useState(new Date());
  
     const [Residente, setResidente] = useState('')
-    const {Usuarios, getUsuarios, finderChecador, ableChecador, setActivadorChec, UserChecador, ActivadorChec, OnlyUser, fetchOnlyUser}=useContext(UsuariosContext) 
-    const auth = getAuth()
+    const {Usuarios,
+       getUsuarios, 
+       finderChecador, 
+       ableChecador, 
+       setActivadorChec, 
+       UserChecador, 
+       ActivadorChec, 
+       OnlyUser, 
+       fetchOnlyUser} = useContext(UsuariosContext) 
+   
+       const auth = getAuth()
     const dato =auth.currentUser; 
-const formAsig= {
+
+    const formAsig= {
   activa: true,
   horario:'', 
   obra: '', 
@@ -37,9 +47,10 @@ return props.reduce((past, current)=>{
 })
 } */
 
+
 console.log('residente', Residente)
 
-const [values, setValues] = useState(formAsig)
+const [values, setValues] = useState('')
  //TODO: HANDLE
  
  const handleInputChange = (e) =>{
@@ -89,17 +100,19 @@ const handleSubmit = (e) =>  {
 }
 
 
-
-
-  useEffect( 
+useEffect(()=>{
+  getUsuarios()
+},[])
+ 
+useEffect( 
     ()=>{
-     
-      getUsuarios() 
+       
       finderChecador(Usuarios)
+    }
+      ,[Usuarios]) 
+      
       
 
-}
-      ,[]) 
      
     //console.log('Usuarios desde asignador:',Usuarios)
     //console.log('userchecador',UserChecador)

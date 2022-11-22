@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Card, Container, Toast, Button, } from 'react-bootstrap'
 import './Asignador.css'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
@@ -7,76 +7,50 @@ import { db } from '../../firebase/firebase';
 import { useEffect } from 'react';
 import { FormAsignador } from './FormAsignador'
 import {DateTime} from 'luxon';
-
+import AsignacionContext from '../../context/AsignacionContext';
+import { FormActualizador } from './FormActualizador';
  export const Asignadorendiseño = () => {
-    const [showA, setShowA] = useState(true);
-    const toggleShowA = () => setShowA(!showA);
+    const [showA, setShowA] = useState(false);
+const {idProyecto, setIdProyecto, asig, setAsign, getLinks, getProyecto }=useContext(AsignacionContext) 
+
+    const toggleShowA = () =>{
+      setShowA(!showA);
+      setShowB(false);
+    } 
+    const [showB, setShowB] = useState(false);
+    
+    const toggleShowB = () =>{
+      setShowB(!showB);
+      setShowA(false);
+    } 
     const date = DateTime.now().weekNumber
     const auth = getAuth()
     const dato =auth.currentUser; 
-    const [asig, setAsign]= useState([]);
+    
   
 
 //TODO: HACER FUNCION DE ELIMINACION DE DATOS EN CAMPOS Y LOANDING PARA CUANDO ENVIAS LOS DATOS
 
 
-const getLinks =async()=>{
-  const q = query(collection(db, "asignaciones"))
-  await onSnapshot(q, (query)=>{
-   const data=[]
-   query.forEach((doc)=>{
-     data.push(doc.data())
-   })
-   //console.log("datossss", data)
-   setAsign(data)
-  })
 
-}
+console.log('SHOW A: ', showA, 'SHOW B:  ', showB)
 
- 
-
-
-/*     
-const getLinks = async () => { await
-  onSnapshot(doc(db, "users", dato.uid),(e)=>{
-
-    const docs= [];
-    console.log("curren data:", e.data().checador.asignaciones)
-    var x=e.data().checador.asignaciones;
-    x.forEach(element => {
-          docs.push({...element})
-      console.log("foreach:", element)
-    });
-    setAsign(docs);
-    console.log("docs:", docs)
-    });
-    
-  }
- */
 useEffect(()=>{
   getLinks()
-},[asig])
+  
+},[])
 
-//TODO: AGREGAR A COLECCION "asignaciones", una asignacion
-//con id automatico
-//it's ready
+useEffect(()=>{
+  console.log('id: ', 
+  idProyecto)
+},[idProyecto])
+
+
 const addOrEdit = async (addOrEdit) => {
   const databaseRef=await  addDoc(collection(db, "asignaciones"), addOrEdit);
 }
 
-//console.log("asignaciones", asig)
 
-//esta constante publica en la base de datos, anexa un elemento nuevo a un array
-//atento aqui porque asi mas o menos sera una asistencia en native  
-/*const addOrEdit = async (addOrEdit) => {
-  const databaseRef= doc(db, "users", dato.uid)
-  await 
-  updateDoc(databaseRef, {
-     "checador.asignaciones": arrayUnion(addOrEdit)  
-    });
-    
-
-}*/
  
     //consulta en todos los docs
  /* const unsub = onSnapshot(doc(db, "users", dato.uid), (doc)=>{
@@ -101,6 +75,9 @@ const addOrEdit = async (addOrEdit) => {
     <Button onClick={toggleShowA} className="mb-2">
           <strong>+</strong>  Agrega asignacion
         </Button>
+      
+     {/*toast de asignacion */} 
+      
         <Toast show={showA} onClose={toggleShowA} style={{width:'50em', height:'29em'}}>
           <Toast.Header>
            
@@ -111,15 +88,37 @@ const addOrEdit = async (addOrEdit) => {
            <FormAsignador addOrEdit={addOrEdit}/>
           </Toast.Body>
         </Toast>
+      
+      {/* toast de para actalizar proyecto */}    
+
+        <Toast show={showB} onClose={toggleShowB} style={{width:'50em', height:'29em'}}>
+          <Toast.Header>
+           
+            <strong className="me-auto">  Actualizando proyecto  </strong>
+            <small> {idProyecto.toString()}</small>
+          </Toast.Header>
+          <Toast.Body>
+           {/*here you´re going to put the function that returns,  the data of that document selected
+           in a form with value of the current data, so you can change it or delete */} 
+
+                <FormActualizador/>
+          </Toast.Body>
+        </Toast>
+
+
+        
+
     </Card.Body>
     </Card>
 
  <Card className='asignaciones' style={{position:'absolute', display:'inline-block', width: '15em', height:'30em' }}>
        <div>
 
- {asig.map((da)=>(
 
-<div key={da.obra} >
+   
+  {asig.map((da)=>(
+
+<div key={da.id} >
 <Card id='a1' >
   <Card.Body>
   <h6> Presupuesto:<strong>{da.presupuesto}</strong></h6>
@@ -131,20 +130,31 @@ const addOrEdit = async (addOrEdit) => {
      </h6>
      <br/>
 <h6>
-  Residente: <strong>
-    {da.residente}
+  Ubicacion: <strong>
+    {da.ubicacion}
   </strong>
 </h6>
 
 <br/>
-<Button className='1a' variant='secondary' size='md'  >Asignar adicional</Button>
+<Button className='1a' variant='secondary' size='md' onClick={()=>{
+
+if(showB==true){
+  setIdProyecto(da.id)
+  getProyecto(da.id)
+}else{
+  setIdProyecto(da.id)
+  getProyecto(da.id)
+  toggleShowB()
+  }
+
+}} >Actualizar</Button>
   </Card.Body>
 </Card>
 
 </div>
 
  )
-            )}
+            )} 
 
        </div>
 

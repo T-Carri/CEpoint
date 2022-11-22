@@ -8,9 +8,6 @@ import Totalogin from '../src/Pages/Access/Totalogin'
 import Totalsignup from '../src/Pages/Access/Totalsignup'
 import { AuthContextProvider } from './context/AuthContext';
 import { UsuariosProvider } from './context/UsuariosContext';
-
-
-
 //new feature
 import { AccountUser } from './Pages/perfil/AccountUser';
 import { WelcomeHome } from './componentes/WelcomeHome';
@@ -23,9 +20,14 @@ import { Semana } from './componentes/horario/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
 import { Asignadorendiseño } from './componentes/asignador/Asignadorendiseño';
 import { UsuarioContextProvider } from './context/UsuarioContext';
+import { AsignacionProvider } from './context/AsignacionContext';
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
+
 function App() {
 
   
@@ -34,6 +36,7 @@ function App() {
  <AuthContextProvider>
 <UsuarioContextProvider>
     <UsuariosProvider>
+ <AsignacionProvider>
     <>
    <Router>
    <Routes>
@@ -79,6 +82,7 @@ function App() {
   </Router>
    
     </>
+  </AsignacionProvider>
   </UsuariosProvider>
   </UsuarioContextProvider>
   </AuthContextProvider>   

@@ -204,7 +204,6 @@ const [Nombre, setNombre] = useState('')
 //console.log(Email)
 //console.log(Password)
 //console.log( 'nombre:', Nombre)
-useEffect(()=>{
   const handleregisterUser = async (e)=> {
     e.preventDefault();
     try{
@@ -242,7 +241,7 @@ useEffect(()=>{
       console.log(e.message)
     }
   };
-},[])
+
   
 
 
