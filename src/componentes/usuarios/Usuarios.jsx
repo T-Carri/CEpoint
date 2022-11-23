@@ -89,11 +89,11 @@ useEffect(()=>{
   getUsersUnable()
   getUsuarios()},[])
 
-useEffect(()=>{
+ useEffect(()=>{
  
   CivilesWay(Usuarios)
   //electricosWay(Usuarios)
-},[Usuarios])
+},[Usuarios]) 
   
 
 

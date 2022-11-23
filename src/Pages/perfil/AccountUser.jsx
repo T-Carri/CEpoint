@@ -8,7 +8,7 @@ import {
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-
+import UserContext from '../../context/AuthContext';
 
 
 import UsuarioContext from '../../context/UsuarioContext';
@@ -17,7 +17,7 @@ export const AccountUser= () => {
   const {logout}= UserAuth();
   const navigate = useNavigate();
   const {asignador, lectorAsistencia, Usator, accessKey}=useContext(UsuarioContext)
-
+  const {user} = useContext(UserContext)
   useEffect(()=>{
     let authToken = sessionStorage.getItem('Auth Token')
     if(authToken){
@@ -28,10 +28,12 @@ export const AccountUser= () => {
     }
 },
 
-accessKey(),
+
 [])
 
-
+useEffect(()=>{
+  accessKey()
+}, [user])
 
 
   

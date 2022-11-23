@@ -40,11 +40,11 @@ useEffect(()=>{
   
 },[])
 
-useEffect(()=>{
+ useEffect(()=>{
   console.log('id: ', 
   idProyecto)
 },[idProyecto])
-
+ 
 
 const addOrEdit = async (addOrEdit) => {
   const databaseRef=await  addDoc(collection(db, "asignaciones"), addOrEdit);
@@ -95,7 +95,7 @@ const addOrEdit = async (addOrEdit) => {
           <Toast.Header>
            
             <strong className="me-auto">  Actualizando proyecto  </strong>
-            <small> {idProyecto.toString()}</small>
+            <small> {idProyecto.toString()} </small>
           </Toast.Header>
           <Toast.Body>
            {/*here you´re going to put the function that returns,  the data of that document selected
@@ -137,15 +137,11 @@ const addOrEdit = async (addOrEdit) => {
 
 <br/>
 <Button className='1a' variant='secondary' size='md' onClick={()=>{
+setIdProyecto(da.id)
+getProyecto(da.id)
+toggleShowB()
 
-if(showB==true){
-  setIdProyecto(da.id)
-  getProyecto(da.id)
-}else{
-  setIdProyecto(da.id)
-  getProyecto(da.id)
-  toggleShowB()
-  }
+
 
 }} >Actualizar</Button>
   </Card.Body>

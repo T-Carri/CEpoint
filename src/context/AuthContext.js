@@ -4,7 +4,9 @@ import {
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  
 } from 'firebase/auth';
+
 import app from '../firebase/firebase';
 import { auth } from '../firebase/firebase';
 import axios from 'axios'
@@ -19,17 +21,18 @@ export const UserAuth = () => {
 };
 
 
+
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
   // const dispatch=useDispatch() ;
   const firestore= getFirestore(app)
   
   //version normal 
- /*  const createUser = (email, password) => {
-    return createUserWithEmailAndPassword(auth, email, password)
+  const createUsuario = (email, password) => {
+    return  createUserWithEmailAndPassword(auth, email, password)
     
     
-  }; */
+  };  
  
 
    const signIn = (email, password) =>  {
@@ -55,7 +58,7 @@ export const AuthContextProvider = ({ children }) => {
   },[]);
 console.log(user)
   return (
-    <UserContext.Provider value={{  user, logout, signIn }}>
+    <UserContext.Provider value={{createUsuario, user, logout, signIn }}>
       {children}
     </UserContext.Provider>
   );

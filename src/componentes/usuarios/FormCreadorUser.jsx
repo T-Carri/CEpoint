@@ -1,7 +1,7 @@
 import React, {useState, useRef, useContext, useEffect} from 'react'
 import {  Button, Form, Row, Col} from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
-//import { getAuth } from 'firebase/auth'; 
+import { getAuth } from 'firebase/auth'; 
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { UserAuth } from '../../context/AuthContext';
@@ -13,6 +13,7 @@ import {getFirestore, setDoc, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,ge
 import { async } from '@firebase/util';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/firebase';
+import app from '../../firebase/firebase';
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
   const {Usuarios, getUsuarios} = useContext(UsuariosContext)    
@@ -20,18 +21,14 @@ export const FormCreadorUser = () => {
 
     const [error, setError] = useState('');
     const [UidUser, setUidUser]=useState('')
-   // const {createUser} = UserAuth();
+    const {createUsuario} = UserAuth();
    
     const [Perfil, setPerfil] = useState('')
     const [Empresa, setEmpresa]= useState('Elige empresa')
     const [Area, setArea] = useState('')
    
       
-    const createUser = (email, password) => {
-      return createUserWithEmailAndPassword(auth, email, password)
-      
-      
-    };
+ 
 
       const options = [
         {
@@ -209,15 +206,15 @@ const [Nombre, setNombre] = useState('')
 //console.log(Email)
 //console.log(Password)
 //console.log( 'nombre:', Nombre)
-  const handleregisterUser = async (e)=> {
+   const handleregisterUser = async (e)=> {
     e.preventDefault();
     try{
       setError('')
-     const infouser = await createUser(values.email, values.password);
+     const infouser = await createUsuario(values.email, values.password);
       console.log(infouser.user.uid)
        setUidUser(infouser.user.uid)
   const docuRef =doc(db, `users/${infouser.user.uid}`);
- await setDoc(docuRef, { 
+  setDoc(docuRef, { 
     activo: false ,
     asignador:  checkIf(radioValueAsig),
     checador:checkIf(radioValueChec) ,
@@ -245,9 +242,77 @@ const [Nombre, setNombre] = useState('')
       setError(e.message)
       console.log(e.message)
     }
-  };
+  };  
 
-  
+/* 
+const handleregisterUser = async (e)=> {
+  e.preventDefault();
+  getAuth(app)
+  .createUser({
+     email: values.email,
+    phoneNumber: values.password
+  })
+  .then((userRecord) => {
+    // See the UserRecord reference doc for the contents of userRecord.
+    console.log('Successfully created new user:', userRecord.uid);
+  })
+  .catch((error) => {
+    console.log('Error creating new user:', error);
+  });
+} */
+/*   
+  const handleregisterUser = async (e)=> {
+    e.preventDefault();
+    try{
+      setError('')
+
+getAuth.createUser({
+  email: values.email,
+  password: values.password
+}).then(
+  (userRecord)=>{
+    console.log(userRecord.uid)
+    setUidUser(userRecord.uid)
+const docuRef =doc(db, `users/${userRecord.uid}`);
+setDoc(docuRef, { 
+ activo: false ,
+ asignador:  checkIf(radioValueAsig),
+ checador:checkIf(radioValueChec) ,
+ email: values.email, 
+ password: values.password,
+ empresa:searchDato(Empresa), 
+ lectoreAsistencia : checkIf(radioValueAsis), 
+ nombre: values.nombre,
+ ocupado: false,  
+ perfil: searchDato(Perfil),
+ area: searchArea(Perfil),
+ rol: 'usuario',
+ usator: false, 
+ fechaDeCreacion: Date(), 
+ UID:userRecord.uid
+}
+)
+ setValues({...formCreatorUser}) 
+setRadioValueChec('5')
+setRadioValueAsig('3')
+setRadioValueAsis('1')
+setPerfil('')
+setEmpresa('') 
+  }
+)
+
+
+
+
+
+     
+     
+    } catch(e) {
+      setError(e.message)
+      console.log(e.message)
+    }
+  }; */
+
 
 
 function searchArea(dato) {

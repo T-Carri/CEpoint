@@ -67,10 +67,10 @@ function App() {
             <Route path='trabajador' element={<Trabajador/>}/> 
     </Route>
    
-    <Route path="asignadorEndiseño" element={
+     <Route path="asignadorEndiseño" element={
        
            <Asignadorendiseño/>
-        } />
+        } /> 
     
     
    
