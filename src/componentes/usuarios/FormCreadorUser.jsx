@@ -11,7 +11,8 @@ import 'react-select-search/style.css'
 import UsuariosContext from '../../context/UsuariosContext';
 import {getFirestore, setDoc, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,getDoc, collection,  query, where,} from 'firebase/firestore'
 import { async } from '@firebase/util';
-
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
   const {Usuarios, getUsuarios} = useContext(UsuariosContext)    
@@ -19,14 +20,18 @@ export const FormCreadorUser = () => {
 
     const [error, setError] = useState('');
     const [UidUser, setUidUser]=useState('')
-    const {createUser} = UserAuth();
+   // const {createUser} = UserAuth();
    
     const [Perfil, setPerfil] = useState('')
     const [Empresa, setEmpresa]= useState('Elige empresa')
     const [Area, setArea] = useState('')
    
       
-
+    const createUser = (email, password) => {
+      return createUserWithEmailAndPassword(auth, email, password)
+      
+      
+    };
 
       const options = [
         {
@@ -212,7 +217,7 @@ const [Nombre, setNombre] = useState('')
       console.log(infouser.user.uid)
        setUidUser(infouser.user.uid)
   const docuRef =doc(db, `users/${infouser.user.uid}`);
-  setDoc(docuRef, { 
+ await setDoc(docuRef, { 
     activo: false ,
     asignador:  checkIf(radioValueAsig),
     checador:checkIf(radioValueChec) ,
@@ -230,12 +235,12 @@ const [Nombre, setNombre] = useState('')
     UID:infouser.user.uid
    }
    )
-   setValues({...formCreatorUser})
+    setValues({...formCreatorUser}) 
    setRadioValueChec('5')
    setRadioValueAsig('3')
    setRadioValueAsis('1')
    setPerfil('')
-   setEmpresa('')
+   setEmpresa('') 
     } catch(e) {
       setError(e.message)
       console.log(e.message)

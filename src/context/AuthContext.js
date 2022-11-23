@@ -18,17 +18,18 @@ export const UserAuth = () => {
   return useContext(UserContext);
 };
 
+
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
-  // const dispatch=useDispatch();
+  // const dispatch=useDispatch() ;
   const firestore= getFirestore(app)
   
   //version normal 
-  const createUser = (email, password) => {
+ /*  const createUser = (email, password) => {
     return createUserWithEmailAndPassword(auth, email, password)
     
     
-  };
+  }; */
  
 
    const signIn = (email, password) =>  {
@@ -44,21 +45,17 @@ export const AuthContextProvider = ({ children }) => {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
+      console.log({currentUser});
       //setUser(currentUser);
-      if(currentUser){
-        setUser(currentUser)
-      }else{
-        setUser(null)
-      }
-      //console.log(user)
+      setUser(currentUser);
+      console.log('currentversion is running')
     });
-    return unsubscribe;
+    return () => unsubscribe();
   
-  }, [user]);
+  },[]);
 console.log(user)
   return (
-    <UserContext.Provider value={{ createUser, user, logout, signIn }}>
+    <UserContext.Provider value={{  user, logout, signIn }}>
       {children}
     </UserContext.Provider>
   );
