@@ -172,4 +172,42 @@ console.log(groupById(originalArray));
 
 
 
-ARRAY QUE ESPERO PARA RENDERIZAR TODOS LOS NOMBRES DE LOS USUARIOS PARA ASIGNAR:
+ARRAY QUE ESPERO PARA DE LAS ASISTENCIAS:
+
+Array que espero
+
+[
+    {semana: 41
+    data: 
+    [  {
+        "trabajador": "mengano "
+        "entrada": date
+        "salida": date
+       }, { 
+
+        "trabajador": "mulano "
+        "entrada": date
+        "salida": date
+        }
+    ]
+    },
+
+    {semana: 42
+    data: 
+    [  {
+        "trabajador": "mengano "
+        "entrada": date
+        "salida": date
+       }, { 
+
+        "trabajador": "mulano "
+        "entrada": date
+        "salida": date
+        }
+    ]
+    },
+    
+
+]
+
+
