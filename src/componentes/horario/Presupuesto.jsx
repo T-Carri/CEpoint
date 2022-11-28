@@ -3,9 +3,12 @@ import { onSnapshot,  where, collection, query} from 'firebase/firestore'
 import { Card, Button, Accordion, Table} from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
+import {read, writeFileXLSX} from "xlsx"
+
 import './Horario.css'
 
 export const Presupuesto = () => {
+  
   const auth = getAuth()
   const dato =auth.currentUser; 
   const [Presupuestos, setPresupuesto] = useState([]);
@@ -34,25 +37,25 @@ export const Presupuesto = () => {
    
    const AsistenciasPresupuesto = (props) => {
 
-    return props.reduce((past, current)=>{
-      const foundItem =  past.find(it => it.semana === current.semana)
-      console.log('past:', past);
+    return props.reduce((acc, current)=>{
+      const foundItem =  acc.find(it => it.semana === current.semana)
+     // console.log('past:', acc);
      const r= []
-     r.push(past);
+     r.push(acc);
      setItinerante(r)
-     console.log('r:', r);
+     //console.log('r:', r);
       if (foundItem ){
    foundItem.data=foundItem.data
    ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
    :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
-}else{ past.push( {
+}else{ acc.push( {
   'semana': current.semana,
   'data': [{
     'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date
   }]
 } ) }  
 
-return past;
+return acc 
 
     }, [])}
   const [or, setOr]= useState()
@@ -144,13 +147,20 @@ if (name==name){
 
 }
 
+let nuevoObjeto = {}
+
+console.log('nuevo objeto:  ', nuevoObjeto)
+console.log('nuevo objeto:  ', nuevoObjeto)
 
 
+function ExportData() {
+  var XLSX = require("xlsx")
+  var ws = XLSX.utils.json_to_sheet(nuevoObjeto)
+  var wb =XLSX.utils.book_new() 
+  XLSX.utils.book_append_sheet(wb,ws,"people")
 
-
-
-
-
+  XLSX.writeFile(wb, "sheet.xlsx")
+}
 
 {/* 
  */}
@@ -171,7 +181,7 @@ if (name==name){
                setAsistencias(presupuesto.asistencias)
               await AsistenciasPresupuesto(Asistencias)
            //  await  orden(itinerante)
-               console.log("asistencias:", Asistencias)       
+               //console.log("asistencias:", Asistencias)       
         
       }}> {presupuesto.presupuesto} </Button>))
       }
@@ -188,10 +198,11 @@ if (name==name){
   itinerante.map((e=> (
    
    e.map((r)=>(
-  console.log('desde mapa:', r.data),
+
+  //console.log('desde mapa:', r.data),
   <Accordion>
   <Accordion.Item eventKey={r.semana}>
-    <Accordion.Header>{r.semana}</Accordion.Header>
+    <Accordion.Header>{r.semana}     <Button onClick={ExportData}>TEST</Button>     </Accordion.Header>
     <Accordion.Body>
   
     <Table striped bordered hover>
@@ -210,11 +221,22 @@ if (name==name){
           </tr>   
         </thead>
         <tbody>
+        
+ 
+        
         {
-    r.data.map((s)=>( 
-      //console.log('mapa s:', s),
-      
-      <tr> 
+    r.data.map((s)=>{ 
+      if(!nuevoObjeto.hasOwnProperty(s.trabajador)){
+        nuevoObjeto[s.trabajador]={
+          asistencias:[]
+        }
+      }
+      nuevoObjeto[s.trabajador].asistencias.push({
+        fecha:s.date,
+        asistencia:s.tipoAsistencia
+      })
+        console.log('nuevo objeto:  ', nuevoObjeto)
+      return <tr> 
          <td>{s.tipoAsistencia}</td>
 <td>{s.trabajador}</td>
 
@@ -232,8 +254,34 @@ if (name==name){
      
       
   
-    ))
-  }  
+    })
+  }   
+{/* 
+  {
+    r.data.map((s)=>{ 
+     // console.log('test s:   ', s)
+      if(!nuevoObjeto.hasOwnProperty(s.trabajador)){
+        nuevoObjeto[s.trabajador]={
+          asistencias:[]
+        }
+      }
+
+      nuevoObjeto[s.trabajador].asistencias.push({
+        fecha:s.date,
+        asistencia:s.tipoAsistencia
+      })
+        
+       
+      
+  
+    })
+    
+     
+  } */}
+
+
+
+
   </tbody>
        
       </Table>
