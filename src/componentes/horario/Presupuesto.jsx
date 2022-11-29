@@ -3,7 +3,7 @@ import { onSnapshot,  where, collection, query} from 'firebase/firestore'
 import { Card, Button, Accordion, Table} from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
-import {read, writeFileXLSX} from "xlsx"
+import XLSX from "xlsx"
 
 import './Horario.css'
 
@@ -147,19 +147,37 @@ if (name==name){
 
 }
 
-let nuevoObjeto = {}
+let nuevoObjeto = []
 
 console.log('nuevo objeto:  ', nuevoObjeto)
 console.log('nuevo objeto:  ', nuevoObjeto)
 
 
 function ExportData() {
-  var XLSX = require("xlsx")
-  var ws = XLSX.utils.json_to_sheet(nuevoObjeto)
-  var wb =XLSX.utils.book_new() 
-  XLSX.utils.book_append_sheet(wb,ws,"people")
+  //var XLSX = require("xlsx")
+  var data = [{
+    "name": "John",
+    "city": "Seattle"
+  },
+  {
+    "name": "Mike",
+    "city": "Los Angeles"
+  },
+  {
+    "name": "Zach",
+    "city": "New York"
+  }
+];
 
-  XLSX.writeFile(wb, "sheet.xlsx")
+   /* 创建worksheet */
+   var ws = XLSX.utils.json_to_sheet(nuevoObjeto);
+
+   /* 新建空workbook，然后加入worksheet */
+   var wb = XLSX.utils.book_new();
+   XLSX.utils.book_append_sheet(wb, ws, "People");
+ 
+   /* 生成xlsx文件 */
+   XLSX.writeFile(wb, "sheetjs.xlsx");
 }
 
 {/* 
