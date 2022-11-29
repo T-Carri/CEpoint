@@ -178,36 +178,32 @@ Array que espero
 
 [
     {semana: 41
-    data: 
-    [  {
-        "trabajador": "mengano "
-        "entrada": date
-        "salida": date
-       }, { 
-
-        "trabajador": "mulano "
-        "entrada": date
-        "salida": date
-        }
-    ]
+                   
+        {"trabajador": "mengano ", 
+         "asistencias" : [ 
+             {"date": date, "asistencia": tipoAsistencia}, 
+             {"date": date, "asistencia": tipoAsistencia}  ] },
+        
+           {"trabajador": "fulano", 
+         "asistencias" : [ 
+             {"date": date, "asistencia": tipoAsistencia}, 
+            {"date": date, "asistencia": tipoAsistencia}  ] }
+     
     },
 
     {semana: 42
-    data: 
-    [  {
-        "trabajador": "mengano "
-        "entrada": date
-        "salida": date
-       }, { 
-
-        "trabajador": "mulano "
-        "entrada": date
-        "salida": date
-        }
-    ]
-    },
+                   
+        {"trabajador": "tales", 
+         "asistencias" : [ 
+             {"date": date, "asistencia": tipoAsistencia}, 
+             {"date": date, "asistencia": tipoAsistencia}  ] },
+        
+           {"trabajador": "mileto", 
+         "asistencias" : [ 
+             {"date": date, "asistencia": tipoAsistencia}, 
+             {"date": date, "asistencia": tipoAsistencia}  ] }
     
-
+       }
 ]
 
 

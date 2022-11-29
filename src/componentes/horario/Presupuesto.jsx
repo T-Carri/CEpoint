@@ -3,9 +3,10 @@ import { onSnapshot,  where, collection, query} from 'firebase/firestore'
 import { Card, Button, Accordion, Table} from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
-import XLSX from "xlsx"
+import * as XLSX from "xlsx"
 
 import './Horario.css'
+import { current } from '@reduxjs/toolkit';
 
 export const Presupuesto = () => {
   
@@ -28,10 +29,10 @@ export const Presupuesto = () => {
   
 
   
-    useEffect(()=>{
+     useEffect(()=>{
       getPresupuestos()
       
-    },[])
+    },[]) 
       
    console.log("Itinerante: ", itinerante);
    
@@ -40,9 +41,9 @@ export const Presupuesto = () => {
     return props.reduce((acc, current)=>{
       const foundItem =  acc.find(it => it.semana === current.semana)
      // console.log('past:', acc);
-     const r= []
-     r.push(acc);
-     setItinerante(r)
+    /*  const r= {}
+     r.push(acc); */
+     setItinerante(acc)
      //console.log('r:', r);
       if (foundItem ){
    foundItem.data=foundItem.data
@@ -58,6 +59,41 @@ export const Presupuesto = () => {
 return acc 
 
     }, [])}
+
+/* const AsistenciasPresupuestodos = (props) =>{
+let nuevoArray = []
+ let arrayTemporal = []
+for(var i=0; i<props.length; i++){
+  arrayTemporal= nuevoArray.filter(resp=>resp["semana"]==props[i]["semana"])
+   if(arrayTemporal.length>0){
+    nuevoArray[nuevoArray.indexOf(arrayTemporal[0])]["Data"].push(props[i]["trabajador"])
+   }else{
+    nuevoArray.push({"semana": props[i]["semana"], "data": [props[i]["trabajador"]]})
+   }
+}
+console.log('nuevo array test:   ',nuevoArray)
+} */
+
+
+console.log('muestra', Asistencias)
+let resultado = {}
+Asistencias.forEach(asistencias=>{
+  const nombreGrupo =asistencias.semana;
+ if(!resultado[nombreGrupo]) resultado[nombreGrupo]=[]
+resultado[nombreGrupo].push(asistencias)
+
+
+})
+
+console.log('RESS',resultado)
+
+
+
+
+
+/*  resultado.forEach(dato=>
+  console.log('335',dato))  */
+
   const [or, setOr]= useState()
      
    /*    const orden =(props)=>{ 
@@ -125,33 +161,10 @@ if(exReg.test(dato)){
 }else{return null}
        }
     
-const you =(tipoA, name, dato )=>{
-if (name==name){
-  return (
-    <td>{tipoA}</td>,
-    <td>{name}</td>,
-    
-     <td>{Monday(dato)}</td>,
-     <td>{Martes(dato)}</td>,
-     <td>{Miercoles(dato)}</td>,
-     <td>{Jueves(dato)}</td>,
-     <td>{Viernes(dato)}</td>,
-     <td>{Sabado(dato)}</td>
 
-  )
-  
-    
-  
-  
-}
 
-}
 
-let nuevoObjeto = []
-
-console.log('nuevo objeto:  ', nuevoObjeto)
-console.log('nuevo objeto:  ', nuevoObjeto)
-
+//nuevoObjeto.reduce((acc,current))
 
 function ExportData() {
   //var XLSX = require("xlsx")
@@ -181,9 +194,51 @@ function ExportData() {
 }
 
 {/* 
+ZONA DE GUERRA
  */}
      console.log('itinerante', itinerante)
-      return (
+     //console.log('itinerante', itinerante['datos'])
+     
+const [try1, setTry1]=useState() 
+let nuevoObjeto = {}
+let nuevoArray = []
+
+console.log('nuevo objeto:  ', nuevoObjeto)
+console.log('nuevo Array:  ', nuevoArray)
+     
+
+useEffect(()=>{
+
+},[])
+
+const darkness = (props) => {
+
+  return props.reduce((acc, current)=>{
+    const foundItem1 =  acc.find(it => it.trabajador === current.trabajador)
+    console.log('desde darkness:', acc);
+  /*  const r= {}
+   r.push(acc); */
+  setTry1(acc)
+   //console.log('r:', r);
+   if (foundItem1 ){
+    foundItem1.data=foundItem1.data
+    ?[...foundItem1.data, {'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
+    :[{ 'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
+ }else{ acc.push( {
+   'trabajador': current.trabajador,
+   'data': [{
+     'tipoAsistencia':current.tipoAsistencia, 'date': current.date
+   }]
+ } ) }
+
+return acc 
+
+  }, [])}
+
+
+
+//console.log('DARKNESS', darkness)
+     return (
     <Card>  
      <div className='presupuestos'>
      {Presupuestos&&
@@ -198,6 +253,9 @@ function ExportData() {
                console.log("objeto completo:", presupuesto.asistencias)
                setAsistencias(presupuesto.asistencias)
               await AsistenciasPresupuesto(Asistencias)
+              darkness(nuevoArray)
+             //AsistenciasPresupuestodos(Asistencias)
+
            //  await  orden(itinerante)
                //console.log("asistencias:", Asistencias)       
         
@@ -213,21 +271,22 @@ function ExportData() {
              <Card id="prueba" className='lg'>
         
              {itinerante&&
-  itinerante.map((e=> (
+  itinerante.map((e)=> (
+    
+    e.data.map((s)=>{ nuevoArray.push(s)}), 
    
-   e.map((r)=>(
 
   //console.log('desde mapa:', r.data),
   <Accordion>
-  <Accordion.Item eventKey={r.semana}>
-    <Accordion.Header>{r.semana}     <Button onClick={ExportData}>TEST</Button>     </Accordion.Header>
+  <Accordion.Item eventKey={e.semana}>
+    <Accordion.Header>{e.semana}     <Button onClick={ExportData}>TEST</Button>     </Accordion.Header>
     <Accordion.Body>
   
     <Table striped bordered hover>
         <thead>
           <tr>
-          <th>Asistencia</th>
           <th>Trabajador</th>
+          <th>Asistencia</th>
           <th>Lunes</th>
           <th>Martes</th> 
           <th>Miercoles</th>
@@ -239,67 +298,26 @@ function ExportData() {
           </tr>   
         </thead>
         <tbody>
-        
- 
-        
-        {
-    r.data.map((s)=>{ 
-      if(!nuevoObjeto.hasOwnProperty(s.trabajador)){
-        nuevoObjeto[s.trabajador]={
-          asistencias:[]
-        }
-      }
-      nuevoObjeto[s.trabajador].asistencias.push({
-        fecha:s.date,
-        asistencia:s.tipoAsistencia
-      })
-        console.log('nuevo objeto:  ', nuevoObjeto)
-      return <tr> 
-         <td>{s.tipoAsistencia}</td>
-<td>{s.trabajador}</td>
 
- <td>{Monday(s.date)}</td>
- <td>{Martes(s.date)}</td>
- <td>{Miercoles(s.date)}</td>
- <td>{Jueves(s.date)}</td>
- <td>{Viernes(s.date)}</td>
- <td>{Sabado(s.date)}</td> 
-          
-  
-            </tr>
-        
-  
-     
-      
-  
-    })
-  }   
-{/* 
-  {
-    r.data.map((s)=>{ 
-     // console.log('test s:   ', s)
-      if(!nuevoObjeto.hasOwnProperty(s.trabajador)){
-        nuevoObjeto[s.trabajador]={
-          asistencias:[]
-        }
-      }
-
-      nuevoObjeto[s.trabajador].asistencias.push({
-        fecha:s.date,
-        asistencia:s.tipoAsistencia
-      })
-        
        
-      
-  
-    })
+
     
-     
-  } */}
+      
+        {try1&&try1.map((r)=>{
+       
+            
+       return     <tr> <td>{r.trabajador}</td>
+              {r.data.map((s)=>{
 
-
-
-
+                return     <tr><td>{s.tipoAsistencia}</td></tr>
+                
+                
+              })}
+       </tr>
+        
+       })}  
+      
+      
   </tbody>
        
       </Table>
@@ -311,17 +329,33 @@ function ExportData() {
   </Accordion.Item>
   </Accordion>
   
-  ))
+  
    
-  )))
+  ))
   
         }
+
+
+
     
               </Card>
            </div>
     </Card>
      )
     }
+
+ 
+
+
+ 
+     
+  
+     
+      
+
+
+
+
 
 
  
@@ -335,4 +369,39 @@ function ExportData() {
    
 
 
+{/*
 
+       {
+    e.data.map((s)=>{ 
+      const nombreTrabajador= s.trabajador;
+      if(!nuevoObjeto[nombreTrabajador])nuevoObjeto[nombreTrabajador]=[];
+       nuevoObjeto[ nombreTrabajador].push(s)
+        //console.log('nuevo objeto:  ', nuevoObjeto)
+
+      
+//try a new reduce 
+
+
+ 
+      return <tr> 
+
+ <td>{s.tipoAsistencia}</td>
+ <td>{s.trabajador}</td>
+ <td>{Monday(s.date)}</td>
+ <td>{Martes(s.date)}</td>
+ <td>{Miercoles(s.date)}</td>
+ <td>{Jueves(s.date)}</td>
+ <td>{Viernes(s.date)}</td>
+ <td>{Sabado(s.date)}</td> 
+          
+  
+            </tr>
+    
+  
+     
+      
+  
+    })
+  }   
+
+*/}
