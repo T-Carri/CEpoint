@@ -207,9 +207,9 @@ console.log('nuevo objeto:  ', nuevoObjeto)
 console.log('nuevo Array:  ', nuevoArray)
      
 
-useEffect(()=>{
+/* useEffect(()=>{
 
-},[])
+},[]) */
 
 const darkness = (props) => {
 
@@ -287,12 +287,8 @@ return acc
           <tr>
           <th>Trabajador</th>
           <th>Asistencia</th>
-          <th>Lunes</th>
-          <th>Martes</th> 
-          <th>Miercoles</th>
-          <th>Jueves</th>
-          <th>Viernes</th>
-          <th>Sabado</th>
+          <th>Fecha</th>
+          
               
                
           </tr>   
@@ -309,10 +305,15 @@ return acc
        return     <tr> <td>{r.trabajador}</td>
               {r.data.map((s)=>{
 
-                return     <tr><td>{s.tipoAsistencia}</td></tr>
+                return   <tr><th>{s.tipoAsistencia}</th> 
+                 <td>{s.date}</td>
+                </tr>
+                
+                 
                 
                 
               })}
+              
        </tr>
         
        })}  
