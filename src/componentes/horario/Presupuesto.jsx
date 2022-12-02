@@ -165,7 +165,7 @@ if(exReg.test(dato)){
 
 
 //nuevoObjeto.reduce((acc,current))
-
+const [excel, setExcel] = useState()
 function ExportData() {
   //var XLSX = require("xlsx")
   var data = [{
@@ -183,7 +183,7 @@ function ExportData() {
 ];
 
    /* 创建worksheet */
-   var ws = XLSX.utils.json_to_sheet(nuevoObjeto);
+   var ws = XLSX.utils.json_to_sheet(excel);
 
    /* 新建空workbook，然后加入worksheet */
    var wb = XLSX.utils.book_new();
@@ -250,6 +250,7 @@ return acc
          onClick={
               async (e)=>{
                e.preventDefault()
+               setExcel(presupuesto.asistencias)
                console.log("objeto completo:", presupuesto.asistencias)
                setAsistencias(presupuesto.asistencias)
               await AsistenciasPresupuesto(Asistencias)
@@ -279,7 +280,7 @@ return acc
   //console.log('desde mapa:', r.data),
   <Accordion>
   <Accordion.Item eventKey={e.semana}>
-    <Accordion.Header>{e.semana}     <Button onClick={ExportData}>TEST</Button>     </Accordion.Header>
+    <Accordion.Header>{e.semana}     <Button onClick={ExportData}>Excel</Button>     </Accordion.Header>
     <Accordion.Body>
   
     <Table striped bordered hover>

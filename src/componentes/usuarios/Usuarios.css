@@ -82,7 +82,7 @@ div.trabajadores{
 button.actualizarUser.btn.btn-success{
     width: 50%;
     height: 10%;
-    margin-top: 15%;
+    
     
 }
 .handle{ 
@@ -91,4 +91,7 @@ button.actualizarUser.btn.btn-success{
     z-index: 10;
     margin: 2rem 0;
 
+}
+.offcanvas-backdrop.show {
+    opacity: -0.5;
 }

@@ -1,5 +1,5 @@
 import React, {useState, useContext, useRef} from 'react'
-import { Card, Container, Toast, Button, Modal } from 'react-bootstrap'
+import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col } from 'react-bootstrap'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
 
 import './Usuarios.css'
@@ -10,7 +10,7 @@ import UsuariosContext from '../../context/UsuariosContext';
 
 
 export const Usuarios = () => {
-  const {Usuarios, getUsuarios, getUsersUnable, Userun, setActualizador, activateUser}=useContext(UsuariosContext)
+  const {Usuarios, getUsuarios, getUsersUnable, Userun, activateUser, desactivaUser}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
   const toggleShowA   = () => setShowA(!showA);
   const [Civiles, setCiviles] = useState([])
@@ -22,7 +22,10 @@ export const Usuarios = () => {
    const handleClose = () => setShow(false);
    const handleShow = () => setShow(true);
 
-  
+   const [show3, setShow3] = useState(false);
+
+   const handleClose3 = () => setShow3(false);
+   const handleShow3 = () => setShow3(true);
 
 //console.log('habilitados?:', Userun)
 
@@ -42,7 +45,8 @@ if(foundItem){
    'perfil':current.perfil, 
    'email': current.email, 
    'password': current.password,   
-   'Uid':current.UID, 
+   'Uid':current.UID,
+   'empresa':current.empresa, 
    'asignador':current.asignador,
    'checador': current.checador, 
    'ocupado': current.ocupado, 
@@ -51,7 +55,8 @@ if(foundItem){
  'perfil':current.perfil,
  'email': current.email, 
  'password': current.password,   
- 'Uid':current.UID, 
+ 'Uid':current.UID,
+ 'empresa':current.empresa, 
  'asignador':current.asignador,
  'checador': current.checador, 
  'ocupado': current.ocupado, 
@@ -65,7 +70,8 @@ if(foundItem){
                   'perfil':current.perfil, 
                   'email': current.email, 
                   'password': current.password,   
-                  'Uid':current.UID, 
+                  'Uid':current.UID,
+                  'empresa':current.empresa, 
                   'asignador':current.asignador,
                   'checador': current.checador, 
                   'ocupado': current.ocupado, 
@@ -98,7 +104,7 @@ useEffect(()=>{
 
 
 
-//console.log('Usuarios desde creado de usuarios:',Usuarios)
+console.log('Usuarios desde creado de usuarios:',Usuarios)
 
 
 
@@ -155,34 +161,46 @@ useEffect(()=>{
 <Card.Title>{s.perfil}</Card.Title>
 <Card.Title>{s.nombre}</Card.Title>
 <Card.Title>{s.email}</Card.Title>
-<Card.Title>{s.password}</Card.Title>
+<Card.Title>{s.empresa}</Card.Title>
 <Card.Title>{s.Uid}</Card.Title>
  
  <Button className='actualizarUser' variant='success' onClick={
   ()=>(
-    handleShow(),
+    handleShow3(),
     setId(s.Uid)
   )
   }>
   Actualizar
  </Button>
-</Card.Body>
- <Modal show={show} onHide={handleClose} animation={true}  backdrop="static">
-        <Modal.Header closeButton>
-          <Modal.Title>{Id.toString()}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+ <br/>
 
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
+<Button variant='warning' onClick={
+ ()=>{
+  try {
+    
+      desactivaUser(s.Uid)
+  } catch (error) {
+    console.log(error)
+  }
+    
+  }
+}>
+  Desactivar
+ </Button>
+ 
+ 
+
+
+</Card.Body>
+<Offcanvas show={show3} onHide={handleClose3}>
+      <Offcanvas.Header closeButton>
+      <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+      </Offcanvas.Header>
+      <Offcanvas.Body>
+          Some text as placeholder. In real life you can have the elements you
+          have chosen. Like, text, images, lists, etc.
+        </Offcanvas.Body>
+</Offcanvas>
  </Card>
 
 
@@ -213,6 +231,7 @@ useEffect(()=>{
 <div  >
 <Card id='cuentaInactiva' >
   <Card.Body>
+  <h6><strong>Cuenta inactiva</strong></h6>
   <h6> Trabajador:<strong>{e.nombre}</strong></h6>
   <br/>
   <h6>Empresa: 
@@ -235,10 +254,10 @@ useEffect(()=>{
 </h6>
 
 <br/>
-<Button className='UPDATE' variant='secondary' size='md' onClick={async()=>{
+<Button className='UPDATE' variant='secondary' size='md' onClick={()=>{
 try {
-  setActualizador(e.UID)
-    activateUser()
+  
+    activateUser(e.UID)
 } catch (error) {
   console.log(error)
 }

@@ -16,7 +16,7 @@ const {idProyecto, setIdProyecto, asig, setAsign, getLinks, getProyecto }=useCon
     const toggleShowA = () =>{
       setShowA(!showA);
       setShowB(false);
-    } 
+    }   
     const [showB, setShowB] = useState(false);
     
     const toggleShowB = () =>{

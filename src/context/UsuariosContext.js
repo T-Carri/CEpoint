@@ -54,12 +54,21 @@ const fetchOnlyUser = async(params)=>{
       }
     //Esta funcion activa los usuarios        
    
-   const activateUser = async()=>{
-    const AU = doc(db, "users", Actualizador)
+   const activateUser = async(params)=>{
+    const AU = doc(db, "users", params)
     await updateDoc(AU,
       
       {
         activo: true
+      })
+   } 
+
+   const desactivaUser = async(params)=>{
+    const AU = doc(db, "users", params)
+    await updateDoc(AU,
+      
+      {
+        activo: false
       })
    } 
    //checa si es un usuario con checador true
@@ -120,8 +129,7 @@ const finderChecador =  (props) => {
          {  Usuarios, 
             getUsuarios, 
             getUsersUnable, 
-            Userun, 
-            setActualizador,
+            Userun,
              activateUser, 
              setActivadorChec, 
              finderChecador, 
@@ -130,7 +138,8 @@ const finderChecador =  (props) => {
               UserChecador, 
               ActivadorChec, 
               OnlyUser,
-              fetchOnlyUser
+              fetchOnlyUser,
+              desactivaUser
             }
                                   }>
                 
