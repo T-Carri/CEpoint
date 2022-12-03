@@ -1,5 +1,5 @@
 import React, {useState, useContext, useRef} from 'react'
-import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col } from 'react-bootstrap'
+import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
 import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
 
 import './Usuarios.css'
@@ -10,7 +10,14 @@ import UsuariosContext from '../../context/UsuariosContext';
 
 
 export const Usuarios = () => {
-  const {Usuarios, getUsuarios, getUsersUnable, Userun, activateUser, desactivaUser}=useContext(UsuariosContext)
+  const {Usuarios,
+     getUsuarios, 
+     getUsersUnable, 
+     Userun, 
+     activateUser, 
+     desactivaUser,
+     fetchOnlyUser,
+      OnlyUser}=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
   const toggleShowA   = () => setShowA(!showA);
   const [Civiles, setCiviles] = useState([])
@@ -104,8 +111,8 @@ useEffect(()=>{
 
 
 
-console.log('Usuarios desde creado de usuarios:',Usuarios)
-
+//console.log('Usuarios desde creado de usuarios:',Usuarios)
+console.log('USUARIO SELECTO', OnlyUser)
 
 
   return (
@@ -159,7 +166,7 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
 <Card.Body>
 
 <Card.Title>{s.perfil}</Card.Title>
-<Card.Title>{s.nombre}</Card.Title>
+<Card.Title><strong>{s.nombre}</strong></Card.Title>
 <Card.Title>{s.email}</Card.Title>
 <Card.Title>{s.empresa}</Card.Title>
 <Card.Title>{s.Uid}</Card.Title>
@@ -167,14 +174,15 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
  <Button className='actualizarUser' variant='success' onClick={
   ()=>(
     handleShow3(),
-    setId(s.Uid)
+    fetchOnlyUser(s.Uid)
+    //setId(s.Uid)
   )
   }>
   Actualizar
  </Button>
  <br/>
 
-<Button variant='warning' onClick={
+<Button variant='warning' id='desactiva' onClick={
  ()=>{
   try {
     
@@ -188,19 +196,68 @@ console.log('Usuarios desde creado de usuarios:',Usuarios)
   Desactivar
  </Button>
  
- 
 
 
 </Card.Body>
-<Offcanvas show={show3} onHide={handleClose3}>
-      <Offcanvas.Header closeButton>
-      <Offcanvas.Title>Offcanvas</Offcanvas.Title>
-      </Offcanvas.Header>
-      <Offcanvas.Body>
-          Some text as placeholder. In real life you can have the elements you
-          have chosen. Like, text, images, lists, etc.
-        </Offcanvas.Body>
+ 
+
+ <Offcanvas show={show3} onHide={handleClose3} responsive="lg">
+ 
+ 
+ <Offcanvas.Header closeButton>
+  <Offcanvas.Title>{OnlyUser&&OnlyUser.nombre}</Offcanvas.Title>
+ </Offcanvas.Header>
+ <Offcanvas.Body>
+     <Form>
+     <Form.Group className="mb-3" controlId="formGroup1">
+   <Form.Label>Actualiza nombre</Form.Label>
+   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.nombre} />
+   <Button id='Cnombre' variant='primary'>Cambiar nombre</Button>
+ </Form.Group>
+ <Form.Group className="mb-3" controlId="formGroup1">
+   <Form.Label>Actualiza perfil</Form.Label>
+   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.perfil} />
+   <Button id='Cnombre' variant='success'>Actualiza</Button>
+ </Form.Group>
+ <Form.Group className="mb-3" controlId="formGroup1">
+   <Form.Label>Actualiza area</Form.Label>
+   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.area} />
+   <Button id='Cnombre' variant='success'>Actualiza</Button>
+ </Form.Group>
+ <Form.Group className="mb-3" controlId="formGroup1">
+   <Form.Label>Actualiza empresa</Form.Label>
+   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.empresa} />
+   <Button id='Cnombre' variant='success'>Actualiza</Button>
+ </Form.Group>
+ 
+ <Form.Check 
+        type="switch"
+        id="custom-switch"
+        label="¿Esta ocupado este usuario?"
+        value={true}
+      />
+      <br/>
+      <Form.Check 
+        type="switch"
+        id="custom-switch"
+        label="¿Tiene habilitado el checador?"
+      />
+      <br/>
+      <Form.Check 
+        type="switch"
+        id="custom-switch"
+        label="¿Es asignador?"
+      />
+      <br/>
+      <Form.Check 
+        type="switch"
+        id="custom-switch"
+        label="¿Es lector de asistencias?"
+      />
+     </Form>
+   </Offcanvas.Body>
 </Offcanvas>
+
  </Card>
 
 

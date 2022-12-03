@@ -57,7 +57,7 @@ div.content-users.card{
 }  
 
 div.civiles{
-    background-image: url("aurora.jpg");
+    background-image: url("neo.jpg");
     background-size: cover;
     display: flex;
     overflow-x: scroll;
@@ -69,19 +69,21 @@ div.civiles{
 
 div.trabajadores{
     background-color: rgb(184, 35, 15);
-  color: antiquewhite;
+  color: rgb(185, 175, 162);
   text-align: center;
   max-width: 60%;
   flex: 0 0 25%;
-  padding: 2%;
+
   row-gap: 25rem;
   column-gap: 20rem;
   margin: 2%;
+  
 }
 
 button.actualizarUser.btn.btn-success{
-    width: 50%;
-    height: 10%;
+    width: 70%;
+    height: 15%;
+    padding: 2px;
     
     
 }
@@ -94,4 +96,16 @@ button.actualizarUser.btn.btn-success{
 }
 .offcanvas-backdrop.show {
     opacity: -0.5;
+}
+button#Cnombre.btn.btn-primary{
+    
+    margin-left: 80px;
+    margin-top: 8px;
+
+}
+button#desactiva.btn.btn-warning{
+    
+}
+.btn-warning{
+    margin-top: 12px;
 }
