@@ -217,29 +217,31 @@ console.log('USUARIO SELECTO', OnlyUser)
  <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza perfil</Form.Label>
    <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.perfil} />
-   <Button id='Cnombre' variant='success'>Actualiza</Button>
+   <Button id='Cperfil' variant='success'>Actualiza</Button>
  </Form.Group>
  <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza area</Form.Label>
    <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.area} />
-   <Button id='Cnombre' variant='success'>Actualiza</Button>
+   <Button id='Carea' variant='success'>Actualiza</Button>
  </Form.Group>
  <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza empresa</Form.Label>
    <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.empresa} />
-   <Button id='Cnombre' variant='success'>Actualiza</Button>
+   <Button id='Cempresa' variant='success'>Actualiza</Button>
  </Form.Group>
  
  <Form.Check 
         type="switch"
         id="custom-switch"
         label="¿Esta ocupado este usuario?"
-        value={true}
+        checked={OnlyUser&&OnlyUser.ocupado}
       />
       <br/>
       <Form.Check 
         type="switch"
         id="custom-switch"
+        checked={OnlyUser&&OnlyUser.checador}
+        isValid={true}
         label="¿Tiene habilitado el checador?"
       />
       <br/>
@@ -247,12 +249,14 @@ console.log('USUARIO SELECTO', OnlyUser)
         type="switch"
         id="custom-switch"
         label="¿Es asignador?"
+        checked={OnlyUser&&OnlyUser.asignador}
       />
       <br/>
       <Form.Check 
         type="switch"
         id="custom-switch"
         label="¿Es lector de asistencias?"
+        checked={OnlyUser&&OnlyUser.lectoreAsistencia}
       />
      </Form>
    </Offcanvas.Body>

@@ -103,9 +103,16 @@ button#Cnombre.btn.btn-primary{
     margin-top: 8px;
 
 }
-button#desactiva.btn.btn-warning{
-    
-}
+
 .btn-warning{
     margin-top: 12px;
+}
+button#Cperfil.btn.btn-success{
+    margin-top: 3%;
+}
+button#Carea.btn.btn-success{
+    margin-top: 3%;
+}
+button#Cempresa.btn.btn-success{
+    margin-top: 3%;
 }
