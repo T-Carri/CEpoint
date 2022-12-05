@@ -47,7 +47,7 @@ div.inactivos.card{
     background-color: lightslategray;
     margin-left: 1em;
     overflow: hidden;
-    overflow-x: scroll;
+    overflow-y: scroll;
 }
 
 div.content-users.card{
