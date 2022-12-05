@@ -1,5 +1,5 @@
 //habilItado
-import { Button, Card, NavbarBrand} from 'react-bootstrap'
+import { Button, Card, NavbarBrand, Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
 import { UserAuth } from '../../context/AuthContext';
 import './Account.css'
 
@@ -69,7 +69,43 @@ useEffect(()=>{
 <div>
 <header> 
     {/* //navbar */}
-    <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
+    <Navbar bg="warning" variant="warning">
+       
+        <NavbarBrand id="logo" className="logo" href="/">
+            <strong>
+           CEpoint
+
+            </strong>
+         </NavbarBrand>
+         
+        
+       
+        <Navbar.Collapse id="navbar-dark-example">
+          <Nav>
+            <NavDropdown
+              id="nav-dropdown-dark-example"
+              title="Salir"
+              menuVariant="dark"
+              
+            >
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                Another action
+              </NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4">
+              <Button onClick={handleLogout}>logout</Button>
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      
+         
+      
+      </Navbar>
+
+   {/*  <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
           <NavbarBrand className="logo" href="/">
             <strong>
            CEpoint
@@ -81,7 +117,7 @@ useEffect(()=>{
     <Button onClick={handleLogout}>logout</Button>
        
      </div>
-          </nav>
+          </nav> */}
 </header>
 <div className="a1">
 

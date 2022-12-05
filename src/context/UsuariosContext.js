@@ -2,7 +2,7 @@
 import React, {createContext, useState, useContext, useEffect} from 'react'
 import { getFirestore, update, FieldValue, get, query, where, collection, getDoc, onSnapshot, doc, updateDoc, arrayUnion} from "firebase/firestore"
 import { db } from '../firebase/firebase';
-
+import {searchArea} from '../componentes/usuarios/options'
 
 const UsuariosContext = createContext( )
 export default UsuariosContext;
@@ -71,6 +71,32 @@ const fetchOnlyUser = async(params)=>{
         activo: false
       })
    } 
+
+
+const acNombre = async(id, dato)=>{
+  const AN = doc(db, "users", id)
+  await updateDoc(AN, {
+    nombre: dato
+  })
+}
+
+const acPerfil = async(id, perfilDato)=>{
+  const AP = doc(db, "users", id)
+  await updateDoc(AP, {
+    perfil: perfilDato,
+    area: searchArea(perfilDato)
+
+  })
+} 
+
+const acEmpresa = async(id, Empresa)=>{
+  const AE =doc(db, "users", id)
+  await updateDoc(AE, {
+    empresa: Empresa
+  })
+}
+
+
    //checa si es un usuario con checador true
    const ableChecador = async(dato)=>{
     const AC = doc(db, "users", dato)
@@ -78,8 +104,8 @@ const fetchOnlyUser = async(params)=>{
     
     //checa si es un usuario con checador false
 
-   const enableChecador = async()=>{
-    const DC = doc(db, "users", ActivadorChec)
+   const enableChecador = async(dato)=>{
+    const DC = doc(db, "users", dato)
     await updateDoc(DC, {checador: false}  )} 
 
     // este es un reduce que tiene como objetivo buscar checador  en teoria
@@ -116,7 +142,28 @@ const finderChecador =  (props) => {
     }, [])}
   
 
+    const ableOcupado = async(dato)=>{
+      const AC = doc(db, "users", dato)
+      await updateDoc(AC, { ocupado: true } )} 
+      
+      //checa si es un usuario con checador false
+  
+     const enableOcupado = async(dato)=>{
+      const DC = doc(db, "users", dato)
+      await updateDoc(DC, {ocupado: false}  )} 
+
+
+      const ableAsignador = async(dato)=>{
+        const AC = doc(db, "users", dato)
+        await updateDoc(AC, { asignador: true } )} 
+        
+        //checa si es un usuario con checador false
+    
+       const enableAsignador = async(dato)=>{
+        const DC = doc(db, "users", dato)
+        await updateDoc(DC, {asignador: false}  )} 
  /* recolectar consultas */ 
+ 
  
 
 
@@ -136,10 +183,19 @@ const finderChecador =  (props) => {
              enableChecador,
               ableChecador, 
               UserChecador, 
+              ableOcupado,
+              enableOcupado,
+              ableAsignador,
+              enableAsignador,
               ActivadorChec, 
               OnlyUser,
               fetchOnlyUser,
-              desactivaUser
+              desactivaUser,
+              acNombre,
+              acPerfil,
+              acEmpresa, 
+              setOnlyUser
+
             }
                                   }>
                 

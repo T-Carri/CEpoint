@@ -1,4 +1,4 @@
-import { Button, Card, NavbarBrand} from 'react-bootstrap'
+import { Button, Card, NavbarBrand, Navbar, Container} from 'react-bootstrap'
 import { UserAuth } from '../../context/AuthContext';
 import './Account.css'
 import Asignador1 from '../../componentes/asignador/Asignador1';
@@ -56,8 +56,22 @@ export const Layout= () => {
 
     
     <section className="cepoint">
-<div className="Bienvenida">
+
     {/* //navbar */}
+    <Navbar bg="dark" variant="dark">
+        <Container>
+          <Navbar.Brand href="#home">
+            <img
+              alt=""
+              src="/logo.svg"
+              width="30"
+              height="30"
+              className="d-inline-block align-top"
+            />{' '}
+            React Bootstrap
+          </Navbar.Brand>
+        </Container>
+      </Navbar>
           <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
           <NavbarBrand className="logo" href="/">
            CEpoint 
@@ -70,7 +84,7 @@ export const Layout= () => {
           </nav>
 
 
-</div>
+
     {/* aside */}
     <div className="a1">
      

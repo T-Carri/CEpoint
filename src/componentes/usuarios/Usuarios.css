@@ -116,3 +116,9 @@ button#Carea.btn.btn-success{
 button#Cempresa.btn.btn-success{
     margin-top: 3%;
 }
+
+a#logo.logo.navbar-brand{
+    margin-left: 5rem;
+    margin-right: 5rem;
+
+}

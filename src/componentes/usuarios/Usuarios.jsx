@@ -1,13 +1,10 @@
-import React, {useState, useContext, useRef} from 'react'
+import React, {useState, useContext, useRef, useEffect} from 'react'
 import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
-import {getFirestore, updateDoc, arrayUnion, doc, onSnapshot, addDoc ,setDoc, collection, getDoc, query, where} from 'firebase/firestore'
-
+import {options,  optionsEmpresas, searchArea} from './options'
 import './Usuarios.css'
-
-import { useEffect } from 'react';
 import { FormCreadorUser } from './FormCreadorUser'; 
 import UsuariosContext from '../../context/UsuariosContext';
-
+import SelectSearch from "react-select-search";
 
 export const Usuarios = () => {
   const {Usuarios,
@@ -17,10 +14,23 @@ export const Usuarios = () => {
      activateUser, 
      desactivaUser,
      fetchOnlyUser,
-      OnlyUser}=useContext(UsuariosContext)
+      OnlyUser, 
+      acNombre, 
+      acPerfil, 
+      acEmpresa,
+      ableChecador,
+      enableChecador,
+      setOnlyUser, 
+      ableOcupado,
+      enableOcupado, 
+      ableAsignador, 
+      enableAsignador
+    }=useContext(UsuariosContext)
   const [showA, setShowA] = useState(false);
   const toggleShowA   = () => setShowA(!showA);
   const [Civiles, setCiviles] = useState([])
+  const [Perfil, setPerfil] = useState('')
+  const [Empresa, setEmpresa]=useState('')
   const [Id, setId] = useState('') 
   //console.log('id:', Id)
    //overlay
@@ -92,22 +102,24 @@ return past;
 
 }, [])}
  
-
-
-
-
-
-
 useEffect(()=>{ 
   getUsersUnable()
   getUsuarios()},[])
 
- useEffect(()=>{
- 
+  useEffect(()=>{
+  
   CivilesWay(Usuarios)
   //electricosWay(Usuarios)
 },[Usuarios]) 
   
+
+const nombreRef =useRef("")
+
+const empresaRef =useRef("")
+//console.log(nombreRef.current.value)
+
+
+
 
 
 
@@ -115,12 +127,16 @@ useEffect(()=>{
 console.log('USUARIO SELECTO', OnlyUser)
 
 
+
+
+
+
   return (
      
     <Container className="cardContenedora" style={{ width: '100em', height:'100%'}}>
     <Card.Body>
       <Card.Title>Gestion de usuarios</Card.Title>
-      <Card.Subtitle className="mb-2 text-muted">controles para controlar usuarios test</Card.Subtitle>
+      <Card.Subtitle className="mb-2 text-muted">controles para controlar usuarios</Card.Subtitle>
     
     
      <div className="usuarios" style={{display:'absolute'}} >
@@ -172,10 +188,11 @@ console.log('USUARIO SELECTO', OnlyUser)
 <Card.Title>{s.Uid}</Card.Title>
  
  <Button className='actualizarUser' variant='success' onClick={
-  ()=>(
+   ()=>(
+   
     handleShow3(),
-    fetchOnlyUser(s.Uid)
-    //setId(s.Uid)
+    fetchOnlyUser(s.Uid),
+    setId(s.Uid)
   )
   }>
   Actualizar
@@ -208,26 +225,52 @@ console.log('USUARIO SELECTO', OnlyUser)
   <Offcanvas.Title>{OnlyUser&&OnlyUser.nombre}</Offcanvas.Title>
  </Offcanvas.Header>
  <Offcanvas.Body>
-     <Form>
+     <Form >
      <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza nombre</Form.Label>
-   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.nombre} />
-   <Button id='Cnombre' variant='primary'>Cambiar nombre</Button>
+   <Form.Control type="text" ref={nombreRef} placeholder={OnlyUser&&OnlyUser.nombre} />
+   <Button id='Cnombre' variant='primary' onClick={()=>{
+    try {
+  acNombre(OnlyUser.UID, nombreRef.current.value )  
+  fetchOnlyUser(OnlyUser.UID)
+   } catch (error) {
+    console.log('No se puede porque:  ', error)
+   }
+  }}>Cambiar nombre</Button>
  </Form.Group>
+ 
+ 
  <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza perfil</Form.Label>
-   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.perfil} />
-   <Button id='Cperfil' variant='success'>Actualiza</Button>
+   <SelectSearch options={options}  onChange={setPerfil}
+       search 
+       name="perfil" placeholder={OnlyUser&&OnlyUser.perfil} />
+   
+   <Button id='Cperfil' variant='success' onClick={()=>{
+    try{
+acPerfil(OnlyUser.UID, Perfil)
+fetchOnlyUser(OnlyUser.UID)
+    } catch(error){
+      console.log('No se puede porque:  ', error)
+    }
+   }}>Actualiza</Button>
  </Form.Group>
- <Form.Group className="mb-3" controlId="formGroup1">
-   <Form.Label>Actualiza area</Form.Label>
-   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.area} />
-   <Button id='Carea' variant='success'>Actualiza</Button>
- </Form.Group>
+ 
  <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza empresa</Form.Label>
-   <Form.Control type="text" placeholder={OnlyUser&&OnlyUser.empresa} />
-   <Button id='Cempresa' variant='success'>Actualiza</Button>
+   <SelectSearch options={optionsEmpresas} 
+       search   onChange={setEmpresa}
+       name="empresa" placeholder={OnlyUser&&OnlyUser.empresa} />
+   
+   <Button id='Cempresa' variant='success' 
+   onClick={()=>{
+    try {
+      acEmpresa(OnlyUser.UID, Empresa)
+      fetchOnlyUser(OnlyUser.UID)
+    } catch (error) {
+      
+    }
+   }}>Actualiza</Button>
  </Form.Group>
  
  <Form.Check 
@@ -235,12 +278,25 @@ console.log('USUARIO SELECTO', OnlyUser)
         id="custom-switch"
         label="¿Esta ocupado este usuario?"
         checked={OnlyUser&&OnlyUser.ocupado}
+        isValid={true}
+        onChange={
+          ()=>{
+            OnlyUser.ocupado?enableOcupado(OnlyUser.UID):ableOcupado(OnlyUser.UID);
+            fetchOnlyUser(OnlyUser.UID)
+          }
+        }
       />
       <br/>
       <Form.Check 
         type="switch"
         id="custom-switch"
         checked={OnlyUser&&OnlyUser.checador}
+        onChange={
+          ()=>{
+            OnlyUser.checador?enableChecador(OnlyUser.UID):ableChecador(OnlyUser.UID);
+            fetchOnlyUser(OnlyUser.UID)
+          }
+        }
         isValid={true}
         label="¿Tiene habilitado el checador?"
       />
@@ -250,6 +306,13 @@ console.log('USUARIO SELECTO', OnlyUser)
         id="custom-switch"
         label="¿Es asignador?"
         checked={OnlyUser&&OnlyUser.asignador}
+        isValid={true}
+        onChange={
+          ()=>{
+            OnlyUser.asignador?enableAsignador(OnlyUser.UID):ableAsignador(OnlyUser.UID);
+            fetchOnlyUser(OnlyUser.UID)
+          }
+        }
       />
       <br/>
       <Form.Check 
@@ -257,8 +320,9 @@ console.log('USUARIO SELECTO', OnlyUser)
         id="custom-switch"
         label="¿Es lector de asistencias?"
         checked={OnlyUser&&OnlyUser.lectoreAsistencia}
+        isValid={true}
       />
-     </Form>
+ </Form>    
    </Offcanvas.Body>
 </Offcanvas>
 
