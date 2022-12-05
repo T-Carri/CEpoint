@@ -1,4 +1,4 @@
-button.total.btn.btn-success{
+button.total.btn.btn-warning{
 
     background-color: 3B86E;
     height: 60px;
@@ -47,3 +47,11 @@ div.presupuestos{
     overflow-x: scroll;
 }
 
+.btn-danger {
+    color: black;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    height: inherit;
+   
+
+}

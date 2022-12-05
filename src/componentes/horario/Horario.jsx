@@ -26,10 +26,10 @@ useEffect(()=>{
      <div className="horario" >
 
       
-  <Button variant="success" className='total' onClick={()=>{navigate("presupuesto")}} > Presupuesto</Button>
+  <Button variant="warning" className='total' onClick={()=>{navigate("presupuesto")}} > Presupuesto</Button>
+  <Button variant="warning" className='semana' onClick={()=>{navigate("semana")}}>Semana</Button>
   <Button variant="warning" className='ubicacion'onClick={()=>{navigate("ubicacion")}}> Ubicacion</Button>
   <Button variant="warning" className='obra' onClick={()=>{navigate("obra")}}> Obra</Button>
-  <Button variant="warning" className='semana' onClick={()=>{navigate("semana")}}>Semana</Button>
   <Button variant="warning" className='trabajador' onClick={()=>{navigate("trabajador")}}> Trabajador </Button>
     <div className='datosHorario'>
     <Outlet/>

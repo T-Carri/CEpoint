@@ -183,7 +183,7 @@ function ExportData() {
 ];
 
    /* 创建worksheet */
-   var ws = XLSX.utils.json_to_sheet(excel);
+   var ws = XLSX.utils.json_to_sheet(Asistencias);
 
    /* 新建空workbook，然后加入worksheet */
    var wb = XLSX.utils.book_new();
@@ -222,12 +222,12 @@ const darkness = (props) => {
    //console.log('r:', r);
    if (foundItem1 ){
     foundItem1.data=foundItem1.data
-    ?[...foundItem1.data, {'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
-    :[{ 'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
+    ?[...foundItem1.data, {'semana':current.semana,'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
+    :[{'semana':current.semana, 'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
  }else{ acc.push( {
    'trabajador': current.trabajador,
    'data': [{
-     'tipoAsistencia':current.tipoAsistencia, 'date': current.date
+    'semana':current.semana, 'tipoAsistencia':current.tipoAsistencia, 'date': current.date
    }]
  } ) }
 
@@ -245,7 +245,7 @@ return acc
       Presupuestos.map((presupuesto)=>(
         <Button variant="danger" 
              id={presupuesto.obra}
-         className={presupuesto.obra}
+         
          value={presupuesto.presupuesto}
          onClick={
               async (e)=>{
@@ -253,8 +253,8 @@ return acc
                setExcel(presupuesto.asistencias)
                console.log("objeto completo:", presupuesto.asistencias)
                setAsistencias(presupuesto.asistencias)
-              await AsistenciasPresupuesto(Asistencias)
-              darkness(nuevoArray)
+              //await AsistenciasPresupuesto(Asistencias)
+              darkness(Asistencias)
              //AsistenciasPresupuestodos(Asistencias)
 
            //  await  orden(itinerante)
@@ -271,24 +271,14 @@ return acc
           <div>
              <Card id="prueba" className='lg'>
         
-             {itinerante&&
-  itinerante.map((e)=> (
-    
-    e.data.map((s)=>{ nuevoArray.push(s)}), 
-   
-
-  //console.log('desde mapa:', r.data),
-  <Accordion>
-  <Accordion.Item eventKey={e.semana}>
-    <Accordion.Header>{e.semana}     <Button onClick={ExportData}>Excel</Button>     </Accordion.Header>
-    <Accordion.Body>
+             <Button variant='success' onClick={ExportData}>Excel</Button>  
   
     <Table striped bordered hover>
         <thead>
           <tr>
           <th>Trabajador</th>
           <th>Asistencia</th>
-          <th>Fecha</th>
+          
           
               
                
@@ -306,8 +296,11 @@ return acc
        return     <tr> <td>{r.trabajador}</td>
               {r.data.map((s)=>{
 
-                return   <tr><th>{s.tipoAsistencia}</th> 
-                 <td>{s.date}</td>
+                return   <tr>
+                  <th>Semana: {s.semana},</th> 
+                  <th>  Registro: {s.tipoAsistencia}</th> 
+                  <td>{s.date}</td>
+
                 </tr>
                 
                  
@@ -327,15 +320,8 @@ return acc
   
   
   
-    </Accordion.Body>
-  </Accordion.Item>
-  </Accordion>
-  
-  
    
-  ))
-  
-        }
+   
 
 
 

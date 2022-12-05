@@ -127,7 +127,7 @@ useEffect(()=>{
    </strong></Button>}
 
 {lectorAsistencia && <Button className="btnx3" onClick={handleHorario}> <strong>Asistencia</strong></Button>}    
-{asignador &&<Button variant='danger' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
+{asignador &&<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
 <strong> Asignador  </strong> </Button>}
 
 <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
