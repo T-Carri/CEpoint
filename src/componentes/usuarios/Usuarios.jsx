@@ -27,7 +27,9 @@ export const Usuarios = () => {
       ableOcupado,
       enableOcupado, 
       ableAsignador, 
-      enableAsignador
+      enableAsignador, 
+      ableAsistencias, 
+      enableAsistencias 
     }=useContext(UsuariosContext)
 
     const navigate = useNavigate(); 
@@ -328,6 +330,12 @@ fetchOnlyUser(OnlyUser.UID)
         label="¿Es lector de asistencias?"
         checked={OnlyUser?OnlyUser.lectoreAsistencia:null}
         isValid={true}
+        onChange={
+          ()=>{
+            OnlyUser.lectoreAsistencia?enableAsistencias(OnlyUser.UID):ableAsistencias(OnlyUser.UID);
+            fetchOnlyUser(OnlyUser.UID)
+          }
+        }
       />
  </Form>    
    </Offcanvas.Body>

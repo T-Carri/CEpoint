@@ -106,7 +106,20 @@ const acEmpresa = async(id, Empresa)=>{
 
    const enableChecador = async(dato)=>{
     const DC = doc(db, "users", dato)
-    await updateDoc(DC, {checador: false}  )} 
+    await updateDoc(DC, {checador: false}  )}  
+
+
+    //lector asistencias 
+
+    const ableAsistencias = async(dato)=>{
+      const AC = doc(db, "users", dato)
+      await updateDoc(AC, { lectoreAsistencia: true } )} 
+      
+      //checa si es un usuario con checador false
+  
+     const enableAsistencias = async(dato)=>{
+      const DC = doc(db, "users", dato)
+      await updateDoc(DC, {lectoreAsistencia: false}  )} 
 
     // este es un reduce que tiene como objetivo buscar checador  en teoria
     //pero actualmente devuelve un array que da nombre, uid, y perfil, 
@@ -187,6 +200,8 @@ const finderChecador =  (props) => {
               enableOcupado,
               ableAsignador,
               enableAsignador,
+              ableAsistencias, 
+              enableAsistencias,
               ActivadorChec, 
               OnlyUser,
               fetchOnlyUser,
