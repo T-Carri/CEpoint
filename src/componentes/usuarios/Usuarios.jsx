@@ -5,6 +5,9 @@ import './Usuarios.css'
 import { FormCreadorUser } from './FormCreadorUser'; 
 import UsuariosContext from '../../context/UsuariosContext';
 import SelectSearch from "react-select-search";
+import {useNavigate} from 'react-router-dom'
+
+
 
 export const Usuarios = () => {
   const {Usuarios,
@@ -26,6 +29,8 @@ export const Usuarios = () => {
       ableAsignador, 
       enableAsignador
     }=useContext(UsuariosContext)
+
+    const navigate = useNavigate(); 
   const [showA, setShowA] = useState(false);
   const toggleShowA   = () => setShowA(!showA);
   const [Civiles, setCiviles] = useState([])
@@ -150,6 +155,8 @@ console.log('USUARIO SELECTO', OnlyUser)
     
         <Button variant='success' onClick={toggleShowA} className="mb-2">
           <strong>+</strong>  Crear usuario
+        </Button> <Button variant='success' onClick={()=>{navigate("todos")}} className="mb-2">
+          todos
         </Button>   <br />
         <Toast show={showA} onClose={toggleShowA} style={{width:'50em', height:'40em'}}>
           <Toast.Header>
@@ -222,13 +229,13 @@ console.log('USUARIO SELECTO', OnlyUser)
  
  
  <Offcanvas.Header closeButton>
-  <Offcanvas.Title>{OnlyUser&&OnlyUser.nombre}</Offcanvas.Title>
+  <Offcanvas.Title>{OnlyUser?OnlyUser.nombre:null}</Offcanvas.Title>
  </Offcanvas.Header>
  <Offcanvas.Body>
      <Form >
      <Form.Group className="mb-3" controlId="formGroup1">
    <Form.Label>Actualiza nombre</Form.Label>
-   <Form.Control type="text" ref={nombreRef} placeholder={OnlyUser&&OnlyUser.nombre} />
+   <Form.Control type="text" ref={nombreRef} placeholder={OnlyUser?OnlyUser.nombre:null} />
    <Button id='Cnombre' variant='primary' onClick={()=>{
     try {
   acNombre(OnlyUser.UID, nombreRef.current.value )  
@@ -244,7 +251,7 @@ console.log('USUARIO SELECTO', OnlyUser)
    <Form.Label>Actualiza perfil</Form.Label>
    <SelectSearch options={options}  onChange={setPerfil}
        search 
-       name="perfil" placeholder={OnlyUser&&OnlyUser.perfil} />
+       name="perfil" placeholder={OnlyUser?OnlyUser.perfil:null} />
    
    <Button id='Cperfil' variant='success' onClick={()=>{
     try{
@@ -260,7 +267,7 @@ fetchOnlyUser(OnlyUser.UID)
    <Form.Label>Actualiza empresa</Form.Label>
    <SelectSearch options={optionsEmpresas} 
        search   onChange={setEmpresa}
-       name="empresa" placeholder={OnlyUser&&OnlyUser.empresa} />
+       name="empresa" placeholder={OnlyUser?OnlyUser.empresa:null} />
    
    <Button id='Cempresa' variant='success' 
    onClick={()=>{
@@ -277,7 +284,7 @@ fetchOnlyUser(OnlyUser.UID)
         type="switch"
         id="custom-switch"
         label="¿Esta ocupado este usuario?"
-        checked={OnlyUser&&OnlyUser.ocupado}
+        checked={OnlyUser?OnlyUser.ocupado:null}
         isValid={true}
         onChange={
           ()=>{
@@ -290,7 +297,7 @@ fetchOnlyUser(OnlyUser.UID)
       <Form.Check 
         type="switch"
         id="custom-switch"
-        checked={OnlyUser&&OnlyUser.checador}
+        checked={OnlyUser?OnlyUser.checador:null}
         onChange={
           ()=>{
             OnlyUser.checador?enableChecador(OnlyUser.UID):ableChecador(OnlyUser.UID);
@@ -305,7 +312,7 @@ fetchOnlyUser(OnlyUser.UID)
         type="switch"
         id="custom-switch"
         label="¿Es asignador?"
-        checked={OnlyUser&&OnlyUser.asignador}
+        checked={OnlyUser?OnlyUser.asignador:null}
         isValid={true}
         onChange={
           ()=>{
@@ -319,7 +326,7 @@ fetchOnlyUser(OnlyUser.UID)
         type="switch"
         id="custom-switch"
         label="¿Es lector de asistencias?"
-        checked={OnlyUser&&OnlyUser.lectoreAsistencia}
+        checked={OnlyUser?OnlyUser.lectoreAsistencia:null}
         isValid={true}
       />
  </Form>    

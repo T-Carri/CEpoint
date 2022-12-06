@@ -16,7 +16,7 @@ export const AccountUser= () => {
  
   const {logout}= UserAuth();
   const navigate = useNavigate();
-  const {asignador, lectorAsistencia, Usator, accessKey}=useContext(UsuarioContext)
+  const {asignador, lectorAsistencia, Usator, accessKey, Almacen}=useContext(UsuarioContext)
   const {user} = useContext(UserContext)
   useEffect(()=>{
     let authToken = sessionStorage.getItem('Auth Token')
@@ -31,10 +31,10 @@ export const AccountUser= () => {
 
 [])
 
+
 useEffect(()=>{
   accessKey()
-}, [user])
-
+}, [])
 
   
   //NAVEGACION DE PAGINA
@@ -65,6 +65,7 @@ useEffect(()=>{
         }
       };
   
+      //console.log('User:',User)
   return (
 <div>
 <header> 
@@ -122,14 +123,15 @@ useEffect(()=>{
 <div className="a1">
 
     
-{Usator &&<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
+{Usator?<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
  <strong>Usuarios
-   </strong></Button>}
+   </strong></Button>:null}
 
-{lectorAsistencia && <Button className="btnx3" onClick={handleHorario}> <strong>Asistencia</strong></Button>}    
-{asignador &&<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
-<strong> Asignador  </strong> </Button>}
-
+{lectorAsistencia? <Button className="btnx3"  onClick={handleHorario}> <strong>Asistencia</strong></Button>:null}    
+{asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
+<strong> Asignador  </strong> </Button>:null}
+{Almacen?<Button variant='dark' className="btnx3" onClick={()=>{navigate("almacen")}}>
+<strong> Almacen  </strong> </Button>:null}
 <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
 
 

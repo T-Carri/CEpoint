@@ -12,11 +12,12 @@ export const UsuarioContextProvider = ({children}) => {
 const [asignador, setAsignador]= useState()
 const [lectorAsistencia, setLectorAsistencia]= useState()
 const [Usator, setUsator]= useState()
-
+const [Almacen, setAlmacen]=useState()
 const accessKey = async ()=>{
   
     const queryDoc = doc(db, "users", user.uid);
-   await getDoc(queryDoc).then(res => {
+   await getDoc(queryDoc).then(  (res) => {
+     setAlmacen(res.data().almacen)
       setAsignador(res.data().asignador)
      console.log("Es asignador?:", res.data().asignador)
      setLectorAsistencia(res.data().lectoreAsistencia)
@@ -25,6 +26,7 @@ const accessKey = async ()=>{
       
     } )
   }
+
   
    //esta funcion identifica rol de usuario
  const [UserRol, setUserRol] =useState()
@@ -46,7 +48,8 @@ const accessKey = async ()=>{
       asignador,
 lectorAsistencia,
        Usator,  
-       accessKey}
+       accessKey,
+      Almacen}
   }>
     {children}
 

@@ -24,9 +24,11 @@ import { AsignacionProvider } from './context/AsignacionContext';
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
+//usuarios
+import {Todos} from './componentes/usuarios/todos/Todos'
 
-
-
+//almacen 
+import {Almacen} from './componentes/almacen/Almacen'
 
 function App() {
 
@@ -57,7 +59,9 @@ function App() {
 
     <Route index element={<WelcomeHome />}  />
   
-    <Route path="usuarios" element={<Usuarios/> } />
+    <Route path="usuarios" element={<Usuarios/> } > 
+    <Route path="todos" element={<Todos/>} />
+    </Route>
 
     <Route  path="horario" element={   <Horario/>  } >  
             <Route path='presupuesto' element={<Presupuesto/>}/> 
@@ -72,7 +76,10 @@ function App() {
            <Asignadorendiseño/>
         } /> 
     
-    
+    <Route path="almacen" element={
+       
+       <Almacen/>
+    } /> 
    
 
     </Route>
