@@ -191,7 +191,7 @@ console.log('USUARIO SELECTO', OnlyUser)
 <Card.Title>{s.perfil}</Card.Title>
 <Card.Title><strong>{s.nombre}</strong></Card.Title>
 <Card.Title>{s.email}</Card.Title>
-<Card.Title>{s.empresa}</Card.Title>
+<Card.Title>{s.password}</Card.Title>
 <Card.Title>{s.Uid}</Card.Title>
  
  <Button className='actualizarUser' variant='success' onClick={
