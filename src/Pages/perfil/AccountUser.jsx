@@ -34,7 +34,7 @@ export const AccountUser= () => {
 
 useEffect(()=>{
   accessKey()
-}, [])
+}, [user])
 
   
   //NAVEGACION DE PAGINA

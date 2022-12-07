@@ -26,7 +26,8 @@ import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //usuarios
 import {Todos} from './componentes/usuarios/todos/Todos'
-
+import { Inactivos } from './componentes/usuarios/inactivos/Inactivos';
+import { Ocupados } from './componentes/usuarios/ocupados/ocupados';
 //almacen 
 import {Almacen} from './componentes/almacen/Almacen'
 
@@ -61,6 +62,8 @@ function App() {
   
     <Route path="usuarios" element={<Usuarios/> } > 
     <Route path="todos" element={<Todos/>} />
+    <Route path="inactivos" element={<Inactivos/>} />
+    <Route path="ocupados" element={<Ocupados/>} />
     </Route>
 
     <Route  path="horario" element={   <Horario/>  } >  

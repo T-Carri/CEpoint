@@ -11,6 +11,8 @@ export const UsuariosProvider = ({children}) => {
 
        const [Usuarios, setUsuarios] = useState([])  
        const [Userun, setUserun]=useState([]) 
+       const [UserBussy, setUserBussy]=useState([]) 
+       const [UserNoBussy, setUserNoBussy]=useState([]) 
        const [Actualizador, setActualizador] = useState('') 
        const [ActivadorChec, setActivadorChec] = useState('')
        const [UserChecador, setUserChecador] = useState('')
@@ -37,7 +39,39 @@ const fetchOnlyUser = async(params)=>{
 }
 
 
-            //obtengo usuarios que no estan activados 
+//Usuarios ocupados
+const getUsersBussy = async()=>{
+  const UB = query(collection(db, "users"),where("ocupado","==", true))
+  await  onSnapshot(UB, (Q)=>{
+    const dato=[]
+
+    Q.forEach((element) => {
+
+      dato.push(element.data())
+      
+    });
+
+    setUserBussy(dato)
+  })
+}
+
+const getUsersNoBussy = async()=>{
+  const UNB = query(collection(db, "users"),where("ocupado","==", false))
+  await  onSnapshot(UNB, (Q)=>{
+    const dato=[]
+
+    Q.forEach((element) => {
+
+      dato.push(element.data())
+      
+    });
+
+    setUserNoBussy(dato)
+  })
+}
+
+
+  //obtengo usuarios que no estan activados 
   const getUsersUnable = async()=>{
         const UU = query(collection(db, "users"),where("activo","==", false))
         await  onSnapshot(UU, (Q)=>{
@@ -209,7 +243,9 @@ const finderChecador =  (props) => {
               acNombre,
               acPerfil,
               acEmpresa, 
-              setOnlyUser
+              setOnlyUser, 
+              getUsersNoBussy,
+              getUsersBussy
 
             }
                                   }>

@@ -6,6 +6,7 @@ export const options = [
         
         { name: "Residente de obra", value: "Residente de obra" },
         { name: "Arquitecto proyectista", value: "Arquitecto proyectista" },
+        { name: "Administrador de obra", value: "Administrador de obra"},
         { name: "Cabo albañil", value: "Cabo albañil" },
         { name: "Oficial albañil", value: "Oficial albañil" },
         { name: "Oficial medio albañil", value: "Oficial medio albañil" }, 
@@ -112,6 +113,10 @@ export const options = [
     case "Cabo albañil": 
           area = "CIVIL";
           break; 
+    case "Administrador de obra": 
+          area = "CIVIL";
+          break; 
+          
           case "Oficial albañil": 
           area = "CIVIL";
           break;       

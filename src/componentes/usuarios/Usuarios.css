@@ -66,6 +66,16 @@ div.civiles{
     padding: .25%;
  
 }
+div.inactivos{
+    background-image: url("neo.jpg");
+    background-size: cover;
+    display: flex;
+    overflow-x: scroll;
+    transform: translateX(-0%);
+    row-gap: 5%;
+    padding: .25%;
+ 
+}
 
 div.trabajadores{
     background-color: rgb(184, 35, 15);
@@ -79,6 +89,23 @@ div.trabajadores{
   margin: 2%;
   
 }
+
+
+
+
+div.unable{
+    background-color:  #ecc71f;
+  color: rgb(0, 0, 0);
+  text-align: center;
+  max-width: 60%;
+  flex: 0 0 25%;
+
+  row-gap: 25rem;
+  column-gap: 20rem;
+  margin: 2%;
+  
+}
+
 
 button.actualizarUser.btn.btn-success{
     width: 70%;

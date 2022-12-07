@@ -13,7 +13,7 @@
      margin-top: 2%;
     margin-right: 60%;
     margin-left: 20%;
-    position: absolute;
+    position: fixed;
 }
 
 button.btnx1.btn.btn-success{
