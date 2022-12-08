@@ -8,7 +8,7 @@ export default AsignacionContext;
 export const AsignacionProvider = ({children}) => {
     const[idProyecto, setIdProyecto]=useState('')
     const [asig, setAsign]= useState([]);
-    const [candidatoActualizar, setCandidatoActualizar]=useState();
+    const [Proyecto, setProyecto]=useState();
     const getLinks =async()=>{
         const q = query(collection(db, "asignaciones"))
         await onSnapshot(q, (query)=>{
@@ -27,7 +27,7 @@ export const AsignacionProvider = ({children}) => {
       const getProyecto = async(dato)=>{
         const q = doc(db, "asignaciones", dato)
         await getDoc(q).then(res=>{
-      setCandidatoActualizar(res.data())
+      setProyecto(res.data())
         })
       }
 
@@ -41,7 +41,7 @@ value={{
     setAsign, 
     getLinks, 
     getProyecto, 
-    candidatoActualizar
+   Proyecto
 }}>
 {children}
 </AsignacionContext.Provider>

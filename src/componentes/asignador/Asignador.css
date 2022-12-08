@@ -1,3 +1,6 @@
+*, *::after, *::before{
+    box-sizing: border-box;
+}
 button#dropdown-button-dark-example1.dropdown-toggle.btn.btn-secondary{
     margin-top: 4%;
     margin-bottom:4%;
@@ -13,14 +16,19 @@ select.form-select{
 /*div.fila.col{
     width: 60%;
 */
-div.asignaciones.card{
+
+div.horario{
+    overflow-y: scroll;
+    
+}
+ div.usuarios.card{
     background-color: lightslategray;
     margin-left: 4em;
     overflow: hidden;
     overflow-y: scroll;
 
-}
-div.formAsignacion.card{
+} 
+div.formUsuarios.card{
     
     margin-right: 10px;
     margin-top: 3px;
@@ -30,3 +38,109 @@ div.formAsignacion.card{
 div#a1{
     background-color: #ed3e12;
 }
+
+button.crearUser.btn.btn-success.btn-lg{
+    
+    margin-left: 100px;
+    margin-top: 35px;
+
+} 
+div#cuentaInactiva{
+    background-color: #ecc71f;
+}
+div.inactivos.card{
+    background-color: lightslategray;
+    margin-left: 1em;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+div.content-users.card{
+    
+    margin-left: -1em;
+    overflow-y: scroll;
+}  
+
+
+
+button.actualizarUser.btn.btn-success{
+    width: 70%;
+    height: 15%;
+    padding: 2px;
+    
+    
+}
+.handle{ 
+    width: var(--slider-padding);
+    background-color: #ecc71f;
+    z-index: 10;
+    margin: 2rem 0;
+
+}
+.offcanvas-backdrop.show {
+    opacity: -0.5;
+}
+button#Cnombre.btn.btn-primary{
+    
+    margin-left: 80px;
+    margin-top: 8px;
+
+}
+
+.btn-warning{
+    margin-top: 12px;
+}
+button#Cperfil.btn.btn-success{
+    margin-top: 3%;
+}
+button#Carea.btn.btn-success{
+    margin-top: 3%;
+}
+button#Cempresa.btn.btn-success{
+    margin-top: 3%;
+}
+
+a#logo.logo.navbar-brand{
+    margin-left: 5rem;
+    margin-right: 5rem;
+
+}
+
+
+/*      Ocupados    */
+div.proyecto{
+    background-color:   rgb(3, 1, 1);
+  color: rgb(226, 213, 213);
+  text-align: center;
+  max-width: 60%;
+  flex: 0 0 25%;
+
+  row-gap: 25rem;
+  column-gap: 20rem;
+  margin: 2%;
+  
+}
+div.proyectos{
+    background-image: url("neo4.jpg");
+    background-size: cover;
+    display: flex;
+    overflow-x: scroll;
+    transform: translateX(-0%);
+    row-gap: 5%;
+    padding: .25%;
+ 
+}
+
+
+
+.card-title{
+    text-align: center;
+}
+
+
+
+
+
+
+
+

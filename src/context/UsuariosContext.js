@@ -38,6 +38,13 @@ const fetchOnlyUser = async(params)=>{
   }) 
 }
 
+const fetchName = async(params)=>{
+  const q = doc(db, "users", params )
+  await getDoc(q).then(res=>{
+  return res.data().nombre
+  }) 
+}
+
 
 //Usuarios ocupados
 const getUsersBussy = async()=>{
@@ -247,7 +254,8 @@ const finderChecador =  (props) => {
               getUsersNoBussy,
               getUsersBussy,
               UserBussy,
-              UserNoBussy
+              UserNoBussy,
+              fetchName
 
             }
                                   }>
