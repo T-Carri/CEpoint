@@ -1,53 +1,56 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
 import '../Usuarios.css'
+import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
 import UsuariosContext from '../../../context/UsuariosContext';
 export const Ocupados = () => {
     const { 
-        Userun,
-        activateUser
-    }=useContext(UsuariosContext)
+      enableOcupado,
+      getUsersBussy, 
+              UserBussy,
+      
+            }=useContext(UsuariosContext)
+        
+      
+        
        
     useEffect(()=>{ 
-        
+        getUsersBussy() 
+      
     },[])
 
 
   return (
 <Card className='formUsuarios' style={{ display:'contents', width: '70em', height:'45em'}}>
+<Card.Title> <h4><strong>Usuarios ocupados</strong></h4></Card.Title>  
 <Card.Body>
   <Card className='content-users' style={{height: '40em'}}>
  <Card > 
- <div className='inactivos'  style={{width: '74.8em', height: '28em' }} > 
+ <div className='ocupados'  style={{width: '74.8em', height: '28em' }} > 
  
 
-  {Userun.map((s)=>(
+  {UserBussy.map((s)=>(
  
  
-   <Card  className='unable' >
+   <Card  className='bussy' >
  <Card.Body>
  <h6><strong>Usuario Ocupado</strong></h6>
  <Card.Title>{s.perfil}</Card.Title>
  <Card.Title><strong>{s.nombre}</strong></Card.Title>
  <Card.Title>{s.email}</Card.Title>
  <Card.Title>{s.password}</Card.Title>
- <Card.Title>{s.Uid}</Card.Title>
+ <Card.Title>{s.UID}</Card.Title>
+  <br />
+  <br />
   
-  <Button className='actualizarUser' variant='success' >
-   Actualizar
+  <Button className='actualizarUser' variant='secondary' onClick={
+               ()=>{
+                 enableOcupado(s.UID);
+                 
+               }
+             } >
+   Desocupar
   </Button>
-  <br/>
-  <br/>
- <Button variant='primary' id='desactiva' onClick={()=>{
-      try {
-        
-          activateUser(s.UID)
-      } catch (error) {
-        console.log(error)
-      }
-        
-      }}  >
-   Activar
-  </Button>
+  
   
  
  

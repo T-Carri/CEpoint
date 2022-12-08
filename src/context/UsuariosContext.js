@@ -245,7 +245,9 @@ const finderChecador =  (props) => {
               acEmpresa, 
               setOnlyUser, 
               getUsersNoBussy,
-              getUsersBussy
+              getUsersBussy,
+              UserBussy,
+              UserNoBussy
 
             }
                                   }>

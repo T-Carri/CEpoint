@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect, useRef} from 'react'
-import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
-import {options,  optionsEmpresas, searchArea} from '../options'
+import { Card,  Button,  Offcanvas, Form } from 'react-bootstrap'
+import {options,  optionsEmpresas} from '../options'
 
 import UsuariosContext from '../../../context/UsuariosContext';
 import SelectSearch from "react-select-search";
@@ -9,8 +9,7 @@ export const Todos = () => {
   const {Usuarios,
     getUsuarios, 
     getUsersUnable, 
-    Userun, 
-    activateUser, 
+    
     desactivaUser,
     fetchOnlyUser,
      OnlyUser, 
@@ -148,7 +147,7 @@ console.log('USUARIO SELECTO', OnlyUser)
       Civiles.map((e)=>(
        e.map((r)=>(
      <Card className={r.area}> 
-                 <Card.Title>{r.area}</Card.Title>  
+                 <Card.Title ><h4><strong>{r.area}</strong></h4></Card.Title>  
      <div className='civiles'  style={{width: '74.8em', height: '28em' }} > 
      
      
@@ -177,8 +176,9 @@ console.log('USUARIO SELECTO', OnlyUser)
        Actualizar
       </Button>
       <br/>
+      <br/>
      
-     <Button variant='warning' id='desactiva' onClick={
+     <Button variant='secondary' id='desactiva' onClick={
       ()=>{
        try {
          

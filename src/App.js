@@ -27,7 +27,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 //usuarios
 import {Todos} from './componentes/usuarios/todos/Todos'
 import { Inactivos } from './componentes/usuarios/inactivos/Inactivos';
-import { Ocupados } from './componentes/usuarios/ocupados/ocupados';
+import { Ocupados } from './componentes/usuarios/ocupados/Ocupados';
+import { Desocupados } from './componentes/usuarios/ocupados/Desocupados';
 //almacen 
 import {Almacen} from './componentes/almacen/Almacen'
 
@@ -64,6 +65,7 @@ function App() {
     <Route path="todos" element={<Todos/>} />
     <Route path="inactivos" element={<Inactivos/>} />
     <Route path="ocupados" element={<Ocupados/>} />
+    <Route path="desocupados" element={<Desocupados/>} />
     </Route>
 
     <Route  path="horario" element={   <Horario/>  } >  

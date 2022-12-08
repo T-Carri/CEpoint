@@ -26,13 +26,16 @@ export const Usuarios = () => {
       <Button variant='dark' onClick={()=>{navigate("todos")}} className="mb-2">
           Todos los usuarios
         </Button> {''}
-        <Button variant='dark' /* onClick={toggleShowA}  */className="mb-2" >
+        <Button variant='dark' /* onClick={toggleShowA}  */className="mb-2" onClick={()=>{navigate("ocupados")}} >
           Ocupados
         </Button> {''}
-        <Button variant='dark' /* onClick={toggleShowA}  */className="mb-2" onClick={()=>{navigate("inactivos")}}>
+        <Button variant='dark' /* onClick={toggleShowA}  */className="mb-2" onClick={()=>{navigate("desocupados")}} >
+          Desocupados
+        </Button> {''}
+        <Button variant='danger' /* onClick={toggleShowA}  */className="mb-2" onClick={()=>{navigate("inactivos")}}>
           inactivos
         </Button> {''}
-        <Button variant='dark' onClick={toggleShowA} className="mb-2">
+        <Button variant='success' onClick={toggleShowA} className="mb-2">
           <strong>+</strong>  Crear usuario
         </Button>   
         <Toast show={showA} onClose={toggleShowA} style={{width:'50em', height:'40em'}}>
