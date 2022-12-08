@@ -273,7 +273,7 @@ return acc
         
              <Button variant='success' onClick={ExportData}>Excel</Button>  
   
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive>
         <thead>
           <tr>
           <th>Trabajador</th>

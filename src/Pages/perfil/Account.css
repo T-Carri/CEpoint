@@ -1,19 +1,25 @@
 
 .a1{
     width: 17%;
-    height: 86%;
+    height: 95%;
     background-color: dimgrey;
     
-    position: absolute;
-
+    position: fixed;
+    margin-top: 3.5em;
 }
 .a21{
-    height: 100%;
+    height: 80%;
     width: 77%;
      margin-top: 2%;
     margin-right: 60%;
     margin-left: 20%;
+    position: absolute;
+}
+header{
     position: fixed;
+    width: 100%;
+    z-index: 1;
+    
 }
 
 button.btnx1.btn.btn-success{

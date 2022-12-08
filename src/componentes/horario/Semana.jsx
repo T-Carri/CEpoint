@@ -119,11 +119,11 @@ if(exReg.test(dato)){
       }
     </div>
     
+                  
   
   
   
-  
-          <div>
+          <div className='horariosemanas'>
              <Card id="prueba" className='lg'>
         
              {
@@ -136,7 +136,7 @@ if(exReg.test(dato)){
     <Accordion.Header>{r.semana}</Accordion.Header>
     <Accordion.Body>
   
-    <Table striped bordered hover>
+    <Table striped bordered hover responsive='sm'>
         <thead>
           <tr>
           <th>Trabajador</th>

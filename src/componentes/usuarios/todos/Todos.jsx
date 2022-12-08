@@ -142,7 +142,7 @@ console.log('USUARIO SELECTO', OnlyUser)
         
       
     
-      <Card className='content-users' style={{height: '40em'}}>
+      <Card className='content-users' style={{height: '47em'}}>
       {
       Civiles.map((e)=>(
        e.map((r)=>(
@@ -151,7 +151,7 @@ console.log('USUARIO SELECTO', OnlyUser)
      <div className='civiles'  style={{width: '74.8em', height: '28em' }} > 
      
      
-     <div className='handle left-handle'></div>
+     
      
      {r.data.map((s)=>(
      

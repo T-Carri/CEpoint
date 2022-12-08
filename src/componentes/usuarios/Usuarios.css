@@ -16,6 +16,11 @@ select.form-select{
 /*div.fila.col{
     width: 60%;
 */
+
+div.horario{
+    overflow-y: scroll;
+    
+}
  div.usuarios.card{
     background-color: lightslategray;
     margin-left: 4em;
