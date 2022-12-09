@@ -31,7 +31,7 @@ import { Ocupados } from './componentes/usuarios/ocupados/Ocupados';
 import { Desocupados } from './componentes/usuarios/ocupados/Desocupados';
 //almacen 
 import {Almacen} from './componentes/almacen/Almacen'
-
+import {Miscelaneos} from './componentes/almacen/miscelaneos/Miscelaneos'
 function App() {
 
   
@@ -81,10 +81,9 @@ function App() {
            <Asignadorendiseño/>
         } /> 
     
-    <Route path="almacen" element={
-       
-       <Almacen/>
-    } /> 
+    <Route path="almacen" element={<Almacen/>} > 
+    <Route path="miscelaneos" element={<Miscelaneos/>} />
+     </Route>
    
 
     </Route>
