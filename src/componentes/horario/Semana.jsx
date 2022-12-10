@@ -41,12 +41,12 @@ export const Semana = () => {
        
         if (foundItem ){
      foundItem.data=foundItem.data
-     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave}]
-     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave   }]
+     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto}]
+     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto   }]
   }else{ past.push( {
     'semana': current.semana,
     'data': [{
-      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave
+      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto
     }]
   } ) }  
   
@@ -155,9 +155,9 @@ if(exReg.test(dato)){
         <tbody>
         {
     r.data.map((s)=>{ 
-      const
+    
     const storage = getStorage()
-    getDownloadURL(ref(storage, `Asistencias/${Presupuestos.map((e)=>e.presupuesto)}/${s.trabajador}/${s.clave}`)).then((url)=>{
+    getDownloadURL(ref(storage, `Asistencias/${s.presupuesto}/${s.trabajador}/${s.clave}`)).then((url)=>{
     /*   const xhr=new XMLHttpRequest();
       xhr.responseType='blob';
       xhr.onload=(event)=>{
@@ -168,7 +168,7 @@ if(exReg.test(dato)){
       xhr.open('GET', url)
       xhr.send() */
 
-      const img= document.getElementById(s.trabajador)
+      const img= document.getElementById(s.clave)
       img.setAttribute('src', url)
     })
       
