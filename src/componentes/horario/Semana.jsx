@@ -4,7 +4,7 @@ import { Card, Button, Accordion, Table} from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import './Horario.css'
-
+import {getStorage, ref, getDownloadURL} from "firebase/storage"
 export const Semana = () => {
   const auth = getAuth()
   const dato =auth.currentUser; 
@@ -41,12 +41,12 @@ export const Semana = () => {
        
         if (foundItem ){
      foundItem.data=foundItem.data
-     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date}]
-     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date   }]
+     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave}]
+     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave   }]
   }else{ past.push( {
     'semana': current.semana,
     'data': [{
-      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date
+      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave
     }]
   } ) }  
   
@@ -154,12 +154,28 @@ if(exReg.test(dato)){
         </thead>
         <tbody>
         {
-    r.data.map((s)=>( 
-    
+    r.data.map((s)=>{ 
+      const
+    const storage = getStorage()
+    getDownloadURL(ref(storage, `Asistencias/${Presupuestos.map((e)=>e.presupuesto)}/${s.trabajador}/${s.clave}`)).then((url)=>{
+    /*   const xhr=new XMLHttpRequest();
+      xhr.responseType='blob';
+      xhr.onload=(event)=>{
+        const blob = xhr.response;
+
+      };
+
+      xhr.open('GET', url)
+      xhr.send() */
+
+      const img= document.getElementById(s.trabajador)
+      img.setAttribute('src', url)
+    })
       
-      <tr>
+   return   <tr>
            <td>{s.trabajador}</td>
-            <td>{s.tipoAsistencia}</td>
+            <td>{s.tipoAsistencia} 
+            <img  id={s.clave} style={{width: '3em', height:'3em'}}></img></td>
             <td>{Monday(s.date)}</td>
             <td>{Martes(s.date)}</td>
             <td>{Miercoles(s.date)}</td>
@@ -172,7 +188,7 @@ if(exReg.test(dato)){
      
       
   
-    ))
+})
   } 
   </tbody>
        
