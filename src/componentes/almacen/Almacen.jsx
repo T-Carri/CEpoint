@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import './almacen.css'
 import { useNavigate, Outlet } from 'react-router-dom'
+import { useEffect } from 'react'
 export const Almacen = () => {
   const navigate = useNavigate(); 
-const [Toggle, setToggle]=useState(false)
+  const [Toggle, setToggle]=useState(false)
+ 
 
   return (
 
@@ -15,7 +17,7 @@ Toggle
 ?<Outlet/>
 : <Container><div className='prestado'>
 <div className="capaPrestado">
-<h2>Prestado</h2>
+<h1>Prestado</h1>
   <p>Agrega prestado</p> 
 
 </div>
@@ -45,7 +47,9 @@ navigate("miscelaneos")
   <p>Agrega herramientas</p>
 </div>
 </div>
-</div> </Container>
+</div> 
+<Button variant='dark' style={{width: '10em', height: '5em'}}>Total Ingresado</Button>
+</Container>
 
 
 
