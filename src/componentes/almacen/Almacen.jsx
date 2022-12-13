@@ -2,12 +2,12 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import './almacen.css'
 import { useNavigate, Outlet } from 'react-router-dom'
-import { useEffect } from 'react'
+
 export const Almacen = () => {
   const navigate = useNavigate(); 
   const [Toggle, setToggle]=useState(false)
  
-
+console.log('TOGGLE', Toggle)
   return (
 
    
@@ -57,6 +57,7 @@ navigate("miscelaneos")
    
   )
 }
+
 
 
 /*

@@ -2,16 +2,19 @@ import React from 'react'
 import { Container, Button, Form, InputGroup, Nav } from 'react-bootstrap'
 import {BsArrowLeftCircle} from 'react-icons/bs'
 import { 
-  useNavigate, 
-  Outlet
+  useNavigate
 } from 'react-router-dom';
-//import {setToggle} from '../Almacen'
+import {Almacen} from '../Almacen'
 export const Miscelaneos = () => {
   const navigate = useNavigate();
+
+ const {setToggle, Toggle}= Almacen()
+console.log(Toggle)
   return (
     <Container>
 <div>Miscelaneos</div>
 <Button type="button"  variant='outline-dark' className="btn btn-default btn-circle btn-lg" onClick={()=>{navigate("../../almacen",  {replace:true}) 
+setToggle(false)
 }}><BsArrowLeftCircle />
                             </Button>
 <Button variant='success'><strong>Totales en existencia</strong></Button> 

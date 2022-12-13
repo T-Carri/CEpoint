@@ -32,6 +32,7 @@ import { Desocupados } from './componentes/usuarios/ocupados/Desocupados';
 //almacen 
 import {Almacen} from './componentes/almacen/Almacen'
 import {Miscelaneos} from './componentes/almacen/miscelaneos/Miscelaneos'
+import { AlmacenProvider } from './context/AlmacenContext';
 function App() {
 
   
