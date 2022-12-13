@@ -44,9 +44,9 @@ export const FormActualizador = () => {
 
 //you have residente:, ubicacion:, presupuesto, obra
 
-console.log('RESIDENTE UID', values.residenteUid)
+/* console.log('RESIDENTE UID', values.residenteUid)
   console.log('PROYECTO', idProyecto)
-  console.log('OnlyUser.UID:  ',OnlyUser.UID)
+  console.log('OnlyUser.UID:  ',OnlyUser.UID) */
 
 
   return (
