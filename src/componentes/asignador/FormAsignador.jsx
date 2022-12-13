@@ -21,7 +21,10 @@ export const FormAsignador = (props) => {
        UserChecador, 
        ActivadorChec, 
        OnlyUser, 
-       fetchOnlyUser} = useContext(UsuariosContext) 
+       fetchOnlyUser,
+       getUsuariosChecador,
+       UsuariosChecador
+      } = useContext(UsuariosContext) 
    
        const auth = getAuth()
     const dato =auth.currentUser; 
@@ -101,15 +104,15 @@ const handleSubmit = (e) =>  {
 
 
 useEffect(()=>{
-  getUsuarios()
+  getUsuariosChecador()
 },[])
  
 useEffect( 
     ()=>{
        
-      finderChecador(Usuarios)
+      finderChecador(UsuariosChecador)
     }
-      ,[Usuarios]) 
+      ,[UsuariosChecador]) 
       
       
 

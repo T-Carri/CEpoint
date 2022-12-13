@@ -4,11 +4,13 @@ import {  Button, Form, Row, Col, Alert} from 'react-bootstrap'
 import AsignacionContext from '../../context/AsignacionContext'
 
 export const FormActualizador = () => {
- const {UserChecador, fetchOnlyUser, OnlyUser} = useContext(UsuariosContext)
- 
- const{candidatoActualizar}= useContext(AsignacionContext)
+ const {UserChecador,  finderChecador, getUsuariosChecador,   UsuariosChecador, acUsChec, fetchOnlyUser, OnlyUser} = useContext(UsuariosContext)
 
- console.log('proyecto a Actualizar: ', candidatoActualizar)
+
+ 
+ const{Proyecto,  idProyecto}= useContext(AsignacionContext)
+
+ //console.log('proyecto a Actualizar: ', candidatoActualizar)
 //console.log('proyecto a Actualizar: ', candidatoActualizar.ubicacion)
 
      //const residenteRef= useRef()
@@ -16,28 +18,43 @@ export const FormActualizador = () => {
      const presupuestoRef= useRef(candidatoActualizar.presupuesto)
      const obraRef =useRef(candidatoActualizar.obra) */
 
-  useEffect(()=>{
-    fetchOnlyUser(values.residenteUid)
-  },[]) 
+     useEffect(()=>{
+      getUsuariosChecador()
+    },[])
+     
+    useEffect( 
+        ()=>{
+           
+          finderChecador(  UsuariosChecador)
+        }
+          ,[ UsuariosChecador]) 
   
+          
    const [values, setValues] = useState('')
- //TODO: HANDLE
+   const [Residente, setResidente] = useState('')
  
+   //TODO: HANDLE
+  
  const handleInputChange = (e) =>{
   const {name, value} = e.target;
-  setValues({...values, [name]: value}); 
+  setValues({...values, [name]: value})
   
   
- } 
+ }  
 
 //you have residente:, ubicacion:, presupuesto, obra
+
+console.log('RESIDENTE UID', values.residenteUid)
+  console.log('PROYECTO', idProyecto)
+  console.log('OnlyUser.UID:  ',OnlyUser.UID)
+
 
   return (
     <Form>
 <Row><Col> <Form.Group className="mb-2" >
-<Form.Label>Residente</Form.Label>
+<Form.Label>Actualiza el responsable de checar en proyecto</Form.Label>
  {UserChecador&&    
-<Form.Select name="residenteUid"   value={values.residenteUid} onChange={handleInputChange} >
+<Form.Select name="residenteUid"/*    value={values.residenteUid}  */ onChange={handleInputChange}  >
  <option></option>
 {
  UserChecador.map((e)=>( 
@@ -48,38 +65,43 @@ export const FormActualizador = () => {
 ))
 } 
         </Form.Select>} 
-  </Form.Group></Col>
+  </Form.Group>
+  </Col>
+  <br />
+  <br />
+  <Button  className="mb-2" size='lg' variant='success' onClick={()=>{
+    try {
+      acUsChec(idProyecto, values.residenteUid)
+      fetchOnlyUser(  values.residenteUid)
+     
+    } catch (error) {
+      console.log(error)
+    }
+    
 
-
- 
+  }}>Actualiza residente</Button>
+  </Row>
+  <br />
   <Col> <Form.Group className="mb-2" >
 <Form.Label>Ubicacion</Form.Label>
-<Form.Control type="String" name="ubicacion"   /*  value={values.ubicacion}   onChange={handleInputChange} */  placeholder={candidatoActualizar.ubicacion}  />
+<Form.Control type="String" name="ubicacion"  disabled /*  value={values.ubicacion}   onChange={handleInputChange} */  /* placeholder={candidatoActualizar.ubicacion}  */ />
 
-</Form.Group></Col></Row>
+</Form.Group></Col>
         <Row>
   <Col> <Form.Group className="mb-2" >
 <Form.Label>Numero de presupuesto</Form.Label>
-<Form.Control type="String" name="presupuesto"  /* value={values.presupuesto} onChange={handleInputChange}   placeholder={candidatoActualizar.presupuesto}*/ />
+<Form.Control type="String" name="presupuesto" disabled /* value={values.presupuesto} onChange={handleInputChange}   placeholder={candidatoActualizar.presupuesto}*/ />
 
 </Form.Group></Col>
 
 <Col> <Form.Group className="mb-2" >
 <Form.Label>Obra</Form.Label>
-<Form.Control type="String" name="obra"  /* value={values.obra} onChange={handleInputChange}   placeholder={candidatoActualizar.obra}*/ />
+<Form.Control type="String" name="obra" disabled /* value={values.obra} onChange={handleInputChange}   placeholder={candidatoActualizar.obra}*/ />
 
 </Form.Group></Col>
 </Row>
-<br/>
-<br/>
-<br/>
-<br/>
-<Row>
-    <Col>
-    <Button variant="success">Aceptar</Button></Col>
-    <Col><Button variant="danger">Borrar</Button></Col>
 
-</Row>
+
     </Form>
   )
 }

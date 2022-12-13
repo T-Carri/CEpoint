@@ -18,7 +18,8 @@ const {idProyecto,
   setAsign, 
   getLinks, 
   getProyecto,
-Proyecto }=useContext(AsignacionContext) 
+Proyecto, 
+  }=useContext(AsignacionContext) 
 
   const { 
     fetchOnlyUser, 
@@ -178,7 +179,7 @@ fetchOnlyUser(da.residenteUid)
      </Badge>
      
      </h3>
-      
+      <FormActualizador/>
 
   
         

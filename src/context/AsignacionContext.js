@@ -9,6 +9,7 @@ export const AsignacionProvider = ({children}) => {
     const[idProyecto, setIdProyecto]=useState('')
     const [asig, setAsign]= useState([]);
     const [Proyecto, setProyecto]=useState();
+    
     const getLinks =async()=>{
         const q = query(collection(db, "asignaciones"))
         await onSnapshot(q, (query)=>{
@@ -41,7 +42,8 @@ value={{
     setAsign, 
     getLinks, 
     getProyecto, 
-   Proyecto
+   Proyecto,
+  
 }}>
 {children}
 </AsignacionContext.Provider>

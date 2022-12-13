@@ -10,10 +10,11 @@ export default UsuariosContext;
 export const UsuariosProvider = ({children}) => {
 
        const [Usuarios, setUsuarios] = useState([])  
+       const [UsuariosChecador, setUsuariosChecador] = useState([]) 
        const [Userun, setUserun]=useState([]) 
        const [UserBussy, setUserBussy]=useState([]) 
        const [UserNoBussy, setUserNoBussy]=useState([]) 
-       const [Actualizador, setActualizador] = useState('') 
+       
        const [ActivadorChec, setActivadorChec] = useState('')
        const [UserChecador, setUserChecador] = useState('')
        
@@ -27,6 +28,18 @@ export const UsuariosProvider = ({children}) => {
          })
        //  console.log("Habilitados", data)
          setUsuarios(data)
+        })
+      }
+
+      const getUsuariosChecador =async()=>{
+        const q = query(collection(db, "users"),where("area","in", ['ELECTRICOS', 'CIVIL', 'SHE']))
+        await onSnapshot(q, (query)=>{
+         const data=[]
+         query.forEach((doc)=>{
+           data.push(doc.data())
+         })
+       //  console.log("Habilitados", data)
+         setUsuariosChecador(data)
         })
       }
 
@@ -134,6 +147,14 @@ const acEmpresa = async(id, Empresa)=>{
   const AE =doc(db, "users", id)
   await updateDoc(AE, {
     empresa: Empresa
+  })
+}
+
+//esta funcion actualiza el res
+const acUsChec = async(id, Residente)=>{
+  const AUC =doc(db, "asignaciones", id)
+  await updateDoc(AUC, {
+    residenteUid: Residente
   })
 }
 
@@ -255,7 +276,11 @@ const finderChecador =  (props) => {
               getUsersBussy,
               UserBussy,
               UserNoBussy,
-              fetchName
+              fetchName,
+              getUsuariosChecador,
+              UsuariosChecador,
+              acUsChec
+             
 
             }
                                   }>

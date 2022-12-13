@@ -190,7 +190,7 @@ function ExportData() {
    XLSX.utils.book_append_sheet(wb, ws, "People");
  
    /* 生成xlsx文件 */
-   XLSX.writeFile(wb, "sheetjs.xlsx");
+   XLSX.writeFile(wb, `${NombreProyecto}.xlsx`);
 }
 
 {/* 
@@ -236,8 +236,8 @@ return acc
   }, [])}
 
 
-
-//console.log('DARKNESS', darkness)
+const [NombreProyecto, setNombreProyecto] = useState()
+console.log('NOMBRE PROYECTO', NombreProyecto)
      return (
     <Card>  
      <div className='presupuestos'>
@@ -256,7 +256,7 @@ return acc
               //await AsistenciasPresupuesto(Asistencias)
               darkness(Asistencias)
              //AsistenciasPresupuestodos(Asistencias)
-
+            setNombreProyecto(presupuesto.presupuesto)
            //  await  orden(itinerante)
                //console.log("asistencias:", Asistencias)       
         
