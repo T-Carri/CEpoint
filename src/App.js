@@ -32,7 +32,10 @@ import { Desocupados } from './componentes/usuarios/ocupados/Desocupados';
 //almacen 
 import {Almacen} from './componentes/almacen/Almacen'
 import {Miscelaneos} from './componentes/almacen/miscelaneos/Miscelaneos'
+import { Herramientas } from './componentes/almacen/herramientas/Herramientas';
 import { AlmacenProvider } from './context/AlmacenContext';
+import {Maquinaria} from './componentes/almacen/maquinaria/Maquinaria'
+import {Prestado} from './componentes/almacen/prestado/Prestado'
 function App() {
 
   
@@ -42,6 +45,7 @@ function App() {
 <UsuarioContextProvider>
     <UsuariosProvider>
  <AsignacionProvider>
+<AlmacenProvider>
     <>
    <Router>
    <Routes>
@@ -68,7 +72,6 @@ function App() {
     <Route path="ocupados" element={<Ocupados/>} />
     <Route path="desocupados" element={<Desocupados/>} />
     </Route>
-
     <Route  path="horario" element={   <Horario/>  } >  
             <Route path='presupuesto' element={<Presupuesto/>}/> 
             <Route path='ubicacion' element={<Ubicacion/>}/> 
@@ -76,14 +79,16 @@ function App() {
             <Route path='semana' element={<Semana/>}/>
             <Route path='trabajador' element={<Trabajador/>}/> 
     </Route>
-   
      <Route path="asignadorEndiseño" element={
        
-           <Asignadorendiseño/>
-        } /> 
+       <Asignadorendiseño/>
+      } /> 
     
     <Route path="almacen" element={<Almacen/>} > 
     <Route path="miscelaneos" element={<Miscelaneos/>} />
+    <Route path="herramienta" element={<Herramientas/>} />
+    <Route path="maquinaria" element={<Maquinaria/>} />
+    <Route path="prestado" element={<Prestado/>} />
      </Route>
    
 
@@ -94,6 +99,7 @@ function App() {
   </Router>
    
     </>
+      </AlmacenProvider> 
   </AsignacionProvider>
   </UsuariosProvider>
   </UsuarioContextProvider>

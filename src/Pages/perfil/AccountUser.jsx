@@ -9,7 +9,7 @@ import {
   Outlet
 } from 'react-router-dom';
 import UserContext from '../../context/AuthContext';
-
+import AlmacenContext from '../../context/AlmacenContext';
 
 import UsuarioContext from '../../context/UsuarioContext';
 export const AccountUser= () => {
@@ -18,6 +18,7 @@ export const AccountUser= () => {
   const navigate = useNavigate();
   const {asignador, lectorAsistencia, Usator, accessKey, Almacen}=useContext(UsuarioContext)
   const {user} = useContext(UserContext)
+  const {setToggle}=useContext(AlmacenContext)
   useEffect(()=>{
     let authToken = sessionStorage.getItem('Auth Token')
     if(authToken){
@@ -130,7 +131,9 @@ useEffect(()=>{
 {lectorAsistencia? <Button className="btnx3"  onClick={handleHorario}> <strong>Asistencia</strong></Button>:null}    
 {asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
 <strong> Asignador  </strong> </Button>:null}
-{Almacen?<Button variant='dark' className="btnx3" onClick={()=>{navigate("almacen")}}>
+{Almacen?<Button variant='dark' className="btnx3" onClick={()=>{navigate("almacen")
+setToggle(false)
+}}>
 <strong> Almacen  </strong> </Button>:null}
 <Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
 

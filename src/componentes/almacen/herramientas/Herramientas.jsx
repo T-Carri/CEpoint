@@ -7,55 +7,54 @@ import {
 } from 'react-router-dom';
 import AlmacenContext from '../../../context/AlmacenContext';
 //import {Almacen} from '../Almacen'
-export const Miscelaneos = () => {
+export const Herramientas = () => {
   const navigate = useNavigate();
 
  const {setToggle, Toggle}= useContext(AlmacenContext)
 console.log(Toggle)
   return (
     <Container>
-<div>Miscelaneos</div>
+<div>Herramientas</div>
 <Button type="button"  variant='outline-dark' className="btn btn-default btn-circle btn-lg" onClick={()=>{navigate("../../almacen",  {replace:true}) 
 setToggle(false)
 }}><BsArrowLeftCircle />
                             </Button>
 <Button variant='success'><strong>Totales en existencia</strong></Button> 
-<Button variant='success'><strong>Ingresos de Miscelaneos</strong></Button>
-<Button variant='success'> <strong>Miscelaneos solicitados</strong></Button>
+<Button variant='success'><strong>Ingresos de Herramientas</strong></Button>
+<Button variant='success'> <strong>Herramientas prestadas</strong></Button>
+<Button variant='danger'> <strong>Tecnologia de SICMA</strong></Button>
 <br/>
 <br/>
 <InputGroup className="mb-3">
         <InputGroup.Text id="basic-addon1"> Buscar</InputGroup.Text>
         <Form.Control
-          placeholder="Busca miscelaneo"
+          placeholder="Busca herramienta"
           aria-label="Username"
           aria-describedby="basic-addon1"
         />
       </InputGroup>
 
       <Nav variant="tabs" defaultActiveKey="/home">
+   
       <Nav.Item>
-        <Nav.Link /* href="/home" */ eventKey="link-0"> <strong><h5>Miscelaneos SICMA</h5></strong></Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1" ><strong><h5>Misceláneos de SECMA</h5></strong> </Nav.Link>
+        <Nav.Link eventKey="link-1" ><strong><h5>Herramienta de SECMA</h5></strong> </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-2" >
         
-        <strong><h5>Misceláneos de CE2000</h5></strong>
+        <strong><h5>Herramienta de CE2000</h5></strong>
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-3" >
       
-        <strong><h5>Misceláneos de SIARSA</h5></strong>
+        <strong><h5>Herramienta de SIARSA</h5></strong>
         </Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-4" >
         
-        <strong><h5>Misceláneos de MCBRICK</h5></strong>
+        <strong><h5>Herramienta de MCBRICK</h5></strong>
         </Nav.Link>
       </Nav.Item>
     </Nav>

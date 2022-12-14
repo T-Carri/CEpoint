@@ -3,16 +3,17 @@ import React, {useState, createContext} from 'react'
 import { query, collection, onSnapshot, doc, getDoc,  } from 'firebase/firestore';
 
 const AlmacenContext = createContext()
-export default AsignacionContext; 
+export default AlmacenContext; 
 
 export const AlmacenProvider = ({children}) => {
-   
+  const [Toggle, setToggle]=useState(false)
     return (
 
 <AlmacenContext.Provider
 value={{
 
-  
+  Toggle, 
+  setToggle
 }}>
 {children}
 </AlmacenContext.Provider>
