@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect, useRef} from 'react'
-import { Card,  Button,  Offcanvas, Form } from 'react-bootstrap'
+import { Card,  Button,  Offcanvas, Form, Row, Col, Overlay, Popover } from 'react-bootstrap'
 import {options,  optionsEmpresas} from '../options'
 
 import UsuariosContext from '../../../context/UsuariosContext';
@@ -31,6 +31,7 @@ export const Todos = () => {
   const [Perfil, setPerfil] = useState('')
   const [Empresa, setEmpresa]=useState('')
   const [Id, setId] = useState('') 
+  const [UserQr, setUserQr] = useState()
   //console.log('id:', Id)
    //overlay
    const [show, setShow] = useState(false);
@@ -126,8 +127,12 @@ console.log('USUARIO SELECTO', OnlyUser)
   
   const empresaRef =useRef("")
   //console.log(nombreRef.current.value)
+  const [show1, setShow1] = useState(false);
+  const [target, setTarget] = useState(null);
+  const ref = useRef(null);
+
   
-  
+  /* const handleClick =  */
 
 
   return (
@@ -156,7 +161,7 @@ console.log('USUARIO SELECTO', OnlyUser)
      {r.data.map((s)=>(
      
      
-       <Card  className='trabajadores' >
+       <Card  className='trabajadores' /* ref={ref} */ >
      <Card.Body>
      
      <Card.Title>{s.perfil}</Card.Title>
@@ -177,8 +182,9 @@ console.log('USUARIO SELECTO', OnlyUser)
       </Button>
       <br/>
       <br/>
-     
-     <Button variant='secondary' id='desactiva' onClick={
+     <Row>
+      <Col>   
+      <Button variant='secondary' id='desactiva' onClick={
       ()=>{
        try {
          
@@ -191,6 +197,43 @@ console.log('USUARIO SELECTO', OnlyUser)
      }>
        Desactivar
       </Button>
+      </Col>
+      <Col>   
+      <Button variant='danger' id='desactiva' >
+       foto  
+      </Button>
+      </Col>
+      <Col>   
+       <Button variant='danger' id='desactiva' 
+       
+        onClick={
+        (event) => {
+          setShow1(!show1);
+          setTarget(event.target);
+          setUserQr(s)
+        }
+        
+        }>
+       QR
+      </Button>
+      <Overlay
+        show={show1}
+        target={target}
+        placement="bottom"
+        //container={ref}
+        containerPadding={20}
+      >
+        <Popover id="popover-contained">
+          <Popover.Header as="h3">{UserQr?UserQr.nombre:null}</Popover.Header>
+          <Popover.Body>
+            <strong>Holy guacamole!</strong> Check this info.
+          </Popover.Body>
+        </Popover>
+      </Overlay>
+      </Col>
+
+     </Row>
+   
       
      
      
