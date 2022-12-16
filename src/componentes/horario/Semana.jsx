@@ -12,8 +12,10 @@ export const Semana = () => {
   const [Asistencias, setAsistencias] = useState([]); 
   const [itinerante, setItinerante] = useState([])
   const [Pi, setPi] = useState([])
+  const [Source, setSource] = useState()
   const [show1, setShow1] = useState(false);
   const [target, setTarget] = useState(null);
+  const storage = getStorage()
   const getPresupuestos =async () => {
 
     const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
@@ -31,14 +33,16 @@ export const Semana = () => {
       
     },[])
       
-   const getPicture = (data)=>{
-    const storage = getStorage()
-    getStream(ref(storage,  'https://firebasestorage.googleapis.com/b/Asistencias/PC-CE-666/TEST/test' )).then((url)=>{
-     const img= document.getElementById(data.clave)
-     img.setAttribute('src', url)     })
-   }
- 
-
+    useEffect(()=>{
+      getDownloadURL (ref(storage,  `Asistencias/${Pi.presupuesto}/${Pi.trabajador}/${Pi.clave}` )).then((url)=>{
+        //const img= document.getElementById(data.clave)
+        console.log('testURL: ', url )
+        //console.log('testDataClave:  ', data.clave)
+        setSource(url)})
+    },[Pi])
+    
+     
+    
 //`Asistencias/${data.presupuesto}/${data.trabajador}/${data.clave}`
      
     const AsistenciasPresupuesto = (props) => {
@@ -124,7 +128,7 @@ if(exReg.test(dato)){
                
                setAsistencias(presupuesto.asistencias)      
                AsistenciasPresupuesto(Asistencias)
-                     
+               setShow1(false)   
         
       }}> {presupuesto.presupuesto} </Button>))
       }
@@ -142,8 +146,8 @@ if(exReg.test(dato)){
    
    e.map((r)=>(
   
-  <Accordion>
-  <Accordion.Item eventKey={r.semana}>
+  <Accordion  >
+  <Accordion.Item eventKey={r.semana} >
     <Accordion.Header>{r.semana}</Accordion.Header>
     <Accordion.Body>
   
@@ -166,7 +170,8 @@ if(exReg.test(dato)){
         <tbody>
         {
     r.data.map((s)=>{ 
-  
+
+     
 
 
 
@@ -177,16 +182,25 @@ if(exReg.test(dato)){
             <Button onClick={  
               
        async (event) => {
-          setShow1(!show1);
-          setTarget(event.target);
+           
          try {
-          await setPi(s)
-       getPicture(Pi)
+          if(show1){
+            setShow1(false)
+          
+           
+          }else{
+            setShow1(true)
+            setTarget(event.target);
+          
+            await setPi(s)
+            //getPicture(Pi)
+          }
+          
          } catch (error) {
           console.log(error)
          }
-       
-         console.log('S',s)
+      
+        
         }}>Ver foto</Button>
          
            </td>
@@ -200,7 +214,7 @@ if(exReg.test(dato)){
         <Popover id="popover-contained">
           <Popover.Header as="h3"></Popover.Header>
           <Popover.Body>
-          <img  id={Pi.clave} style={{width: '6em', height:'8em'}}></img>
+          <img  /* id={Pi.clave} */ src={Source&&Source} style={{width: '6em', height:'8em'}}></img>
                  
                 
           </Popover.Body>
