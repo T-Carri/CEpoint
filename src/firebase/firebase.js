@@ -4,7 +4,7 @@ import { initializeApp } from "firebase/app";
 import {getAuth, GoogleAuthProvider} from "firebase/auth"
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 //wtf?REACT_APP_FIREBASE_DATABASE_URL=
-
+import { getPerformance } from "firebase/performance";
 const firebaseConfig = {
             apiKey: process.env.REACT_APP_FIREBASE_apiKey,
        authDomain: process.env.REACT_APP_FIREBASE_authDomain,
@@ -21,7 +21,7 @@ export const auth= getAuth(app)
 export const provider = new GoogleAuthProvider();
 export const db = getFirestore()
 
-
+const perf = getPerformance(app)
 
 
 export default app;

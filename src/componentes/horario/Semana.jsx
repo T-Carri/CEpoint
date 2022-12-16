@@ -1,16 +1,19 @@
 import React, {useState, useEffect} from 'react'
 import { onSnapshot,  where, collection, query} from 'firebase/firestore'
-import { Card, Button, Accordion, Table} from 'react-bootstrap'
+import { Card, Button, Accordion, Table, Overlay, Popover } from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import './Horario.css'
-import {getStorage, ref, getDownloadURL} from "firebase/storage"
+import {getStorage, ref, getDownloadURL, getStream} from "firebase/storage"
 export const Semana = () => {
   const auth = getAuth()
   const dato =auth.currentUser; 
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
   const [itinerante, setItinerante] = useState([])
+  const [Pi, setPi] = useState([])
+  const [show1, setShow1] = useState(false);
+  const [target, setTarget] = useState(null);
   const getPresupuestos =async () => {
 
     const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
@@ -28,7 +31,15 @@ export const Semana = () => {
       
     },[])
       
+   const getPicture = (data)=>{
+    const storage = getStorage()
+    getStream(ref(storage,  'https://firebasestorage.googleapis.com/b/Asistencias/PC-CE-666/TEST/test' )).then((url)=>{
+     const img= document.getElementById(data.clave)
+     img.setAttribute('src', url)     })
+   }
+ 
 
+//`Asistencias/${data.presupuesto}/${data.trabajador}/${data.clave}`
      
     const AsistenciasPresupuesto = (props) => {
 
@@ -111,7 +122,7 @@ if(exReg.test(dato)){
                (e)=>{
                //e.preventDefault()
                
-               setAsistencias(presupuesto.asistencias)
+               setAsistencias(presupuesto.asistencias)      
                AsistenciasPresupuesto(Asistencias)
                      
         
@@ -155,27 +166,46 @@ if(exReg.test(dato)){
         <tbody>
         {
     r.data.map((s)=>{ 
-    
-    const storage = getStorage()
-    getDownloadURL(ref(storage, `Asistencias/${s.presupuesto}/${s.trabajador}/${s.clave}`)).then((url)=>{
-    /*   const xhr=new XMLHttpRequest();
-      xhr.responseType='blob';
-      xhr.onload=(event)=>{
-        const blob = xhr.response;
+  
 
-      };
 
-      xhr.open('GET', url)
-      xhr.send() */
 
-      const img= document.getElementById(s.clave)
-      img.setAttribute('src', url)
-    })
-      
+  
    return   <tr>
            <td>{s.trabajador}</td>
             <td>{s.tipoAsistencia} 
-            <img  id={s.clave} style={{width: '3em', height:'3em'}}></img></td>
+            <Button onClick={  
+              
+       async (event) => {
+          setShow1(!show1);
+          setTarget(event.target);
+         try {
+          await setPi(s)
+       getPicture(Pi)
+         } catch (error) {
+          console.log(error)
+         }
+       
+         console.log('S',s)
+        }}>Ver foto</Button>
+         
+           </td>
+           <Overlay
+        show={show1}
+        target={target}
+        placement="bottom"
+        //container={ref}
+        containerPadding={20}
+      >
+        <Popover id="popover-contained">
+          <Popover.Header as="h3"></Popover.Header>
+          <Popover.Body>
+          <img  id={Pi.clave} style={{width: '6em', height:'8em'}}></img>
+                 
+                
+          </Popover.Body>
+        </Popover>
+      </Overlay>
             <td>{Monday(s.date)}</td>
             <td>{Martes(s.date)}</td>
             <td>{Miercoles(s.date)}</td>
