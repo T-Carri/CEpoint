@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect, useRef} from 'react'
 import { Card,  Button,  Offcanvas, Form, Row, Col, Overlay, Popover } from 'react-bootstrap'
 import {options,  optionsEmpresas} from '../options'
-
+import { toCanvas, toDataURL } from 'qrcode';
 import UsuariosContext from '../../../context/UsuariosContext';
 import SelectSearch from "react-select-search";
 import '../Usuarios.css'
@@ -133,6 +133,10 @@ console.log('USUARIO SELECTO', OnlyUser)
 
   
   /* const handleClick =  */
+const [QRurl, setQRurl]= useState()
+
+ 
+
 
 
   return (
@@ -205,12 +209,19 @@ console.log('USUARIO SELECTO', OnlyUser)
       </Col>
       <Col>   
        <Button variant='danger' id='desactiva' 
-       
+      
         onClick={
         (event) => {
           setShow1(!show1);
           setTarget(event.target);
           setUserQr(s)
+          toDataURL(`${s.Uid}`,  function (err, url) {
+            console.log(url)
+            setQRurl(url)
+           
+        
+          })
+       
         }
         
         }>
@@ -226,7 +237,12 @@ console.log('USUARIO SELECTO', OnlyUser)
         <Popover id="popover-contained">
           <Popover.Header as="h3">{UserQr?UserQr.nombre:null}</Popover.Header>
           <Popover.Body>
-            <strong>Holy guacamole!</strong> Check this info.
+
+        <img  src={ QRurl }
+         />
+          
+          <Button variant='success'>Descargar</Button>
+          
           </Popover.Body>
         </Popover>
       </Overlay>
