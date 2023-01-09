@@ -1,11 +1,12 @@
-import React, {useContext, useState, useEffect, useRef} from 'react'
+import React, {useContext, useState, useEffect, useRef, memo} from 'react'
 import { Card,  Button,  Offcanvas, Form, Row, Col, Overlay, Popover } from 'react-bootstrap'
 import {options,  optionsEmpresas} from '../options'
 import { toCanvas, toDataURL } from 'qrcode';
 import UsuariosContext from '../../../context/UsuariosContext';
 import SelectSearch from "react-select-search";
 import '../Usuarios.css'
-export const Todos = () => {
+import * as XLSX from "xlsx"
+ const Todos = () => {
   const {Usuarios,
     getUsuarios, 
     getUsersUnable, 
@@ -45,6 +46,25 @@ export const Todos = () => {
    const handleShow3 = () => setShow3(true);
 
 //console.log('habilitados?:', Userun)
+
+
+const [excel, setExcel] = useState()
+function ExportData() {
+  //var XLSX = require("xlsx")
+
+   /* 创建worksheet */
+   var ws = XLSX.utils.json_to_sheet(Usuarios);
+
+   /* 新建空workbook，然后加入worksheet */
+   var wb = XLSX.utils.book_new();
+   XLSX.utils.book_append_sheet(wb, ws, "People");
+ 
+   /* 生成xlsx文件 */
+   XLSX.writeFile(wb, `usuarios.xlsx`);
+}
+
+
+
 
 const CivilesWay = (props) => {
 
@@ -148,7 +168,7 @@ const [QRurl, setQRurl]= useState()
     
     
        
-        
+    <Button variant='success' onClick={ExportData}>Excel</Button>  
       
     
       <Card className='content-users' style={{height: '47em'}}>
@@ -395,3 +415,5 @@ const [QRurl, setQRurl]= useState()
     
   )
 }
+
+export default memo(Todos)

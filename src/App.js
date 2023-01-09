@@ -25,10 +25,10 @@ import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
 import 'bootstrap/dist/css/bootstrap.min.css';
 //usuarios
-import {Todos} from './componentes/usuarios/todos/Todos'
-import { Inactivos } from './componentes/usuarios/inactivos/Inactivos';
-import { Ocupados } from './componentes/usuarios/ocupados/Ocupados';
-import { Desocupados } from './componentes/usuarios/ocupados/Desocupados';
+import Todos from './componentes/usuarios/todos/Todos'
+import Inactivos  from './componentes/usuarios/inactivos/Inactivos';
+import  Ocupados  from './componentes/usuarios/ocupados/Ocupados';
+import  Desocupados  from './componentes/usuarios/ocupados/Desocupados';
 //almacen 
 import {Almacen} from './componentes/almacen/Almacen'
 import {Miscelaneos} from './componentes/almacen/miscelaneos/Miscelaneos'

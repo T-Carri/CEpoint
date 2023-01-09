@@ -34,14 +34,20 @@ export const Semana = () => {
     },[])
       
     useEffect(()=>{
-      getDownloadURL (ref(storage,  `Asistencias/${Pi.presupuesto}/${Pi.trabajador}/${Pi.clave}` )).then((url)=>{
+      getDownloadURL (ref(storage,  `Asistencias/${storageData.presupuesto}/${storageData.trabajador}/${storageData.clave}` )).then((url)=>{
         //const img= document.getElementById(data.clave)
         console.log('testURL: ', url )
-        //console.log('testDataClave:  ', data.clave)
+        //console.log('Pi:  ', Pi)
         setSource(url)})
     },[Pi])
     
-     
+     const storageData={
+      clave: Pi?Pi.clave:null, 
+      date:Pi?Pi.date:null,
+      presupuesto:Pi?Pi.presupuesto:null,
+      tipoAsistencia: Pi?Pi.tipoAsistencia:null, 
+      trabajador: Pi?Pi.trabajador:null
+     }
     
 //`Asistencias/${data.presupuesto}/${data.trabajador}/${data.clave}`
      

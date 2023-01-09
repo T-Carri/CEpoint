@@ -1,8 +1,8 @@
-import React, {useContext, useEffect} from 'react'
+import React, {useContext, useEffect, memo} from 'react'
 import UsuariosContext from '../../../context/UsuariosContext';
 import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
 import '../Usuarios.css'
-export const Inactivos = () => {
+ const Inactivos = () => {
     const { 
         Userun,
         activateUser,
@@ -83,7 +83,7 @@ export const Inactivos = () => {
 }
 
 
-
+export default memo(Inactivos)
 
 
 

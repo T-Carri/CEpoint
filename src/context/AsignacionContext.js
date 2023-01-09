@@ -25,12 +25,12 @@ export const AsignacionProvider = ({children}) => {
       } 
 
 
-      const getProyecto = async(dato)=>{
+      const getProyecto = React.memo(async(dato)=>{
         const q = doc(db, "asignaciones", dato)
         await getDoc(q).then(res=>{
       setProyecto(res.data())
         })
-      }
+      })
 
     return (
 
