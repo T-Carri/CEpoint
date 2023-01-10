@@ -30,13 +30,13 @@ button.btnx2.btn.btn-primary{
     width: 70%;
    
 }
-button.btnx3.btn.btn-primary{
+button.btnx3.btn.btn-warning{
     margin-left: 30px;
     margin-top: 30px;
     width: 70%;
   
 }
-button.btnx3.btn.btn-danger{
+button.btnx4.btn.btn-dark{
     margin-left: 30px;
     margin-top: 30px;
     width: 70%;

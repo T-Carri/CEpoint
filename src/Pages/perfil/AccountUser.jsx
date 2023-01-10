@@ -128,10 +128,10 @@ useEffect(()=>{
  <strong>Usuarios
    </strong></Button>:null}
 
-{lectorAsistencia? <Button className="btnx3"  onClick={handleHorario}> <strong>Asistencia</strong></Button>:null}    
+{lectorAsistencia? <Button className="btnx2"  onClick={handleHorario}> <strong>Asistencia</strong></Button>:null}    
 {asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
 <strong> Asignador  </strong> </Button>:null}
-{Almacen?<Button variant='dark' className="btnx3" onClick={()=>{navigate("almacen")
+{Almacen?<Button variant='dark' className="btnx4" onClick={()=>{navigate("almacen")
 setToggle(false)
 }}>
 <strong> Almacen  </strong> </Button>:null}
