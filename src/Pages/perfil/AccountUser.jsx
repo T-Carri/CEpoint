@@ -1,5 +1,5 @@
 //habilItado
-import { Button, Card, NavbarBrand, Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
+import { Button, Card, NavbarBrand, Navbar, Container, Nav, NavDropdown, Row, Col} from 'react-bootstrap'
 import { UserAuth } from '../../context/AuthContext';
 import './Account.css'
 
@@ -8,17 +8,19 @@ import {
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-import UserContext from '../../context/AuthContext';
-import AlmacenContext from '../../context/AlmacenContext';
 
-import UsuarioContext from '../../context/UsuarioContext';
+
+
+import  NavbarCepoint  from './Navbar';
+import  GreyBar  from './GreyBar';
+import { WhiteBoard } from './WhiteBoard';
 export const AccountUser= () => {
  
   const {logout}= UserAuth();
   const navigate = useNavigate();
-  const {asignador, lectorAsistencia, Usator, accessKey, Almacen}=useContext(UsuarioContext)
-  const {user} = useContext(UserContext)
-  const {setToggle}=useContext(AlmacenContext)
+  
+
+
   useEffect(()=>{
     let authToken = sessionStorage.getItem('Auth Token')
     if(authToken){
@@ -33,23 +35,11 @@ export const AccountUser= () => {
 [])
 
 
-useEffect(()=>{
-  accessKey()
-}, [user])
+
 
   
-  //NAVEGACION DE PAGINA
-  const handleSubmit= (data)=>{
-    //saveAsignacion(data)
-    console.log(data)
-  }
-  
-  const handleAsignador = () =>{
-    navigate("asignador");
-  }
-  const handleHorario = () =>{
-    navigate("horario");
-  }
+
+
   
   //LOGOUT
   const handleLogout = async()=>{
@@ -66,88 +56,27 @@ useEffect(()=>{
         }
       };
   
-      //console.log('User:',User)
   return (
 <div>
-<header> 
-    {/* //navbar */}
-    <Navbar bg="warning" variant="warning">
-       
-        <NavbarBrand id="logo" className="logo" href="/">
-            <strong>
-           CEpoint
 
-            </strong>
-         </NavbarBrand>
-         
-        
-       
-        <Navbar.Collapse id="navbar-dark-example">
-          <Nav>
-            <NavDropdown
-              id="nav-dropdown-dark-example"
-              title="Salir"
-              menuVariant="dark"
-              
-            >
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
-                Another action
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-              <Button onClick={handleLogout}>logout</Button>
-              </NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      
-         
-      
-      </Navbar>
-
-   {/*  <nav className="navbar navbar-expand-lg bg-warning w-100 p-4 d-inline-block">
-          <NavbarBrand className="logo" href="/">
-            <strong>
-           CEpoint
-
-            </strong>
-         </NavbarBrand>
-        <div className="d-grid gap-2  d-md-flex justify-content-md-end">
-      
-    <Button onClick={handleLogout}>logout</Button>
-       
-     </div>
-          </nav> */}
-</header>
-<div className="a1">
-
-    
-{Usator?<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
- <strong>Usuarios
-   </strong></Button>:null}
-
-{lectorAsistencia? <Button className="btnx2"  onClick={handleHorario}> <strong>Asistencia</strong></Button>:null}    
-{asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
-<strong> Asignador  </strong> </Button>:null}
-{Almacen?<Button variant='dark' className="btnx4" onClick={()=>{navigate("almacen")
-setToggle(false)
-}}>
-<strong> Almacen  </strong> </Button>:null}
-<Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
+<NavbarCepoint handleLogout={handleLogout}/>
+<Row>
+  <Col xs={2}>
+<GreyBar />
+  </Col>
+  <Col xs={10}>
+  
+<WhiteBoard/>
+</Col>
+</Row>
 
 
 
-</div>
+
+
 
  {/* //area de herramienta  */}
-<div className="a21"  >  
 
-
-<Outlet/>
-
-</div>
 
 
  {/* //canvas lateral */}
@@ -182,6 +111,7 @@ setToggle(false)
 
 
 </div>
+
 </div>
     
 

@@ -6,7 +6,7 @@ import {useNavigate, Outlet} from 'react-router-dom'
 import {options,  optionsEmpresas, searchArea} from './options'
 
 
-export const Usuarios = () => {
+ const Usuarios = () => {
  
 
     const navigate = useNavigate(); 
@@ -48,12 +48,8 @@ export const Usuarios = () => {
            <FormCreadorUser />
           </Toast.Body>
         </Toast>  
-        <Outlet/>
-        <div className="usuarios" style={{display:'absolute'}} >
-
-
- 
-</div>
+     <Container fluid>  <Outlet/></Container>
+    
    
           
     </Card.Body>
@@ -62,3 +58,4 @@ export const Usuarios = () => {
   )
 }
 
+export default React.memo(Usuarios)

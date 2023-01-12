@@ -11,7 +11,7 @@ import { UsuariosProvider } from './context/UsuariosContext';
 //new feature
 import { AccountUser } from './Pages/perfil/AccountUser';
 import { WelcomeHome } from './componentes/WelcomeHome';
-import { Usuarios } from './componentes/usuarios/Usuarios';
+import  Usuarios  from './componentes/usuarios/Usuarios';
 import { Horario } from './componentes/horario/Horario';
 import { Presupuesto } from './componentes/horario/Presupuesto';
 import { Ubicacion } from './componentes/horario/Ubicacion';
@@ -23,7 +23,7 @@ import { UsuarioContextProvider } from './context/UsuarioContext';
 import { AsignacionProvider } from './context/AsignacionContext';
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
-import 'bootstrap/dist/css/bootstrap.min.css';
+//import 'bootstrap/dist/css/bootstrap.min.css';
 //usuarios
 import Todos from './componentes/usuarios/todos/Todos'
 import Inactivos  from './componentes/usuarios/inactivos/Inactivos';
@@ -36,6 +36,7 @@ import { Herramientas } from './componentes/almacen/herramientas/Herramientas';
 import { AlmacenProvider } from './context/AlmacenContext';
 import {Maquinaria} from './componentes/almacen/maquinaria/Maquinaria'
 import {Prestado} from './componentes/almacen/prestado/Prestado'
+import { UiProvider } from './context/UiContext';
 function App() {
 
   
@@ -46,6 +47,7 @@ function App() {
     <UsuariosProvider>
  <AsignacionProvider>
 <AlmacenProvider>
+  <UiProvider>
     <>
    <Router>
    <Routes>
@@ -99,6 +101,7 @@ function App() {
   </Router>
    
     </>
+    </UiProvider>
       </AlmacenProvider> 
   </AsignacionProvider>
   </UsuariosProvider>
@@ -110,4 +113,4 @@ function App() {
   );
 }
 
-export default App;
+export default React.memo(App) ;
