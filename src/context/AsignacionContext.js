@@ -9,6 +9,8 @@ export const AsignacionProvider = ({children}) => {
     const[idProyecto, setIdProyecto]=useState('')
     const [asig, setAsign]= useState([]);
     const [Proyecto, setProyecto]=useState();
+    const [ChecadorAsignadouser, setChecadorAsignadoUser] =useState()
+   
     
     const getLinks =async()=>{
         const q = query(collection(db, "asignaciones"))
@@ -25,12 +27,20 @@ export const AsignacionProvider = ({children}) => {
       } 
 
 
-      const getProyecto = React.memo(async(dato)=>{
+      const fetchChecadorAsignadoUser = async(params)=>{
+        const q = doc(db, "users", params )
+        await getDoc(q).then(res=>{
+          setChecadorAsignadoUser(res.data())
+        }) 
+      }
+
+
+      const getProyecto = async(dato)=>{
         const q = doc(db, "asignaciones", dato)
         await getDoc(q).then(res=>{
       setProyecto(res.data())
         })
-      })
+      }
 
     return (
 
@@ -41,8 +51,10 @@ value={{
     asig, 
     setAsign, 
     getLinks, 
-    getProyecto, 
-   Proyecto,
+    getProyecto,
+   Proyecto, 
+   fetchChecadorAsignadoUser,
+   ChecadorAsignadouser
   
 }}>
 {children}

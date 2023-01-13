@@ -32,7 +32,7 @@ export const UsuariosProvider = ({children}) => {
       }
 
       const getUsuariosChecador =async()=>{
-        const q = query(collection(db, "users"),where("area","in", ['ELECTRICOS', 'CIVIL', 'SHE']))
+        const q = query(collection(db, "users"),where("area","in", ['CUENTAKEYCHECADOR']))
         await onSnapshot(q, (query)=>{
          const data=[]
          query.forEach((doc)=>{
@@ -156,6 +156,8 @@ const acUsChec = async(id, Residente)=>{
   await updateDoc(AUC, {
     residenteUid: Residente
   })
+
+  console.log('done :)')
 }
 
 

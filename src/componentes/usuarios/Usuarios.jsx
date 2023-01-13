@@ -38,6 +38,7 @@ import {options,  optionsEmpresas, searchArea} from './options'
         <Button variant='success' onClick={toggleShowA} className="mb-2">
           <strong>+</strong>  Crear usuario
         </Button>   
+        
         <Toast show={showA} onClose={toggleShowA} style={{width:'50em', height:'40em'}}>
           <Toast.Header>
            
@@ -48,6 +49,8 @@ import {options,  optionsEmpresas, searchArea} from './options'
            <FormCreadorUser />
           </Toast.Body>
         </Toast>  
+
+        
      <Container fluid>  <Outlet/></Container>
     
    

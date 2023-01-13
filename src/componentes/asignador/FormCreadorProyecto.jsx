@@ -1,17 +1,20 @@
 import React, {useState} from 'react'
-import {  Button, Form, Row, Col, Alert} from 'react-bootstrap'
+import {  Button, Form, Row, Col, Alert, Toast} from 'react-bootstrap'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getAuth } from 'firebase/auth'; 
 import { useContext } from 'react';
 import UsuariosContext from '../../context/UsuariosContext';
+import UiContext from '../../context/UiContext';
 import { useEffect } from 'react';
 import SelectSearch from "react-select-search";
 import { SelectorChecador } from './SelectorChecador';
+import {DateTime} from 'luxon';
 
-export const FormAsignador = (props) => {
-    const [startDate, setStartDate] = useState(new Date());
+export const FormCreadorProyecto = () => {
  
+    const [startDate, setStartDate] = useState(new Date());
+    const {showFCP, setShowFCP, toggleShowFCP}=useContext(UiContext)
     const [Residente, setResidente] = useState('')
     const {Usuarios,
        getUsuarios, 
@@ -42,13 +45,7 @@ export const FormAsignador = (props) => {
 }
 
 
-/* searchUser(formAsig.residente, Usuarios)
-
-const searchUser= (props) =>{
-return props.reduce((past, current)=>{
-  const foundIndex =past.find(it=>it.UID===current.UID)
-})
-} */
+const date = DateTime.now().weekNumber
 
 
 console.log('residente', Residente)
@@ -75,17 +72,7 @@ console.log('mistake')
 
 
 
-/* return(
-  <Alert variant="danger" onClose={() => setShow(false)} dismissible>
-  <Alert.Heading>Este usuario tiene tiene activo el checador!</Alert.Heading>
-  <p>
-   TODO: VER DERTALLES DE DONDE  AGREGAR BOTON PARA DESACTIVAR DE AHI DONDE ESTA
-  </p>
-  <Button>test</Button>
-  
-</Alert>
 
-) */
 
 
  //TODO: ONCHANGE
@@ -94,13 +81,20 @@ console.log('mistake')
 const handleSubmit = (e) =>  {
   e.preventDefault(); 
   console.log( 'VALUES:',values);
-  props.addOrEdit(values);
+ // props.addOrEdit(values);
   setActivadorChec(values.residenteUid)
   fetchOnlyUser(values.residenteUid)
   ableChecador(values.residenteUid)
   statusChecador(OnlyUser.checador)
    setValues({...formAsig})
 }
+
+
+
+/* const addOrEdit = async (addOrEdit) => {
+  const databaseRef=await  addDoc(collection(db, "asignaciones"), addOrEdit);
+} */
+
 
 
 useEffect(()=>{
@@ -117,17 +111,26 @@ useEffect(
       
 
      
-    //console.log('Usuarios desde asignador:',Usuarios)
-    //console.log('userchecador',UserChecador)
-   // console.log( 'VALUES:', values);
-    //console.log( 'RESIDENTE:', values.residenteUid);
+
     console.log( 'Sera activado:', ActivadorChec);
     {OnlyUser&& console.log('OnlyUser:  ',OnlyUser.checador)}
     console.log(values.residenteUid)
-  return (
+ 
+ 
+ 
+ 
+ 
+    return (
+    
+    <Toast show={showFCP} onClose={toggleShowFCP} style={{width:'50em', height:'29em'}}>
+     <Toast.Header>
+      
+       <strong className="me-auto">Asignador</strong>
+       <small> #{date} semana</small>
+     </Toast.Header>
+     <Toast.Body>
 
-
-    <Form  onSubmit={handleSubmit}>
+     <Form  onSubmit={handleSubmit}>
     <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Residente</Form.Label>
 {UserChecador&&    
@@ -191,6 +194,21 @@ useEffect(
 </Col>
 </Row>
 </Form>
+
+
+
+
+
+
+
+      {/* <FormAsignador addOrEdit={addOrEdit}/>
+ */}     </Toast.Body>
+   </Toast>
+
+
+
+
+
   )
 }
 
@@ -199,3 +217,31 @@ useEffect(
 
 
 
+/* searchUser(formAsig.residente, Usuarios)
+
+const searchUser= (props) =>{
+return props.reduce((past, current)=>{
+  const foundIndex =past.find(it=>it.UID===current.UID)
+})
+} */
+
+
+
+    //console.log('Usuarios desde asignador:',Usuarios)
+    //console.log('userchecador',UserChecador)
+   // console.log( 'VALUES:', values);
+    //console.log( 'RESIDENTE:', values.residenteUid);
+
+
+
+    /* return(
+  <Alert variant="danger" onClose={() => setShow(false)} dismissible>
+  <Alert.Heading>Este usuario tiene tiene activo el checador!</Alert.Heading>
+  <p>
+   TODO: VER DERTALLES DE DONDE  AGREGAR BOTON PARA DESACTIVAR DE AHI DONDE ESTA
+  </p>
+  <Button>test</Button>
+  
+</Alert>
+
+) */
