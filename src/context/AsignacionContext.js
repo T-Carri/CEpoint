@@ -1,6 +1,6 @@
 import React, {useState, createContext} from 'react'
 import { db } from '../firebase/firebase';
-import { query, collection, onSnapshot, doc, getDoc,  } from 'firebase/firestore';
+import { query, collection, onSnapshot, doc, getDoc, where  } from 'firebase/firestore';
 
 const AsignacionContext = createContext()
 export default AsignacionContext; 
@@ -8,12 +8,13 @@ export default AsignacionContext;
 export const AsignacionProvider = ({children}) => {
     const[idProyecto, setIdProyecto]=useState('')
     const [asig, setAsign]= useState([]);
+    const [asigDesactivados, setAsigndesactivados]= useState([]);
     const [Proyecto, setProyecto]=useState();
     const [ChecadorAsignadouser, setChecadorAsignadoUser] =useState()
    
     
     const getLinks =async()=>{
-        const q = query(collection(db, "asignaciones"))
+        const q = query(collection(db, "asignaciones"), where("activa","==", true))
         await onSnapshot(q, (query)=>{
          const data=[]
          query.forEach((doc)=>{
@@ -22,6 +23,20 @@ export const AsignacionProvider = ({children}) => {
          })
          //console.log("datossss", data)
          setAsign(data)
+        })
+      
+      } 
+
+      const getProyectosDesactivados =async()=>{
+        const q = query(collection(db, "asignaciones"), where("activa","==", false))
+        await onSnapshot(q, (query)=>{
+         const data=[]
+         query.forEach((doc)=>{
+           data.push({...doc.data(), id:doc.id})
+           console.log('ids: ', doc.id)
+         })
+         //console.log("datossss", data)
+         setAsigndesactivados(data)
         })
       
       } 
@@ -54,7 +69,10 @@ value={{
     getProyecto,
    Proyecto, 
    fetchChecadorAsignadoUser,
-   ChecadorAsignadouser
+   ChecadorAsignadouser,
+   asigDesactivados, 
+   setAsigndesactivados,
+   getProyectosDesactivados
   
 }}>
 {children}

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useCallback} from 'react'
 import { Button, Card, NavbarBrand, Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
 
 import AlmacenContext from '../../context/AlmacenContext';
@@ -7,20 +7,31 @@ import './Account.css'
 import { 
     useNavigate
   } from 'react-router-dom';
- const GreyBar = ({}) => {
+  import AsignacionContext from '../../context/AsignacionContext';
+ const GreyBar = () => {
+
+
+  const { 
+    getLinks, 
+    asig
+   
+   }=useContext(AsignacionContext) 
 
     const {setToggle}=useContext(AlmacenContext)
     const {asignador, lectorAsistencia, Usator, accessKey, Almacen}=useContext(UsuarioContext)
  
     const navigate = useNavigate();
- 
+  //  const proyectosActivos = useCallback(getLinks(),[asig])
     return (
 
 <div className="a1">
 <Container>
 
     
-{Usator?<Button variant='warning' className="btnx1" onClick={()=>{navigate("usuarios")}}>
+{Usator?<Button variant='warning' className="btnx1" onClick={()=>{
+  navigate("usuarios")
+
+  }}>
  <strong>Usuarios
    </strong></Button>:null}
 

@@ -1,53 +1,57 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useCallback} from 'react'
 import { Card, Container, Toast, Button,  Form, Badge } from 'react-bootstrap'
 import './Asignador.css'
-
-
-
 import { useEffect } from 'react';
 import UiContext from '../../context/UiContext';
-
 import AsignacionContext from '../../context/AsignacionContext';
 import UsuariosContext from '../../context/UsuariosContext';
 import { CardAsignacion } from './CardAsignacion';
 import { FormCreadorUser } from './FormCreadorUser';
 import {FormCreadorProyecto} from './FormCreadorProyecto'
- export const Asignador = () => {
+import  {ProyectosDesactivados} from './ProyectosDesactivados'
+export const Asignador = () => {
 
 const {idProyecto, 
-  setIdProyecto, 
-  asig, 
-  setAsign, 
-  getLinks, 
-  
-Proyecto, 
-  }=useContext(AsignacionContext) 
+      setIdProyecto, 
+      asig, 
+      setAsign, 
+      getLinks, 
+      Proyecto, 
+      asigDesactivados, 
+      setAsigndesactivados,
+      getProyectosDesactivados
+     }=useContext(AsignacionContext) 
 
   const { 
     fetchOnlyUser, 
     OnlyUser, 
     fetchName
   }=useContext(UsuariosContext)
+  const [modalShow, setModalShow] = useState(false);
     
   
   const { toggleShowFCP, toggleShowFCU}=useContext(UiContext)
 
-  useEffect(()=>{
-    getLinks()
-    
-  },[])
+//const desactivados = useCallback(getProyectosDesactivados(),[])
+
+
  
 
 
     return (
       <Container className="cardContenedora" style={{ width: '100em', height:'100%'}}>
-   <Button variant='success' onClick={toggleShowFCU}>Crear Cuenta para checar en proyecto</Button>
+        <Button variant='primary' onClick={() => {
+          setModalShow(true)
+        }}> Proyectos desactivados</Button>
+   <Button variant='success' onClick={toggleShowFCU}> <strong>+</strong> Crear Cuenta para checar en proyecto</Button>
    
    <Button onClick={toggleShowFCP} variant='success'>
          <strong>+</strong>  Agrega asignacion
        </Button>
    
+
     <Card.Body>
+    <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  datos={asigDesactivados} />
     <FormCreadorProyecto/>
     <FormCreadorUser/>
    

@@ -45,6 +45,12 @@ button.crearUser.btn.btn-success.btn-lg{
     margin-top: 35px;
 
 } 
+button.crearUser.btn.btn-danger.btn-lg{
+    
+    margin-left: 100px;
+    margin-top: 35px;
+
+} 
 div#cuentaInactiva{
     background-color: #ecc71f;
 }
