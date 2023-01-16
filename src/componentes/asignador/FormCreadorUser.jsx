@@ -318,7 +318,6 @@ const handleregisterUser = async (e)=> {
     e.preventDefault();
     try{
       setError('')
-
 getAuth.createUser({
   email: values.email,
   password: values.password
@@ -353,11 +352,6 @@ setPerfil('')
 setEmpresa('') 
   }
 )
-
-
-
-
-
      
      
     } catch(e) {

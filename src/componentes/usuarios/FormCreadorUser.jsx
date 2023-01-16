@@ -1,7 +1,7 @@
 import React, {useState, useRef, useContext, useEffect} from 'react'
 import {  Button, Form, Row, Col} from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
-
+import { v4 as uuidv4 } from 'uuid';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import { UserAuth } from '../../context/AuthContext';
@@ -9,7 +9,7 @@ import { db } from '../../firebase/firebase';
 import SelectSearch from "react-select-search";
 import 'react-select-search/style.css'
 import UsuariosContext from '../../context/UsuariosContext';
-import {setDoc, doc} from 'firebase/firestore'
+import {setDoc, doc, collection, addDoc} from 'firebase/firestore'
 
 import {options, searchArea, optionsEmpresas} from './options'
 export const FormCreadorUser = () => {
@@ -24,7 +24,7 @@ export const FormCreadorUser = () => {
     const [Perfil, setPerfil] = useState('')
     const [Empresa, setEmpresa]= useState('Elige empresa')
     
-   
+   const [IdUsario, setIdUsuario]=useState()
       
  
 
@@ -82,126 +82,43 @@ const [Nombre, setNombre] = useState('')
  }   
  
 
-/*  useEffect(   
-  handleInputChange()
-   ,[]) */
-//console.log("values:", values)
-//console.log(formCreatorUser)
-//console.log(Perfil)
-//console.log('Perfil search', searchDato(Perfil) )
-//console.log('Area:', searchArea(Perfil))
-//console.log(Empresa)
-//console.log('empresa search', searchDato(Empresa) )
 
-//console.log(Email)
-//console.log(Password)
-//console.log( 'nombre:', Nombre)
-   const handleregisterUser = async (e)=> {
-    e.preventDefault();
-    try{
-      setError('')
-     const infouser = await createUsuario(values.email, values.password);
-      console.log(infouser.user.uid)
-       setUidUser(infouser.user.uid)
-  const docuRef =doc(db, `users/${infouser.user.uid}`);
-  setDoc(docuRef, { 
-    activo: false ,
-    asignador:  checkIf(radioValueAsig),
-    checador:checkIf(radioValueChec) ,
-    email: values.email, 
-    password: values.password,
-    empresa:searchDato(Empresa), 
-    lectoreAsistencia : checkIf(radioValueAsis), 
-    nombre: values.nombre,
-    ocupado: false,  
-    perfil: searchDato(Perfil),
-    area: searchArea(Perfil),
-    rol: 'usuario',
-    usator: false, 
-    fechaDeCreacion: Date(), 
-    UID:infouser.user.uid
-   }
-   )
-    setValues({...formCreatorUser}) 
-   setRadioValueChec('5')
-   setRadioValueAsig('3')
-   setRadioValueAsis('1')
-   setPerfil('')
-   setEmpresa('') 
-    } catch(e) {
-      setError(e.message)
-      console.log(e.message)
-    }
-  };  
-
-/* 
 const handleregisterUser = async (e)=> {
   e.preventDefault();
-  getAuth(app)
-  .createUser({
-     email: values.email,
-    phoneNumber: values.password
-  })
-  .then((userRecord) => {
-    // See the UserRecord reference doc for the contents of userRecord.
-    console.log('Successfully created new user:', userRecord.uid);
-  })
-  .catch((error) => {
-    console.log('Error creating new user:', error);
-  });
-} */
-/*   
-  const handleregisterUser = async (e)=> {
-    e.preventDefault();
-    try{
-      setError('')
+  try{
+  setError('')
 
-getAuth.createUser({
-  email: values.email,
-  password: values.password
-}).then(
-  (userRecord)=>{
-    console.log(userRecord.uid)
-    setUidUser(userRecord.uid)
-const docuRef =doc(db, `users/${userRecord.uid}`);
-setDoc(docuRef, { 
- activo: false ,
- asignador:  checkIf(radioValueAsig),
- checador:checkIf(radioValueChec) ,
- email: values.email, 
- password: values.password,
- empresa:searchDato(Empresa), 
- lectoreAsistencia : checkIf(radioValueAsis), 
- nombre: values.nombre,
- ocupado: false,  
- perfil: searchDato(Perfil),
- area: searchArea(Perfil),
- rol: 'usuario',
- usator: false, 
- fechaDeCreacion: Date(), 
- UID:userRecord.uid
-}
-)
- setValues({...formCreatorUser}) 
-setRadioValueChec('5')
-setRadioValueAsig('3')
-setRadioValueAsis('1')
-setPerfil('')
-setEmpresa('') 
+  const docuRef =doc(db, `users/${IdUsario}`);
+  setDoc(docuRef, { 
+  activo: false ,
+  asignador:  checkIf(radioValueAsig),
+  checador:checkIf(radioValueChec) ,
+ 
+  empresa:searchDato(Empresa), 
+  lectoreAsistencia : checkIf(radioValueAsis), 
+  nombre: values.nombre,
+  ocupado: false,  
+  perfil: searchDato(Perfil),
+  area: searchArea(Perfil),
+  rol: 'usuario',
+  usator: false, 
+  fechaDeCreacion: Date(), 
+  UID:IdUsario
   }
-)
+  )
+  setValues({...formCreatorUser}) 
+  setRadioValueChec('5')
+  setRadioValueAsig('3')
+  setRadioValueAsis('1')
+  setPerfil('')
+  setEmpresa('') 
+  } catch(e) {
+  setError(e.message)
+  console.log(e.message)
 
-
-
-
-
-     
-     
-    } catch(e) {
-      setError(e.message)
-      console.log(e.message)
-    }
-  }; */
+  }
+  };  
+  console.log('uid:', IdUsario)
 
 
 
@@ -228,22 +145,15 @@ function checkIf(dato) {
 
 
 
-
+useEffect(()=>{
+  setIdUsuario(uuidv4())
+},[])
 
   return (
 
 
 <Form     onSubmit={handleregisterUser}    >
-    <Row>
-        <Col> <Form.Group className="mb-2" >
-                 <Form.Label>Email</Form.Label>
-<Form.Control type="String" name="email" id='email' value={values.email}  onChange={handleInputChange} placeholder="Correo" />
-              </Form.Group></Col>
-       <Col> <Form.Group className="mb-2" >
-                <Form.Label>Password</Form.Label>
-<Form.Control type="String" name="password" id='password' value={values.password}  onChange={handleInputChange} placeholder="password"  />
-           </Form.Group></Col>
-</Row>
+  <h2>{IdUsario}</h2>
 <Row>
 <Col> <Form.Group className="mb-2" >
                <Form.Label>Nombre del trabajador</Form.Label>
@@ -349,4 +259,3 @@ function checkIf(dato) {
 </Form>
   )
 }
-

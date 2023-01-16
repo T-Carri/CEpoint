@@ -18,7 +18,7 @@ import { Ubicacion } from './componentes/horario/Ubicacion';
 import { Obra } from './componentes/horario/Obra';
 import { Semana } from './componentes/horario/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
-import { Asignador } from './componentes/asignador/Asignador';
+import  Asignador  from './componentes/asignador/Asignador';
 import { UsuarioContextProvider } from './context/UsuarioContext';
 import { AsignacionProvider } from './context/AsignacionContext';
 import ProtectedRoute from './componentes/security/ProtectedRoute';

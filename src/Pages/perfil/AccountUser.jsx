@@ -8,9 +8,6 @@ import {
   useNavigate, 
   Outlet
 } from 'react-router-dom';
-
-
-
 import  NavbarCepoint  from './Navbar';
 import  GreyBar  from './GreyBar';
 import { WhiteBoard } from './WhiteBoard';
@@ -33,6 +30,20 @@ export const AccountUser= () => {
 
 
 [])
+//LOGOUT
+const handleLogout = async()=>{
+      try{
+        await logout().then(
+          navigate('/'), 
+          sessionStorage.removeItem('Auth Token')
+         
+        )
+        console.log('You are logged out')
+      } catch(e) {
+        console.log(e.message);
+      
+      }
+    };
 
 
 
@@ -41,20 +52,6 @@ export const AccountUser= () => {
 
 
   
-  //LOGOUT
-  const handleLogout = async()=>{
-        try{
-          await logout().then(
-            navigate('/'), 
-            sessionStorage.removeItem('Auth Token')
-           
-          )
-          console.log('You are logged out')
-        } catch(e) {
-          console.log(e.message);
-        
-        }
-      };
   
   return (
 <div>

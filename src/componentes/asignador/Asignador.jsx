@@ -1,4 +1,4 @@
-import React, {useState, useContext, useCallback} from 'react'
+import React, {useState, useContext, useReducer} from 'react'
 import { Card, Container, Toast, Button,  Form, Badge } from 'react-bootstrap'
 import './Asignador.css'
 import { useEffect } from 'react';
@@ -9,7 +9,10 @@ import { CardAsignacion } from './CardAsignacion';
 import { FormCreadorUser } from './FormCreadorUser';
 import {FormCreadorProyecto} from './FormCreadorProyecto'
 import  {ProyectosDesactivados} from './ProyectosDesactivados'
-export const Asignador = () => {
+import { GlobalState } from '../../redux/GlobalState';
+
+
+ const Asignador = () => {
 
 const {idProyecto, 
       setIdProyecto, 
@@ -19,7 +22,8 @@ const {idProyecto,
       Proyecto, 
       asigDesactivados, 
       setAsigndesactivados,
-      getProyectosDesactivados
+      getProyectosDesactivados, 
+      state
      }=useContext(AsignacionContext) 
 
   const { 
@@ -32,11 +36,20 @@ const {idProyecto,
   
   const { toggleShowFCP, toggleShowFCU}=useContext(UiContext)
 
-//const desactivados = useCallback(getProyectosDesactivados(),[])
+
+
+
+
+
+  
+useEffect(()=>{
+ 
+  getLinks()
+}, [])
 
 
  
-
+ console.log("datossss", state?state:null)
 
     return (
       <Container className="cardContenedora" style={{ width: '100em', height:'100%'}}>
@@ -51,7 +64,7 @@ const {idProyecto,
    
 
     <Card.Body>
-    <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  datos={asigDesactivados} />
+    <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  />
     <FormCreadorProyecto/>
     <FormCreadorUser/>
    
@@ -65,8 +78,8 @@ const {idProyecto,
        <Card > 
        <div className='proyectos'  style={{width: '74.8em', height: '40em' }} > 
        
-      
-        {asig.map((da)=>(
+    
+       {state.asignacionesActivasDetails?state.asignacionesActivasDetails.map((da)=>(
        
        
       <CardAsignacion prop={da} />
@@ -74,8 +87,8 @@ const {idProyecto,
        
        
        
-       ))}
-        
+       )):null} 
+         
   
        
       
@@ -104,4 +117,4 @@ const {idProyecto,
 }
 
 
-
+export default React.memo(Asignador);

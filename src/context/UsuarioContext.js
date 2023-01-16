@@ -40,7 +40,13 @@ const accessKey = async ()=>{
 }    )
 } 
 
+console.log('usuarioContext',  
+UserRol,
+asignador,
+lectorAsistencia,
+Usator,  
 
+Almacen )
   return (
   <UsuarioContext.Provider value={
     {           getRol,

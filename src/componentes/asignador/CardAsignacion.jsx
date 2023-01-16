@@ -43,7 +43,7 @@ console.log(prop)
 
 }} >Actualizar</Button>
   
-     
+     <Button variant='danger'>Desactiva</Button>
     
     
     </Card.Body>
