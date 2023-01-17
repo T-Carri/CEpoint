@@ -183,9 +183,9 @@ if(exReg.test(dato)){
 
   
    return   <tr>
-           <td>{s.trabajador}</td>
+           <td key={s.trabajador}>{s.trabajador}</td>
             <td>{s.tipoAsistencia} 
-            <Button onClick={  
+            <Button key={s.trabajador} onClick={  
               
        async (event) => {
            
