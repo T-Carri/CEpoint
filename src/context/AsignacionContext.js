@@ -1,6 +1,6 @@
 import React, {useState, createContext, useReducer} from 'react'
 import { db } from '../firebase/firebase';
-import { query, collection, onSnapshot, doc, getDoc, where  } from 'firebase/firestore';
+import { query, collection, onSnapshot, doc, getDoc, where, setDoc  } from 'firebase/firestore';
 import { GlobalState, TYPES } from '../redux/GlobalState';
 
 const AsignacionContext = createContext()
@@ -26,6 +26,15 @@ const initialstate= {
     const [Proyecto, setProyecto]=useState();
     const [ChecadorAsignadouser, setChecadorAsignadoUser] =useState()
    
+    
+
+
+
+    const agregaProyecto = async (dato, datos) => {
+      await  setDoc(doc(db, "asignaciones",dato),datos);
+    }
+
+
     
      const getLinks =async()=>{
         const q = query(collection(db, "asignaciones"), where("activa","==", true))
@@ -88,7 +97,8 @@ value={{
    ChecadorAsignadouser,
    asigDesactivados, 
    setAsigndesactivados,
-   getProyectosDesactivados
+   getProyectosDesactivados, 
+   agregaProyecto
   
 }}>
 {children}

@@ -10,12 +10,13 @@ import { useEffect } from 'react';
 import SelectSearch from "react-select-search";
 import { SelectorChecador } from './SelectorChecador';
 import {DateTime} from 'luxon';
-
+import AsignacionContext from '../../context/AsignacionContext';
 export const FormCreadorProyecto = () => {
  
     const [startDate, setStartDate] = useState(new Date());
     const {showFCP, setShowFCP, toggleShowFCP}=useContext(UiContext)
     const [Residente, setResidente] = useState('')
+    const [values, setValues] = useState('')
     const {Usuarios,
        getUsuarios, 
        finderChecador, 
@@ -28,19 +29,31 @@ export const FormCreadorProyecto = () => {
        getUsuariosChecador,
        UsuariosChecador
       } = useContext(UsuariosContext) 
-   
+   const {agregaProyecto}=useContext(AsignacionContext)
        const auth = getAuth()
     const dato =auth.currentUser; 
 
+    const initValues= {
+      obra: '', 
+      presupuesto: '',
+      residenteUid: '',
+      ubicacion: ''
+    }
+      
+    
+   
+ 
+     
     const formAsig= {
   activa: true,
-  horario:'', 
-  obra: '', 
+  horario:'matutino', 
+  obra: values?values.obra:null, 
   idAsignador: dato.uid,
-  presupuesto: '',
+  idProyecto: values?values.presupuesto:null,
+  presupuesto: values?values.presupuesto:null,
   asistencias:[],
-  residenteUid: '',
-  ubicacion: '',
+  residenteUid:values?values.residenteUid:null,
+  ubicacion: values?values.ubicacion:null,
  
 }
 
@@ -50,7 +63,7 @@ const date = DateTime.now().weekNumber
 
 console.log('residente', Residente)
 
-const [values, setValues] = useState('')
+
  //TODO: HANDLE
  
  const handleInputChange = (e) =>{
@@ -78,15 +91,16 @@ console.log('mistake')
  //TODO: ONCHANGE
 
  
-const handleSubmit = (e) =>  {
+const handleSubmit = async(e) =>  {
   e.preventDefault(); 
-  console.log( 'VALUES:',values);
+  //console.log( 'VALUES:',values);
+ await agregaProyecto(values.presupuesto, formAsig)
  // props.addOrEdit(values);
   setActivadorChec(values.residenteUid)
   fetchOnlyUser(values.residenteUid)
   ableChecador(values.residenteUid)
   statusChecador(OnlyUser.checador)
-   setValues({...formAsig})
+   setValues(initValues)
 }
 
 
