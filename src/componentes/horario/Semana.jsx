@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import { onSnapshot,  where, collection, query} from 'firebase/firestore'
-import { Card, Button, Accordion, Table, Overlay, Popover } from 'react-bootstrap'
+import { Card, Button, Accordion, Table, Overlay, Popover, Modal } from 'react-bootstrap'
 import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import './Horario.css'
+import MyMap from './MyMap';
 import {getStorage, ref, getDownloadURL, getStream} from "firebase/storage"
 export const Semana = () => {
   const auth = getAuth()
@@ -15,6 +16,16 @@ export const Semana = () => {
   const [Source, setSource] = useState()
   const [show1, setShow1] = useState(false);
   const [target, setTarget] = useState(null);
+
+
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+
+
   const storage = getStorage()
   const getPresupuestos =async () => {
 
@@ -208,8 +219,12 @@ if(exReg.test(dato)){
       
         
         }}>Ver foto</Button>
-         
+   <br />      
+<br />
+         <Button variant='success' onClick={handleShow}>Ubicacion</Button>
            </td>
+
+
            <Overlay
         show={show1}
         target={target}
@@ -226,6 +241,22 @@ if(exReg.test(dato)){
           </Popover.Body>
         </Popover>
       </Overlay>
+      <Modal show={show} onHide={handleClose} animation={false}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+        <MyMap latitud={} longitud={}  />
+
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+         
+        </Modal.Footer>
+      </Modal>
             <td>{Monday(s.date)}</td>
             <td>{Martes(s.date)}</td>
             <td>{Miercoles(s.date)}</td>
