@@ -73,12 +73,12 @@ export const Semana = () => {
        
         if (foundItem ){
      foundItem.data=foundItem.data
-     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto}]
-     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto   }]
+     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto, 'latitud':current.latitud,'longitud':current.longitud}]
+     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto, 'latitud':current.latitud,'longitud':current.longitud   }]
   }else{ past.push( {
     'semana': current.semana,
     'data': [{
-      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto
+      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto, 'latitud':current.latitud,'longitud':current.longitud
     }]
   } ) }  
   
@@ -246,8 +246,10 @@ if(exReg.test(dato)){
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+       <h6>{s.latitud}</h6>
+       <h6>{s.longitud}</h6>
 
-        <MyMap latitud={} longitud={}  />
+      <MyMap  latitud={s.latitud} longitud={s.longitud}/>  
 
         </Modal.Body>
         <Modal.Footer>

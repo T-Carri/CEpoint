@@ -1,36 +1,25 @@
-import React, {useState, useContext, useReducer} from 'react'
-import { Card, Container, Toast, Button,  Form, Badge } from 'react-bootstrap'
+import React, {useState, useContext} from 'react'
+import { Card, Container, Button } from 'react-bootstrap'
 import './Asignador.css'
 import { useEffect } from 'react';
 import UiContext from '../../context/UiContext';
-import AsignacionContext from '../../context/AsignacionContext';
-import UsuariosContext from '../../context/UsuariosContext';
+
 import { CardAsignacion } from './CardAsignacion';
 import { FormCreadorUser } from './FormCreadorUser';
 import {FormCreadorProyecto} from './FormCreadorProyecto'
 import  {ProyectosDesactivados} from './ProyectosDesactivados'
-import { GlobalState } from '../../redux/GlobalState';
 
+import  CEpointContext  from '../../context/CEpointContext';
 
  const Asignador = () => {
 
-const {idProyecto, 
-      setIdProyecto, 
-      asig, 
-      setAsign, 
+const {
       getLinks, 
-      Proyecto, 
-      asigDesactivados, 
-      setAsigndesactivados,
-      getProyectosDesactivados, 
+     
       state
-     }=useContext(AsignacionContext) 
+     }=useContext(CEpointContext) 
 
-  const { 
-    fetchOnlyUser, 
-    OnlyUser, 
-    fetchName
-  }=useContext(UsuariosContext)
+ 
   const [modalShow, setModalShow] = useState(false);
     
   

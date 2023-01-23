@@ -10,7 +10,9 @@ import { useEffect } from 'react';
 import SelectSearch from "react-select-search";
 import { SelectorChecador } from './SelectorChecador';
 import {DateTime} from 'luxon';
-import AsignacionContext from '../../context/AsignacionContext';
+
+import CEpointContext from '../../context/CEpointContext';
+
 export const FormCreadorProyecto = () => {
  
     const [startDate, setStartDate] = useState(new Date());
@@ -29,7 +31,7 @@ export const FormCreadorProyecto = () => {
        getUsuariosChecador,
        UsuariosChecador
       } = useContext(UsuariosContext) 
-   const {agregaProyecto}=useContext(AsignacionContext)
+   const {agregaProyecto}=useContext(CEpointContext)
        const auth = getAuth()
     const dato =auth.currentUser; 
 

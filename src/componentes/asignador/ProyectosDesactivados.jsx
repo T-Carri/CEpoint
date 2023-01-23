@@ -1,31 +1,18 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect, useContext } from 'react'
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
 import { CardAsignacion } from './CardAsignacion';
-import { db } from '../../firebase/firebase';
-import { query, collection, onSnapshot,  where  } from 'firebase/firestore';
-import { GlobalState, TYPES } from '../../redux/GlobalState';
+
+import CEpointContext from '../../context/CEpointContext';
 export const ProyectosDesactivados = (props) => {
 
-    const [state, dispatch] = useReducer(GlobalState,  {asignacionesDD: ''});
+    const {state, getProyectosDesactivados}=useContext(CEpointContext)
+    
 
 
 
   useEffect( 
     ()=>{
-        const getProyectosDesactivados =async()=>{
-            const q = query(collection(db, "asignaciones"), where("activa","==", false))
-            await onSnapshot(q, (query)=>{
-             const data=[]
-             query.forEach((doc)=>{
-               data.push({...doc.data(), id:doc.id})
-               console.log('ids: ', doc.id)
-             })
-             //console.log("datossss", data)
-             //setAsigndesactivados(data)
-             dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, data: data })
-            })
-            
-          } 
+   
           getProyectosDesactivados()
     
     },[])

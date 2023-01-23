@@ -37,12 +37,16 @@ import { AlmacenProvider } from './context/AlmacenContext';
 import {Maquinaria} from './componentes/almacen/maquinaria/Maquinaria'
 import {Prestado} from './componentes/almacen/prestado/Prestado'
 import { UiProvider } from './context/UiContext';
+
+
+import { CEpointProvider } from './context/CEpointContext';
 function App() {
 
   
 
   return (
  <AuthContextProvider>
+  <CEpointProvider>
 <UsuarioContextProvider>
     <UsuariosProvider>
  <AsignacionProvider>
@@ -106,6 +110,7 @@ function App() {
   </AsignacionProvider>
   </UsuariosProvider>
   </UsuarioContextProvider>
+  </CEpointProvider>
   </AuthContextProvider>   
 
 

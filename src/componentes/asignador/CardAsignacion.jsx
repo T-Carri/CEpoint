@@ -1,20 +1,29 @@
 import React, {useContext} from 'react'
 import UiContext from '../../context/UiContext'
-import AsignacionContext from '../../context/AsignacionContext'
 import { Card, Button } from 'react-bootstrap'
 import { FormActualizador } from './FormActualizador'
-
-
+import { TYPES } from '../../redux/Types'
+import CEpointContext from '../../context/CEpointContext'
 export const CardAsignacion = ({prop}) => {
-    
-    const {getProyecto, fetchChecadorAsignadoUser, setIdProyecto}=useContext(AsignacionContext)
 
-    const{  show4, 
-        setShow4, 
-        handleClose4,  
-        handleShow4  }= useContext(UiContext)
+
+    
+   
+    const {dispatch, state, getProyecto, fetchChecadorAsignadoUser} = useContext(CEpointContext)
+    const{handleShow4} = useContext(UiContext)
 
 console.log(prop)
+
+
+const handleClick= () =>{
+  handleShow4()
+  fetchChecadorAsignadoUser(prop.residenteUid)
+  getProyecto(state.IdProyectoDetail)
+  }
+  
+
+
+
 
   return (
     <Card  className='proyecto' >
@@ -31,29 +40,26 @@ console.log(prop)
      <br />
      <br />
      <Button className='1a' variant='warning' size='md' onClick={()=>{
-        handleShow4()
+       dispatch({types:TYPES.ID_PROYECTO, payload:prop.id})
+       handleClick()
+       
+       }} >Actualizar</Button>
+         
+            <Button variant='danger'>Desactiva</Button>
+           
+       
+           
+           </Card.Body>
+            
+        <FormActualizador />
+          
+            </Card>
+         )
+       }
 
        
-        fetchChecadorAsignadoUser(prop.residenteUid)
-        getProyecto(prop.id)
-        setIdProyecto(prop.id)
-
-
-
-
-}} >Actualizar</Button>
-  
-     <Button variant='danger'>Desactiva</Button>
     
-    
-    </Card.Body>
-     
- <FormActualizador />
-   
-     </Card>
-  )
-}
-
+       
 
 
 

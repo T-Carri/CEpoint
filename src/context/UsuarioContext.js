@@ -13,6 +13,7 @@ const [asignador, setAsignador]= useState()
 const [lectorAsistencia, setLectorAsistencia]= useState()
 const [Usator, setUsator]= useState()
 const [Almacen, setAlmacen]=useState()
+
 const accessKey = async ()=>{
   
     const queryDoc = doc(db, "users", user.uid);
