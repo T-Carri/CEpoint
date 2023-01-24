@@ -1,41 +1,27 @@
 import React,{useContext, useState} from 'react'
 import { Card, Row, Col, Button } from 'react-bootstrap'
-import UsuariosContext from '../../../context/UsuariosContext';
+
+import CEpointContext from '../../../context/CEpointContext';
 import { QrGen } from './QrGen';
 import '../Usuarios.css'
 import  ActualizaInfoUser  from './ActualizaInfoUser'
 import UiContext from '../../../context/UiContext'
-import { toCanvas, toDataURL } from 'qrcode';
+import {  toDataURL } from 'qrcode';
 
 
  const CardUsuario = ({prop}) => {
-    const {Usuarios,
-        getUsuarios, 
-        getUsersUnable, 
+    const {
         desactivaUser,
-        fetchOnlyUser,
-         OnlyUser, 
-         acNombre, 
-         acPerfil, 
-         acEmpresa,
-         ableChecador,
-         enableChecador,
-         setOnlyUser,    
-         ableOcupado,
-         enableOcupado, 
-         ableAsignador, 
-         enableAsignador, 
-         ableAsistencias, 
-         enableAsistencias 
-       }=useContext(UsuariosContext) 
+        fetchOnlyUser
+       }=useContext(CEpointContext) 
 
         
 
     const{show3, handleClose3, handleShow3, show1, setShow1 }=useContext(UiContext)
-    const [Id, setId] = useState('') 
-    const [target, setTarget] = useState(null);
+    
+  
     const [QRurl, setQRurl]= useState()
-    const [UserQr, setUserQr] = useState() 
+   
     const [modalShow, setModalShow] =useState(false);
  
  
@@ -55,8 +41,8 @@ import { toCanvas, toDataURL } from 'qrcode';
         ()=>(
         
          handleShow3(),
-         fetchOnlyUser(prop.Uid),
-         setId(prop.Uid)
+         fetchOnlyUser(prop.Uid)
+        
        )
        }>
        Actualizar

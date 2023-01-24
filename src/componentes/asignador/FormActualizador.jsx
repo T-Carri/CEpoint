@@ -1,18 +1,17 @@
 import React, {useContext, useEffect, useRef, useState}  from 'react'
-import UsuariosContext from '../../context/UsuariosContext'
+
 import {  Button, Form, Row, Col,  Offcanvas, Badge } from 'react-bootstrap'
-import AsignacionContext from '../../context/AsignacionContext'
+
 import CEpointContext from '../../context/CEpointContext'
 import UiContext from '../../context/UiContext'
 
-export const FormActualizador = ({IdProyecto}) => {
+export const FormActualizador = () => {
 
 
-  const {UserChecador,  finderChecador, getUsuariosChecador,   UsuariosChecador, acUsChec, fetchOnlyUser, OnlyUser} = useContext(UsuariosContext)
 
 
  
- const{state}= useContext(CEpointContext)
+ const{state, getUsuariosChecador, finderChecador, acUsChec }= useContext(CEpointContext)
  const{ show4, setShow4, handleClose4, handleShow4 }= useContext(UiContext)
 
  //console.log('proyecto a Actualizar: ', candidatoActualizar)
@@ -35,9 +34,9 @@ export const FormActualizador = ({IdProyecto}) => {
    useEffect( 
         ()=>{
            
-          finderChecador(  UsuariosChecador)
+          finderChecador(  state.UsuariosDisponiblesChecador)
         }
-          ,[ UsuariosChecador]) 
+          ,[ state.UsuariosDisponiblesChecador]) 
   
      
           
@@ -84,11 +83,11 @@ export const FormActualizador = ({IdProyecto}) => {
    <Form>
 <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Actualiza el responsable de checar en proyecto</Form.Label>
- {state.ChecadorAsignadouser&&    
+ {state.UserChecador&&    
 <Form.Select name="residenteUid"   value={values.residenteUid}  onChange={handleInputChange}  >
  <option>Selcciona una cuenta para este proyecto</option>
 {
- state.ChecadorAsignadouser.map((e)=>( 
+ state.UserChecador.map((e)=>( 
      e.map((s)=>( 
         <option value={s.uid}>{s.nombre}</option>
        ))

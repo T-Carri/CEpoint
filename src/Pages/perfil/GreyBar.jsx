@@ -1,9 +1,10 @@
-import React, {useContext, useCallback} from 'react'
-import { Button, Card, NavbarBrand, Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
-
+import React, {useContext, useEffect} from 'react'
+import { Button, Container} from 'react-bootstrap'
+import UserContext from '../../context/AuthContext';
+import CEpointContext from '../../context/CEpointContext';
 import AlmacenContext from '../../context/AlmacenContext';
 
-import CEpointContext from '../../context/CEpointContext';
+
 import './Account.css'
 import { 
     useNavigate
@@ -16,6 +17,21 @@ import {
     const {setToggle}=useContext(AlmacenContext)
     const {state}=useContext(CEpointContext)
  
+    const {accessKey}=useContext(CEpointContext)
+
+    const {user} = useContext(UserContext)
+  
+    useEffect(()=>{
+      accessKey()
+    }, [])
+
+
+
+
+
+  console.log('BIGSTATE', state)
+   
+  
     const navigate = useNavigate();
   //  const proyectosActivos = useCallback(getLinks(),[asig])
     return (
@@ -24,12 +40,12 @@ import {
 <Container>
 
     
-{state.UsuarioSesion.usator?<Button variant='warning' className="btnx1" onClick={()=>{
+ {state.UsuarioSesion.usator?<Button variant='warning' className="btnx1" onClick={()=>{
   navigate("usuarios")
 
   }}>
  <strong>Usuarios
-   </strong></Button>:null}
+   </strong></Button>:null} 
 
 {state.UsuarioSesion.lectorAsistencia? <Button className="btnx2"  onClick={() =>{
     navigate("horario");

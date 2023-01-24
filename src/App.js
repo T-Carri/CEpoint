@@ -7,7 +7,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
 import Totalogin from '../src/Pages/Access/Totalogin'
 import Totalsignup from '../src/Pages/Access/Totalsignup'
 import { AuthContextProvider } from './context/AuthContext';
-import { UsuariosProvider } from './context/UsuariosContext';
+
 //new feature
 import { AccountUser } from './Pages/perfil/AccountUser';
 import { WelcomeHome } from './componentes/WelcomeHome';
@@ -19,7 +19,7 @@ import { Obra } from './componentes/horario/Obra';
 import { Semana } from './componentes/horario/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
 import  Asignador  from './componentes/asignador/Asignador';
-import { UsuarioContextProvider } from './context/UsuarioContext';
+
 
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
@@ -47,8 +47,8 @@ function App() {
   return (
  <AuthContextProvider>
   <CEpointProvider>
-<UsuarioContextProvider>
-    <UsuariosProvider>
+
+   
  
 <AlmacenProvider>
   <UiProvider>
@@ -108,8 +108,8 @@ function App() {
     </UiProvider>
       </AlmacenProvider> 
 
-  </UsuariosProvider>
-  </UsuarioContextProvider>
+  
+ 
   </CEpointProvider>
   </AuthContextProvider>   
 

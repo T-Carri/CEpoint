@@ -1,28 +1,56 @@
-import React, {useState, createContext, useReducer, useContext} from 'react'
+import React, {useState, createContext, useReducer, useContext, useEffect} from 'react'
 import { db } from '../firebase/firebase';
-import { query, collection, onSnapshot, doc, getDoc, where, setDoc  } from 'firebase/firestore';
+import { query, collection, onSnapshot, doc, getDoc, where, setDoc, updateDoc  } from 'firebase/firestore';
 import { GlobalState } from '../redux/GlobalState';
 import { TYPES } from '../redux/Types';
 import UserContext from './AuthContext';
+import {searchArea} from '../componentes/usuarios/options'
 
 const CEpointContext = createContext()
 export default CEpointContext; 
 
 export const CEpointProvider = ({children}) => {
     const {user} = useContext(UserContext)
-const initialstate= {
-  asignacionesDD: '', 
+const initialstate=JSON.parse(localStorage.getItem('state'))|| {
+  UsuarioSesion:'',
+  UsuariosActivosDetail:'',
+  UsuariosInactivosDetail:'',
+  UsuariosOcupados:'', 
+  UsuariosDesocupados:'',
+  UsuariosDisponiblesChecador:'',
+  UserChecador:'',
+  OnlyUser:'',
   asignacionesActivasDetails: '', 
+  asignacionesDD: '', 
   AP:'',
   DP: '', 
   IdProyectoDetail:'', 
   ChecadorAsignadouser:'',
   Proyecto:'', 
-  UsuarioSesion:''
-
+ 
 }
 
   const [state, dispatch] = useReducer(GlobalState,  initialstate);
+
+ //USUARIO ABOUT 
+ useEffect(() => {
+  localStorage.setItem('state', JSON.stringify(state));
+}, [state]);
+
+
+
+ 
+ const accessKey = async ()=>{
+   
+  const queryDoc = doc(db, "users", user.uid);
+ await getDoc(queryDoc).then(  (res) => {
+   dispatch({type:TYPES.USUARIO_DATA, payload:res.data()})
+ 
+    
+  } )
+}
+
+
 
 
 //ASIGNACION ABOUT
@@ -42,24 +70,12 @@ const initialstate= {
              })
              //console.log("datossss", data)
          
-             dispatch({type:TYPES.CALL_PROYECTOS_ACTIVOS, data: data })
+             dispatch({type:TYPES.CALL_PROYECTOS_ACTIVOS, payload: data })
             })
           
           }  
     
-          /* const getProyectosDesactivados =async()=>{
-            const q = query(collection(db, "asignaciones"), where("activa","==", false))
-            await onSnapshot(q, (query)=>{
-             const data=[]
-             query.forEach((doc)=>{
-               data.push({...doc.data(), id:doc.id})
-               console.log('ids: ', doc.id)
-             })
-             //console.log("datossss", data)
-             setAsigndesactivados(data)
-            })
-          
-          }  */
+       
     
           const getProyectosDesactivados =async()=>{
             const q = query(collection(db, "asignaciones"), where("activa","==", false))
@@ -69,9 +85,8 @@ const initialstate= {
                data.push({...doc.data(), id:doc.id})
                console.log('ids: ', doc.id)
              })
-             //console.log("datossss", data)
-             //setAsigndesactivados(data)
-             dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, data: data })
+             
+             dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, payload: data })
             })
             
           } 
@@ -93,90 +108,26 @@ const initialstate= {
         
             })
           }
-    
-    
-    /*
-    value={{
-      state,
-      dispatch, 
-      asig, 
-      setAsign, 
-      getLinks, 
-      getProyecto,
-     Proyecto, 
-     fetchChecadorAsignadoUser,
-     ChecadorAsignadouser,
-     asigDesactivados, 
-     setAsigndesactivados,
-     getProyectosDesactivados, 
-     agregaProyecto
-    
-    }}
-    */
-         
+
    
     
-
- //USUARIO ABOUT 
-
-
 
 
  
- const accessKey = async ()=>{
-   
-     const queryDoc = doc(db, "users", user.uid);
-    await getDoc(queryDoc).then(  (res) => {
-      dispatch({type:TYPES.USUARIO_DATA, payload:res.data()})
-    
-       
-     } )
-   }
- 
-   
-    //esta funcion identifica rol de usuario
-/*   const [UserRol, setUserRol] =useState()
- 
-  const getRol =async()=>{
-   
-   const queryDoc = doc(db, "users", user.uid);
-  await getDoc(queryDoc).then(res => {
-     setUserRol(res.data().rol)
-     console.log( res.data().rol)
- }    )
- }  */
- 
 
-   /*
-    value={{   
-        getRol,
-        UserRol,
-        asignador,
-        lectorAsistencia,
-        Usator,  
-        accessKey,
-        Almacen
-          }}
-   
-   */
-   
-   
    
    
    
    //USUARIOS ABOUT
   
 
-   const [Usuarios, setUsuarios] = useState([])  
-   const [UsuariosChecador, setUsuariosChecador] = useState([]) 
-   const [Userun, setUserun]=useState([]) 
-   const [UserBussy, setUserBussy]=useState([]) 
-   const [UserNoBussy, setUserNoBussy]=useState([]) 
+
    
-   const [ActivadorChec, setActivadorChec] = useState('')
+   
    const [UserChecador, setUserChecador] = useState('')
    
 //obten todos los usuarios hacer un reducer para  
+//OK
 const getUsuarios =async()=>{
     const q = query(collection(db, "users"),where("activo","==", true))
     await onSnapshot(q, (query)=>{
@@ -184,8 +135,8 @@ const getUsuarios =async()=>{
      query.forEach((doc)=>{
        data.push(doc.data())
      })
-   //  console.log("Habilitados", data)
-     setUsuarios(data)
+   dispatch({type:TYPES.USUARIOS_ACTIVOS, payload:data})
+    
     })
   }
 
@@ -196,16 +147,20 @@ const getUsuarios =async()=>{
      query.forEach((doc)=>{
        data.push(doc.data())
      })
-   //  console.log("Habilitados", data)
-     setUsuariosChecador(data)
+   dispatch({
+    type: TYPES.USUARIOS_DISPONIBLES_CHECADOR, payload:data
+   })
+    
     })
   }
 
-const [OnlyUser, setOnlyUser] = useState()
+  //atencion aqui ya que me bugeo en las fichas de actualizar usuario, se quedo pegado el usuario electo
+
 const fetchOnlyUser = async(params)=>{
 const q = doc(db, "users", params )
 await getDoc(q).then(res=>{
-setOnlyUser(res.data())
+dispatch({type: TYPES.FETCH_ONLYUSER, payload:res.data() })
+
 }) 
 }
 
@@ -228,8 +183,8 @@ Q.forEach((element) => {
   dato.push(element.data())
   
 });
+dispatch({type:TYPES.USUARIOS_OCUPADOS, payload:dato })
 
-setUserBussy(dato)
 })
 }
 
@@ -243,13 +198,14 @@ Q.forEach((element) => {
   dato.push(element.data())
   
 });
+dispatch({type:TYPES.USUARIOS_DESOCUPADOS, payload:dato })
 
-setUserNoBussy(dato)
 })
 }
 
 
 //obtengo usuarios que no estan activados 
+//OK
 const getUsersUnable = async()=>{
     const UU = query(collection(db, "users"),where("activo","==", false))
     await  onSnapshot(UU, (Q)=>{
@@ -260,8 +216,8 @@ const getUsersUnable = async()=>{
         dato.push(element.data())
         
       });
-  
-      setUserun(dato)
+  dispatch({type:TYPES.USUARIOS_INACTIVOS, payload:dato})
+      
     })
   }
 //Esta funcion activa los usuarios        
@@ -353,7 +309,8 @@ return props.reduce((past, current)=>{
 //  console.log('ver reduce resultados:', past)
   const r=[]
   r.push(past)
-  setUserChecador(r)
+  dispatch({type:TYPES.REDUCER_USER_CHECADOR , payload:r})
+  
   if(foundIndex){
     foundIndex.data=foundIndex.data
     ?[...foundIndex.data, {
@@ -426,7 +383,29 @@ value={{
   getProyectosDesactivados, 
   agregaProyecto, 
   fetchChecadorAsignadoUser,
-  accessKey
+  accessKey, 
+  getUsuarios, 
+  getUsersUnable, 
+  activateUser, 
+  getUsersBussy, 
+  getUsersNoBussy, 
+  enableOcupado, 
+  getUsuariosChecador, 
+  finderChecador, 
+  acUsChec, 
+  fetchOnlyUser, 
+  ableChecador, 
+  acPerfil, 
+  enableChecador, 
+  acNombre,
+  acEmpresa, 
+  ableAsistencias, 
+  enableAsistencias, 
+  ableOcupado, 
+  ableAsignador, 
+  enableAsignador, 
+  desactivaUser
+
 }}>
 {children}
 </CEpointContext.Provider>

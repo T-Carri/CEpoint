@@ -1,18 +1,19 @@
 import React, {useContext, useEffect, memo} from 'react'
-import UsuariosContext from '../../../context/UsuariosContext';
-import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
+import CEpointContext from '../../../context/CEpointContext';
+import { Card, Button} from 'react-bootstrap'
 import '../Usuarios.css'
  const Inactivos = () => {
-    const { 
-        Userun,
-        activateUser,
-        getUsersUnable
-    }=useContext(UsuariosContext)
-       
+
+    const {state, getUsersUnable, activateUser} = useContext(CEpointContext)
+    
+    
+    
     useEffect(()=>{ 
       getUsersUnable()
       },[]) 
 
+  
+  
   return (
 <Card className='formUsuarios' style={{ display:'contents', width: '70em', height:'45em'}}>
 <Card.Body>
@@ -21,7 +22,7 @@ import '../Usuarios.css'
  <div className='inactivos'  style={{width: '74.8em', height: '28em' }} > 
  
 
-  {Userun.map((s)=>(
+  {state.UsuariosInactivosDetail.map((s)=>(
  
  
    <Card  className='unable' >
@@ -101,106 +102,3 @@ export default memo(Inactivos)
 
 
 
-
-
-
-
-
-
-
-/*
-
-{
-        Userun.map((e)=>
-        (
-      <div  >
-      <Card id='cuentaInactiva' >
-        <Card.Body>
-        <h6><strong>Cuenta inactiva</strong></h6>
-        <h6> Trabajador:<strong>{e.nombre}</strong></h6>
-        <br/>
-        <h6>Empresa: 
-          <strong> 
-           {e.empresa}
-          </strong>
-           </h6>
-           <br/>
-           <h6>Email: 
-          <strong> 
-           {e.UID}
-          </strong>
-           </h6>
-           <br/>
-      
-      <h6>
-        Perfil: <strong>
-          {e.perfil}
-        </strong>
-      </h6>
-      
-      <br/>
-      <Button className='UPDATE' variant='secondary' size='md' onClick={()=>{
-      try {
-        
-          activateUser(e.UID)
-      } catch (error) {
-        console.log(error)
-      }
-        
-      }} >Activar</Button>
-        </Card.Body>
-      </Card>
-      
-      </div>)
-        )
-      }
-
-*/
-
-/*
-
- {
-        Userun.map((e)=>
-        (
-      <div  >
-      <Card id='cuentaInactiva' >
-        <Card.Body>
-        <h6><strong>Cuenta inactiva</strong></h6>
-        <h6> Trabajador:<strong>{e.nombre}</strong></h6>
-        <br/>
-        <h6>Empresa: 
-          <strong> 
-           {e.empresa}
-          </strong>
-           </h6>
-           <br/>
-           <h6>Email: 
-          <strong> 
-           {e.UID}
-          </strong>
-           </h6>
-           <br/>
-      
-      <h6>
-        Perfil: <strong>
-          {e.perfil}
-        </strong>
-      </h6>
-      
-      <br/>
-      <Button className='UPDATE' variant='secondary' size='md' onClick={()=>{
-      try {
-        
-          activateUser(e.UID)
-      } catch (error) {
-        console.log(error)
-      }
-        
-      }} >Activar</Button>
-        </Card.Body>
-      </Card>
-      
-      </div>)
-        )
-      }
-*/

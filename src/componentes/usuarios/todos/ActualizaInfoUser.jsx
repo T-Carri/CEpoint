@@ -1,27 +1,26 @@
 import React, {useContext, useState, useRef} from 'react'
-import UsuariosContext from '../../../context/UsuariosContext';
+
+import CEpointContext from '../../../context/CEpointContext';
 import UiContext from '../../../context/UiContext';
-import { Card,  Button,  Offcanvas, Form, Row, Col, Overlay, Popover, Container } from 'react-bootstrap'
+import {   Button,  Offcanvas, Form } from 'react-bootstrap'
 import SelectSearch from "react-select-search";
 import {options,  optionsEmpresas} from '../options'
 
  const ActualizaInfoUser = ({prop}) => {
-    const {
-        fetchOnlyUser,
-         OnlyUser, 
-         acNombre, 
-         acPerfil, 
-         acEmpresa,
-         ableChecador,
-         enableChecador,
-         ableOcupado,
-         enableOcupado, 
-         ableAsignador, 
-         enableAsignador, 
-         ableAsistencias, 
-         enableAsistencias 
-       }=useContext(UsuariosContext)
-        
+
+        const {state,
+           fetchOnlyUser, 
+           acNombre, 
+           acPerfil, 
+           acEmpresa,
+            enableChecador, 
+             ableChecador, 
+             ableOcupado, 
+             enableOcupado,
+              ableAsignador, 
+              enableAsignador, 
+               ableAsistencias, enableAsistencias
+               }= useContext(CEpointContext)
       
        const{show3, handleClose3 }=useContext(UiContext)
        const [Empresa, setEmpresa]=useState('')
@@ -36,17 +35,17 @@ import {options,  optionsEmpresas} from '../options'
       
       
       <Offcanvas.Header closeButton>
-       <Offcanvas.Title>{OnlyUser?OnlyUser.nombre:null}</Offcanvas.Title>
+       <Offcanvas.Title>{state.OnlyUser?state.OnlyUser.nombre:null}</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
           <Form >
           <Form.Group className="mb-3" controlId="formGroup1">
         <Form.Label>Actualiza nombre</Form.Label>
-        <Form.Control type="text" ref={nombreRef} placeholder={OnlyUser?OnlyUser.nombre:null} />
+        <Form.Control type="text" ref={nombreRef} placeholder={state.OnlyUser?state.OnlyUser.nombre:null} />
         <Button id='Cnombre' variant='primary' onClick={()=>{
          try {
-       acNombre(OnlyUser.UID, nombreRef.current.value )  
-       fetchOnlyUser(OnlyUser.UID)
+       acNombre(state.OnlyUser.UID, nombreRef.current.value )  
+       fetchOnlyUser(state.OnlyUser.UID)
         } catch (error) {
          console.log('No se puede porque:  ', error)
         }
@@ -58,12 +57,12 @@ import {options,  optionsEmpresas} from '../options'
         <Form.Label>Actualiza perfil</Form.Label>
         <SelectSearch options={options}  onChange={setPerfil}
             search 
-            name="perfil" placeholder={OnlyUser?OnlyUser.perfil:null} />
+            name="perfil" placeholder={state.OnlyUser?state.OnlyUser.perfil:null} />
         
         <Button id='Cperfil' variant='success' onClick={()=>{
          try{
-     acPerfil(OnlyUser.UID, Perfil)
-     fetchOnlyUser(OnlyUser.UID)
+     acPerfil(state.OnlyUser.UID, Perfil)
+     fetchOnlyUser(state.OnlyUser.UID)
          } catch(error){
            console.log('No se puede porque:  ', error)
          }
@@ -74,13 +73,13 @@ import {options,  optionsEmpresas} from '../options'
         <Form.Label>Actualiza empresa</Form.Label>
         <SelectSearch options={optionsEmpresas} 
             search   onChange={setEmpresa}
-            name="empresa" placeholder={OnlyUser?OnlyUser.empresa:null} />
+            name="empresa" placeholder={state.OnlyUser?state.OnlyUser.empresa:null} />
         
         <Button id='Cempresa' variant='success' 
         onClick={()=>{
          try {
-           acEmpresa(OnlyUser.UID, Empresa)
-           fetchOnlyUser(OnlyUser.UID)
+           acEmpresa(state.OnlyUser.UID, Empresa)
+           fetchOnlyUser(state.OnlyUser.UID)
          } catch (error) {
            
          }
@@ -91,12 +90,12 @@ import {options,  optionsEmpresas} from '../options'
              type="switch"
              id="custom-switch"
              label="¿Esta ocupado este usuario?"
-             checked={OnlyUser?OnlyUser.ocupado:null}
+             checked={state.OnlyUser?state.OnlyUser.ocupado:null}
              isValid={true}
              onChange={
                ()=>{
-                 OnlyUser.ocupado?enableOcupado(OnlyUser.UID):ableOcupado(OnlyUser.UID);
-                 fetchOnlyUser(OnlyUser.UID)
+                 state.OnlyUser.ocupado?enableOcupado(state.OnlyUser.UID):ableOcupado(state.OnlyUser.UID);
+                 fetchOnlyUser(state.OnlyUser.UID)
                }
              }
            />
@@ -104,11 +103,11 @@ import {options,  optionsEmpresas} from '../options'
            <Form.Check 
              type="switch"
              id="custom-switch"
-             checked={OnlyUser?OnlyUser.checador:null}
+             checked={state.OnlyUser?state.OnlyUser.checador:null}
              onChange={
                ()=>{
-                 OnlyUser.checador?enableChecador(OnlyUser.UID):ableChecador(OnlyUser.UID);
-                 fetchOnlyUser(OnlyUser.UID)
+                 state.OnlyUser.checador?enableChecador(state.OnlyUser.UID):ableChecador(state.OnlyUser.UID);
+                 fetchOnlyUser(state.OnlyUser.UID)
                }
              }
              isValid={true}
@@ -119,12 +118,12 @@ import {options,  optionsEmpresas} from '../options'
              type="switch"
              id="custom-switch"
              label="¿Es asignador?"
-             checked={OnlyUser?OnlyUser.asignador:null}
+             checked={state.OnlyUser?state.OnlyUser.asignador:null}
              isValid={true}
              onChange={
                ()=>{
-                 OnlyUser.asignador?enableAsignador(OnlyUser.UID):ableAsignador(OnlyUser.UID);
-                 fetchOnlyUser(OnlyUser.UID)
+                state.OnlyUser.asignador?enableAsignador(state.OnlyUser.UID):ableAsignador(state.OnlyUser.UID);
+                 fetchOnlyUser(state.OnlyUser.UID)
                }
              }
            />
@@ -133,12 +132,12 @@ import {options,  optionsEmpresas} from '../options'
              type="switch"
              id="custom-switch"
              label="¿Es lector de asistencias?"
-             checked={OnlyUser?OnlyUser.lectoreAsistencia:null}
+             checked={state.OnlyUser?state.OnlyUser.lectoreAsistencia:null}
              isValid={true}
              onChange={
                ()=>{
-                 OnlyUser.lectoreAsistencia?enableAsistencias(OnlyUser.UID):ableAsistencias(OnlyUser.UID);
-                 fetchOnlyUser(OnlyUser.UID)
+                state.OnlyUser.lectoreAsistencia?enableAsistencias(state.OnlyUser.UID):ableAsistencias(state.OnlyUser.UID);
+                 fetchOnlyUser(state.OnlyUser.UID)
                }
              }
            />

@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { getAuth } from 'firebase/auth'; 
 import { useContext } from 'react';
-import UsuariosContext from '../../context/UsuariosContext';
+
 import UiContext from '../../context/UiContext';
 import { useEffect } from 'react';
 import SelectSearch from "react-select-search";
@@ -15,23 +15,12 @@ import CEpointContext from '../../context/CEpointContext';
 
 export const FormCreadorProyecto = () => {
  
-    const [startDate, setStartDate] = useState(new Date());
+  //  const [startDate, setStartDate] = useState(new Date());
     const {showFCP, setShowFCP, toggleShowFCP}=useContext(UiContext)
-    const [Residente, setResidente] = useState('')
+   
     const [values, setValues] = useState('')
-    const {Usuarios,
-       getUsuarios, 
-       finderChecador, 
-       ableChecador, 
-       setActivadorChec, 
-       UserChecador, 
-       ActivadorChec, 
-       OnlyUser, 
-       fetchOnlyUser,
-       getUsuariosChecador,
-       UsuariosChecador
-      } = useContext(UsuariosContext) 
-   const {agregaProyecto}=useContext(CEpointContext)
+   
+   const {state, agregaProyecto, getUsuariosChecador,fetchOnlyUser, finderChecador, ableChecador}=useContext(CEpointContext)
        const auth = getAuth()
     const dato =auth.currentUser; 
 
@@ -63,7 +52,7 @@ export const FormCreadorProyecto = () => {
 const date = DateTime.now().weekNumber
 
 
-console.log('residente', Residente)
+
 
 
  //TODO: HANDLE
@@ -98,10 +87,10 @@ const handleSubmit = async(e) =>  {
   //console.log( 'VALUES:',values);
  await agregaProyecto(values.presupuesto, formAsig)
  // props.addOrEdit(values);
-  setActivadorChec(values.residenteUid)
+ 
   fetchOnlyUser(values.residenteUid)
   ableChecador(values.residenteUid)
-  statusChecador(OnlyUser.checador)
+  statusChecador(state.OnlyUser.checador)
    setValues(initValues)
 }
 
@@ -120,16 +109,16 @@ useEffect(()=>{
 useEffect( 
     ()=>{
        
-      finderChecador(UsuariosChecador)
+      finderChecador( state.UsuariosDisponiblesChecador )
     }
-      ,[UsuariosChecador]) 
+      ,[state.UsuariosDisponiblesChecador]) 
       
       
 
      
 
-    console.log( 'Sera activado:', ActivadorChec);
-    {OnlyUser&& console.log('OnlyUser:  ',OnlyUser.checador)}
+   
+
     console.log(values.residenteUid)
  
  
@@ -149,11 +138,11 @@ useEffect(
      <Form  onSubmit={handleSubmit}>
     <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Residente</Form.Label>
-{UserChecador&&    
+{state.UserChecador&&    
 <Form.Select name="residenteUid" value={values.residenteUid} onChange={handleInputChange}>
  <option>Open this select menu </option>
 {
- UserChecador.map((e)=>( 
+ state.UserChecador.map((e)=>( 
      e.map((s)=>( 
         <option value={s.uid}>{s.nombre}</option>
        ))

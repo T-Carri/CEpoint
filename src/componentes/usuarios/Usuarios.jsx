@@ -1,16 +1,20 @@
-import React, {useState} from 'react'
-import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form, Nav } from 'react-bootstrap'
+import React, {useState, useContext, useEffect} from 'react'
+import { Card, Container, Toast,  Nav } from 'react-bootstrap'
 import { FormCreadorUser } from './FormCreadorUser'; 
 import './Usuarios.css'
 import {useNavigate, Outlet} from 'react-router-dom'
-import {options,  optionsEmpresas, searchArea} from './options'
+import CEpointContext from '../../context/CEpointContext';
 
 
  const Usuarios = () => {
- 
+  const {
+    getUsuarios}=useContext(CEpointContext)
 
     const navigate = useNavigate(); 
- 
+   
+    useEffect(() => {
+      getUsuarios()
+    }, [])
 
     const [showA, setShowA] = useState(false);
     const toggleShowA   = () => setShowA(!showA);

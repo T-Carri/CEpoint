@@ -8,13 +8,14 @@ import { UserAuth } from '../../context/AuthContext';
 import { db } from '../../firebase/firebase';
 import SelectSearch from "react-select-search";
 import 'react-select-search/style.css'
-import UsuariosContext from '../../context/UsuariosContext';
-import {setDoc, doc, collection, addDoc} from 'firebase/firestore'
+
+import CEpointContext from '../../context/CEpointContext';
+import {setDoc, doc } from 'firebase/firestore'
 
 import {options, searchArea, optionsEmpresas} from './options'
 export const FormCreadorUser = () => {
     //necesario para registrar  en dos modalidades, manual y por google unicamente
-  const {Usuarios, getUsuarios} = useContext(UsuariosContext)    
+  const {state} = useContext(CEpointContext)    
 
 
     const [error, setError] = useState('');

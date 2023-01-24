@@ -1,13 +1,13 @@
 import React, {memo, useContext, useEffect} from 'react'
 import '../Usuarios.css'
-import { Card, Container, Toast, Button, Modal, Offcanvas, Row, Col, Form } from 'react-bootstrap'
-import UsuariosContext from '../../../context/UsuariosContext';
+import { Card } from 'react-bootstrap'
+
+import CEpointContext from '../../../context/CEpointContext';
  const Desocupados = () => {
     const { 
-       
-        getUsersNoBussy, 
-        UserNoBussy
-    }=useContext(UsuariosContext)
+       state, 
+        getUsersNoBussy
+    }=useContext(CEpointContext)
        
     useEffect(()=>{ 
     
@@ -24,7 +24,7 @@ import UsuariosContext from '../../../context/UsuariosContext';
  <div className='desocupados'  style={{width: '74.8em', height: '28em' }} > 
  
 
-  {UserNoBussy.map((s)=>(
+  {state.UsuariosDesocupados.map((s)=>(
  
  
    <Card  className='Nobussy' >
