@@ -2,14 +2,17 @@ import React, {useContext, useEffect, useRef, useState}  from 'react'
 import UsuariosContext from '../../context/UsuariosContext'
 import {  Button, Form, Row, Col,  Offcanvas, Badge } from 'react-bootstrap'
 import AsignacionContext from '../../context/AsignacionContext'
+import CEpointContext from '../../context/CEpointContext'
 import UiContext from '../../context/UiContext'
+
 export const FormActualizador = ({IdProyecto}) => {
- const {UserChecador,  finderChecador, getUsuariosChecador,   UsuariosChecador, acUsChec, fetchOnlyUser, OnlyUser} = useContext(UsuariosContext)
+
+
+  const {UserChecador,  finderChecador, getUsuariosChecador,   UsuariosChecador, acUsChec, fetchOnlyUser, OnlyUser} = useContext(UsuariosContext)
 
 
  
- const{Proyecto, ChecadorAsignadouser,  idProyecto, 
-  }= useContext(AsignacionContext)
+ const{state}= useContext(CEpointContext)
  const{ show4, setShow4, handleClose4, handleShow4 }= useContext(UiContext)
 
  //console.log('proyecto a Actualizar: ', candidatoActualizar)
@@ -56,7 +59,7 @@ export const FormActualizador = ({IdProyecto}) => {
 /* console.log('RESIDENTE UID', values.residenteUid)
   console.log('PROYECTO', idProyecto)
   console.log('OnlyUser.UID:  ',OnlyUser.UID) */
-console.log('id', Proyecto)
+
 
   return (
 
@@ -65,7 +68,7 @@ console.log('id', Proyecto)
       
       
     <Offcanvas.Header closeButton>
-    <Offcanvas.Title>Informacion de proyecto:{' '}  {Proyecto?Proyecto.presupuesto:null}  </Offcanvas.Title>
+    <Offcanvas.Title>Informacion de proyecto:{' '}  {state.Proyecto?state.Proyecto:null}  </Offcanvas.Title>
 
     </Offcanvas.Header>
     <Offcanvas.Body> 
@@ -74,18 +77,18 @@ console.log('id', Proyecto)
    <h3>
 
    <Badge bg='secondary'>                                
-   {ChecadorAsignadouser?ChecadorAsignadouser.nombre:null}  
+   {state.ChecadorAsignadouser?state.ChecadorAsignadouser.nombre:null}  
    </Badge>
    
    </h3>
    <Form>
 <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Actualiza el responsable de checar en proyecto</Form.Label>
- {UserChecador&&    
+ {state.ChecadorAsignadouser&&    
 <Form.Select name="residenteUid"   value={values.residenteUid}  onChange={handleInputChange}  >
  <option>Selcciona una cuenta para este proyecto</option>
 {
- UserChecador.map((e)=>( 
+ state.ChecadorAsignadouser.map((e)=>( 
      e.map((s)=>( 
         <option value={s.uid}>{s.nombre}</option>
        ))
@@ -99,7 +102,7 @@ console.log('id', Proyecto)
   <br />
  <Button  className="mb-2" size='lg' variant='success' onClick={()=>{
     try {
-      acUsChec( idProyecto, values.residenteUid)
+      acUsChec( state.IdProyectoDetail, values.residenteUid)
       console.log('yeah you get it')
      
     } catch (error) {

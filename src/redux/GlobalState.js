@@ -1,5 +1,5 @@
 import { TYPES } from "./Types"
-export const AsignacionState=(state, action )=>{
+export const GlobalState=(state, action )=>{
 switch(action.type){
 
 
@@ -7,7 +7,7 @@ switch(action.type){
   case TYPES.USUARIO_DATA:
     return {
         ...state,
-        : action.data
+        UsuarioSesion : action.data
     }
 
 

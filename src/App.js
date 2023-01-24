@@ -20,7 +20,7 @@ import { Semana } from './componentes/horario/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
 import  Asignador  from './componentes/asignador/Asignador';
 import { UsuarioContextProvider } from './context/UsuarioContext';
-import { AsignacionProvider } from './context/AsignacionContext';
+
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
 //import 'bootstrap/dist/css/bootstrap.min.css';
@@ -49,7 +49,7 @@ function App() {
   <CEpointProvider>
 <UsuarioContextProvider>
     <UsuariosProvider>
- <AsignacionProvider>
+ 
 <AlmacenProvider>
   <UiProvider>
     <>
@@ -107,7 +107,7 @@ function App() {
     </>
     </UiProvider>
       </AlmacenProvider> 
-  </AsignacionProvider>
+
   </UsuariosProvider>
   </UsuarioContextProvider>
   </CEpointProvider>

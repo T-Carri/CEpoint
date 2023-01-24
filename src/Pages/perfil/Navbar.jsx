@@ -1,11 +1,11 @@
 import React, {useContext, useEffect} from 'react'
 import { Button, NavbarBrand, Navbar, Nav, NavDropdown} from 'react-bootstrap'
 import UserContext from '../../context/AuthContext';
-import UsuarioContext from '../../context/UsuarioContext';  
+import CEpointContext from '../../context/CEpointContext';
 import './Account.css'
 const NavbarCepoint = ({handleLogout}) => {
 
-  const {accessKey}=useContext(UsuarioContext)
+  const {accessKey}=useContext(CEpointContext)
 
   const {user} = useContext(UserContext)
 

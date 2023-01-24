@@ -18,6 +18,7 @@ const initialstate= {
   IdProyectoDetail:'', 
   ChecadorAsignadouser:'',
   Proyecto:'', 
+  UsuarioSesion:''
 
 }
 
@@ -120,21 +121,14 @@ const initialstate= {
 
 
 
- const [asignador, setAsignador]= useState()
- const [lectorAsistencia, setLectorAsistencia]= useState()
- const [Usator, setUsator]= useState()
- const [Almacen, setAlmacen]=useState()
+
  
  const accessKey = async ()=>{
    
      const queryDoc = doc(db, "users", user.uid);
     await getDoc(queryDoc).then(  (res) => {
-      setAlmacen(res.data().almacen)
-       setAsignador(res.data().asignador)
+      dispatch({type:TYPES.USUARIO_DATA, payload:res.data()})
     
-      setLectorAsistencia(res.data().lectoreAsistencia)
-   
-      setUsator(res.data().usator)
        
      } )
    }
@@ -172,6 +166,246 @@ const initialstate= {
    
    //USUARIOS ABOUT
   
+
+   const [Usuarios, setUsuarios] = useState([])  
+   const [UsuariosChecador, setUsuariosChecador] = useState([]) 
+   const [Userun, setUserun]=useState([]) 
+   const [UserBussy, setUserBussy]=useState([]) 
+   const [UserNoBussy, setUserNoBussy]=useState([]) 
+   
+   const [ActivadorChec, setActivadorChec] = useState('')
+   const [UserChecador, setUserChecador] = useState('')
+   
+//obten todos los usuarios hacer un reducer para  
+const getUsuarios =async()=>{
+    const q = query(collection(db, "users"),where("activo","==", true))
+    await onSnapshot(q, (query)=>{
+     const data=[]
+     query.forEach((doc)=>{
+       data.push(doc.data())
+     })
+   //  console.log("Habilitados", data)
+     setUsuarios(data)
+    })
+  }
+
+  const getUsuariosChecador =async()=>{
+    const q = query(collection(db, "users"),where("area","in", ['CUENTAKEYCHECADOR']))
+    await onSnapshot(q, (query)=>{
+     const data=[]
+     query.forEach((doc)=>{
+       data.push(doc.data())
+     })
+   //  console.log("Habilitados", data)
+     setUsuariosChecador(data)
+    })
+  }
+
+const [OnlyUser, setOnlyUser] = useState()
+const fetchOnlyUser = async(params)=>{
+const q = doc(db, "users", params )
+await getDoc(q).then(res=>{
+setOnlyUser(res.data())
+}) 
+}
+
+const fetchName = async(params)=>{
+const q = doc(db, "users", params )
+await getDoc(q).then(res=>{
+return res.data().nombre
+}) 
+}
+
+
+//Usuarios ocupados
+const getUsersBussy = async()=>{
+const UB = query(collection(db, "users"),where("ocupado","==", true))
+await  onSnapshot(UB, (Q)=>{
+const dato=[]
+
+Q.forEach((element) => {
+
+  dato.push(element.data())
+  
+});
+
+setUserBussy(dato)
+})
+}
+
+const getUsersNoBussy = async()=>{
+const UNB = query(collection(db, "users"),where("ocupado","==", false))
+await  onSnapshot(UNB, (Q)=>{
+const dato=[]
+
+Q.forEach((element) => {
+
+  dato.push(element.data())
+  
+});
+
+setUserNoBussy(dato)
+})
+}
+
+
+//obtengo usuarios que no estan activados 
+const getUsersUnable = async()=>{
+    const UU = query(collection(db, "users"),where("activo","==", false))
+    await  onSnapshot(UU, (Q)=>{
+      const dato=[]
+  
+      Q.forEach((element) => {
+  
+        dato.push(element.data())
+        
+      });
+  
+      setUserun(dato)
+    })
+  }
+//Esta funcion activa los usuarios        
+
+const activateUser = async(params)=>{
+const AU = doc(db, "users", params)
+await updateDoc(AU,
+  
+  {
+    activo: true
+  })
+} 
+
+const desactivaUser = async(params)=>{
+const AU = doc(db, "users", params)
+await updateDoc(AU,
+  
+  {
+    activo: false
+  })
+} 
+
+
+const acNombre = async(id, dato)=>{
+const AN = doc(db, "users", id)
+await updateDoc(AN, {
+nombre: dato
+})
+}
+
+const acPerfil = async(id, perfilDato)=>{
+const AP = doc(db, "users", id)
+await updateDoc(AP, {
+perfil: perfilDato,
+area: searchArea(perfilDato)
+
+})
+} 
+
+const acEmpresa = async(id, Empresa)=>{
+const AE =doc(db, "users", id)
+await updateDoc(AE, {
+empresa: Empresa
+})
+}
+
+//esta funcion actualiza el res
+const acUsChec = async(id, Residente)=>{
+const AUC =doc(db, "asignaciones", id)
+await updateDoc(AUC, {
+residenteUid: Residente
+})
+
+console.log('done :)')
+}
+
+
+//checa si es un usuario con checador true
+const ableChecador = async(dato)=>{
+const AC = doc(db, "users", dato)
+await updateDoc(AC, { checador: true } )} 
+
+//checa si es un usuario con checador false
+
+const enableChecador = async(dato)=>{
+const DC = doc(db, "users", dato)
+await updateDoc(DC, {checador: false}  )}  
+
+
+//lector asistencias 
+
+const ableAsistencias = async(dato)=>{
+  const AC = doc(db, "users", dato)
+  await updateDoc(AC, { lectoreAsistencia: true } )} 
+  
+  //checa si es un usuario con checador false
+
+ const enableAsistencias = async(dato)=>{
+  const DC = doc(db, "users", dato)
+  await updateDoc(DC, {lectoreAsistencia: false}  )} 
+
+// este es un reduce que tiene como objetivo buscar checador  en teoria
+//pero actualmente devuelve un array que da nombre, uid, y perfil, 
+//TODO: Agregar un dato para filtrar usuarios a elegir
+
+const finderChecador =  (props) => {
+return props.reduce((past, current)=>{
+  const foundIndex = past.find(it=>it.nombre===current.nombre)
+//  console.log('ver reduce resultados:', past)
+  const r=[]
+  r.push(past)
+  setUserChecador(r)
+  if(foundIndex){
+    foundIndex.data=foundIndex.data
+    ?[...foundIndex.data, {
+      'perfil': current.perfil 
+   
+    }]
+    :[{ 'perfil': current.perfil 
+         }]
+  }else{ past.push(
+    { 
+    
+      'nombre': current.nombre,
+      'uid':current.UID,
+      'checador':current.checador,
+      'data': [{
+        'perfil': current.perfil,
+        
+      }]
+    } )}
+    return past;
+}, [])}
+
+
+const ableOcupado = async(dato)=>{
+  const AC = doc(db, "users", dato)
+  await updateDoc(AC, { ocupado: true } )} 
+  
+  //checa si es un usuario con checador false
+
+ const enableOcupado = async(dato)=>{
+  const DC = doc(db, "users", dato)
+  await updateDoc(DC, {ocupado: false}  )} 
+
+
+  const ableAsignador = async(dato)=>{
+    const AC = doc(db, "users", dato)
+    await updateDoc(AC, { asignador: true } )} 
+    
+    //checa si es un usuario con checador false
+
+   const enableAsignador = async(dato)=>{
+    const DC = doc(db, "users", dato)
+    await updateDoc(DC, {asignador: false}  )} 
+/* recolectar consultas */ 
+
+
+
+
+
+
+
+
    //ASISTENCIAS ABOUT
 //ALMACEN ABOUT 
 
@@ -191,8 +425,8 @@ value={{
   getProyecto,
   getProyectosDesactivados, 
   agregaProyecto, 
-  fetchChecadorAsignadoUser
-  
+  fetchChecadorAsignadoUser,
+  accessKey
 }}>
 {children}
 </CEpointContext.Provider>

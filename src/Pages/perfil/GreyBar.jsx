@@ -2,23 +2,19 @@ import React, {useContext, useCallback} from 'react'
 import { Button, Card, NavbarBrand, Navbar, Container, Nav, NavDropdown} from 'react-bootstrap'
 
 import AlmacenContext from '../../context/AlmacenContext';
-import UsuarioContext from '../../context/UsuarioContext';
+
+import CEpointContext from '../../context/CEpointContext';
 import './Account.css'
 import { 
     useNavigate
   } from 'react-router-dom';
-  import AsignacionContext from '../../context/AsignacionContext';
+ 
  const GreyBar = () => {
 
-
-  const { 
-    getLinks, 
-    asig
-   
-   }=useContext(AsignacionContext) 
+ 
 
     const {setToggle}=useContext(AlmacenContext)
-    const {asignador, lectorAsistencia, Usator, accessKey, Almacen}=useContext(UsuarioContext)
+    const {state}=useContext(CEpointContext)
  
     const navigate = useNavigate();
   //  const proyectosActivos = useCallback(getLinks(),[asig])
@@ -28,19 +24,19 @@ import {
 <Container>
 
     
-{Usator?<Button variant='warning' className="btnx1" onClick={()=>{
+{state.UsuarioSesion.usator?<Button variant='warning' className="btnx1" onClick={()=>{
   navigate("usuarios")
 
   }}>
  <strong>Usuarios
    </strong></Button>:null}
 
-{lectorAsistencia? <Button className="btnx2"  onClick={() =>{
+{state.UsuarioSesion.lectorAsistencia? <Button className="btnx2"  onClick={() =>{
     navigate("horario");
   }}> <strong>Asistencia</strong></Button>:null}    
-{asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
+{state.UsuarioSesion.asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
 <strong> Asignador  </strong> </Button>:null}
-{Almacen?<Button variant='dark' className="btnx4" onClick={()=>{navigate("almacen")
+{state.UsuarioSesion.almacen?<Button variant='dark' className="btnx4" onClick={()=>{navigate("almacen")
 setToggle(false)
 }}>
 <strong> Almacen  </strong> </Button>:null}
