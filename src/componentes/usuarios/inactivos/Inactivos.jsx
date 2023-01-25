@@ -22,7 +22,7 @@ import '../Usuarios.css'
  <div className='inactivos'  style={{width: '74.8em', height: '28em' }} > 
  
 
-  {state.UsuariosInactivosDetail.map((s)=>(
+  {state.UsuariosInactivosDetail? state.UsuariosInactivosDetail.map((s)=>(
  
  
    <Card  className='unable' >
@@ -61,7 +61,7 @@ import '../Usuarios.css'
  
  
  
- ))}
+ )):null}
   
  
 
