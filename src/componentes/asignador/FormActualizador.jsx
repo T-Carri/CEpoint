@@ -72,7 +72,7 @@ export const FormActualizador = () => {
       
       
     <Offcanvas.Header closeButton>
-    <Offcanvas.Title>Informacion de proyecto:{' '}  {state.Proyecto?state.Proyecto:null}  </Offcanvas.Title>
+    <Offcanvas.Title>Informacion de proyecto:{' '}  {state.Proyecto?state.Proyecto.obra:null}  </Offcanvas.Title>
 
     </Offcanvas.Header>
     <Offcanvas.Body> 
@@ -106,7 +106,7 @@ export const FormActualizador = () => {
   <br />
  <Button  className="mb-2" size='lg' variant='success' onClick={()=>{
     try {
-      acUsChec( state.IdProyectoDetail, values.residenteUid)
+      acUsChec( state.Proyecto.idProyecto, values.residenteUid)
       console.log('yeah you get it')
      
     } catch (error) {

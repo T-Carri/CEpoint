@@ -24,7 +24,7 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
   asignacionesDD: '', 
   AP:'',
   DP: '', 
-  IdProyectoDetail:'', 
+ TotalProyectos:'',
   ChecadorAsignadouser:'',
   Proyecto:'', 
  
@@ -54,60 +54,77 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
 
 
 //ASIGNACION ABOUT
-        const agregaProyecto = async (dato, datos) => {
-          await  setDoc(doc(db, "asignaciones",dato),datos);
-        }
+const agregaProyecto = async (dato, datos) => {
+await  setDoc(doc(db, "asignaciones",dato),datos);
+}
     
     
-        
-         const getLinks =async()=>{
-            const q = query(collection(db, "asignaciones"), where("activa","==", true))
-            await onSnapshot(q, (query)=>{
-             const data=[]
-             query.forEach((doc)=>{
-               data.push({...doc.data(), id:doc.id})
-               console.log('ids: ', doc.id)
+    
+
+//Voy a crear una sola funcion que sustityua "getLinks", "getProyectosDesactivados"  
+//UNA SOLA CONSULTA DE ASIGNACIONES Y FILTRAR CON JAVASCRIPT 
+
+const getProyectos =async()=>{
+  const q = query(collection(db, "asignaciones"))
+  await onSnapshot(q, (query)=>{
+     const data=[]
+     query.forEach((doc)=>{
+      data.push(doc.data())
+     
+    }) 
+    dispatch({
+      type:TYPES.GET_PROYECTOS, payload:data
+             })  
+        })}  
+
+ 
+
+
+
+
+
+
+
+const getLinks =async()=>{
+const q = query(collection(db, "asignaciones"), where("activa","==", true))
+await onSnapshot(q, (query)=>{
+const data=[]
+query.forEach((doc)=>{
+data.push({...doc.data(), id:doc.id})
+console.log('ids: ', doc.id)
              })
-             //console.log("datossss", data)
-         
-             dispatch({type:TYPES.CALL_PROYECTOS_ACTIVOS, payload: data })
-            })
+            
+ dispatch({type:TYPES.CALL_PROYECTOS_ACTIVOS, payload: data })
+             })}  
           
-          }  
     
        
     
-          const getProyectosDesactivados =async()=>{
-            const q = query(collection(db, "asignaciones"), where("activa","==", false))
-            await onSnapshot(q, (query)=>{
-             const data=[]
-             query.forEach((doc)=>{
-               data.push({...doc.data(), id:doc.id})
-               console.log('ids: ', doc.id)
-             })
-             
-             dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, payload: data })
-            })
-            
-          } 
+const getProyectosDesactivados =async()=>{
+const q = query(collection(db, "asignaciones"), where("activa","==", false))
+await onSnapshot(q, (query)=>{
+const data=[]
+query.forEach((doc)=>{
+data.push({...doc.data(), id:doc.id})
+console.log('ids: ', doc.id)
+})
+dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, payload: data })
+})} 
     
     
-          const fetchChecadorAsignadoUser = async(params)=>{
-            const q = doc(db, "users", params )
-            await getDoc(q).then(res=>{
+const fetchChecadorAsignadoUser = async(params)=>{
+const q = doc(db, "users", params )
+await getDoc(q).then(res=>{
+dispatch({type:TYPES.ASIGNADO_CHECADOR, payload: res.data()})
+})}
 
-              dispatch({type:TYPES.ASIGNADO_CHECADOR, payload: res.data()})
-            }) 
-          }
     
     
-          const getProyecto = async(dato)=>{
-            const q = doc(db, "asignaciones", dato)
-            await getDoc(q).then(res=>{
-                dispatch({type:TYPES.PROYECTO, payload:res.data() })
-        
-            })
-          }
+const getProyecto = async(dato)=>{
+ const q = doc(db, "asignaciones", dato)
+ await getDoc(q).then(res=>{
+  dispatch({type:TYPES.PROYECTO, payload:res.data() })
+         })}
 
    
     
@@ -360,10 +377,41 @@ const ableOcupado = async(dato)=>{
 
 
 
-
-
-
+//ACTIVA PROYECTO
+const activateProyecto = async(params)=>{
+  const AU = doc(db, "asignaciones", params)
+  await updateDoc(AU,
+    
+    {
+      activa: true
+    })
+  } 
+//DESACTIVA PROYECTO
+const desactivarProyecto = async(params)=>{
+  const AU = doc(db, "asignaciones", params)
+  await updateDoc(AU,
+    
+    {
+      activa: false
+    })
+  } 
    //ASISTENCIAS ABOUT
+
+/*    const getPresupuestos =async () => {
+    const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
+    await onSnapshot(q, (query)=>{
+      const data=[]
+      query.forEach((doc)=>{
+        data.push(doc.data())
+        console.log("FIRESTORE SAYS:  ", doc.data().asistencias)
+      })
+      setPresupuesto(data)
+    }) } */
+
+
+
+
+
 //ALMACEN ABOUT 
 
 
@@ -404,7 +452,10 @@ value={{
   ableOcupado, 
   ableAsignador, 
   enableAsignador, 
-  desactivaUser
+  desactivaUser, 
+  activateProyecto, 
+  desactivarProyecto, 
+  getProyectos
 
 }}>
 {children}

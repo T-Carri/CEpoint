@@ -4,23 +4,28 @@ import { Card, Button } from 'react-bootstrap'
 import { FormActualizador } from './FormActualizador'
 import { TYPES } from '../../redux/Types'
 import CEpointContext from '../../context/CEpointContext'
-export const CardAsignacion = ({prop}) => {
+const CardAsignacion = ({prop}) => {
 
 
     
    
-    const {dispatch, state, getProyecto, fetchChecadorAsignadoUser} = useContext(CEpointContext)
+    const {
+      getProyecto, 
+      fetchChecadorAsignadoUser, 
+      activateProyecto, 
+      desactivarProyecto
+    } = useContext(CEpointContext)
     const{handleShow4} = useContext(UiContext)
 
-console.log(prop)
 
 
-const handleClick= () =>{
-  handleShow4()
-  fetchChecadorAsignadoUser(prop.residenteUid)
-  getProyecto(state.IdProyectoDetail)
+const handleActivador=()=>{
+  if(prop.activa){
+    desactivarProyecto(prop.id)
+  }else{
+    activateProyecto(prop.id)
   }
-  
+}
 
 
 
@@ -34,32 +39,42 @@ const handleClick= () =>{
     <br/>
     <Card.Title><strong>{prop.obra}</strong></Card.Title>
     <br/>
+  
     <Card.Title>Ubicacion: {prop.ubicacion}</Card.Title>
     <Card.Title> {prop.id}</Card.Title>
    
      <br />
      <br />
      <Button className='1a' variant='warning' size='md' onClick={()=>{
-       dispatch({types:TYPES.ID_PROYECTO, payload:prop.id})
-       handleClick()
-       
-       }} >Actualizar</Button>
-         
-            <Button variant='danger'>Desactiva</Button>
-           
-       
-           
-           </Card.Body>
-            
-        <FormActualizador /> 
+       handleShow4()
+        getProyecto(prop.id)
+        fetchChecadorAsignadoUser(prop.residenteUid)
+        
+        }} >Actualizar</Button>
           
-            </Card>
-         )
-       }
-
+             <Button variant={prop.activa?'danger':'success'}
+             onClick={handleActivador}>{prop.activa?"Desactiva":"Activa"}</Button>
+            
+        
+            
+            </Card.Body>
+             
+         <FormActualizador /> 
+           
+             </Card>
+          )
+        }
+ 
+        export default React.memo(CardAsignacion)  
+     
+        
+      
+        
+        
+       
        
     
-       
+      
 
 
 

@@ -43,10 +43,7 @@ function ExportData() {
    XLSX.writeFile(wb, `usuarios.xlsx`);
 }
 
-/* 
-useEffect(() => {
-  getUsuarios()
-}, []) */
+
 
 const civilesWay = useMemo(() => {
   return state.UsuariosActivosDetail.reduce((past, current) => {
@@ -105,88 +102,8 @@ const civilesWay = useMemo(() => {
         }, [civilesWay])
 
 
-console.log(Civiles)
+//console.log(Civiles)
 
-/* 
-
-const CivilesWay = (props) => {
-  
-    return props.reduce((past, current)=>{
-      const foundItem = past.find(it=>it.area===current.area)
-     //  console.log('past', past); 
-    const r=[]
-    r.push(past); 
-    setCiviles(r)
-    //console.log('perfiles', r);
-    if(foundItem){
-      foundItem.data=foundItem.data
-      ?[...foundItem.data, {
-       'nombre': current.nombre,
-       'perfil':current.perfil, 
-       'email': current.email, 
-       'password': current.password,   
-       'Uid':current.UID,
-       'empresa':current.empresa, 
-       'asignador':current.asignador,
-       'checador': current.checador, 
-       'ocupado': current.ocupado, 
-       'lectoreAsistencia': current.lectoreAsistencia}]
-     :[{ 'nombre': current.nombre, 
-     'perfil':current.perfil,
-     'email': current.email, 
-     'password': current.password,   
-     'Uid':current.UID,
-     'empresa':current.empresa, 
-     'asignador':current.asignador,
-     'checador': current.checador, 
-     'ocupado': current.ocupado, 
-     'lectoreAsistencia': current.lectoreAsistencia}]
-      }else{ past.push(
-        {
-          'area': current.area, 
-          'data':
-                     [{ 
-                      'nombre': current.nombre,
-                      'perfil':current.perfil, 
-                      'email': current.email, 
-                      'password': current.password,   
-                      'Uid':current.UID,
-                      'empresa':current.empresa, 
-                      'asignador':current.asignador,
-                      'checador': current.checador, 
-                      'ocupado': current.ocupado, 
-                      'lectoreAsistencia': current.lectoreAsistencia
-                      
-                    }]
-          
-    
-    })}
-    return past;
-    
-    }, [])}
-
-
-
-
-
-   
-
-     
-    useEffect(()=>{ 
-      
-        getUsuarios()
-     
-  
-     },[])
-    
-
-
-useEffect(()=>{
-  CivilesWay(state.UsuariosActivosDetailstate)
-},[])
-
-    */
-    
    
   
   
@@ -210,10 +127,10 @@ useEffect(()=>{
 
 Civiles.map((e) => {
   
-  return  <Card className={e.area}> 
+  return  <Card key={e.area} className={e.area}> 
           <Card.Title ><h4><strong>{e.area}</strong></h4></Card.Title>  
           <Container className='civiles'   > 
-          {e.data.map((s)=><CardUsuario prop={s}/>)}  
+          {e.data.map((s)=><CardUsuario key={s.Uid} prop={s}/>)}  
           </Container>
           </Card>
   
@@ -251,37 +168,3 @@ export default memo(Todos)
      
    
     
-    
-
-
-
-
-/*
- {
-      Civiles.map((e)=>(
-       e.map((r)=>(
-     <Card className={r.area}> 
-                 <Card.Title ><h4><strong>{r.area}</strong></h4></Card.Title>  
-     <Container className='civiles'   > 
-     
-     
-     
-     
-     {r.data.map((s)=>(
-     
-     <CardUsuario prop={s}/> 
-
-  
-     
-     
-     ))}
-     
-     
-    
-      
-     </Container>
-      </Card>
-       ))
-      ))
-     }
-*/

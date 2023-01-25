@@ -2,7 +2,11 @@ import { TYPES } from "./Types"
 export const GlobalState=(state, action)=>{
 switch(action.type){
 
-
+  case TYPES.GET_PROYECTOS:
+    return {
+        ...state,
+        TotalProyectos : action.payload
+    }
   
   case TYPES.USUARIO_DATA:
     return {
@@ -15,6 +19,7 @@ switch(action.type){
           ...state,
           UsuariosActivosDetail : action.payload
       }
+   
    case TYPES.USUARIOS_INACTIVOS:
         return {
             ...state,
@@ -71,12 +76,7 @@ switch(action.type){
           ...state, 
           DP: action.payload
         } 
-        case TYPES.ID_PROYECTO: 
-  
-        return{
-          ...state, 
-          IdProyectoDetail: action.payload
-        }
+        
   
     case TYPES.ASIGNADO_CHECADOR:
        return {
@@ -99,4 +99,15 @@ switch(action.type){
 
 
   
-    
+        
+//ELIMINADOS 
+/*
+
+case TYPES.ID_PROYECTO: 
+  
+        return{
+          ...state, 
+          IdProyectoDetail: action.payload
+        }
+
+*/

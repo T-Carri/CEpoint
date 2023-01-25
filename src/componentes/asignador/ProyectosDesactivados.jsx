@@ -1,9 +1,9 @@
 import React, { useEffect, useContext } from 'react'
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
-import { CardAsignacion } from './CardAsignacion';
+import  CardAsignacion  from './CardAsignacion';
 
 import CEpointContext from '../../context/CEpointContext';
-export const ProyectosDesactivados = (props) => {
+ const ProyectosDesactivados = (props) => {
 
     const {state, getProyectosDesactivados}=useContext(CEpointContext)
     
@@ -47,3 +47,5 @@ export const ProyectosDesactivados = (props) => {
       </Modal>
   )
 }
+
+export default React.memo(ProyectosDesactivados)

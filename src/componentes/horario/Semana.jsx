@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import { onSnapshot,  where, collection, query} from 'firebase/firestore'
 import { Card, Button, Accordion, Table, Overlay, Popover, Modal } from 'react-bootstrap'
-import { getAuth } from 'firebase/auth'; 
 import { db } from '../../firebase/firebase';
 import './Horario.css'
 import MyMap from './MyMap';
 import {getStorage, ref, getDownloadURL, getStream} from "firebase/storage"
 export const Semana = () => {
-  const auth = getAuth()
-  const dato =auth.currentUser; 
+ 
+ 
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
   const [itinerante, setItinerante] = useState([])

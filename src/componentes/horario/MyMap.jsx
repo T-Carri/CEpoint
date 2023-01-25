@@ -21,7 +21,7 @@ const MyMap=({latitud, longitud})=> {
 
   const [map, setMap] = React.useState(null) 
 
-console.log('MAPA', latitud?latitud:null)
+//console.log('MAPA', latitud?latitud:null)
  const position = {
     lat:parseFloat(latitud?latitud:null),
     lng:parseFloat(longitud?longitud:null) 
@@ -29,7 +29,7 @@ console.log('MAPA', latitud?latitud:null)
    
 
 
-console.log('isLoaded', isLoaded )
+//console.log('isLoaded', isLoaded )
   const onLoad = React.useCallback(function callback(map) {
     // This is just an example of getting and using the map instance!!! don't just blindly copy!
     const bounds = new window.google.maps.LatLngBounds(position);

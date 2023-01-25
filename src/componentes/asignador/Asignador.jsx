@@ -4,10 +4,10 @@ import './Asignador.css'
 import { useEffect } from 'react';
 import UiContext from '../../context/UiContext';
 
-import { CardAsignacion } from './CardAsignacion';
+import  CardAsignacion  from './CardAsignacion';
 import { FormCreadorUser } from './FormCreadorUser';
 import {FormCreadorProyecto} from './FormCreadorProyecto'
-import  {ProyectosDesactivados} from './ProyectosDesactivados'
+import  ProyectosDesactivados from './ProyectosDesactivados'
 
 import  CEpointContext  from '../../context/CEpointContext';
 
@@ -56,9 +56,9 @@ useEffect(()=>{
    
 
     <Card.Body>
-   {/*  <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  /> */}
-  {/*   <FormCreadorProyecto/> */}
- {/*    <FormCreadorUser/> */}
+    <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  /> 
+   <FormCreadorProyecto/> 
+     <FormCreadorUser/> 
    
       
 

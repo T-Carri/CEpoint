@@ -1,49 +1,54 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import { onSnapshot,  where, collection, query} from 'firebase/firestore'
-import { Card, Button, Accordion, Table} from 'react-bootstrap'
-import { getAuth } from 'firebase/auth'; 
+import { Card, Button, Table} from 'react-bootstrap'
+import CEpointContext from '../../context/CEpointContext';
 import { db } from '../../firebase/firebase';
 import * as XLSX from "xlsx"
 
 import './Horario.css'
-import { current } from '@reduxjs/toolkit';
+
 
 
 export const Presupuesto = () => {
   
-  const auth = getAuth()
-  const dato =auth.currentUser; 
+const {state, getProyectos} =useContext(CEpointContext)
+
+/* 
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
   const [itinerante, setItinerante] = useState()
-  
-  const getPresupuestos =async () => {
-    const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
-    await onSnapshot(q, (query)=>{
-      const data=[]
-      query.forEach((doc)=>{
-        data.push(doc.data())
-        console.log("FIRESTORE SAYS:  ", doc.data().asistencias)
-      })
-      setPresupuesto(data)
-    }) }
-  
+   */
 
   
      useEffect(()=>{
-      getPresupuestos()
+      getProyectos()
       
     },[]) 
+
+console.log('GET proyectos', state.TotalProyectos?state.TotalProyectos:null)
+const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
+console.log(test)
+
+    const filteredArr = test.filter(obj => (obj.asistencias || []).length !== 0);
+
+
+console.log('FILTRO', filteredArr&&filteredArr )
+
+
+
+
+
+
+
       
-   console.log("Itinerante: ", itinerante);
+/*    console.log("Itinerante: ", itinerante);
    
    const AsistenciasPresupuesto = (props) => {
 
     return props.reduce((acc, current)=>{
       const foundItem =  acc.find(it => it.semana === current.semana)
      // console.log('past:', acc);
-    /*  const r= {}
-     r.push(acc); */
+   
      setItinerante(acc)
      //console.log('r:', r);
       if (foundItem ){
@@ -59,7 +64,12 @@ export const Presupuesto = () => {
 
 return acc 
 
-    }, [])}
+    }, [])} */
+
+
+
+
+
 
 /* const AsistenciasPresupuestodos = (props) =>{
 let nuevoArray = []
@@ -75,7 +85,7 @@ for(var i=0; i<props.length; i++){
 console.log('nuevo array test:   ',nuevoArray)
 } */
 
-
+/* 
 console.log('muestra', Asistencias)
 let resultado = {}
 Asistencias.forEach(asistencias=>{
@@ -87,7 +97,7 @@ resultado[nombreGrupo].push(asistencias)
 })
 
 console.log('RESS',resultado)
-
+ */
 
 
 
@@ -95,7 +105,7 @@ console.log('RESS',resultado)
 /*  resultado.forEach(dato=>
   console.log('335',dato))  */
 
-  const [or, setOr]= useState()
+  //const [or, setOr]= useState()
      
    /*    const orden =(props)=>{ 
       return  props.reduce((acc, current)=>{
@@ -120,7 +130,7 @@ console.log('RESS',resultado)
        
      // orden(itinerante)
       // console.log('orden:   ', or);
-
+/* 
        const Monday = (dato)=>{
         let exReg = /Mon/
 if(exReg.test(dato)){
@@ -160,13 +170,13 @@ if(exReg.test(dato)){
 if(exReg.test(dato)){
   return dato
 }else{return null}
-       }
+       } */
     
 
 
 
 //nuevoObjeto.reduce((acc,current))
-const [excel, setExcel] = useState()
+/* const [excel, setExcel] = useState()
 function ExportData() {
   //var XLSX = require("xlsx")
   var data = [{
@@ -181,25 +191,25 @@ function ExportData() {
     "name": "Zach",
     "city": "New York"
   }
-];
+]; */
 
    /* 创建worksheet */
-   var ws = XLSX.utils.json_to_sheet(Asistencias);
+ //  var ws = XLSX.utils.json_to_sheet(Asistencias);
 
    /* 新建空workbook，然后加入worksheet */
-   var wb = XLSX.utils.book_new();
+   /* var wb = XLSX.utils.book_new();
    XLSX.utils.book_append_sheet(wb, ws, "People");
- 
+  */
    /* 生成xlsx文件 */
-   XLSX.writeFile(wb, `${NombreProyecto}.xlsx`);
-}
+  // XLSX.writeFile(wb, `${NombreProyecto}.xlsx`);
+//}
 
 {/* 
 ZONA DE GUERRA
  */}
-     console.log('itinerante', itinerante)
+    // console.log('itinerante', itinerante)
      //console.log('itinerante', itinerante['datos'])
-     
+/*      
 const [try1, setTry1]=useState() 
 let nuevoObjeto = {}
 let nuevoArray = []
@@ -207,18 +217,17 @@ let nuevoArray = []
 console.log('nuevo objeto:  ', nuevoObjeto)
 console.log('nuevo Array:  ', nuevoArray)
      
-
+ */
 /* useEffect(()=>{
 
 },[]) */
 
-const darkness = (props) => {
+/* const darkness = (props) => {
 
   return props.reduce((acc, current)=>{
     const foundItem1 =  acc.find(it => it.trabajador === current.trabajador)
     console.log('desde darkness:', acc);
-  /*  const r= {}
-   r.push(acc); */
+  
   setTry1(acc)
    //console.log('r:', r);
    if (foundItem1 ){
@@ -235,14 +244,17 @@ const darkness = (props) => {
 return acc 
 
   }, [])}
+ */
 
-
-const [NombreProyecto, setNombreProyecto] = useState()
+/* const [NombreProyecto, setNombreProyecto] = useState()
 console.log('NOMBRE PROYECTO', NombreProyecto)
+ */
+
+
      return (
     <Card>  
      <div className='presupuestos'>
-     {Presupuestos&&
+    {/*  {Presupuestos&&
       Presupuestos.map((presupuesto)=>(
         <Button variant="danger" 
              id={presupuesto.obra}
@@ -262,13 +274,13 @@ console.log('NOMBRE PROYECTO', NombreProyecto)
                //console.log("asistencias:", Asistencias)       
         
       }}> {presupuesto.presupuesto} </Button>))
-      }
+      } */}
     </div>
     
   
   
   
-  
+  {/* 
           <div>
              <Card id="prueba" className='lg'>
         
@@ -328,7 +340,7 @@ console.log('NOMBRE PROYECTO', NombreProyecto)
 
     
               </Card>
-           </div>
+           </div> */}
     </Card>
      )
     }

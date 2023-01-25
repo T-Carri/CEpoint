@@ -102,7 +102,7 @@ const handleSubmit = async(e) =>  {
 
 
 
-useEffect(()=>{
+/* useEffect(()=>{
   getUsuariosChecador()
 },[])
  
@@ -112,11 +112,18 @@ useEffect(
       finderChecador( state.UsuariosDisponiblesChecador )
     }
       ,[state.UsuariosDisponiblesChecador]) 
-      
+       */
       
 
      
+      useEffect(()=>{
 
+        async function fetchData() {
+          await getUsuariosChecador();
+        }
+        fetchData();
+
+    },[]) 
    
 
     console.log(values.residenteUid)
@@ -138,18 +145,18 @@ useEffect(
      <Form  onSubmit={handleSubmit}>
     <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Residente</Form.Label>
-{state.UserChecador&&    
-<Form.Select name="residenteUid" value={values.residenteUid} onChange={handleInputChange}>
- <option>Open this select menu </option>
+{state.UsuariosDisponiblesChecador&&    
+<Form.Select name="residenteUid"   value={values.residenteUid}  onChange={handleInputChange}  >
+ <option>Selcciona una cuenta para este proyecto</option>
 {
- state.UserChecador.map((e)=>( 
-     e.map((s)=>( 
-        <option value={s.uid}>{s.nombre}</option>
-       ))
+ state.UsuariosDisponiblesChecador.map((e)=>( 
+      
+        <option value={e.UID}>{e.nombre}</option>
+       )
 
-))
+)
 } 
-        </Form.Select>}
+        </Form.Select>}   
 
 
  
