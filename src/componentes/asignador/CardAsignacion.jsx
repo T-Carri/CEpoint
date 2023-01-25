@@ -51,7 +51,7 @@ const handleClick= () =>{
            
            </Card.Body>
             
-        <FormActualizador />
+        <FormActualizador /> 
           
             </Card>
          )

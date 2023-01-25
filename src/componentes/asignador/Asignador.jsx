@@ -32,8 +32,11 @@ const {
 
   
 useEffect(()=>{
- 
-  getLinks()
+  async function fetchData() {
+    await getLinks();
+  }
+  fetchData();
+  
 }, [])
 
 
@@ -53,9 +56,9 @@ useEffect(()=>{
    
 
     <Card.Body>
-    <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  />
-    <FormCreadorProyecto/>
-    <FormCreadorUser/>
+   {/*  <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  /> */}
+  {/*   <FormCreadorProyecto/> */}
+ {/*    <FormCreadorUser/> */}
    
       
 
@@ -68,7 +71,7 @@ useEffect(()=>{
        <div className='proyectos'  style={{width: '74.8em', height: '40em' }} > 
        
     
-       {state.asignacionesActivasDetails?state.asignacionesActivasDetails.map((da)=>(
+       {state.asignacionesActivasDetails&&state.asignacionesActivasDetails.map((da)=>(
        
        
       <CardAsignacion prop={da} />
@@ -76,7 +79,7 @@ useEffect(()=>{
        
        
        
-       )):null} 
+       ))} 
          
   
        

@@ -28,15 +28,20 @@ export const FormActualizador = () => {
      // hooks que reducire proyecto
 
       useEffect(()=>{
-      getUsuariosChecador()
+
+        async function fetchData() {
+          await getUsuariosChecador();
+        }
+        fetchData();
+
     },[]) 
      
-   useEffect( 
+ /*   useEffect( 
         ()=>{
            
           finderChecador(  state.UsuariosDisponiblesChecador)
         }
-          ,[ state.UsuariosDisponiblesChecador]) 
+          ,[ state.UsuariosDisponiblesChecador])  */
   
      
           
@@ -83,18 +88,18 @@ export const FormActualizador = () => {
    <Form>
 <Row><Col> <Form.Group className="mb-2" >
 <Form.Label>Actualiza el responsable de checar en proyecto</Form.Label>
- {state.UserChecador&&    
+ {state.UsuariosDisponiblesChecador&&    
 <Form.Select name="residenteUid"   value={values.residenteUid}  onChange={handleInputChange}  >
  <option>Selcciona una cuenta para este proyecto</option>
 {
- state.UserChecador.map((e)=>( 
-     e.map((s)=>( 
-        <option value={s.uid}>{s.nombre}</option>
-       ))
+ state.UsuariosDisponiblesChecador.map((e)=>( 
+      
+        <option value={e.UID}>{e.nombre}</option>
+       )
 
-))
+)
 } 
-        </Form.Select>}  
+        </Form.Select>}   
   </Form.Group>
   </Col>
   <br />

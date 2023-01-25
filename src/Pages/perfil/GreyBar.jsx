@@ -47,7 +47,7 @@ import {
  <strong>Usuarios
    </strong></Button>:null} 
 
-{state.UsuarioSesion.lectorAsistencia? <Button className="btnx2"  onClick={() =>{
+{state.UsuarioSesion.lectoreAsistencia? <Button className="btnx2"  onClick={() =>{
     navigate("horario");
   }}> <strong>Asistencia</strong></Button>:null}    
 {state.UsuarioSesion.asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
