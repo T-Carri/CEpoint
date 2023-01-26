@@ -1,17 +1,17 @@
 import React, {useState, useEffect, useContext} from 'react'
-import { onSnapshot,  where, collection, query} from 'firebase/firestore'
+
 import { Card, Button, Table} from 'react-bootstrap'
-import CEpointContext from '../../context/CEpointContext';
-import { db } from '../../firebase/firebase';
+import CEpointContext from '../../../context/CEpointContext';
+
 import * as XLSX from "xlsx"
 
-import './Horario.css'
+import '../Horario.css'
 
 
 
 export const Presupuesto = () => {
   
-const {state, getProyectos} =useContext(CEpointContext)
+const {state} =useContext(CEpointContext)
 
 /* 
   const [Presupuestos, setPresupuesto] = useState([]);
@@ -19,20 +19,15 @@ const {state, getProyectos} =useContext(CEpointContext)
   const [itinerante, setItinerante] = useState()
    */
 
-  
-     useEffect(()=>{
-      getProyectos()
-      
-    },[]) 
-
+ 
 console.log('GET proyectos', state.TotalProyectos?state.TotalProyectos:null)
 const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
 console.log(test)
 
-    const filteredArr = test.filter(obj => (obj.asistencias || []).length !== 0);
+    const ProyectosFiltrados = test.filter(obj => (obj.asistencias || []).length !== 0);
 
 
-console.log('FILTRO', filteredArr&&filteredArr )
+console.log('FILTRO', ProyectosFiltrados&&ProyectosFiltrados )
 
 
 
@@ -254,27 +249,28 @@ console.log('NOMBRE PROYECTO', NombreProyecto)
      return (
     <Card>  
      <div className='presupuestos'>
-    {/*  {Presupuestos&&
-      Presupuestos.map((presupuesto)=>(
+     {ProyectosFiltrados&&
+      ProyectosFiltrados.map((presupuesto)=>(
         <Button variant="danger" 
              id={presupuesto.obra}
          
          value={presupuesto.presupuesto}
-         onClick={
+         /* onClick={
               async (e)=>{
                e.preventDefault()
                setExcel(presupuesto.asistencias)
                console.log("objeto completo:", presupuesto.asistencias)
                setAsistencias(presupuesto.asistencias)
-              //await AsistenciasPresupuesto(Asistencias)
-              darkness(Asistencias)
-             //AsistenciasPresupuestodos(Asistencias)
-            setNombreProyecto(presupuesto.presupuesto)
-           //  await  orden(itinerante)
+               //await AsistenciasPresupuesto(Asistencias)
+               darkness(Asistencias)
+               //AsistenciasPresupuestodos(Asistencias)
+               setNombreProyecto(presupuesto.presupuesto)
+               //  await  orden(itinerante)
                //console.log("asistencias:", Asistencias)       
+
         
-      }}> {presupuesto.presupuesto} </Button>))
-      } */}
+      }} */> {presupuesto.presupuesto} </Button>))
+      } 
     </div>
     
   

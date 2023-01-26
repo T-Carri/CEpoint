@@ -13,10 +13,10 @@ import { AccountUser } from './Pages/perfil/AccountUser';
 import { WelcomeHome } from './componentes/WelcomeHome';
 import  Usuarios  from './componentes/usuarios/Usuarios';
 import { Horario } from './componentes/horario/Horario';
-import { Presupuesto } from './componentes/horario/Presupuesto';
+import { Presupuesto } from './componentes/horario/AsistenciasParaReporteNomina/Presupuesto';
 import { Ubicacion } from './componentes/horario/Ubicacion';
 import { Obra } from './componentes/horario/Obra';
-import { Semana } from './componentes/horario/Semana';
+import { Semana } from './componentes/horario/semana/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
 import  Asignador  from './componentes/asignador/Asignador';
 

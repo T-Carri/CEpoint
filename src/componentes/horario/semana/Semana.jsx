@@ -1,12 +1,15 @@
-import React, {useState, useEffect} from 'react'
-import { onSnapshot,  where, collection, query} from 'firebase/firestore'
+import React, {useState, useEffect, useContext} from 'react'
+
 import { Card, Button, Accordion, Table, Overlay, Popover, Modal } from 'react-bootstrap'
-import { db } from '../../firebase/firebase';
-import './Horario.css'
-import MyMap from './MyMap';
+
+import '../Horario.css'
+import MyMap from '../MyMap';
 import {getStorage, ref, getDownloadURL, getStream} from "firebase/storage"
+import CEpointContext from '../../../context/CEpointContext';
+
 export const Semana = () => {
  
+  const {state} = useContext(CEpointContext)
  
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
@@ -26,22 +29,8 @@ export const Semana = () => {
 
 
   const storage = getStorage()
-  const getPresupuestos =async () => {
 
-    const q = query(collection(db, "asignaciones"),where("asistencias", "!=", [] ))
-    await onSnapshot(q, (query)=>{
-      const data=[]
-      query.forEach((doc)=>{
-        data.push(doc.data())
-      })
-  
-      setPresupuesto(data)
-    }) }                    
-  
-    useEffect(()=>{
-      getPresupuestos()
-      
-    },[])
+
       
     useEffect(()=>{
       getDownloadURL (ref(storage,  `Asistencias/${storageData.presupuesto}/${storageData.trabajador}/${storageData.clave}` )).then((url)=>{
@@ -132,22 +121,28 @@ if(exReg.test(dato)){
       return (
     <Card>  
      <div className='presupuestos'>
-     {
-      Presupuestos.map((presupuesto)=>(
+     {ProyectosFiltrados&&
+      ProyectosFiltrados.map((presupuesto)=>(
         <Button variant="danger" 
              id={presupuesto.obra}
-         className={presupuesto.obra}
+         
          value={presupuesto.presupuesto}
-         onClick={
-               (e)=>{
-               //e.preventDefault()
-               
-               setAsistencias(presupuesto.asistencias)      
-               AsistenciasPresupuesto(Asistencias)
-               setShow1(false)   
+         /* onClick={
+              async (e)=>{
+               e.preventDefault()
+               setExcel(presupuesto.asistencias)
+               console.log("objeto completo:", presupuesto.asistencias)
+               setAsistencias(presupuesto.asistencias)
+               //await AsistenciasPresupuesto(Asistencias)
+               darkness(Asistencias)
+               //AsistenciasPresupuestodos(Asistencias)
+               setNombreProyecto(presupuesto.presupuesto)
+               //  await  orden(itinerante)
+               //console.log("asistencias:", Asistencias)       
+
         
-      }}> {presupuesto.presupuesto} </Button>))
-      }
+      }} */> {presupuesto.presupuesto} </Button>))
+      } 
     </div>
     
                   
