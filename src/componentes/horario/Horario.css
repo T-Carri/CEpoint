@@ -55,3 +55,15 @@ div.presupuestos{
    
 
 }
+
+
+table, th, td {
+    border: 1px solid rgb(128, 123, 123); /* Agrega un borde a toda la tabla */
+    border-collapse: collapse; /* Combina las celdas de borde */
+  }
+  th, td {
+    padding: 3px; /* Agrega espacio dentro de las celdas */
+  }
+  th {
+    background-color: #f2f2f2; /* Agrega un color de fondo a las cabeceras */
+  }

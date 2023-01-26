@@ -1,299 +1,219 @@
-import React, {useState, useEffect, useContext} from 'react'
-
-import { Card, Button, Accordion, Table, Overlay, Popover, Modal } from 'react-bootstrap'
+import React, {useState, useContext} from 'react'
+import { format, getWeek } from 'date-fns';
+import moment from 'moment';
+import { Card, Button, Accordion, Container } from 'react-bootstrap'
 
 import '../Horario.css'
-import MyMap from '../MyMap';
-import {getStorage, ref, getDownloadURL, getStream} from "firebase/storage"
+
+
 import CEpointContext from '../../../context/CEpointContext';
 
 export const Semana = () => {
+ // const storage = getStorage()
+ const {state} = useContext(CEpointContext)
+const weekDays = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'];
+  const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
+  const [seleccion, setSeleccion]= useState('')
+
+
+
+ const ProyectosFiltrados = test && test.filter(obj => (obj.asistencias || []).length !== 0);
  
-  const {state} = useContext(CEpointContext)
- 
-  const [Presupuestos, setPresupuesto] = useState([]);
-  const [Asistencias, setAsistencias] = useState([]); 
-  const [itinerante, setItinerante] = useState([])
-  const [Pi, setPi] = useState([])
-  const [Source, setSource] = useState()
-  const [show1, setShow1] = useState(false);
-  const [target, setTarget] = useState(null);
 
 
-
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+   console.log('FILTRO', ProyectosFiltrados&&ProyectosFiltrados )
+  
+   console.log('seleccion', seleccion&&seleccion )
 
 
+  let groupedData = {};
 
-  const storage = getStorage()
-
-
+  if (seleccion.length > 0) {
+      groupedData = seleccion.reduce((acc, current) => {
+        const date = moment(current.date);
+        const year = date.year();
+        const week = date.isoWeek();
+        const trabajador = current.trabajador
+        if (!acc[year]) {
+          acc[year] = {};
+        }
+        if(!acc[year][week]){
+          acc[year][week] = {}
+        }
+        if(!acc[year][week][trabajador]){
+            acc[year][week][trabajador] = []
+        }
+        acc[year][week][trabajador].push(current);
+        return acc;
+    }, {});
       
-    useEffect(()=>{
-      getDownloadURL (ref(storage,  `Asistencias/${storageData.presupuesto}/${storageData.trabajador}/${storageData.clave}` )).then((url)=>{
-        //const img= document.getElementById(data.clave)
-        console.log('testURL: ', url )
-        //console.log('Pi:  ', Pi)
-        setSource(url)})
-    },[Pi])
-    
-     const storageData={
-      clave: Pi?Pi.clave:null, 
-      date:Pi?Pi.date:null,
-      presupuesto:Pi?Pi.presupuesto:null,
-      tipoAsistencia: Pi?Pi.tipoAsistencia:null, 
-      trabajador: Pi?Pi.trabajador:null
-     }
-    
-//`Asistencias/${data.presupuesto}/${data.trabajador}/${data.clave}`
-     
-    const AsistenciasPresupuesto = (props) => {
+    }
 
-      return props.reduce((past, current)=>{
-        const foundItem =  past.find(it => it.semana === current.semana)
-      
-       const r= []
-       r.push(past);
-       setItinerante(r)
+    console.log('DATA', groupedData);
+  
+  console.log(JSON.stringify(groupedData));
+
+  const [expandedSections, setExpandedSections] = useState({});
+
+  const toggleExpand = (sectionName) => {
+    setExpandedSections((prevExpandedSections) => {
+      return {
+        ...prevExpandedSections,
+        [sectionName]: !prevExpandedSections[sectionName]
+      };
+    });
+  }
        
-        if (foundItem ){
-     foundItem.data=foundItem.data
-     ?[...foundItem.data, {'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto, 'latitud':current.latitud,'longitud':current.longitud}]
-     :[{ 'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto, 'latitud':current.latitud,'longitud':current.longitud   }]
-  }else{ past.push( {
-    'semana': current.semana,
-    'data': [{
-      'trabajador': current.trabajador,'tipoAsistencia':current.tipoAsistencia, 'date': current.date, 'clave':current.clave, 'presupuesto': current.presupuesto, 'latitud':current.latitud,'longitud':current.longitud
-    }]
-  } ) }  
-  
-  return past;
-  
-      }, [])}
-  
-      const Monday = (dato)=>{
-        let exReg = /Mon/
-if(exReg.test(dato)){
-  return dato
-}else{return null}
-       }
 
-       const Martes = (dato)=>{
-        let exReg = /Tue/
-if(exReg.test(dato)){
-  return dato
-}else{return null}
-       }
 
-       const Miercoles = (dato)=>{
-        let exReg = /Wed/
-if(exReg.test(dato)){
-  return dato
-}else{return null}
-       }
 
-       const Jueves = (dato)=>{
-        let exReg = /Thu/
-if(exReg.test(dato)){
-  return dato
-}else{return null}
-       }
-       const Viernes = (dato)=>{
-        let exReg = /Fri/
-if(exReg.test(dato)){
-  return dato
-}else{return null}
-       }
 
-       const Sabado = (dato)=>{
-        let exReg = /Sat/
+  const Monday = (dato)=>{
+    let exReg = /Mon/
 if(exReg.test(dato)){
-  return dato
+return dato
 }else{return null}
-       }
-    
-      
-       
+   }
+
+   const Martes = (dato)=>{
+    let exReg = /Tue/
+if(exReg.test(dato)){
+return dato
+}else{return null}
+   }
+
+   const Miercoles = (dato)=>{
+    let exReg = /Wed/
+if(exReg.test(dato)){
+return dato
+}else{return null}
+   }
+
+   const Jueves = (dato)=>{
+    let exReg = /Thu/
+if(exReg.test(dato)){
+return dato
+}else{return null}
+   }
+   const Viernes = (dato)=>{
+    let exReg = /Fri/
+if(exReg.test(dato)){
+return dato
+}else{return null}
+   }
+
+   const Sabado = (dato)=>{
+    let exReg = /Sat/
+if(exReg.test(dato)){
+return dato
+}else{return null}
+   }
+
+   const Domingo = (dato)=>{
+    let exReg = /Sun/
+if(exReg.test(dato)){
+return dato
+}else{return null}
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
      
       return (
-    <Card>  
-     <div className='presupuestos'>
-     {ProyectosFiltrados&&
-      ProyectosFiltrados.map((presupuesto)=>(
-        <Button variant="danger" 
-             id={presupuesto.obra}
-         
-         value={presupuesto.presupuesto}
-         /* onClick={
-              async (e)=>{
-               e.preventDefault()
-               setExcel(presupuesto.asistencias)
-               console.log("objeto completo:", presupuesto.asistencias)
-               setAsistencias(presupuesto.asistencias)
-               //await AsistenciasPresupuesto(Asistencias)
-               darkness(Asistencias)
-               //AsistenciasPresupuestodos(Asistencias)
-               setNombreProyecto(presupuesto.presupuesto)
-               //  await  orden(itinerante)
-               //console.log("asistencias:", Asistencias)       
+        <Container fluid>  
+        <div className='presupuestos'>
+          {ProyectosFiltrados.map((presupuesto)=>(
+             <Button variant="danger" id={presupuesto.obra} value={presupuesto.presupuesto}
+             onClick={()=>setSeleccion(presupuesto.asistencias)}> {presupuesto.presupuesto} </Button>
+           ))} 
+        </div>
+        <div>
+          {Object.keys(groupedData).map((year) => (
+            <div key={year}>
+              <Button style={{width:'15em'}} variant='success' key={year} onClick={()=>toggleExpand(year)}>Asistencias del {year}</Button>
+              {expandedSections[year] && (
+                <div>
+                  {Object.keys(groupedData[year]).map((week) => (
+                    <div key={week}>
+                      <Button key={week} onClick={()=>toggleExpand(week)}>Semana {week}</Button>
+                      {expandedSections[week] && (
+                        <div>
+                          {Object.keys(groupedData[year][week]).map((worker) => (
+<div key={worker}>
+<h2>{worker}</h2>
+<table>
+<thead>
+<tr>
+<th>Trabajador</th>
+<th>Lunes</th>
+<th>Martes</th>
+<th>Miércoles</th>
+<th>Jueves</th>
+<th>Viernes</th>
+<th>Sábado</th>
+<th>Domingo</th>
+</tr>
+</thead>
+<tbody>
 
-        
-      }} */> {presupuesto.presupuesto} </Button>))
-      } 
-    </div>
-    
-                  
-  
-  
-  
-          <div className='horariosemanas'>
-             <Card id="prueba" className='lg'>
-        
-             {
-  itinerante.map((e=> (
-   
-   e.map((r)=>(
-  
-  <Accordion  >
-  <Accordion.Item eventKey={r.semana} >
-    <Accordion.Header>{r.semana}</Accordion.Header>
-    <Accordion.Body>
-  
-    <Table striped bordered hover responsive='sm'>
-        <thead>
-          <tr>
-          <th>Trabajador</th>
-               <th>Asistencia</th>
-
-               <th>Lunes</th>
-               <th>Martes</th>
-               <th>Miercoles</th>
-               <th>Jueves</th>
-               <th>Viernes</th> 
-               <th>Sabado</th> 
-
-
-          </tr>
-        </thead>
-        <tbody>
-        {
-    r.data.map((s)=>{ 
-
-     
-
-
-
-  
-   return   <tr>
-           <td key={s.trabajador}>{s.trabajador}</td>
-            <td>{s.tipoAsistencia} 
-            <Button key={s.trabajador} onClick={  
-              
-       async (event) => {
-           
-         try {
-          if(show1){
-            setShow1(false)
-          
-           
-          }else{
-            setShow1(true)
-            setTarget(event.target);
-          
-            await setPi(s)
-            //getPicture(Pi)
-          }
-          
-         } catch (error) {
-          console.log(error)
-         }
-      
-        
-        }}>Ver foto</Button>
-   <br />      
+{groupedData[year][week][worker].map((attendance) => (
+  <tr>
+<td key={attendance.clave}>
+{/* Latitud: {attendance.latitud}, Longitud: {attendance.longitud} */}
 <br />
-         <Button variant='success' onClick={handleShow}>Ubicacion</Button>
-           </td>
+{/* Fecha: {attendance.date},  */} Tipo de asistencia: <strong>{attendance.tipoAsistencia}</strong>
+<br />
+Trabajador:<strong>{attendance.trabajador}</strong>  
+<br />
+Presupuesto: <strong>{attendance.presupuesto}</strong>
+</td> 
+<td>
+  {Monday(attendance.date)}
+</td>
+<td>
+  {Martes(attendance.date)}
+</td>
+<td>{Miercoles(attendance.date)}</td>
+<td>{Jueves(attendance.date)}</td>
+<td>{Viernes(attendance.date)}</td>
+<td>{Sabado(attendance.date)}</td>
+<td>{Domingo(attendance.date)}</td>
+</tr>
+))}
 
+</tbody>
+</table>
+</div>
+))}
+</div>
+)}
+</div>
+))}
+</div>
+)}
+</div>
+))}
 
-           <Overlay
-        show={show1}
-        target={target}
-        placement="bottom"
-        //container={ref}
-        containerPadding={20}
-      >
-        <Popover id="popover-contained">
-          <Popover.Header as="h3"></Popover.Header>
-          <Popover.Body>
-          <img  /* id={Pi.clave} */ src={Source&&Source} style={{width: '6em', height:'8em'}}></img>
-                 
-                
-          </Popover.Body>
-        </Popover>
-      </Overlay>
-      <Modal show={show} onHide={handleClose} animation={false}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-       <h6>{s.latitud}</h6>
-       <h6>{s.longitud}</h6>
-
-      <MyMap  latitud={s.latitud} longitud={s.longitud}/>  
-
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-         
-        </Modal.Footer>
-      </Modal>
-            <td>{Monday(s.date)}</td>
-            <td>{Martes(s.date)}</td>
-            <td>{Miercoles(s.date)}</td>
-            <td>{Jueves(s.date)}</td>
-            <td>{Viernes(s.date)}</td>
-            <td>{Sabado(s.date)}</td>
-       </tr>
-        
-  
-     
-      
-  
-})
-  } 
-  </tbody>
-       
-      </Table>
-  
-  
-  
-  
-    </Accordion.Body>
-  </Accordion.Item>
-  </Accordion>
-  
-  ))
-   
-  )))
-  
-        }
-    
-              </Card>
-           </div>
-    </Card>
+  </div>
+</Container>
      )
     }
 
 
- 
-      
 
- 
-   
-    
+

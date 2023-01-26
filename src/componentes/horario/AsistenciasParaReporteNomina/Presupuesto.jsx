@@ -10,9 +10,9 @@ import '../Horario.css'
 
 
 export const Presupuesto = () => {
-  
+ 
 const {state} =useContext(CEpointContext)
-
+const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
 /* 
   const [Presupuestos, setPresupuesto] = useState([]);
   const [Asistencias, setAsistencias] = useState([]); 
@@ -20,21 +20,132 @@ const {state} =useContext(CEpointContext)
    */
 
  
-console.log('GET proyectos', state.TotalProyectos?state.TotalProyectos:null)
-const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
-console.log(test)
+//console.log('GET proyectos', state.TotalProyectos?state.TotalProyectos:null)
+
+//console.log(test)
 
     const ProyectosFiltrados = test.filter(obj => (obj.asistencias || []).length !== 0);
 
 
-console.log('FILTRO', ProyectosFiltrados&&ProyectosFiltrados )
+   console.log('FILTRO', ProyectosFiltrados&&ProyectosFiltrados )
+
+
+
+
+     return (
+    <Card>  
+     <div className='presupuestos'>
+     {ProyectosFiltrados&&
+      ProyectosFiltrados.map((presupuesto)=>(
+        <Button variant="danger" 
+             id={presupuesto.obra}
+         
+         value={presupuesto.presupuesto}
+         /* onClick={
+              async (e)=>{
+               e.preventDefault()
+               setExcel(presupuesto.asistencias)
+               console.log("objeto completo:", presupuesto.asistencias)
+               setAsistencias(presupuesto.asistencias)
+               //await AsistenciasPresupuesto(Asistencias)
+               darkness(Asistencias)
+               //AsistenciasPresupuestodos(Asistencias)
+               setNombreProyecto(presupuesto.presupuesto)
+               //  await  orden(itinerante)
+               //console.log("asistencias:", Asistencias)       
+
+        
+      }} */> {presupuesto.presupuesto} </Button>))
+      } 
+    </div>
+    
+  
+  
+
+    </Card>
+     )
+    }
+
+ 
+
+
+ 
+     
+  
+     
+      
+  
+  /* 
+          <div>
+             <Card id="prueba" className='lg'>
+        
+             <Button variant='success' onClick={ExportData}>Excel</Button>  
+  
+    <Table striped bordered hover responsive>
+        <thead>
+          <tr>
+          <th>Trabajador</th>
+          <th>Asistencia</th>
+          
+          
+              
+               
+          </tr>   
+        </thead>
+        <tbody>
+
+       
+
+    
+      
+        {try1&&try1.map((r)=>{
+       
+            
+       return     <tr> <td>{r.trabajador}</td>
+              {r.data.map((s)=>{
+
+                return   <tr>
+                  <th>Semana: {s.semana},</th> 
+                  <th>  Registro: {s.tipoAsistencia}</th> 
+                  <td>{s.date}</td>
+
+                </tr>
+                
+                 
+                
+                
+              })}
+              
+       </tr>
+        
+       })}  
+      
+      
+  </tbody>
+       
+      </Table>
+  
+  
+  
+  
+   
+   
+
+
+
+    
+              </Card>
+           </div> */
 
 
 
 
 
+ 
+      
 
-
+ 
+   
       
 /*    console.log("Itinerante: ", itinerante);
    
@@ -244,122 +355,6 @@ return acc
 /* const [NombreProyecto, setNombreProyecto] = useState()
 console.log('NOMBRE PROYECTO', NombreProyecto)
  */
-
-
-     return (
-    <Card>  
-     <div className='presupuestos'>
-     {ProyectosFiltrados&&
-      ProyectosFiltrados.map((presupuesto)=>(
-        <Button variant="danger" 
-             id={presupuesto.obra}
-         
-         value={presupuesto.presupuesto}
-         /* onClick={
-              async (e)=>{
-               e.preventDefault()
-               setExcel(presupuesto.asistencias)
-               console.log("objeto completo:", presupuesto.asistencias)
-               setAsistencias(presupuesto.asistencias)
-               //await AsistenciasPresupuesto(Asistencias)
-               darkness(Asistencias)
-               //AsistenciasPresupuestodos(Asistencias)
-               setNombreProyecto(presupuesto.presupuesto)
-               //  await  orden(itinerante)
-               //console.log("asistencias:", Asistencias)       
-
-        
-      }} */> {presupuesto.presupuesto} </Button>))
-      } 
-    </div>
-    
-  
-  
-  
-  {/* 
-          <div>
-             <Card id="prueba" className='lg'>
-        
-             <Button variant='success' onClick={ExportData}>Excel</Button>  
-  
-    <Table striped bordered hover responsive>
-        <thead>
-          <tr>
-          <th>Trabajador</th>
-          <th>Asistencia</th>
-          
-          
-              
-               
-          </tr>   
-        </thead>
-        <tbody>
-
-       
-
-    
-      
-        {try1&&try1.map((r)=>{
-       
-            
-       return     <tr> <td>{r.trabajador}</td>
-              {r.data.map((s)=>{
-
-                return   <tr>
-                  <th>Semana: {s.semana},</th> 
-                  <th>  Registro: {s.tipoAsistencia}</th> 
-                  <td>{s.date}</td>
-
-                </tr>
-                
-                 
-                
-                
-              })}
-              
-       </tr>
-        
-       })}  
-      
-      
-  </tbody>
-       
-      </Table>
-  
-  
-  
-  
-   
-   
-
-
-
-    
-              </Card>
-           </div> */}
-    </Card>
-     )
-    }
-
- 
-
-
- 
-     
-  
-     
-      
-
-
-
-
-
-
- 
-      
-
- 
-   
     
 
 
@@ -367,6 +362,11 @@ console.log('NOMBRE PROYECTO', NombreProyecto)
 
 
 {/*
+
+
+
+
+
 
        {
     e.data.map((s)=>{ 
