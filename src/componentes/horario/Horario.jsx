@@ -15,13 +15,13 @@ useEffect(()=>{
 },[]) 
 
   return (
-    <Container className="cardContenedora" style={{ width: '60em', height:'30em'}}>
+    <Container className="cardContenedora" /* style={{ width: '60em', height:'30em'}} */ fluid>
     <Card.Body>
       <Card.Title>Registros de asistencia</Card.Title>
       <Card.Subtitle className="mb-2 text-muted">Consulta las asistencias segun el criterio de busqueda </Card.Subtitle>
     
         
-     <div className="horario" >
+     <div className="horario" style={{width:'100%'}} >
 
       
   <Button variant="warning" className='semana' onClick={()=>{navigate("semana")}}>Semana</Button>
