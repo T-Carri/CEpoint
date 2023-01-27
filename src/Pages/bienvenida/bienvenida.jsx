@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
 import './bienvenida.css';
-import { NavbarBrand } from 'reactstrap';
-import { Button } from 'react-bootstrap';
-import {Modal} from 'react-bootstrap';
+import { NavbarBrand, Button, Modal, Carousel, Container, Row, Col } from 'react-bootstrap';
+
 import {Loginup} from '../Access/Loginup'
 import promocion from './promocion.png'
-import arcore from './arcore.jpg'
+import arcore from './patternpad.png'
 import APP from './APP.png'
 import { 
   useNavigate
@@ -13,86 +12,128 @@ import {
 function Bienvenida() {
 
 const [show, setShow]=useState(false)
- 
+const [authenticated, setAuthenticated] = useState(false);
 const handleShow=()=>setShow(true)
 const handleClose=()=>setShow(false)
 const navigate = useNavigate()
 
-useEffect(()=>{
-  let authToken = sessionStorage.getItem('Auth Token')
-  if(authToken){
-      navigate('/account')
+
+  const [index, setIndex] = useState(0);
+
+  const handleSelect = (selectedIndex, e) => {
+    setIndex(selectedIndex);
+  };
+
+useEffect(() => {
+  let authToken = sessionStorage.getItem('Auth Token');
+  if (authToken) {
+    setAuthenticated(true);
   }
-  if(!authToken){
-      navigate('/')
+}, []);
+
+useEffect(() => {
+  if (authenticated) {
+    navigate('/account');
+  } else {
+    navigate('/');
   }
-},
-
-
-[])
-
+}, [authenticated]);
 
 
   return (
-    <div className="Bienvenida">
-     <nav className="navbar navbar-expand-lg bg-warning w-100 p-5 h-150 d-inline-block">
-     <NavbarBrand className="logo" href="/">
-      CEpoint
-    </NavbarBrand>
-   <div className="d-grid gap-2  d-md-flex justify-content-md-end">
-  <button onClick={handleShow} className="btn btn-success me-md-4" type="button">Iniciar Sesion</button>
   
-  
-</div>
-     </nav>
+         <Container  fluid>
+      <Row>
+       
+        <nav className="navbar navbar-expand-lg bg-warning w-100 p-5 h-150 d-inline-block">
+    <NavbarBrand className="logo" href="/">
+    <strong>
+          CEpoint 
+
+           </strong>
+   </NavbarBrand>
+  <div className="d-grid gap-2  d-md-flex justify-content-md-end">
+ <button onClick={handleShow} className="btn btn-success me-md-4" type="button">Iniciar Sesion</button>
+
  
+  </div>
 
-
-
-
-     <div id="carouselExampleIndicators" className="carousel slide" data-bs-ride="true">
-      <div className="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" className="Slide1" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2" className="Slide2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3" className="active" aria-current="true"></button>
-      </div>
-      <div className="carousel-inner">
-        <div className="carousel-item">
-
-        <img class="d-block w-100" src={promocion} width="800" height="800" alt="First slide"/>
-         
-                </div>
-        <div className="carousel-item">
-        <img class="d-block w-100" src={APP} width="800" height="800" alt="Second slide"/>
-         
-    
-        </div>
-        <div className="carousel-item active">
+    </nav>
         
-        <img class="d-block w-100" src={promocion} width="800" height="800" alt="Third slide"/>
-    
-        </div>
-      </div>
-      <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-        <span className="visually-hidden">Previous</span>
-        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-      </button>
-      <button className="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-        <span className="carousel-control-next-icon" aria-hidden="true"></span>
-        <span className="visually-hidden">Next</span>
-      </button>
-    </div>
+  
 
 
-<Modal show={show}>
-  <Modal.Body>
-    <Loginup/>
-  </Modal.Body>
+      </Row>
+
+ <Row>
+
+<Col className='h-100' xs={12} md={12}>
+<Carousel  activeIndex={index} onSelect={handleSelect}>
+     <Carousel.Item>
+       <img
+         className="d-block w-100 h-100"
+         src={promocion}
+         alt="First slide"
+       />
+       <Carousel.Caption>
+         <h3>First slide label</h3>
+         <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+       </Carousel.Caption>
+     </Carousel.Item>
+     <Carousel.Item>
+       <img
+         className="d-block w-100 h-100"
+         src={APP}
+         alt="Second slide"
+       />
+
+       <Carousel.Caption>
+         <h3>Second slide label</h3>
+         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+       </Carousel.Caption>
+     </Carousel.Item>
+     <Carousel.Item>
+       <img
+         className="d-block w-100 h-100"  
+         src={arcore}
+         alt="Third slide"
+       />
+
+       <Carousel.Caption>
+         <h3>Third slide label</h3>
+         <p>
+           Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+         </p>
+       </Carousel.Caption>
+     </Carousel.Item>
+   </Carousel>
+
+
+
+<Modal show={show}  centered>
+ <Modal.Body>
+   <Loginup/>
+ </Modal.Body>
 </Modal>
 
+</Col>
 
 
-    </div>
+ </Row>
+
+</Container>
+    
+
+
+   
+
+
+
+
+
+
+
+   
   );
 }
 
