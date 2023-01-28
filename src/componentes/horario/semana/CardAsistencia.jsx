@@ -48,19 +48,19 @@ export const CardAsistencia = ({dato}) => {
 
 
 console.log(dato.trabajador, ':', contador) */
-
+const [Photo, setPhoto] = useState()
 useEffect(
 
   ()=>{
-    ()=>{
+ 
           
       getDownloadURL (ref(storage,  `Asistencias/${dato.presupuesto}/${dato.trabajador}/${dato.clave}` )).then((url)=>{
         //const img= document.getElementById(data.clave)
         console.log('URL',url)
-       setPhoto
+       setPhoto(url)
         })
    
-}
+
   }, []
 )
 
@@ -70,28 +70,30 @@ return (
   <Card key={dato.date} className="text-center ">
     <Card.Header><strong>{dato.tipoAsistencia}</strong></Card.Header>
     <Card.Body>
-    <Row>
-      <Col>
-      <Container fluid>
-       
-        <img  /* id={Pi.clave} */ src={} style={{width: '6em', height:'8em'}}></img>
-        
-      </Container>
-      </Col>
-      <Col>
+   
       <Card>
         <Card.Header><strong>{dato.trabajador}</strong> </Card.Header>
         <Card.Body>
-        <br />
+
+<Row>
+    <Col>
+    <img  /* id={Pi.clave} */ src={Photo} style={{width: '6em', height:'8em'}}></img>
+    </Col>
+    <Col>
+    <br />
       Hora:  <strong>{date.format('HH:mm')}</strong> 
       <br />
    Fecha:  <strong>{date.format('DD/MMMM/YYYY')}</strong> 
     
+    </Col>
+
+</Row>
+
+       
+
         </Card.Body>
       </Card>
-      </Col>
 
-    </Row>
     
   
     
