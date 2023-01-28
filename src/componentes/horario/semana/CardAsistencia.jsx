@@ -1,19 +1,31 @@
 import React, {useState} from 'react'
 import moment from 'moment'
-import { Card, Button, Col, Row, Container } from 'react-bootstrap'
+import { Card, Button, Col, Row, Container, Overlay,Popover } from 'react-bootstrap'
 import { MdNavigation } from "react-icons/md";
+import MyMap from '../MyMap'
 import {getStorage, ref,  getDownloadURL } from "firebase/storage"
 import { useEffect } from 'react';
+import { useRef } from 'react';
 moment.locale('es');
 
 
 export const CardAsistencia = ({dato}) => {
+
   const storage = getStorage()
   const [contador, setContador] = useState(0)
   const date = moment(dato.date)
   const day = date.date()
   const month = date.month()
   const year = date.year()
+
+ const [showPhoto, setShowPhoto] = useState(false);
+ const handleShowPhoto = () => setShowPhoto(!showPhoto);
+ const targetRef = useRef(null)
+
+ const [showUbicacion, setShowUbicacion] = useState(false);
+ const handleShowUbicacion = () => setShowUbicacion(!showUbicacion);
+ const targetRefUbicacion = useRef(null)
+
 
 
 
@@ -48,7 +60,7 @@ export const CardAsistencia = ({dato}) => {
 
 
 console.log(dato.trabajador, ':', contador) */
-const [Photo, setPhoto] = useState()
+const [Photo, setPhoto] = useState('')
 useEffect(
 
   ()=>{
@@ -61,13 +73,13 @@ useEffect(
         })
    
 
-  }, []
+  }, [dato]
 )
 
 
 return (
     <Container fluid>
-  <Card key={dato.date} className="text-center ">
+  <Card key={dato.date} ref={targetRef} className="text-center ">
     <Card.Header><strong>{dato.tipoAsistencia}</strong></Card.Header>
     <Card.Body>
    
@@ -76,9 +88,7 @@ return (
         <Card.Body>
 
 <Row>
-    <Col>
-    <img  /* id={Pi.clave} */ src={Photo} style={{width: '6em', height:'8em'}}></img>
-    </Col>
+
     <Col>
     <br />
       Hora:  <strong>{date.format('HH:mm')}</strong> 
@@ -100,14 +110,54 @@ return (
     
     
     </Card.Body>
-    <Card.Footer className="text-muted">
+    <Card.Footer  target={targetRefUbicacion.current} className="text-muted">
     <Row >
         <Col>
-        <Button key={dato.date} variant="primary">Foto</Button>
+        <Button key={dato.date} onClick={handleShowPhoto} variant="primary">Foto</Button>
+
+
+
+        
+        <Overlay
+        show={showPhoto}
+        target={targetRef.current}
+        placement="left"
+        //container={ref}
+        containerPadding={20}
+      >
+        <Popover id="popover-contained">
+          <Popover.Header as="h3"></Popover.Header>
+          <Popover.Body>
+          <img  /* id={Pi.clave} */ src={Photo} style={{width: '15em', height:'20em'}}></img>
+                 
+                
+          </Popover.Body>
+        </Popover>
+      </Overlay>
       
         </Col>
         <Col>
-        <Button variant="warning">Ubicacion</Button>
+        <Button variant="warning" onClick={handleShowUbicacion}>Ubicacion</Button>
+
+
+       <Overlay
+        show={showUbicacion}
+        
+        placement="right"
+        
+        containerPadding={20}
+      >
+        <Popover id="popover-contained">
+          <Popover.Header as="h3"></Popover.Header>
+          <Popover.Body>
+        
+          <MyMap latitud={date.latitud
+      } longitud={date.longitud}  />
+                
+          </Popover.Body>
+        </Popover>
+      </Overlay> 
+
         </Col>
 
     </Row>
