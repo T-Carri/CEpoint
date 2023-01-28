@@ -110,7 +110,7 @@ return (
     
     
     </Card.Body>
-    <Card.Footer  target={targetRefUbicacion.current} className="text-muted">
+    <Card.Footer  ref={targetRef}className="text-muted">
     <Row >
         <Col>
         <Button key={dato.date} onClick={handleShowPhoto} variant="primary">Foto</Button>
@@ -142,7 +142,7 @@ return (
 
        <Overlay
         show={showUbicacion}
-        
+        target={targetRef.current}
         placement="right"
         
         containerPadding={20}
@@ -151,8 +151,7 @@ return (
           <Popover.Header as="h3"></Popover.Header>
           <Popover.Body>
         
-          <MyMap latitud={date.latitud
-      } longitud={date.longitud}  />
+    <MyMap latitud={date.latitud} longitud={date.longitud}/>
                 
           </Popover.Body>
         </Popover>
