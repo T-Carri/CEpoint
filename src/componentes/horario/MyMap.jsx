@@ -4,8 +4,8 @@ import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 
 import { Card } from 'react-bootstrap';
 const containerStyle = {
-  width: '40em',
-  height: '30em'
+  width: '50em',
+  height: '50em'
 };
 
 
@@ -21,7 +21,7 @@ const MyMap=({latitud, longitud})=> {
 
   const [map, setMap] = React.useState(null) 
 
-//console.log('MAPA', latitud?latitud:null)
+console.log('MAPA', latitud, longitud)
  const position = {
     lat:parseFloat(latitud?latitud:null),
     lng:parseFloat(longitud?longitud:null) 
@@ -49,7 +49,7 @@ const MyMap=({latitud, longitud})=> {
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={position}
-        zoom={17}
+        zoom={10}
         onLoad={onLoad}
         onUnmount={onUnmount}
       >

@@ -79,14 +79,14 @@ useEffect(
 
 return (
     <Container fluid>
-  <Card key={dato.date} ref={targetRef} className="text-center ">
+  <Card key={dato.date}  className="text-center ">
     <Card.Header><strong>{dato.tipoAsistencia}</strong></Card.Header>
     <Card.Body>
    
       <Card>
         <Card.Header><strong>{dato.trabajador}</strong> </Card.Header>
         <Card.Body>
-
+{dato.latitud}
 <Row>
 
     <Col>
@@ -110,10 +110,10 @@ return (
     
     
     </Card.Body>
-    <Card.Footer  ref={targetRef}className="text-muted">
+    <Card.Footer  className="text-muted">
     <Row >
         <Col>
-        <Button key={dato.date} onClick={handleShowPhoto} variant="primary">Foto</Button>
+        <Button key={dato.date} ref={targetRef} onClick={handleShowPhoto} variant="primary">Foto</Button>
 
 
 
@@ -137,12 +137,12 @@ return (
       
         </Col>
         <Col>
-        <Button variant="warning" onClick={handleShowUbicacion}>Ubicacion</Button>
+        <Button key={dato.date}  ref={targetRefUbicacion}variant="warning" onClick={handleShowUbicacion}>Ubicacion</Button>
 
 
        <Overlay
         show={showUbicacion}
-        target={targetRef.current}
+        target={targetRefUbicacion.current}
         placement="right"
         
         containerPadding={20}
@@ -151,7 +151,8 @@ return (
           <Popover.Header as="h3"></Popover.Header>
           <Popover.Body>
         
-    <MyMap latitud={date.latitud} longitud={date.longitud}/>
+        Aqui va ir el mapa
+    <MyMap latitud={dato.latitud} longitud={dato.longitud}/> 
                 
           </Popover.Body>
         </Popover>
