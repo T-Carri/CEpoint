@@ -40,6 +40,10 @@ import { UiProvider } from './context/UiContext';
 
 
 import { CEpointProvider } from './context/CEpointContext';
+import { RecursosHumanos } from './componentes/RH/RecursosHumanos';
+import { Trabajadores } from './componentes/RH/Trabajadores';
+import { BuscadorTrabajador } from './componentes/RH/BuscadorTrabajador';
+import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador';
 function App() {
 
   
@@ -78,6 +82,17 @@ function App() {
     <Route path="ocupados" element={<Ocupados/>} />
     <Route path="desocupados" element={<Desocupados/>} />
     </Route>
+
+
+    <Route path="recursosHumanos" element={<RecursosHumanos/>} >
+       <Route path='trabajadores' element={<Trabajadores/>}>
+          <Route path='formulariodatostrabajador' element={<FormularioDatosTrabajador/>}/> 
+        </Route> 
+       <Route path='buscadorTrabajador' element={<BuscadorTrabajador/>}/> 
+
+    </Route>
+
+
     <Route  path="horario" element={   <Horario/>  } >  
             <Route path='presupuesto' element={<Presupuesto/>}/> 
             <Route path='ubicacion' element={<Ubicacion/>}/> 
@@ -85,6 +100,8 @@ function App() {
             <Route path='semana' element={<Semana/>}/>
             <Route path='trabajador' element={<Trabajador/>}/> 
     </Route>
+
+
      <Route path="asignadorEndiseño" element={
        
        <Asignador/>
@@ -97,9 +114,13 @@ function App() {
     <Route path="prestado" element={<Prestado/>} />
      </Route>
    
+    
+
+   
+
 
     </Route>
-  
+   
     
       </Routes>
   </Router>

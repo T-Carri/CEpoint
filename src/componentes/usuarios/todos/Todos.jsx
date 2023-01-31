@@ -130,7 +130,11 @@ Civiles.map((e) => {
   return  <Card key={e.area} className={e.area}> 
           <Card.Title ><h4><strong>{e.area}</strong></h4></Card.Title>  
           <Container className='civiles'   > 
+         
+         
           {e.data.map((s)=><CardUsuario key={s.Uid} prop={s}/>)}  
+         
+         
           </Container>
           </Card>
   

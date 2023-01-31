@@ -3,7 +3,7 @@ import { Button, Container} from 'react-bootstrap'
 import UserContext from '../../context/AuthContext';
 import CEpointContext from '../../context/CEpointContext';
 import AlmacenContext from '../../context/AlmacenContext';
-
+import UiContext from '../../context/UiContext';
 
 import './Account.css'
 import { 
@@ -16,6 +16,7 @@ import {
 
     const {setToggle}=useContext(AlmacenContext)
     const {state}=useContext(CEpointContext)
+    const {setToggleRH}=useContext(UiContext)
  
     const {accessKey}=useContext(CEpointContext)
 
@@ -46,6 +47,12 @@ import {
   }}>
  <strong>Usuarios
    </strong></Button>:null} 
+
+   
+   {state.UsuarioSesion.rh?<Button variant='dark' className="btnx4" onClick={()=>{navigate("recursosHumanos")
+   setToggleRH(false)
+}}>
+<strong> Recursos humanos  </strong> </Button>:null}
 
 {state.UsuarioSesion.lectoreAsistencia? <Button className="btnx2"  onClick={() =>{
     navigate("horario");

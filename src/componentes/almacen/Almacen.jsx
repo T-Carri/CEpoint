@@ -70,5 +70,3 @@ navigate("herramienta")
 
 
 
-/*
-*/

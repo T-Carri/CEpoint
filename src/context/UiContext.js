@@ -32,6 +32,18 @@ export const UiProvider = ({children}) => {
     setShowFCU(!showFCU)
     setShowFCP(false)
     };
+
+
+
+    const [ToggleRH, setToggleRH]=useState(false)
+
+
+    const [inFormulario, setInFormulario] =useState(false)
+
+
+
+
+
     return (
 
 <UiContext.Provider
@@ -52,7 +64,10 @@ value={{
      showFCU, 
      setShowFCU, 
      toggleShowFCU,
-
+     ToggleRH,
+      setToggleRH, 
+      inFormulario, 
+      setInFormulario
 
 }}>
 {children}

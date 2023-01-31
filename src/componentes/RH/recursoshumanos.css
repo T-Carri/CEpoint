@@ -1,0 +1,26 @@
+div.capaRH1{
+    display:inline-grid;
+
+    background-image: url("RH1.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 45em;
+    width: 40em;
+    padding: 1em;
+}
+div.areas{                    
+    display:inline-grid;
+padding: 1em;
+}
+div.miscelaneos{
+ display:block;
+  background-image: url("RH2.jpg"); 
+ background-position: center;
+ background-size: cover;
+ background-repeat: no-repeat;
+ height: 16.7em;
+    width: 30em;
+    padding: 1em;
+}
+
