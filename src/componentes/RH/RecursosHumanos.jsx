@@ -5,7 +5,7 @@ import './recursoshumanos.css'
 import UiContext from '../../context/UiContext'
 export const RecursosHumanos = () => {
 
- const {ToggleRH, setToggleRH}=useContext(UiContext)
+ const {ToggleRH, setToggleRH, setInFormulario}=useContext(UiContext)
 
     const navigate = useNavigate(); 
 
@@ -15,7 +15,7 @@ return (
     ToggleRH
     ?<Outlet/>
  :<Container>
-     <div className='areas'>
+     <div className='areasRH'>
     
          <Row>
              <Col>
@@ -23,6 +23,8 @@ return (
     <div className='capaRH1' onClick={()=>{
   setToggleRH(true)
   navigate("trabajadores")
+  setInFormulario(false)
+
   }} >
         <div className="capaRH1.1">
 <h1 style={{color: '#EAE2E0'}}>Trabajadores</h1>
@@ -33,7 +35,7 @@ return (
         <Col>
         
 
-<div className='miscelaneos' /* onClick={()=>{
+<div className='busquedaTrabajador' /* onClick={()=>{
 setToggle(true)
 navigate("miscelaneos")
 }} */ >

@@ -6,11 +6,14 @@ import {
 import UiContext from '../../context/UiContext';
 import { Container, Button, Form, InputGroup, Nav } from 'react-bootstrap'
 import TrabajadoresCards from './Trabajadores/TrabajadoresCards';
+import CEpointContext from '../../context/CEpointContext';
 export const Trabajadores = () => {
   const navigate = useNavigate();
   const {ToggleRH, setToggleRH,  inFormulario
      }=useContext(UiContext)
- 
+  
+     console.log('INFORMULARIO TRABAJADORES:', inFormulario)
+  
   return (
 
 

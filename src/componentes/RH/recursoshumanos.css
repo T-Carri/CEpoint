@@ -9,18 +9,19 @@ div.capaRH1{
     width: 40em;
     padding: 1em;
 }
-div.areas{                    
+div.areasRH{                    
     display:inline-grid;
 padding: 1em;
 }
-div.miscelaneos{
- display:block;
-  background-image: url("RH2.jpg"); 
- background-position: center;
- background-size: cover;
- background-repeat: no-repeat;
- height: 16.7em;
-    width: 30em;
-    padding: 1em;
-}
 
+
+div.busquedaTrabajador{
+    display:block;
+    background-image: url("RH2.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 16.7em;
+       width: 30em;
+       padding: 1em;
+   }

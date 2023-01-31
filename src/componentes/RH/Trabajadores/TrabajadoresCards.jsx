@@ -4,7 +4,7 @@ import CEpointContext from '../../../context/CEpointContext';
 import  TrabajadorCard  from './TrabajadorCard';
 
 
-import './Usuarios.css'
+import './Trabajadores.css'
 
 
 
@@ -111,6 +111,7 @@ const civilesWay = useMemo(() => {
   return (
     <Container fluid>
   <Card /* className={Civiles.area} */> 
+  
     {
 
 Civiles.map((e) => {

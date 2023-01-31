@@ -3,7 +3,7 @@ import { Card, Row, Col, Button } from 'react-bootstrap'
 
 import CEpointContext from '../../../context/CEpointContext';
 import { QrGen } from './QrGen';
-import './Usuarios.css'
+import './Trabajadores.css'
 import { 
   useNavigate, Outlet
 } from 'react-router-dom';
