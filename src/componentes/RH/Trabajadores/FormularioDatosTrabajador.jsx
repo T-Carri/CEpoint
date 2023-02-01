@@ -71,15 +71,14 @@ export const FormularioDatosTrabajador = () => {
 
 
 
-<Accordion defaultActiveKey="0">
+<Accordion >
       <Accordion.Item eventKey="0">
         <Accordion.Header><strong>Informacion de Trabajador</strong>  </Accordion.Header>
         <Accordion.Body>
 
-        <InputGroup className="mb-3">
           <Row>
             <Col>
-            <InputGroup className="mb-3"></InputGroup>
+            <InputGroup className="mb-3">
             <Button variant="outline-secondary" id="button-addon1">
           Actualiza nombre
         </Button>
@@ -92,6 +91,7 @@ export const FormularioDatosTrabajador = () => {
 </InputGroup>
             </Col>
             <Col>
+            <InputGroup className="mb-3">
             <Button variant="outline-secondary" id="button-addon1">
           Actualiza NSS
         </Button>
@@ -101,12 +101,14 @@ export const FormularioDatosTrabajador = () => {
           disabled={true}
           value={state.OnlyUser.nombre}
         />
+</InputGroup>
             </Col>
 
           </Row>
-
-<Row><Col>
-<Button variant="outline-secondary" id="button-addon1">
+          <Row>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
           Actualiza fecha de nacimiento
         </Button>
         <Form.Control
@@ -115,30 +117,183 @@ export const FormularioDatosTrabajador = () => {
           disabled={true}
           value={state.OnlyUser.nombre}
         />
-</Col></Row>
+</InputGroup>
+            </Col>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Actualiza perfil
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          value={state.OnlyUser.perfil}
+        />
+</InputGroup>
+            </Col>
+
+          </Row>
 
 
+          <Row>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Actualiza numero telefonico
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          value={state.OnlyUser.nombre}
+        />
+</InputGroup>
+            </Col>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Actualiza empresa 
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          value={state.OnlyUser.empresa}
+        />
+</InputGroup>
+            </Col>
 
+          </Row>
 
+          <Row>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Actualiza Domicilio
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          value={state.OnlyUser.nombre}
+        />
+</InputGroup>
+            </Col>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Actualiza Email 
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+        
+        />
+</InputGroup>
+            </Col>
 
+          </Row>
 
-      
+      <Row>
+      <Form.Group className="position-relative mb-3">
+            <Form.Label><strong>Agrega licencia</strong></Form.Label>
+            <Form.Control
+              type="file"
+              required
+              name="Agrega licencia"
+              /* onChange={handleChange} */
+             /*  isInvalid={!!errors.file} */
+            />
+           {/*  <Form.Control.Feedback type="invalid" tooltip>
+              {errors.file}
+            </Form.Control.Feedback> */}
+          </Form.Group>
+      </Row>
 
-         //NSS
-         //Fecha de nacimiento
-         //DIRECCION
-         //TELEFONO
-         //EMAIL
 
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1">
         <Accordion.Header> <strong>Informacion medica de trabajador</strong></Accordion.Header>
         <Accordion.Body>
-        //Tipo de sangre 
-        //alergias
-        //enfermedades
-        //Historial clinico
+          <Row>
+            <Col>   <Form.Select aria-label="Default select example">
+      <option>Elige el tipo de sangre</option>
+      <option value="A+ (A positivo)">A+ (A positivo)</option>
+      <option value="A- (A negativo)">A- (A negativo)</option>
+      <option value="B+ (B positivo)">B+ (B positivo)</option>
+      <option value="B- (B negativo)">B- (B negativo)</option>
+      <option value="AB+ (AB positivo)">AB+ (AB positivo)</option>
+      <option value="AB- (AB negativo)">AB- (AB negativo)</option>
+      <option value="O+ (O positivo)">O+ (O positivo)</option>
+      <option value="O- (O negativo)">O- (O negativo)</option>
+    </Form.Select></Col>
+    <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Ingresa alergia
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          
+        />
+</InputGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Ingresa alguna enfermedad
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          
+        />
+</InputGroup>
+            </Col>
+            <Col>
+            <InputGroup className="mb-3">
+            <Button variant="outline-secondary" id="button-addon1">
+          Ingresa historia clinica
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          
+        />
+</InputGroup>
+            </Col>
+          </Row>
+        <Row>
+          <Col>
+          <Card>
+          <Card.Header><strong>Alergias</strong></Card.Header>
+            <Card.Body>-Example</Card.Body>
+          </Card>
+          </Col>
+          <Col>
+          <Card>
+          <Card.Header><strong>Enfermedades</strong></Card.Header>
+          <Card.Body>-Example</Card.Body>
+          </Card>
+          </Col>
+          <Col>
+          <Card>
+          <Card.Header><strong>Historia clinica</strong></Card.Header>
+          <Card.Body>-Example</Card.Body>
+          </Card>
+          </Col>
+
+        </Row>
+       
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="2">
