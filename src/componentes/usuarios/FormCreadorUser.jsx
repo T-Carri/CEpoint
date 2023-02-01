@@ -91,20 +91,30 @@ const handleregisterUser = async (e)=> {
 
   const docuRef =doc(db, `users/${IdUsario}`);
   setDoc(docuRef, { 
-  activo: false ,
-  asignador:  checkIf(radioValueAsig),
-  checador:checkIf(radioValueChec) ,
- 
-  empresa:searchDato(Empresa), 
-  lectoreAsistencia : checkIf(radioValueAsis), 
-  nombre: values.nombre,
-  ocupado: false,  
-  perfil: searchDato(Perfil),
-  area: searchArea(Perfil),
-  rol: 'usuario',
-  usator: false, 
-  fechaDeCreacion: Date(), 
-  UID:IdUsario
+    activo: false ,
+    ocupado: false,  
+    UID:IdUsario,
+    nombre: values.nombre,
+    nss:'',
+    fechaNacimiento:'',
+    perfil: searchDato(Perfil),
+    empresa:searchDato(Empresa), 
+    telefono:'',
+    domicilio:'',
+    email:'',
+    area: searchArea(Perfil),
+    fechaDeCreacion: Date(), 
+    
+    tipoSangre:'',
+    alergias:[], 
+    alergias:[],
+    hitoriaClinica:[], 
+    licencia: false,
+    herramientas:[], 
+    Miscelaneos:[],
+    Maquinaria:[]
+
+
   }
   )
   setValues({...formCreatorUser}) 

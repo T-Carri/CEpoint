@@ -17,12 +17,19 @@ import './Trabajadores.css'
   
   
   useEffect(()=>{
-    getUsuarios()
+    async function fetchData() {
+      await getUsuarios();
+    }
+    fetchData();
+    
   }, [])
+  
 
+
+ 
 console.log('STATE IN todos:', state)
  
-   
+    
 
 
 
@@ -34,7 +41,7 @@ console.log('STATE IN todos:', state)
 
 
 const civilesWay = useMemo(() => {
-  return state.UsuariosActivosDetail.reduce((past, current) => {
+  return state.UsuariosActivosDetail&&state.UsuariosActivosDetail.reduce((past, current) => {
     const foundItem = past.find(it => it.area === current.area)
     if (foundItem) {
       foundItem.data = foundItem.data
@@ -114,7 +121,7 @@ const civilesWay = useMemo(() => {
   
     {
 
-Civiles.map((e) => {
+Civiles&&Civiles.map((e) => {
   
   return  <Card key={e.area} className={e.area}> 
           <Card.Title ><h4><strong>{e.area}</strong></h4></Card.Title>  

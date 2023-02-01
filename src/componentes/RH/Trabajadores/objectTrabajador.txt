@@ -1,19 +1,89 @@
 {
+    UID,
+    activo, 
+    area, 
+email, 
+empresa,
+fechaDeCreacion,
 nombre,
+perfil, 
+ocupado,,
 nss,
 fechaNacimiento, 
-perfil, 
-empresa,
 telefono,
 domicilio, 
-email, 
 tipoSangre, 
 alergias:[], 
 enfermedad:[], 
 hitoriaClinica:[], 
-licenciaVigente:boolean, 
+licencia:boolean, 
 herramientas:[], 
 Miscelaneos:[],
 Maquinaria:[]
 
 }
+
+
+quitar{
+    password
+lectoreAsistencia
+asignador, 
+checador, 
+rol (en trabajadores), 
+usator
+  
+
+tambien en el form de crear usuario reestructurar 
+
+}
+
+
+Lista de ids a respetar 
+sin eliminar auth User
+
+[
+usuario@cepoint.com
+123456
+22ZibKz3QMaFWArXIiM9dPBgX333, 
+
+playstoretest@cepoint.com
+holaplaystore
+2GzUq9c1OGcIJG7JYWzOYjcfdjG2, 
+
+    
+
+
+PC-22-211@cepoint.com
+PC22211
+O5M9wITTaXfelaUCiiErfEJEQGy1, 
+
+
+
+pc-22-541@cepoint.com
+PC22541
+qqQBXylIU0gFRRNE67V4ddbWKpc2, 
+
+
+
+
+
+pc-22-364@cepoint.com
+PC22364
+Cx0ln9VNuKcR6EMS4VmOOC07OdF3, 
+
+
+
+
+PC-22-275@cepoint.com
+PC22275
+XSyXmiJXRUWU2U90UcPdjmUEeQ72,
+
+
+
+505@cepoint.com
+123456
+ZlEyZ0VHFiRbS1w27qJ3IaI24RQ2, 
+
+
+
+]

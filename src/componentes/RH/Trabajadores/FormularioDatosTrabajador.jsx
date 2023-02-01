@@ -1,19 +1,27 @@
-import React, {useContext, useState} from 'react'
-import { Container, Button, Card, Form, Col, Accordion, Row, Modal, Tab, Tabs, InputGroup } from 'react-bootstrap'
+import React, {useContext, useState, useRef} from 'react'
+import { Container, Button, Card, Form, Col, Accordion, Row, Modal, Tab, Tabs, InputGroup, Badge, ToggleButton, Overlay, Popover } from 'react-bootstrap'
 import {BsArrowLeftCircle, BsPersonPlusFill, BsHandThumbsDownFill} from 'react-icons/bs'
 import UiContext from '../../../context/UiContext'
 import CEpointContext from '../../../context/CEpointContext'
 import { TYPES } from '../../../redux/Types'
+import DatosTrabajador from './DatosTrabajador/DatosTrabajador'
 export const FormularioDatosTrabajador = () => {
+
   const{ inFormulario, 
     setInFormulario }= useContext(UiContext)  
     const [key, setKey] = useState('almacen');
     const{ state, dispatch }= useContext(CEpointContext)  
     const [show, setShow] = useState(false);
-
+    
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
+
+
+
+
+
+
   return (
 
     <Container  style={{backgroundColor: '#EAE2E0' }} fluid>
@@ -21,12 +29,20 @@ export const FormularioDatosTrabajador = () => {
 
 
 <Row>
-  <Col><Card><h1>{state.OnlyUser.nombre}</h1>
+  <Col><Card> <Badge  bg="secondary"><h1>{state.OnlyUser.nombre}</h1></Badge>
+    
  <Row>
-  <Col>
-   <strong>{state.OnlyUser.area}</strong>
+  <Col className='text-center'>
+  <Badge pill bg="secondary">
+  <strong>{state.OnlyUser.area}</strong>
+      </Badge>
+   
    <br />
-  <strong>{state.OnlyUser.perfil}</strong>
+   <h3>   <Badge pill bg="warning" text="dark">
+   <strong>{state.OnlyUser.perfil}</strong>
+      </Badge></h3>
+
+ 
   </Col>
   <Col style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{' '}
   <Button variant='danger' onClick={handleShow}><strong>Dar de baja</strong><BsHandThumbsDownFill/></Button>
@@ -75,143 +91,8 @@ export const FormularioDatosTrabajador = () => {
       <Accordion.Item eventKey="0">
         <Accordion.Header><strong>Informacion de Trabajador</strong>  </Accordion.Header>
         <Accordion.Body>
-
-          <Row>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza nombre
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.nombre}
-        />
-</InputGroup>
-            </Col>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza NSS
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.nombre}
-        />
-</InputGroup>
-            </Col>
-
-          </Row>
-          <Row>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza fecha de nacimiento
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.nombre}
-        />
-</InputGroup>
-            </Col>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza perfil
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.perfil}
-        />
-</InputGroup>
-            </Col>
-
-          </Row>
-
-
-          <Row>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza numero telefonico
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.nombre}
-        />
-</InputGroup>
-            </Col>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza empresa 
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.empresa}
-        />
-</InputGroup>
-            </Col>
-
-          </Row>
-
-          <Row>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza Domicilio
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-          value={state.OnlyUser.nombre}
-        />
-</InputGroup>
-            </Col>
-            <Col>
-            <InputGroup className="mb-3">
-            <Button variant="outline-secondary" id="button-addon1">
-          Actualiza Email 
-        </Button>
-        <Form.Control
-          aria-label="Example text with button addon"
-          aria-describedby="basic-addon1"
-          disabled={true}
-        
-        />
-</InputGroup>
-            </Col>
-
-          </Row>
-
-      <Row>
-      <Form.Group className="position-relative mb-3">
-            <Form.Label><strong>Agrega licencia</strong></Form.Label>
-            <Form.Control
-              type="file"
-              required
-              name="Agrega licencia"
-              /* onChange={handleChange} */
-             /*  isInvalid={!!errors.file} */
-            />
-           {/*  <Form.Control.Feedback type="invalid" tooltip>
-              {errors.file}
-            </Form.Control.Feedback> */}
-          </Form.Group>
-      </Row>
-
+<h2>Datos del trabajador</h2>
+    <DatosTrabajador prop={state.OnlyUser} />
 
         </Accordion.Body>
       </Accordion.Item>

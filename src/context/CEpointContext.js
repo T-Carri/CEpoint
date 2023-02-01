@@ -42,7 +42,7 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
  
  const accessKey = async ()=>{
    
-  const queryDoc = doc(db, "users", user.uid);
+  const queryDoc = doc(db, "cuentas", user.uid);
  await getDoc(queryDoc).then(  (res) => {
    dispatch({type:TYPES.USUARIO_DATA, payload:res.data()})
  
@@ -113,7 +113,7 @@ dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, payload: data })
     
     
 const fetchChecadorAsignadoUser = async(params)=>{
-const q = doc(db, "users", params )
+const q = doc(db, "cuentas", params )
 await getDoc(q).then(res=>{
 dispatch({type:TYPES.ASIGNADO_CHECADOR, payload: res.data()})
 })}
@@ -158,7 +158,7 @@ const getUsuarios =async()=>{
   }
 
   const getUsuariosChecador =async()=>{
-    const q = query(collection(db, "users"),where("area","in", ['CUENTAKEYCHECADOR']))
+    const q = query(collection(db, "cuentas"),where("area","in", ['CUENTAKEYCHECADOR']))
     await onSnapshot(q, (query)=>{
      const data=[]
      query.forEach((doc)=>{

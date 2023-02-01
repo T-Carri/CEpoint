@@ -88,23 +88,24 @@ setError('')
 const infouser = await createUsuario(values.email, values.password);
 console.log(infouser.user.uid)
  setUidUser(infouser.user.uid)
-const docuRef =doc(db, `users/${infouser.user.uid}`);
+const docuRef =doc(db, `cuentas/${infouser.user.uid}`);
 setDoc(docuRef, { 
-activo: false ,
-asignador:  checkIf(radioValueAsig),
-checador:checkIf(radioValueChec) ,
-email: values.email, 
-password: values.password,
-empresa:searchDato(Empresa), 
-lectoreAsistencia : checkIf(radioValueAsis), 
-nombre: values.nombre,
-ocupado: false,  
-perfil: searchDato(Perfil),
-area: searchArea(Perfil),
-rol: 'usuario',
-usator: false, 
-fechaDeCreacion: Date(), 
-UID:infouser.user.uid
+  UID:infouser.user.uid, 
+  activo: false ,
+  almacen: null,
+  area: searchArea(Perfil),
+  asignador:  checkIf(radioValueAsig),
+  checador:checkIf(radioValueChec) ,
+  email: values.email, 
+  empresa:searchDato(Empresa), 
+  lectoreAsistencia : checkIf(radioValueAsis), 
+  nombre: values.nombre,
+  password: values.password,
+  
+  rh: false,
+  rol: 'usuario',
+  usator: false, 
+  fechaDeCreacion: Date(), 
 }
 )
 setValues({...formCreatorUser}) 
