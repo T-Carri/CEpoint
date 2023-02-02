@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react'
 import {  Button, Form, Col, Row,  InputGroup, ToggleButton, Overlay, Popover } from 'react-bootstrap'
 
 
-export const ChildDatosTrabajadorUpdate = ({dato}) => {
+export const ChildDatosTrabajadorUpdate = ({dato, referencia}) => {
 
   const [checked, setChecked] = useState(false);
   const [show, setShow] = useState(false);
@@ -15,11 +15,26 @@ export const ChildDatosTrabajadorUpdate = ({dato}) => {
   };
 
   return (
-    <Col>
-    <h4 style={{ fontFamily: 'Monospace', color:'grey' }} >{dato}</h4>
+    <Col ref={ref}>
+    {/* <h4 style={{ fontFamily: 'Monospace', color:'grey' }} >{dato}</h4> */}
             
             <br />
-            <ToggleButton
+
+            <InputGroup className="mb-3">
+            <Button variant="outline-success" id="button-addon1"  onClick={handleClick}>
+            Actualiza {referencia}
+        </Button>
+        <Form.Control
+          aria-label="Example text with button addon"
+          aria-describedby="basic-addon1"
+          disabled={true}
+          value={dato}
+          
+        />
+</InputGroup>
+
+
+         {/*    <ToggleButton
         className="mb-2"
         id="toggle-check"
         type="checkbox"
@@ -27,11 +42,11 @@ export const ChildDatosTrabajadorUpdate = ({dato}) => {
         checked={checked}
         value="1"
         onChange={(e) => setChecked(e.currentTarget.checked)}
-        onClick={handleClick}
+       
       >
-        Actualiza Nss
+        
       </ToggleButton>
-      
+       */}
       <Overlay
         show={show}
         target={target}
@@ -40,11 +55,11 @@ export const ChildDatosTrabajadorUpdate = ({dato}) => {
         containerPadding={20}
       >
         <Popover id="popover-contained">
-          <Popover.Header as="h3">Actualiza nss</Popover.Header>
+          <Popover.Header as="h3">Actualiza {referencia}</Popover.Header>
           <Popover.Body>
           <InputGroup className="mb-3">
         <Form.Control
-          placeholder={dato}
+         
           aria-label="Recipient's username"
           aria-describedby="basic-addon2"
         />

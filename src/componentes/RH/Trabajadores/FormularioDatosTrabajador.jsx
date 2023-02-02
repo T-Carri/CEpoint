@@ -90,7 +90,7 @@ export const FormularioDatosTrabajador = () => {
 <Accordion >
       <Accordion.Item eventKey="0">
         <Accordion.Header><strong>Informacion de Trabajador</strong>  </Accordion.Header>
-        <Accordion.Body>
+        <Accordion.Body  style={{backgroundColor: '#EAE2E0' }}>
 <h2>Datos del trabajador</h2>
     <DatosTrabajador prop={state.OnlyUser} />
 
@@ -245,3 +245,4 @@ export const FormularioDatosTrabajador = () => {
    
   )
 }
+

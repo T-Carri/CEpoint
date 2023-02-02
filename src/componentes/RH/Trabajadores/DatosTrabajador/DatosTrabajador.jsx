@@ -16,14 +16,14 @@ function DatosTrabajador({prop}) {
       <Row>
             <Col className='text-center' >
             <label style={{color:'black' }}><h4>Nombre:</h4></label> 
-            {prop.nombre==''?   <ChildDatosTrabajadorAdd dato={prop.nombre} />: <ChildDatosTrabajadorUpdate dato={prop.nombre} />} 
+            {prop.nombre==''?   <ChildDatosTrabajadorAdd dato={prop.nombre} referencia='Nombre' />: <ChildDatosTrabajadorUpdate dato={prop.nombre} referencia='Nombre' />} 
             </Col>
          
             <Col className='text-center' >
 
             <label style={{color:'black' }}><h4>NSS:</h4></label> 
 
-          {prop.nss==''?   <ChildDatosTrabajadorAdd dato={prop.nss} />: <ChildDatosTrabajadorUpdate dato={prop.nss} />}  
+          {prop.nss==''?   <ChildDatosTrabajadorAdd dato={prop.nss} referencia='nss' />: <ChildDatosTrabajadorUpdate dato={prop.nss} referencia='nss' />}  
             
             </Col>
       </Row>
@@ -33,7 +33,7 @@ function DatosTrabajador({prop}) {
         <label style={{color:'black' }}><h4>Fecha de nacimiento:</h4></label>  <label style={{color:'grey' }}><h4>Fecha de nacimiento</h4></label>
 
 <br />
-<ToggleButton
+{/* <ToggleButton
         className="mb-2"
         id="toggle-check"
         type="checkbox"
@@ -57,17 +57,17 @@ function DatosTrabajador({prop}) {
           <Popover.Header as="h3">Actualiza fecha de nacimiento</Popover.Header>
           <Popover.Body>
           <DatePicker 
-/* selected={startDate}  */
-/* onChange={async(date) => {
+selected={startDate}  
+onChange={async(date) => {
 await setStartDate(date)
 await createUsuario('edad', calcularEdad(date))
 
 
 
-}} */
+}} 
 locale="es"
 
-/> 
+/>  
 
 
 
@@ -78,12 +78,12 @@ locale="es"
       
         </Popover>
       </Overlay>
-
+*/}
         </Col>
    
             <Col className='text-center' >
             <label style={{color:'black' }}><h4>Perfil:</h4></label> 
-            {prop.perfil==''?   <ChildDatosTrabajadorAdd dato={prop.perfil} />: <ChildDatosTrabajadorUpdate dato={prop.perfil} />}  
+            {prop.perfil==''?   <ChildDatosTrabajadorAdd dato={prop.perfil} referencia='Perfil' />: <ChildDatosTrabajadorUpdate dato={prop.perfil} referencia='Perfil' />}  
             </Col>
 
           </Row>
@@ -94,12 +94,12 @@ locale="es"
 
       <Col className='text-center' >
       <label style={{color:'black' }}><h4>Telefono:</h4></label> 
-      {prop.telefono==''?   <ChildDatosTrabajadorAdd dato={prop.telefono} />: <ChildDatosTrabajadorUpdate dato={prop.telefono} />}  
+      {prop.telefono==''?   <ChildDatosTrabajadorAdd dato={prop.telefono} referencia='Telefono' />: <ChildDatosTrabajadorUpdate dato={prop.telefono} referencia='Telefono' />}  
             </Col>
             
             <Col className='text-center' >
             <label style={{color:'black' }}><h4>Empresa:</h4></label> 
-            {prop.empresa==''?   <ChildDatosTrabajadorAdd dato={prop.empresa} />: <ChildDatosTrabajadorUpdate dato={prop.empresa} />}  
+            {prop.empresa==''?   <ChildDatosTrabajadorAdd dato={prop.empresa} referencia='Empresa' />: <ChildDatosTrabajadorUpdate dato={prop.empresa} referencia='Empresa' />}  
             </Col>
 
           </Row>
@@ -108,12 +108,12 @@ locale="es"
           
           <Col className='text-center' >
           <label style={{color:'black' }}><h4>Domicilio:</h4></label> 
-          {prop.domicilio==''?   <ChildDatosTrabajadorAdd dato={prop.domicilio} />: <ChildDatosTrabajadorUpdate dato={prop.domicilio} />}  
+          {prop.domicilio==''?   <ChildDatosTrabajadorAdd dato={prop.domicilio} referencia='Domicilio'/>: <ChildDatosTrabajadorUpdate dato={prop.domicilio} referencia='Domicilio'/>}  
             </Col>
             
             <Col className='text-center' >
             <label style={{color:'black' }}><h4>Email:</h4></label> 
-            {prop.email==''?   <ChildDatosTrabajadorAdd dato={prop.email} />: <ChildDatosTrabajadorUpdate dato={prop.email} />}  
+            {prop.email==''?   <ChildDatosTrabajadorAdd dato={prop.email} referencia='Email' />: <ChildDatosTrabajadorUpdate dato={prop.email} referencia='Email' />}  
             </Col>
           </Row>
 
