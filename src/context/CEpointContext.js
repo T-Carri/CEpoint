@@ -173,13 +173,7 @@ const getUsuarios =async()=>{
 
   //atencion aqui ya que me bugeo en las fichas de actualizar usuario, se quedo pegado el usuario electo
 
-const fetchOnlyUser = async(params)=>{
-const q = doc(db, "users", params )
-await getDoc(q).then(res=>{
-dispatch({type: TYPES.FETCH_ONLYUSER, payload:res.data() })
 
-}) 
-}
 
 const fetchName = async(params)=>{
 const q = doc(db, "users", params )
@@ -239,47 +233,8 @@ const getUsersUnable = async()=>{
   }
 //Esta funcion activa los usuarios        
 
-const activateUser = async(params)=>{
-const AU = doc(db, "users", params)
-await updateDoc(AU,
-  
-  {
-    activo: true
-  })
-} 
-
-const desactivaUser = async(params)=>{
-const AU = doc(db, "users", params)
-await updateDoc(AU,
-  
-  {
-    activo: false
-  })
-} 
 
 
-const acNombre = async(id, dato)=>{
-const AN = doc(db, "users", id)
-await updateDoc(AN, {
-nombre: dato
-})
-}
-
-const acPerfil = async(id, perfilDato)=>{
-const AP = doc(db, "users", id)
-await updateDoc(AP, {
-perfil: perfilDato,
-area: searchArea(perfilDato)
-
-})
-} 
-
-const acEmpresa = async(id, Empresa)=>{
-const AE =doc(db, "users", id)
-await updateDoc(AE, {
-empresa: Empresa
-})
-}
 
 //esta funcion actualiza el res
 const acUsChec = async(id, Residente)=>{
@@ -414,9 +369,174 @@ const desactivarProyecto = async(params)=>{
 
 //ALMACEN ABOUT 
 
+                        //INFORMACION DEL TRABAJADOR 
+
+const fetchOnlyUser = async(params)=>{
+  const q = doc(db, "users", params )
+  await getDoc(q).then(res=>{
+  dispatch({type: TYPES.FETCH_ONLYUSER, payload:res.data() })
+  
+  }) 
+  }
+
+  //NOMBRE
+     //AGREGA
+     const addNombre = async(id, valor)=>{
+      const userRef= doc(db, 'users',id)
+      await setDoc(userRef, {nombre: valor}, {merge:true} )
+    }
+
+     //ACTUALIZA
+  const acNombre = async(id, dato)=>{
+    const AN = doc(db, "users", id)
+    await updateDoc(AN, {
+    nombre: dato
+    })
+    }
+//NSS
+    //AGREGA
+    const addNss = async(id, valor)=>{
+      const userRef= doc(db, 'users',id)
+      await setDoc(userRef, {nss: valor}, {merge:true} )
+    }
+    //ACTUALIZA
+
+    const acNss = async(id, valor)=>{
+      const AP = doc(db, "users", id)
+      await updateDoc(AP, {
+      nss: valor,
+    
+      
+      })
+      } 
+
+
+
+//FECHANACIMIENTO
+       //AGREGA
+       const addFeNacimiento = async(id, valor)=>{
+        const userRef= doc(db, 'users',id)
+        await setDoc(userRef, {fechaNacimiento: valor}, {merge:true} )
+      }
+       //ACTUALIZA
+       const acFeNacimiento = async(id, valor)=>{
+        const AP = doc(db, "users", id)
+        await updateDoc(AP, {
+        fechaNacimiento: valor,
+      
+        
+        })
+        } 
+
+  
+ //PERFIL
+      //AGREGA
+      const addPerfil = async(id, valor)=>{
+        const userRef= doc(db, 'users',id)
+        await setDoc(userRef, {perfil: valor}, {merge:true} )
+      }
+      //ACTUALIZA
+  const acPerfil = async(id, perfilDato)=>{
+    const AP = doc(db, "users", id)
+    await updateDoc(AP, {
+    perfil: perfilDato,
+    area: searchArea(perfilDato)
+    
+    })
+    } 
+    
+  //TELEFONO
+        //AGREGA
+        const addTelefono = async(id, valor)=>{
+          const userRef= doc(db, 'users',id)
+          await setDoc(userRef, {telefono: valor}, {merge:true} )
+        }
+        //ACTUALIZA
+        const acTelefono = async(id, valor)=>{
+          const AP = doc(db, "users", id)
+          await updateDoc(AP, {
+          telefono: valor,
+        
+          
+          })
+          } 
+
+  //EMPRESA
+        //AGREGA
+        const addEmpresa = async(id, valor)=>{
+          const userRef= doc(db, 'users',id)
+          await setDoc(userRef, {empresa: valor}, {merge:true} )
+        }
+        //ACTUALIZA
+        const acEmpresa = async(id, Empresa)=>{
+          const AE =doc(db, "users", id)
+          await updateDoc(AE, {
+          empresa: Empresa
+          })
+          }
+        
+
+  //DOMICILIO
+        //AGREGA
+        const addDomicilio = async(id, valor)=>{
+          const userRef= doc(db, 'users',id)
+          await setDoc(userRef, {domicilio: valor}, {merge:true} )
+        }
+        //ACTUALIZA
+        const acDomicilio = async(id, valor)=>{
+          const AP = doc(db, "users", id)
+          await updateDoc(AP, {
+          domicilio: valor,
+        
+          
+          })
+          } 
+
+  //EMAIL  
+       //AGREGA
+       const addEmail = async(id, valor)=>{
+        const userRef= doc(db, 'users',id)
+        await setDoc(userRef, {email: valor}, {merge:true} )
+      }
+      //ACTUALIZA
+      const acEmail = async(id, valor)=>{
+        const AP = doc(db, "users", id)
+        await updateDoc(AP, {
+        email: valor,
+      
+        
+        })
+        } 
+
+
+
+
+
+
+      //otros
+
+  const activateUser = async(params)=>{
+    const AU = doc(db, "users", params)
+    await updateDoc(AU,
+      
+      {
+        activo: true
+      })
+    }  
+    
+    const desactivaUser = async(params)=>{
+    const AU = doc(db, "users", params)
+    await updateDoc(AU,
+      
+      {
+        activo: false
+      })
+    } 
 
  
-
+  
+ 
+ 
 
 
 
@@ -441,12 +561,8 @@ value={{
   getUsuariosChecador, 
   finderChecador, 
   acUsChec, 
-  fetchOnlyUser, 
   ableChecador, 
-  acPerfil, 
   enableChecador, 
-  acNombre,
-  acEmpresa, 
   ableAsistencias, 
   enableAsistencias, 
   ableOcupado, 
@@ -455,12 +571,37 @@ value={{
   desactivaUser, 
   activateProyecto, 
   desactivarProyecto, 
-  getProyectos
+  getProyectos, 
+  
+  fetchOnlyUser, 
+  addNombre,
+  acNombre,
+  addNss,
+  acNss,
+  addFeNacimiento,
+  acFeNacimiento,
+  addPerfil,
+  acPerfil, 
+  addTelefono,
+  acTelefono,
+  addEmpresa,
+  acEmpresa, 
+  addDomicilio, 
+  acDomicilio,
+  addEmail,
+  acEmail
+  
+  
+  }}>
+  {children}
+  </CEpointContext.Provider>
+  
+      
+    )
+  }
 
-}}>
-{children}
-</CEpointContext.Provider>
 
-    
-  )
-}
+
+
+
+

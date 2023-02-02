@@ -3,6 +3,8 @@ import { Container, Row, Col, Button } from 'react-bootstrap'
 import { useNavigate, Outlet } from 'react-router-dom'
 import './recursoshumanos.css'
 import UiContext from '../../context/UiContext'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
 export const RecursosHumanos = () => {
 
  const {ToggleRH, setToggleRH, setInFormulario}=useContext(UiContext)
@@ -45,9 +47,14 @@ navigate("miscelaneos")
   <p>informacion de trabajador</p>
 </div>
 </div>
-<Col><Button variant='dark' style={{width: '10em', height: '5em'}}> <strong>+ Agregar trabajador nuevo</strong></Button></Col>
+<Col style={{display:'inline'}}>
+<Button variant='dark' style={{width: '10em', height: '5em'}}> <strong>+ Agregar trabajador nuevo</strong></Button>
+<Button variant='danger' style={{width: '10em', height: '5em'}}> <FontAwesomeIcon icon={faHospitalUser} /> <strong>Trabajadores de incapacidad</strong></Button>
+</Col>
+</Col>,
+        
+      
 
-        </Col>
 
     </Row>
     </div>
