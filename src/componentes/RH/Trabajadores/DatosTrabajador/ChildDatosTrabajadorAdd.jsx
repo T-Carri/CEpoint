@@ -4,6 +4,9 @@ import DatePicker,  { registerLocale, setDefaultLocale } from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
 import es from 'date-fns/locale/es';
 import CEpointContext from '../../../../context/CEpointContext';
+import SelectSearch from "react-select-search";
+import 'react-select-search/style.css'
+import { options, searchArea, optionsEmpresas } from '../../CrearTrabajador/options';
 export const ChildDatosTrabajadorAdd = ({dato, referencia, ID}) => {
 
   const {
@@ -18,7 +21,8 @@ export const ChildDatosTrabajadorAdd = ({dato, referencia, ID}) => {
     addEmail    }=useContext(CEpointContext)
     
     const [startDate, setStartDate] = useState(new Date());
-    
+    const [Perfil, setPerfil] = useState('')
+const [Empresa, setEmpresa]= useState('')
        
         //Nombre 
         const addNombreRef=useRef(null)
@@ -61,8 +65,8 @@ switch(referencia){
   case 'Nombre': 
   return(
 
-    <Col ref={ref} >
-
+    <Col ref={ref} style={{ textAlign: "start" }} >
+<label style={{color:'black' }}><h4>Nombre:</h4></label> 
           
 
        <ToggleButton
@@ -108,10 +112,10 @@ switch(referencia){
  
  case 'nss': 
   return(
-    <Col ref={ref} >
+    <Col ref={ref}  style={{ textAlign: "start" }}>
 
-          
-
+<label style={{color:'black' }}><h4>NSS:</h4></label>     
+<br />
     <ToggleButton
    className="mb-2"
    id="toggle-check"
@@ -128,7 +132,7 @@ switch(referencia){
  <Overlay
    show={show}
    target={target}
-   placement="left"
+   placement="right"
    container={ref}
    containerPadding={20}
  >
@@ -158,10 +162,10 @@ switch(referencia){
  case 'Fecha Nacimiento':
   return( 
 
-    <Col ref={ref} >
+    <Col ref={ref} style={{ textAlign: "start" }} >
 
-          
-
+<label style={{color:'black' }}><h4>Fecha de nacimiento:</h4></label>      
+<br />
     <ToggleButton
    className="mb-2"
    id="toggle-check"
@@ -178,7 +182,7 @@ switch(referencia){
  <Overlay
    show={show}
    target={target}
-   placement="left"
+   placement="right"
    container={ref}
    containerPadding={20}
  >
@@ -216,58 +220,46 @@ switch(referencia){
  case 'Perfil': 
  return(
 
-  <Col ref={ref} >
+<Col className='text-center' style={{display:'flex', padding:'1.5em'}} ref={ref}>
+    
+        
+    <br />
+    <Button variant="outline-success" id="button-addon2" onClick={
+()=>{
+  try {
+    addPerfil(ID, Perfil).then(fetchOnlyUser(ID)).then( handleClick() )
+  } catch (error) {
+    console.log(error)
+  }
 
-          
+}
 
-  <ToggleButton
- className="mb-2"
- id="toggle-check"
- type="checkbox"
- variant="outline-danger"
- checked={checked}
- value="1"
- onChange={(e) => setChecked(e.currentTarget.checked)}
- onClick={handleClick}
->
-  Ingresa {referencia}
-</ToggleButton> 
+}>
+  Selecciona
+</Button>
+ <SelectSearch options={options} 
+  search
+ value={Perfil}  autoFocus onChange={setPerfil} name="perfil" placeholder={dato} />
 
-<Overlay
- show={show}
- target={target}
- placement="left"
- container={ref}
- containerPadding={20}
->
- <Popover id="popover-contained">
-   <Popover.Header as="h3">Agrega {referencia}</Popover.Header>
-   <Popover.Body>
-   <InputGroup className="mb-3">
- <Form.Control
-   ref={addPerfilRef}
-   aria-label="Recipient's username"
-   aria-describedby="basic-addon2"
- />
- <Button variant="outline-danger" id="button-addon2">
-   Listo
- </Button>
-</InputGroup>
-   </Popover.Body>
 
- </Popover>
-</Overlay>
+
+
+
+
+  
+  
 </Col>
+
  )
 break;
 
 case 'Telefono': 
  return(
 
-  <Col ref={ref} >
+  <Col ref={ref}  style={{ textAlign: "start" }}>
 
-          
-
+<label style={{color:'black'}}><h4>Telefono:</h4></label>       
+<br />
   <ToggleButton
  className="mb-2"
  id="toggle-check"
@@ -284,7 +276,7 @@ case 'Telefono':
 <Overlay
  show={show}
  target={target}
- placement="left"
+ placement="right"
  container={ref}
  containerPadding={20}
 >
@@ -310,58 +302,44 @@ case 'Telefono':
 break;
 case 'Empresa': 
 return(
-  <Col ref={ref} >
+  <Col className='text-center' style={{display:'flex', padding:'1.5em'}} ref={ref}>
+    
+        
+    <br />
+    <Button variant="outline-success" id="button-addon2" onClick={
+()=>{
+  try {
+    addEmpresa(ID, Empresa).then(fetchOnlyUser(ID)).then( handleClick() )
+  } catch (error) {
+    console.log(error)
+  }
 
-          
+}
 
-  <ToggleButton
- className="mb-2"
- id="toggle-check"
- type="checkbox"
- variant="outline-danger"
- checked={checked}
- value="1"
- onChange={(e) => setChecked(e.currentTarget.checked)}
- onClick={handleClick}
->
-  Ingresa {referencia}
-</ToggleButton> 
+}>
+  Selecciona
+</Button>
+ <SelectSearch options={optionsEmpresas} 
+  search
+ value={Empresa}  autoFocus onChange={setEmpresa} name="empresa" placeholder={dato} />
 
-<Overlay
- show={show}
- target={target}
- placement="left"
- container={ref}
- containerPadding={20}
->
- <Popover id="popover-contained">
-   <Popover.Header as="h3">Agrega {referencia}</Popover.Header>
-   <Popover.Body>
-   <InputGroup className="mb-3">
- <Form.Control
-   ref={addEmpresaRef}
-   aria-label="Recipient's username"
-   aria-describedby="basic-addon2"
- />
- <Button variant="outline-danger" id="button-addon2">
-   Listo
- </Button>
-</InputGroup>
-   </Popover.Body>
 
- </Popover>
-</Overlay>
+
+
+
+
+  
+  
 </Col>
- 
 )
 break;
 case 'Domicilio':
   return( 
 
-    <Col ref={ref} >
+    <Col ref={ref}  style={{ textAlign: "start" }} >
 
-          
-
+<label style={{color:'black' }}><h4>Domicilio:</h4></label>       
+<br />
     <ToggleButton
    className="mb-2"
    id="toggle-check"
@@ -378,7 +356,7 @@ case 'Domicilio':
  <Overlay
    show={show}
    target={target}
-   placement="left"
+   placement="right"
    container={ref}
    containerPadding={20}
  >
@@ -406,10 +384,10 @@ case 'Domicilio':
 case 'Email': 
 return(
 
-  <Col ref={ref} >
+  <Col ref={ref}  style={{ textAlign: "start" }} >
 
-          
-
+<label style={{color:'black', textAlign: "start"   }}><h4>Email:</h4></label>        
+<br />
   <ToggleButton
  className="mb-2"
  id="toggle-check"

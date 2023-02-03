@@ -41,7 +41,7 @@ const acEmailRef=useRef(null)
 
 
 const [Perfil, setPerfil] = useState('')
-
+const [Empresa, setEmpresa]= useState('')
 
 const [startDate, setStartDate] = useState(new Date());
 
@@ -86,7 +86,8 @@ console.log(acPerfilRef)
     case 'Nombre': 
      return(
 
-      <Col ref={ref}>
+      <Col ref={ref}   style={{ textAlign: "start" }}>
+<label style={{color:'black' }}><h4>Nombre:</h4></label> 
     
               
               <br />
@@ -151,8 +152,8 @@ console.log(acPerfilRef)
     case 'nss': 
      return(
 
-<Col ref={ref}>
-    
+<Col ref={ref}   style={{ textAlign: "start" }}>
+<label style={{color:'black' }}><h4>NSS:</h4></label>    
               
     <br />
 
@@ -218,7 +219,8 @@ containerPadding={20}
     case 'Fecha Nacimiento':
       return( 
     
-        <Col ref={ref} >
+        <Col ref={ref}   style={{ textAlign: "start" }} >
+<label style={{color:'black' }}><h4>Fecha de nacimiento:</h4></label>      
     
               
     <InputGroup className="mb-3">
@@ -283,40 +285,11 @@ containerPadding={20}
     case 'Perfil': 
     return(
 
-<Col ref={ref}>
+<Col className='text-center' style={{display:'flex', padding:'1.5em'}} ref={ref}>
     
-              
+        
     <br />
-
-    <InputGroup className="mb-3">
-    <Button variant="outline-success" id="button-addon1"  onClick={handleClick}>
-    Actualiza {referencia}
-</Button>
-<Form.Control
-  
-  aria-label="Example text with button addon"
-  aria-describedby="basic-addon1"
-  disabled={true}
-  value={dato}
-  
-/>
-</InputGroup>
-
-
-
-<Overlay
-show={show}
-target={target}
-placement="top"
-container={ref}
-containerPadding={20}
->
-<Popover id="popover-contained">
-  <Popover.Header as="h3">Actualiza {referencia}</Popover.Header>
-  <Popover.Body>
-  <InputGroup className="mb-3">
-
-  <Button variant="outline-danger" id="button-addon2" onClick={
+    <Button variant="outline-success" id="button-addon2" onClick={
 ()=>{
   try {
     acPerfil(ID, Perfil).then(fetchOnlyUser(ID)).then( handleClick() )
@@ -327,20 +300,19 @@ containerPadding={20}
 }
 
 }>
-  Actualiza
+  Actualiza {referencia}
 </Button>
-    <SelectSearch options={options} 
-       search
-      value={Perfil}  autoFocus onChange={setPerfil} name="perfil" pla ceholder="Elige el perfil" />
+ <SelectSearch options={options} 
+  search
+ value={Perfil}  autoFocus onChange={setPerfil} name="perfil" placeholder={dato} />
 
 
 
 
-</InputGroup>
-  </Popover.Body>
 
-</Popover>
-</Overlay>
+
+  
+  
 </Col>
 
 
@@ -353,8 +325,8 @@ containerPadding={20}
    case 'Telefono': 
     return(
 
-      <Col ref={ref}>
-    
+      <Col ref={ref}  style={{ textAlign: "start" }}>
+     <label style={{color:'black' }}><h4>Empresa:</h4></label> 
               
       <br />
 
@@ -416,47 +388,14 @@ containerPadding={20}
    break;
    case 'Empresa': 
    return(
-
-    <Col ref={ref}>
+<Col className='text-center' style={{display:'flex', padding:'1.5em'}} ref={ref}>
     
-              
-              <br />
-  
-              <InputGroup className="mb-3">
-              <Button variant="outline-success" id="button-addon1"  onClick={handleClick}>
-              Actualiza {referencia}
-          </Button>
-          <Form.Control
-            aria-label="Example text with button addon"
-            aria-describedby="basic-addon1"
-            disabled={true}
-            value={dato}
-            
-          />
-  </InputGroup>
-  
-  
-     
-        <Overlay
-          show={show}
-          target={target}
-          placement="top"
-          container={ref}
-          containerPadding={20}
-        >
-          <Popover id="popover-contained">
-            <Popover.Header as="h3">Actualiza {referencia}</Popover.Header>
-            <Popover.Body>
-            <InputGroup className="mb-3">
-          <Form.Control
-           ref={acEmpresaRef}
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-          />
-          <Button variant="outline-danger" id="button-addon2" onClick={
+        
+    <br />
+    <Button variant="outline-success" id="button-addon2" onClick={
 ()=>{
   try {
-    acEmpresa(ID, acEmpresaRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+    acEmpresa(ID, Empresa).then(fetchOnlyUser(ID)).then( handleClick() )
   } catch (error) {
     console.log(error)
   }
@@ -464,14 +403,20 @@ containerPadding={20}
 }
 
 }>
-            Actualiza
-          </Button>
-        </InputGroup>
-            </Popover.Body>
-        
-          </Popover>
-        </Overlay>
-      </Col>
+  Actualiza {referencia}
+</Button>
+ <SelectSearch options={optionsEmpresas} 
+  search
+ value={Empresa}  autoFocus onChange={setEmpresa} name="empresa" placeholder={dato} />
+
+
+
+
+
+
+  
+  
+</Col>
 
 
 
@@ -481,10 +426,10 @@ containerPadding={20}
   case 'Domicilio':
     return( 
   
-      <Col ref={ref} >
+      <Col ref={ref}   style={{ textAlign: "start" }}>
   
-            
-  
+  <label style={{color:'black' }}><h4>Domicilio:</h4></label>      
+  br
   <InputGroup className="mb-3">
             <Button variant="outline-success" id="button-addon1"  onClick={handleClick}>
             Actualiza {referencia}
@@ -540,8 +485,8 @@ containerPadding={20}
  return(
 
   
-<Col ref={ref}>
-    
+<Col ref={ref} style={{ textAlign: "start" }}>
+<label style={{color:'black', textAlign: "start"   }}><h4>Email:</h4></label> 
               
     <br />
 

@@ -29,7 +29,7 @@ export const FormularioDatosTrabajador = () => {
 
 
 <Row>
-  <Col><Card> <Badge  bg="secondary"><h1>{state.OnlyUser.nombre}</h1></Badge>
+  <Col className='text-center'><Card> <h1>{state.OnlyUser.nombre}</h1>
     
  <Row>
   <Col className='text-center'>
