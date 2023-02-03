@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useContext } from 'react'
-import { Container, Row, Col, Form, Button, Card} from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Card, InputGroup} from 'react-bootstrap'
 import { v4 as uuidv4 } from 'uuid';
 import {BsArrowLeftCircle} from 'react-icons/bs'
 import { 
@@ -7,11 +7,24 @@ import {
   } from 'react-router-dom';
 import UiContext from '../../../context/UiContext';
 import { QR } from './QR';
+import { SHA256 } from 'crypto-js';
 export const FormRegistroHerramienta = () => {
     const {ToggleALMACEN, setToggleALMACEN}= useContext(UiContext)
     const navigate = useNavigate();
     const [IdHerramienta, setIdHerramienta] =useState()
    
+
+    const data = 'niceNoise';
+    const hash = SHA256(data).toString();
+    
+    console.log(hash);
+
+    const data2 = 'niceNoise';
+    const hash2 = SHA256(data2).toString();
+    
+    console.log(hash2);
+
+
     useEffect(()=>{
 
         async function fetchData() {
@@ -39,11 +52,11 @@ setToggleALMACEN(false)
       
     <Row>
         <Col>
-        <h3>Concepto</h3>
-        <Form.Control type="text" placeholder="Normal text" />
+        <h3>Descripcion</h3>
+        <Form.Control type="text" />
         </Col>
         <Col><h3>Empresa a la que pertenece</h3>
-        <Form.Control type="text" placeholder="Normal text" />
+        <Form.Control type="text" placeholder="haz select de empresas" />
         </Col>
 
     </Row>
@@ -53,14 +66,14 @@ setToggleALMACEN(false)
             Fecha de ingreso
             </h3>
             
-            <Form.Control type="text" placeholder="Normal text" />
+            <Form.Control type="text" placeholder="en automatico" />
             </Col>
         <Col>
         
         <h3>
-            modelo
+            Modelo
             </h3>
-            <Form.Control type="text" placeholder="Normal text" />
+            <Form.Control type="text" />
             </Col>
 
     </Row>
@@ -69,12 +82,25 @@ setToggleALMACEN(false)
         <h3>
         Numero de serie
             </h3>
-        
-        <Form.Control type="text" placeholder="Normal text" />
+        <br />
+        <Form.Control type="text" placeholder="" />
         </Col>
         <Col>
-        Precio
-        <Form.Control type="text" placeholder="Normal text" />
+        <h3>Precio</h3>
+        
+        <InputGroup className="mb-3">
+        <InputGroup.Text>$</InputGroup.Text>
+        <Form.Control aria-label="Amount (to the nearest dollar)"   placeholder='Pesos'/>
+        <InputGroup.Text>.00</InputGroup.Text>
+      </InputGroup>
+
+       
+      <InputGroup className="mb-3">
+        <InputGroup.Text>$</InputGroup.Text>
+        <Form.Control aria-label="Amount (to the nearest dollar)"  placeholder='Dolares'/>
+        <InputGroup.Text>.00</InputGroup.Text>
+      </InputGroup>
+
         </Col>
 
     </Row>
@@ -83,27 +109,34 @@ setToggleALMACEN(false)
         <Col>
         <h3>   Quien recibio</h3>
      
-        <Form.Control type="text" placeholder="Normal text" />
+        <Form.Control type="text"  placeholder="Haz select con trabajadores"  />
         </Col>
         <Col>
         <h3>Empresa donde se compro y entrego </h3>
         
-        <Form.Control type="text" placeholder="Normal text" />
+        <Form.Control type="text" /* placeholder="Agrega la " */ />
         </Col>
 
     </Row>
 <br />
     <Row >
-        <Col><Card 
+        <Col>
+      
+        <Card 
         
         > 
+        
             
           {IdHerramienta&&<QR dato={IdHerramienta }/>}
          
         
 
         </Card></Col>
-        <Col><Card>factura</Card></Col>
+        <Col><Card>
+            <br />
+            <br />
+            <Button variant='dark'>Subir factura</Button>
+            </Card></Col>
 
         
         

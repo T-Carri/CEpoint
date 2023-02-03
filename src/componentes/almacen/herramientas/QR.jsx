@@ -57,6 +57,7 @@ export const QR = ({dato}) => {
     viewBox={`0 0 256 256`}
     />
 </div>
+
 <Button variant='dark' onClick={handlePrint}>Imprimir QR</Button>
 </>
 
