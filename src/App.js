@@ -33,6 +33,7 @@ import  Desocupados  from './componentes/usuarios/ocupados/Desocupados';
 import {Almacen} from './componentes/almacen/Almacen'
 import {Miscelaneos} from './componentes/almacen/miscelaneos/Miscelaneos'
 import { Herramientas } from './componentes/almacen/herramientas/Herramientas';
+import { FormRegistroHerramienta } from './componentes/almacen/herramientas/FormRegistroHerramienta';
 import { AlmacenProvider } from './context/AlmacenContext';
 import {Maquinaria} from './componentes/almacen/maquinaria/Maquinaria'
 import {Prestado} from './componentes/almacen/prestado/Prestado'
@@ -109,7 +110,10 @@ function App() {
     
     <Route path="almacen" element={<Almacen/>} > 
     <Route path="miscelaneos" element={<Miscelaneos/>} />
-    <Route path="herramienta" element={<Herramientas/>} />
+    <Route path="herramienta" element={<Herramientas/>}>
+    <Route path="agregaherramienta" element={<FormRegistroHerramienta/>} />
+
+    </Route>
     <Route path="maquinaria" element={<Maquinaria/>} />
     <Route path="prestado" element={<Prestado/>} />
      </Route>

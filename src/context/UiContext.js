@@ -41,7 +41,7 @@ export const UiProvider = ({children}) => {
     const [inFormulario, setInFormulario] =useState(false)
 
 
-
+ const [ToggleALMACEN, setToggleALMACEN]= useState(false)
 
 
     return (
@@ -67,8 +67,8 @@ value={{
      ToggleRH,
       setToggleRH, 
       inFormulario, 
-      setInFormulario
-
+      setInFormulario, ToggleALMACEN, setToggleALMACEN
+     
 }}>
 {children}
 </UiContext.Provider>

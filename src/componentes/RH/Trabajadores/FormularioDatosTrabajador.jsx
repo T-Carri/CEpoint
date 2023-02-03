@@ -42,8 +42,12 @@ export const FormularioDatosTrabajador = () => {
    <strong>{state.OnlyUser.perfil}</strong>
       </Badge></h3>
 
- 
+
   </Col>
+
+  <Col>
+ <h3>Antiguedad</h3>
+ </Col>
   <Col style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{' '}
   <Button variant='danger' onClick={handleShow}><strong>Dar de baja</strong><BsHandThumbsDownFill/></Button>
   <Modal

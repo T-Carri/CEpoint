@@ -98,7 +98,17 @@ switch(referencia){
         aria-label="Recipient's username"
         aria-describedby="basic-addon2"
       />
-      <Button variant="outline-danger" id="button-addon2">
+      <Button variant="outline-danger" id="button-addon2"   onClick={
+()=>{
+  try {
+    addNombre(ID, addNombreRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+}  >
         Listo
       </Button>
     </InputGroup>
@@ -145,7 +155,17 @@ switch(referencia){
      aria-label="Recipient's username"
      aria-describedby="basic-addon2"
    />
-   <Button variant="outline-danger" id="button-addon2" onClick={handleSubmit}>
+   <Button variant="outline-danger" id="button-addon2"  onClick={
+()=>{
+  try {
+    addNss(ID, addNssRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+} >
      Listo
    </Button>
  </InputGroup>
@@ -289,7 +309,17 @@ case 'Telefono':
    aria-label="Recipient's username"
    aria-describedby="basic-addon2"
  />
- <Button variant="outline-danger" id="button-addon2" onClick={handleSubmit}>
+ <Button variant="outline-danger" id="button-addon2"   onClick={
+()=>{
+  try {
+    addTelefono(ID, addTelefonoRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+  } catch (error) {
+    console.log(error)
+  }
+
+}
+
+} >
    Listo
  </Button>
 </InputGroup>
@@ -367,7 +397,19 @@ case 'Domicilio':
     <Form.Label>Example textarea</Form.Label>
     <Form.Control ref={addDomicilioRef} as="textarea" rows={3} />
     <br />
-    <Button variant='danger' onClick={handleSubmit}>Listo</Button>
+    <Button variant='danger' 
+    onClick={
+      ()=>{
+        try {
+          addDomicilio(ID, addDomicilioRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+        } catch (error) {
+          console.log(error)
+        }
+      
+      }
+      
+      }
+    >Listo</Button>
   </Form.Group>
      </Popover.Body>
  
@@ -417,7 +459,17 @@ return(
    aria-label="Recipient's username"
    aria-describedby="basic-addon2"
  />
- <Button variant="outline-danger" id="button-addon2">
+ <Button variant="outline-danger" id="button-addon2"      onClick={
+      ()=>{
+        try {
+          addEmail(ID, addEmailRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+        } catch (error) {
+          console.log(error)
+        }
+      
+      }
+      
+      } >
    Listo
  </Button>
 </InputGroup>
