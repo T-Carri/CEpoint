@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { query, collection, onSnapshot, doc, getDoc, where, setDoc, updateDoc, limit  } from 'firebase/firestore';
 import { db } from '../../firebase/firebase'
-
+import { InputGroup, Form } from 'react-bootstrap';
+import {List, ListItem, ListItemText, Divider} from '@mui/material'
 const BuscadorTrabajador = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
@@ -24,15 +25,27 @@ const BuscadorTrabajador = () => {
 
   return (
     <div>
-      <input
-        type="text"
-        value={searchTerm}
-        onChange={e => setSearchTerm(e.target.value)}
-        placeholder="Search..."
-      />
+ 
+
+<InputGroup className="mb-3">
+        <InputGroup.Text id="basic-addon1"> Buscar</InputGroup.Text>
+        <Form.Control
+          placeholder="Busca Trabajador"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+      </InputGroup>
+
+
       <ul>
-        {results.map(result => (
+        {results.map(result => ( 
+
+
           <li key={result.id}>{result.nombre}</li>
+          
+
         ))}
       </ul>
     </div>

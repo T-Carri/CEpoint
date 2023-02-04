@@ -368,6 +368,25 @@ const desactivarProyecto = async(params)=>{
 
 
 //ALMACEN ABOUT 
+                         //REGISTRO DE HERRAMIENTA
+       
+        
+                         
+                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+//RH ABOUT  
 
                         //INFORMACION DEL TRABAJADOR 
 
