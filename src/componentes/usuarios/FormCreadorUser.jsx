@@ -91,21 +91,21 @@ const handleregisterUser = async (e)=> {
 
   const docuRef =doc(db, `users/${IdUsario}`);
   setDoc(docuRef, { 
-    activo: false ,
+    activo: true,
     ocupado: false,  
     UID:IdUsario,
     nombre: values.nombre,
-    nss:'',
-    fechaNacimiento:'',
+   
+   
     perfil: searchDato(Perfil),
     empresa:searchDato(Empresa), 
-    telefono:'',
-    domicilio:'',
-    email:'',
+   
+   
+    
     area: searchArea(Perfil),
     fechaDeCreacion: Date(), 
     
-    tipoSangre:'',
+    
     alergias:[], 
     alergias:[],
     hitoriaClinica:[], 

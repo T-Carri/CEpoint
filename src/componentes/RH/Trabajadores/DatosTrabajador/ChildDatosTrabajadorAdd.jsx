@@ -101,7 +101,9 @@ switch(referencia){
       <Button variant="outline-danger" id="button-addon2"   onClick={
 ()=>{
   try {
-    addNombre(ID, addNombreRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+    addNombre(ID, addNombreRef.current.value)
+    .then(fetchOnlyUser(ID))
+    .then( handleClick() )
   } catch (error) {
     console.log(error)
   }
@@ -158,7 +160,9 @@ switch(referencia){
    <Button variant="outline-danger" id="button-addon2"  onClick={
 ()=>{
   try {
-    addNss(ID, addNssRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+    addNss(ID, addNssRef.current.value)
+    .then(fetchOnlyUser(ID))
+    .then( handleClick() )
   } catch (error) {
     console.log(error)
   }
@@ -219,7 +223,9 @@ switch(referencia){
 
 <Button onClick={  ()=>{
     try {
-      addFeNacimiento(ID, addFeNacRef.current).then(fetchOnlyUser(ID)).then( handleClick() )
+      addFeNacimiento(ID, addFeNacRef.current)
+      .then(fetchOnlyUser(ID))
+      .then( handleClick() )
     } catch (error) {
       console.log(error)
     }
@@ -247,7 +253,9 @@ switch(referencia){
     <Button variant="outline-success" id="button-addon2" onClick={
 ()=>{
   try {
-    addPerfil(ID, Perfil).then(fetchOnlyUser(ID)).then( handleClick() )
+    addPerfil(ID, Perfil)
+    .then(fetchOnlyUser(ID))
+    .then( handleClick() )
   } catch (error) {
     console.log(error)
   }
@@ -312,7 +320,9 @@ case 'Telefono':
  <Button variant="outline-danger" id="button-addon2"   onClick={
 ()=>{
   try {
-    addTelefono(ID, addTelefonoRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+    addTelefono(ID, addTelefonoRef.current.value)
+    .then(fetchOnlyUser(ID))
+    .then( handleClick() )
   } catch (error) {
     console.log(error)
   }
@@ -339,7 +349,9 @@ return(
     <Button variant="outline-success" id="button-addon2" onClick={
 ()=>{
   try {
-    addEmpresa(ID, Empresa).then(fetchOnlyUser(ID)).then( handleClick() )
+    addEmpresa(ID, Empresa)
+    .then(fetchOnlyUser(ID))
+    .then( handleClick() )
   } catch (error) {
     console.log(error)
   }
@@ -401,7 +413,9 @@ case 'Domicilio':
     onClick={
       ()=>{
         try {
-          addDomicilio(ID, addDomicilioRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+          addDomicilio(ID, addDomicilioRef.current.value)
+          .then(fetchOnlyUser(ID))
+          .then( handleClick())
         } catch (error) {
           console.log(error)
         }
@@ -462,7 +476,9 @@ return(
  <Button variant="outline-danger" id="button-addon2"      onClick={
       ()=>{
         try {
-          addEmail(ID, addEmailRef.current.value).then(fetchOnlyUser(ID)).then( handleClick() )
+          addEmail(ID, addEmailRef.current.value)
+          .then(fetchOnlyUser(ID))
+          .then( handleClick() )
         } catch (error) {
           console.log(error)
         }

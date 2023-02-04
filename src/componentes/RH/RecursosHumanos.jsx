@@ -37,10 +37,10 @@ return (
         <Col>
         
 
-<div className='busquedaTrabajador' /* onClick={()=>{
-setToggle(true)
-navigate("miscelaneos")
-}} */ >
+<div className='busquedaTrabajador'  onClick={()=>{
+setToggleRH(true)
+navigate("buscadorTrabajador")
+}}  >
 
 <div className="capaMiscelaneos">
   <h2>Busca a trabajador</h2>

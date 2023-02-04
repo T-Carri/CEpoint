@@ -43,7 +43,7 @@ import { UiProvider } from './context/UiContext';
 import { CEpointProvider } from './context/CEpointContext';
 import { RecursosHumanos } from './componentes/RH/RecursosHumanos';
 import { Trabajadores } from './componentes/RH/Trabajadores';
-import { BuscadorTrabajador } from './componentes/RH/BuscadorTrabajador';
+import  BuscadorTrabajador  from './componentes/RH/BuscadorTrabajador';
 import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador';
 function App() {
 
