@@ -2,7 +2,7 @@
 import { Row, Col} from 'react-bootstrap'
 import { UserAuth } from '../../context/AuthContext';
 import './Account.css'
-
+import Container  from "@mui/system/Container";
 import React, { useEffect} from 'react'
 import { 
   useNavigate, 
@@ -54,7 +54,7 @@ const handleLogout = async()=>{
   
   
   return (
-<div>
+<>
 
 <NavbarCepoint handleLogout={handleLogout}/>
 <Row>
@@ -109,7 +109,7 @@ const handleLogout = async()=>{
 
 </div>
 
-</div>
+</>
     
 
     

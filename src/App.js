@@ -20,6 +20,8 @@ import { Semana } from './componentes/horario/semana/Semana';
 import { Trabajador } from './componentes/horario/Trabajador';
 import  Asignador  from './componentes/asignador/Asignador';
 
+import  GeneradorReporte from './componentes/horario/AsistenciasParaReporteNomina/GeneradorReporte';
+
 
 import ProtectedRoute from './componentes/security/ProtectedRoute';
 import ProtectedRouteAuth from './componentes/security/ProtectedRouteAuth';
@@ -95,7 +97,7 @@ function App() {
 
 
     <Route  path="horario" element={   <Horario/>  } >  
-            <Route path='presupuesto' element={<Presupuesto/>}/> 
+            <Route path='generadorreporte' element={<GeneradorReporte/>}/> 
             <Route path='ubicacion' element={<Ubicacion/>}/> 
             <Route path='obra' element={<Obra/>}/> 
             <Route path='semana' element={<Semana/>}/>

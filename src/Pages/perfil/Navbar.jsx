@@ -8,7 +8,7 @@ const NavbarCepoint = ({handleLogout}) => {
   return (
    <header xs={12}> 
     {/* //navbar */}
-    <Navbar bg="warning" variant="warning" expand="lg">
+    <Navbar bg="warning" variant="warning" expand="lg" fixed="top">
        
         <NavbarBrand id="logo" className="logo" href="/">
             <strong>

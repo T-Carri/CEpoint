@@ -1,6 +1,6 @@
 import React, {useState, createContext, useReducer, useContext, useEffect} from 'react'
 import { db } from '../firebase/firebase';
-import { query, collection, onSnapshot, doc, getDoc, where, setDoc, updateDoc  } from 'firebase/firestore';
+import { query, collection, onSnapshot, doc, getDoc, where, setDoc, updateDoc, getDocs  } from 'firebase/firestore';
 import { GlobalState } from '../redux/GlobalState';
 import { TYPES } from '../redux/Types';
 import UserContext from './AuthContext';
@@ -27,6 +27,8 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
  TotalProyectos:'',
   ChecadorAsignadouser:'',
   Proyecto:'', 
+  proyectonames:'',
+  PresupuestosSelecionados:''
  
 }
 
@@ -553,7 +555,36 @@ const fetchOnlyUser = async(params)=>{
     } 
 
  
-  
+  //GENERADORES DE REPORTE
+const generadorReportes = async(...n)=>{
+ 
+ const q = query(collection(db, n));
+
+const querySnapshot = await getDocs(q)
+
+querySnapshot.forEach((doc) => {
+  // doc.data() is never undefined for query doc snapshots
+  console.log(doc.id, " => ", doc.data());
+});
+
+
+}
+
+
+const getNamesProyectos =async()=>{
+  const q = query(collection(db, "asignaciones"), where('asistencias', '!=' ,[]))
+  await onSnapshot(q, (query)=>{
+     const data=[]
+     query.forEach((doc)=>{
+      data.push(doc.data().presupuesto)
+     
+    }) 
+    dispatch({
+      type:TYPES.GET_NAME_PROYECTOS, payload:data
+             })  
+        })}  
+
+
  
  
 
@@ -608,8 +639,8 @@ value={{
   addDomicilio, 
   acDomicilio,
   addEmail,
-  acEmail
-  
+  acEmail,
+  getNamesProyectos
   
   }}>
   {children}

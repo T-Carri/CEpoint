@@ -7,6 +7,12 @@ switch(action.type){
         ...state,
         TotalProyectos : action.payload
     }
+
+    case TYPES.GET_NAME_PROYECTOS:
+      return {
+          ...state,
+          proyectonames : action.payload
+      }
   
   case TYPES.USUARIO_DATA:
     return {

@@ -21,7 +21,7 @@ export const Trabajador = () => {
       }));
       setResults(updatedResults);
     });
-  }, [searchTerm]);
+  }, [searchTerm]); 
 
   return (
     <div>
