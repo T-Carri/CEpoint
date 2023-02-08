@@ -12,10 +12,10 @@ export const Horario = () => {
 const navigate = useNavigate(); 
 
 
-const {getProyectos} =useContext(CEpointContext)
+const {getProyectos,   getNamesProyectos} =useContext(CEpointContext)
 useEffect(()=>{
   getProyectos()
-  
+  getNamesProyectos()
 },[]) 
 
   return (
@@ -33,7 +33,11 @@ useEffect(()=>{
   <Button variant="warning" className='obra' onClick={()=>{navigate("obra")}}> Obra</Button>
   <Button variant="warning" className='trabajador' onClick={()=>{navigate("trabajador")}}> Trabajador </Button>
 
-  <Button variant="success" className='total' onClick={()=>{navigate("generadorreporte")}} > Generar reporte</Button>
+  <Button variant="success" className='total' onClick={()=>{
+    
+    navigate("generadorreporte")
+    
+    }} > Generar reporte</Button>
     <div className='datosHorario'>
     <Outlet/>
     </div> 

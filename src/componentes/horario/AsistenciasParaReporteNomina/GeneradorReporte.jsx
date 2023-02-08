@@ -1,9 +1,10 @@
-import * as XLSX from "xlsx"
+
 import React, {useState, useContext} from 'react'
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
+import Skeleton from '@mui/material/Skeleton';
 import CardHeader from '@mui/material/CardHeader';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -17,13 +18,13 @@ import Container  from "@mui/system/Container";
 import TextField from '@mui/material/TextField';
 import { addDays } from 'date-fns';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-
+import moment from 'moment';
 import dayjs from "dayjs";
 
 import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; 
 import 'react-date-range/dist/theme/default.css';
-
+import * as XLSX from 'xlsx/xlsx.mjs';
 
 
 
@@ -55,7 +56,7 @@ export default function GeneradorReporte() {
   dayjs.locale(locale);
   
 
-const {state, getNamesProyectos} = useContext(CEpointContext)
+const {state, getConsultaConstruida} = useContext(CEpointContext)
 
 
 const [State, setState] = useState([
@@ -112,14 +113,170 @@ const [State, setState] = useState([
     setChecked(not(checked, rightChecked));
   };
 
-  useEffect(()=>{
-    const getdata=()=>{
-      getNamesProyectos()
-    }
-   getdata()
-  },[])
 
-console.log(state.proyectonames&&state.proyectonames)
+console.log(state.proyectonames&&state.proyectonames, 'right:', right, "Fecha?", State[0].startDate, State[0].endDate)
+
+  
+ /*  JSON.stringify(state.test&&state.test)) */
+
+/*  const asistenciasPorTrabajador = (array, fechaInicio, fechaFinal) => {
+  return array.reduce((acumulador, objeto) => {
+    objeto.asistencias.forEach(asistencia => {
+      if (new Date(asistencia.date) >= new Date(fechaInicio) && new Date(asistencia.date) <= new Date(fechaFinal)) {
+        if (!acumulador[asistencia.trabajador]) {
+          acumulador[asistencia.trabajador] = [];
+        }
+        acumulador[asistencia.trabajador].push(asistencia);
+      }
+    });
+    return acumulador;
+    
+  }, {});
+};
+
+
+console.log(asistenciasPorTrabajador(state.test&&state.test, State[0].startDate, State[0].endDate))
+
+
+
+ */
+function groupByWorker(data) {
+  const result = [];
+  const workerMap = new Map();
+  
+  for (const item of data) {
+    for (const worker of item.asistencias) {
+      if (!workerMap.has(worker.trabajador)) {
+        workerMap.set(worker.trabajador, {
+         /*  trabajador: worker.trabajador, */
+          asistencias: []
+        });
+      }
+      workerMap.get(worker.trabajador).asistencias.push({
+        trabajador:worker.trabajador,
+        tipoAsistencia: worker.tipoAsistencia,
+        semana: worker.semana,
+        presupuesto: worker.presupuesto,
+       fecha : moment(worker.date).format('LL'),
+       hora:  moment(worker.date).format('LT')
+       
+        
+      });
+    }
+  }
+
+  for (const worker of workerMap.values()) {
+    result.push(worker);
+  }
+
+  return result;
+}
+
+
+
+/* 
+function convertToExcel(groupedData) {
+  const headers = [
+    { header: "Trabajador", key: "trabajador" },
+    { header: "Tipo de asistencia", key: "tipoAsistencia" },
+    { header: "Semana", key: "semana" },
+    { header: "Presupuesto", key: "presupuesto" },
+    { header: "Fecha", key: "fecha" },
+    { header: "Hora", key: "hora" }
+  ];
+  const ws = XLSX.utils.json_to_sheet(groupedData, { header: headers });
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Resultado");
+  XLSX.writeFile(wb, "Resultado.xlsx");
+}
+
+const groupedData = groupByWorker( groupByWorker(state.test&&state.test));
+convertToExcel(groupedData);
+ */
+
+
+/* function convertToExcel(groupedData) {
+  const data = [];
+  groupedData.forEach(worker => {
+      const workerData = {
+          Trabajador: worker.trabajador,
+          'Tipo de Asistencia': worker.asistencias[0].tipoAsistencia,
+          Semana: worker.asistencias[0].semana,
+          Presupuesto: worker.asistencias[0].presupuesto,
+          Fecha: worker.asistencias[0].fecha,
+          Hora: worker.asistencias[0].hora
+      };
+      data.push(workerData);
+  });
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, 'Trabajadores');
+  XLSX.writeFile(wb, 'workers.xlsx');
+} */
+
+/* 
+
+ function convertToExcel(groupedData) {
+    const data = [];
+    groupedData.forEach(worker => {
+        worker.asistencias.forEach(asistencia => {
+            const workerData = {
+                Trabajador: worker.trabajador,
+                'Tipo de Asistencia': asistencia.tipoAsistencia,
+                Semana: asistencia.semana,
+                Presupuesto: asistencia.presupuesto,
+                Fecha: asistencia.fecha,
+                Hora: asistencia.hora
+            };
+            data.push(workerData);
+        });
+    });
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(data);
+    XLSX.utils.book_append_sheet(wb, ws, 'Trabajadores');
+    XLSX.writeFile(wb, 'workers.xlsx');
+} */
+
+
+
+function convertToExcel(groupedData) {
+  const data = [];
+  groupedData.forEach(worker => {
+      worker.asistencias.forEach(asistencia => {
+          data.push({
+              Trabajador: worker.trabajador,
+              'Tipo de Asistencia': asistencia.tipoAsistencia,
+              Semana: asistencia.semana,
+              Presupuesto: asistencia.presupuesto,
+              Fecha: asistencia.fecha,
+              Hora: asistencia.hora
+          });
+      });
+  });
+  const wb = XLSX.utils.book_new();
+  const ws = XLSX.utils.json_to_sheet(data);
+  XLSX.utils.book_append_sheet(wb, ws, 'Trabajadores');
+  XLSX.writeFile(wb, 'workers.xlsx');
+}
+
+
+const groupedData = groupByWorker( groupByWorker(state.test&&state.test));
+convertToExcel(groupedData);
+ 
+console.log(
+  groupByWorker(state.test&&state.test))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   const customList = (title, items) => (
@@ -186,10 +343,7 @@ console.log(state.proyectonames&&state.proyectonames)
 
 
 
-
-
-
-
+    
 
 
 
@@ -198,8 +352,9 @@ console.log(state.proyectonames&&state.proyectonames)
     <Container fixed>
        <Stack spacing={3}>
     <Grid container  xs={12} sm={10} spacing={2} justifyContent="space-evenly" alignItems="baseline" >
-      <Grid item>{customList('Selecciona presupuestos', left)}</Grid>
-      <Grid item  >
+      <Grid item>{left? customList('Selecciona presupuestos', left)
+                  :<Skeleton variant="rectangular" width={210} height={60} />}</Grid>
+      <Grid item>
         <Grid container direction="column" alignItems="center">
           <Button
             sx={{ my: 0.5 }}
@@ -237,7 +392,15 @@ console.log(state.proyectonames&&state.proyectonames)
   direction="horizontal"
 />
 
-<Button variant="contained" color="success">
+<Button variant="contained" color="success" onClick={()=>{
+  try {
+    getConsultaConstruida(right)
+    
+  } catch (error) {
+    console.log(error)
+  }
+
+}}>
   Generar excel
 </Button>
       </Stack>

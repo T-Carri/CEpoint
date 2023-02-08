@@ -28,7 +28,8 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
   ChecadorAsignadouser:'',
   Proyecto:'', 
   proyectonames:'',
-  PresupuestosSelecionados:''
+  PresupuestosSelecionados:'', 
+  test:''
  
 }
 
@@ -585,8 +586,40 @@ const getNamesProyectos =async()=>{
         })}  
 
 
+/*  
+const getTest =async()=>{
+  const q = query(collection(db, "asignaciones"), where('presupuesto', '==' ,"PC-22-541"))
+  await onSnapshot(q, (query)=>{
+     const data=[]
+     query.forEach((doc)=>{
+      data.push(doc.data())
+     
+    }) 
+    dispatch({
+      type:TYPES.TEST_TEST, payload:data
+             })  
+        })} */
  
- 
+
+        const getConsultaConstruida =async(n)=>{
+          const q = query(collection(db, "asignaciones"),where('presupuesto','in', n)) 
+          await onSnapshot(q, (query)=>{
+             const data=[]
+             query.forEach((doc)=>{
+              data.push(doc.data())
+             
+            }) 
+            dispatch({
+              type:TYPES.TEST_TEST, payload:data
+                     })  
+                })}  
+
+
+
+
+
+
+
 
 
 
@@ -640,8 +673,8 @@ value={{
   acDomicilio,
   addEmail,
   acEmail,
-  getNamesProyectos
-  
+  getNamesProyectos,
+  getConsultaConstruida
   }}>
   {children}
   </CEpointContext.Provider>

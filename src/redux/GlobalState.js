@@ -95,6 +95,12 @@ switch(action.type){
          ...state, 
          Proyecto: action.payload
     }
+
+    case TYPES.TEST_TEST: 
+    return{
+      ...state, 
+      test:action.payload
+    }
   
     default:
       return state;
