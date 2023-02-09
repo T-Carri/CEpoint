@@ -117,154 +117,6 @@ const [State, setState] = useState([
 console.log(state.proyectonames&&state.proyectonames, 'right:', right, "Fecha?", State[0].startDate, State[0].endDate)
 
   
- /*  JSON.stringify(state.test&&state.test)) */
-
-/*  const asistenciasPorTrabajador = (array, fechaInicio, fechaFinal) => {
-  return array.reduce((acumulador, objeto) => {
-    objeto.asistencias.forEach(asistencia => {
-      if (new Date(asistencia.date) >= new Date(fechaInicio) && new Date(asistencia.date) <= new Date(fechaFinal)) {
-        if (!acumulador[asistencia.trabajador]) {
-          acumulador[asistencia.trabajador] = [];
-        }
-        acumulador[asistencia.trabajador].push(asistencia);
-      }
-    });
-    return acumulador;
-    
-  }, {});
-};
-
-
-console.log(asistenciasPorTrabajador(state.test&&state.test, State[0].startDate, State[0].endDate))
-
-
-
- */
-function groupByWorker(data) {
-  const result = [];
-  const workerMap = new Map();
-  
-  for (const item of data) {
-    for (const worker of item.asistencias) {
-      if (!workerMap.has(worker.trabajador)) {
-        workerMap.set(worker.trabajador, {
-         /*  trabajador: worker.trabajador, */
-          asistencias: []
-        });
-      }
-      workerMap.get(worker.trabajador).asistencias.push({
-        trabajador:worker.trabajador,
-        tipoAsistencia: worker.tipoAsistencia,
-        semana: worker.semana,
-        presupuesto: worker.presupuesto,
-       fecha : moment(worker.date).format('LL'),
-       hora:  moment(worker.date).format('LT')
-       
-        
-      });
-    }
-  }
-
-  for (const worker of workerMap.values()) {
-    result.push(worker);
-  }
-
-  return result;
-}
-
-
-
-/* 
-function convertToExcel(groupedData) {
-  const headers = [
-    { header: "Trabajador", key: "trabajador" },
-    { header: "Tipo de asistencia", key: "tipoAsistencia" },
-    { header: "Semana", key: "semana" },
-    { header: "Presupuesto", key: "presupuesto" },
-    { header: "Fecha", key: "fecha" },
-    { header: "Hora", key: "hora" }
-  ];
-  const ws = XLSX.utils.json_to_sheet(groupedData, { header: headers });
-  const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Resultado");
-  XLSX.writeFile(wb, "Resultado.xlsx");
-}
-
-const groupedData = groupByWorker( groupByWorker(state.test&&state.test));
-convertToExcel(groupedData);
- */
-
-
-/* function convertToExcel(groupedData) {
-  const data = [];
-  groupedData.forEach(worker => {
-      const workerData = {
-          Trabajador: worker.trabajador,
-          'Tipo de Asistencia': worker.asistencias[0].tipoAsistencia,
-          Semana: worker.asistencias[0].semana,
-          Presupuesto: worker.asistencias[0].presupuesto,
-          Fecha: worker.asistencias[0].fecha,
-          Hora: worker.asistencias[0].hora
-      };
-      data.push(workerData);
-  });
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.json_to_sheet(data);
-  XLSX.utils.book_append_sheet(wb, ws, 'Trabajadores');
-  XLSX.writeFile(wb, 'workers.xlsx');
-} */
-
-/* 
-
- function convertToExcel(groupedData) {
-    const data = [];
-    groupedData.forEach(worker => {
-        worker.asistencias.forEach(asistencia => {
-            const workerData = {
-                Trabajador: worker.trabajador,
-                'Tipo de Asistencia': asistencia.tipoAsistencia,
-                Semana: asistencia.semana,
-                Presupuesto: asistencia.presupuesto,
-                Fecha: asistencia.fecha,
-                Hora: asistencia.hora
-            };
-            data.push(workerData);
-        });
-    });
-    const wb = XLSX.utils.book_new();
-    const ws = XLSX.utils.json_to_sheet(data);
-    XLSX.utils.book_append_sheet(wb, ws, 'Trabajadores');
-    XLSX.writeFile(wb, 'workers.xlsx');
-} */
-
-
-
-function convertToExcel(groupedData) {
-  const data = [];
-  groupedData.forEach(worker => {
-      worker.asistencias.forEach(asistencia => {
-          data.push({
-              Trabajador: worker.trabajador,
-              'Tipo de Asistencia': asistencia.tipoAsistencia,
-              Semana: asistencia.semana,
-              Presupuesto: asistencia.presupuesto,
-              Fecha: asistencia.fecha,
-              Hora: asistencia.hora
-          });
-      });
-  });
-  const wb = XLSX.utils.book_new();
-  const ws = XLSX.utils.json_to_sheet(data);
-  XLSX.utils.book_append_sheet(wb, ws, 'Trabajadores');
-  XLSX.writeFile(wb, 'workers.xlsx');
-}
-
-
-const groupedData = groupByWorker( groupByWorker(state.test&&state.test));
-convertToExcel(groupedData);
- 
-console.log(
-  groupByWorker(state.test&&state.test))
 
 
 
@@ -343,8 +195,76 @@ console.log(
 
 
 
-    
 
+
+ /*  trabajador: worker.trabajador, */
+
+  function groupByWorker(data) {
+    const result = [];
+    const workerMap = new Map();
+    
+    for (const item of data) {
+      for (const worker of item.asistencias) {
+        if (!workerMap.has(worker.trabajador)) {
+          workerMap.set(worker.trabajador, {
+          
+            asistencias: []
+          });
+        }
+        workerMap.get(worker.trabajador).asistencias.push({
+          trabajador:worker.trabajador,
+          tipoAsistencia: worker.tipoAsistencia,
+          semana: worker.semana,
+          presupuesto: worker.presupuesto,
+         fecha : moment(worker.date).format('LL'),
+         hora:  moment(worker.date).format('LT')
+         
+          
+        });
+      }
+    }
+  
+    for (const worker of workerMap.values()) {
+      result.push(worker);
+    }
+  
+    return result;
+  } 
+  
+
+
+
+    
+  function reductora(arr) {
+    return arr.reduce((acumulador, objeto) => acumulador.concat(objeto.asistencias), []);
+  }
+
+  console.log(
+    reductora(groupByWorker(state.test&&state.test))
+    )
+
+
+
+    
+function convertArrayToExcel(array, fileName) {
+  const ws = XLSX.utils.json_to_sheet(array);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  XLSX.writeFile(wb, `${fileName}.xlsx`);
+}
+  
+  
+ 
+   
+ 
+  
+ 
+
+
+useEffect(()=>{
+  getConsultaConstruida(right)
+},[right])
+  
 
 
   return (
@@ -394,7 +314,10 @@ console.log(
 
 <Button variant="contained" color="success" onClick={()=>{
   try {
-    getConsultaConstruida(right)
+    
+
+    convertArrayToExcel(reductora(groupByWorker(state.test&&state.test)), 'Reporte' )  
+    
     
   } catch (error) {
     console.log(error)

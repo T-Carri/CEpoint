@@ -37,11 +37,11 @@ import {
   //  const proyectosActivos = useCallback(getLinks(),[asig])
     return (
 
-<div className="a1">
-<Container>
+<div className="a1" style={{display: "flex", flexDirection: "column", height: '100vh'}}>
+
 
     
- {state.UsuarioSesion.usator?<Button variant='warning' className="btnx1" onClick={()=>{
+ {state.UsuarioSesion.usator?<Button style={{margin: "1.5vh 0"}}  variant='warning' className="btnx1" onClick={()=>{
   navigate("usuarios")
 
   }}>
@@ -49,25 +49,25 @@ import {
    </strong></Button>:null} 
 
    
-   {state.UsuarioSesion.rh?<Button variant='dark' className="btnx4" onClick={()=>{navigate("recursosHumanos")
+   {state.UsuarioSesion.rh?<Button style={{margin: "1.5vh 0"}} variant='dark' className="btnx4" onClick={()=>{navigate("recursosHumanos")
    setToggleRH(false)
 }}>
 <strong> Recursos humanos  </strong> </Button>:null}
 
-{state.UsuarioSesion.lectoreAsistencia? <Button className="btnx2"  onClick={() =>{
+{state.UsuarioSesion.lectoreAsistencia? <Button  style={{margin: "1.5vh 0"}}  className="btnx2"  onClick={() =>{
     navigate("horario");
   }}> <strong>Asistencia</strong></Button>:null}    
-{state.UsuarioSesion.asignador?<Button variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
+{state.UsuarioSesion.asignador?<Button style={{margin: "1.5vh 0"}}  variant='warning' className="btnx3" onClick={()=>{navigate("asignadorEndiseño")}}>
 <strong> Asignador  </strong> </Button>:null}
-{state.UsuarioSesion.almacen?<Button variant='dark' className="btnx4" onClick={()=>{navigate("almacen")
+{state.UsuarioSesion.almacen?<Button style={{margin: "1.5vh 0"}}  variant='dark' className="btnx4" onClick={()=>{navigate("almacen")
 setToggle(false)
 }}>
 <strong> Almacen  </strong> </Button>:null}
-<Button className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
+<Button  style={{margin: "1.5vh 0"}}  className="btnx1" variant="success" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">Trabaja en otras funciones</Button>
 
 
 
-</Container>
+
 </div>
 
   )

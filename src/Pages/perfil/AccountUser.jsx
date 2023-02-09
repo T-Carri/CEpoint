@@ -11,6 +11,7 @@ import {
 import  NavbarCepoint  from './Navbar';
 import  GreyBar  from './GreyBar';
 import { WhiteBoard } from './WhiteBoard';
+import  Grid from '@mui/material/Grid'
 export const AccountUser= () => {
  
   const {logout}= UserAuth();
@@ -57,15 +58,25 @@ const handleLogout = async()=>{
 <>
 
 <NavbarCepoint handleLogout={handleLogout}/>
-<Row>
-  <Col xs={2}>
-<GreyBar />
-  </Col>
-  <Col xs={10}>
-  
+<Grid  container
+  direction="row"
+  justifyContent="flex-start"
+  alignItems="center"
+  xs={12} style={{ height: '100vh' }}
+ >
+  <Grid item lg={2} xs={2}    style={{ height: '100vh',   position: 'absolute' }} >
+  <GreyBar />
+  </Grid>
+
+<Grid item  lg={10} xs={10} style={{ padding: '2vh' }} >
 <WhiteBoard/>
-</Col>
-</Row>
+</Grid>
+
+
+  
+</Grid>
+
+
 
 
 

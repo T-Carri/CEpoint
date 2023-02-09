@@ -25,3 +25,14 @@ div.busquedaTrabajador{
        width: 30em;
        padding: 1em;
    }
+
+
+   .capaRH1 {
+    background-image: urlurl("RH1.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+ }
