@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
-import './almacen.css'
+//import './almacen.css'
 import { useNavigate, Outlet } from 'react-router-dom'
 import AsignacionContext from '../../context/AlmacenContext'
 export const Almacen = () => {

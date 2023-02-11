@@ -1,11 +1,12 @@
 import React, {useContext} from 'react'
 import { Container, Row, Col,  } from 'react-bootstrap'
 import { useNavigate, Outlet } from 'react-router-dom'
-import './recursoshumanos.css'
+//import './recursoshumanos.css'
 import UiContext from '../../context/UiContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
 import  Grid from '@mui/material/Grid'
+import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import { addDays } from 'date-fns';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
@@ -83,33 +84,99 @@ return (
  <ThemeProvider theme={theme}>
  
 
-   <Grid item className='capaRH1' onClick={() => {
+
+
+        {/* Chart */}
+              <Grid item xs={12} md={8} lg={8}    onClick={() => {
      setToggleRH(true);
      navigate('trabajadores');
      setInFormulario(false);
    
    }}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 500,
+                    url:("RH1.jpg")
+                  }}
+                >
+               
+              
     
      <div>
        <h1>Trabajadores</h1>
        <p>Gestion de personal</p>
      </div>
-   </Grid>
-   <Grid item className='capaMiscelaneos' onClick={() => {
+ 
+
+
+
+                </Paper>
+              </Grid> 
+              {/* Recent Deposits */}
+             <Grid item xs={12} md={4} lg={4} sx={{flexDirection:'column'}} onClick={() => {
      setToggleRH(true);
      navigate('buscadorTrabajador');
     }}>
-    <div>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+                     <div>
     <h2>Busca a trabajador</h2>
     <p>Informacion de trabajador</p>
     </div>
+                 
+                </Paper>
 
+
+                         <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
     <Button variant="dark" className='button'>
     <strong>+ Agregar trabajador nuevo</strong>
     </Button>
     <Button variant="danger" className='button'>
     <FontAwesomeIcon icon={faHospitalUser} /> <strong>Trabajadores de incapacidad</strong>
     </Button>
+                 
+                </Paper>
+              </Grid> 
+            {/*   <Grid item xs={12} md={4} lg={3}  onClick={() => {
+     setToggleRH(true);
+     navigate('buscadorTrabajador');
+    }}>
+       
+              </Grid> */}
+              {/* Recent Orders */}
+         {/*      <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  
+                </Paper>
+              </Grid> */}
+
+
+
+
+  
+   <Grid item className='capaMiscelaneos' onClick={() => {
+     setToggleRH(true);
+     navigate('buscadorTrabajador');
+    }}>
+ 
+
+   
     </Grid>
   
 

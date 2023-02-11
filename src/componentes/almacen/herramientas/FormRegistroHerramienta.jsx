@@ -8,6 +8,7 @@ import {
 import UiContext from '../../../context/UiContext';
 import { QR } from './QR';
 import { SHA256 } from 'crypto-js';
+
 export const FormRegistroHerramienta = () => {
     const {ToggleALMACEN, setToggleALMACEN}= useContext(UiContext)
     const navigate = useNavigate();

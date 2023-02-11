@@ -4,7 +4,7 @@ import CEpointContext from '../../../context/CEpointContext';
 import  TrabajadorCard  from './TrabajadorCard';
 
 
-import './Trabajadores.css'
+//import './Trabajadores.css'
 
 
 

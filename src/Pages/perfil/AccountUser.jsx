@@ -1,8 +1,8 @@
 //habilItado
 import { Row, Col} from 'react-bootstrap'
 import { UserAuth } from '../../context/AuthContext';
-import './Account.css'
-import Container  from "@mui/system/Container";
+//import './Account.css'
+
 import React, { useEffect} from 'react'
 import { 
   useNavigate, 
@@ -12,7 +12,95 @@ import  NavbarCepoint  from './Navbar';
 import  GreyBar  from './GreyBar';
 import { WhiteBoard } from './WhiteBoard';
 import  Grid from '@mui/material/Grid'
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer'
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
+import { MainListItems } from './listItems';
+
+/* import Chart from './Chart';
+import Deposits from './Deposits';
+import Orders from './Orders'; */
+
+
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    '& .MuiDrawer-paper': {
+      position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: 'border-box',
+      ...(!open && {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }),
+);
+
+const mdTheme = createTheme();
+const navbar = createTheme( {
+  palette: {
+    primary: {
+      main: '#ffc107',
+    },
+  },
+} );
+
+
 export const AccountUser= () => {
+
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
  
   const {logout}= UserAuth();
   const navigate = useNavigate();
@@ -50,33 +138,175 @@ const handleLogout = async()=>{
 
 
   
+    //console.log('BIGSTATE', state)
 
 
   
   
   return (
-<>
+<ThemeProvider theme={mdTheme}>
+
+<Box sx={{display: 'flex'}}>
+<CssBaseline />
+  <ThemeProvider theme={ navbar}> 
+<AppBar position="absolute" open={open} >
+        <Toolbar   sx={{
+              pr: '24px', // keep right padding when drawer closed
+            }}>
+          <IconButton
+          edge="start"
+            size="large"
+          
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            sx={{
+              marginRight: '36px',
+              ...(open && { display: 'none' }),
+            }}
+          >
+             <FilterTiltShiftIcon/>
+          </IconButton>
+          <Typography variant="h6"  component="h1" sx={{ flexGrow: 1 }} id='cepoint' >
+              <strong>
+           CEpoint 
+
+            </strong>
+          </Typography>
+          <Button color="inherit" onClick={toggleDrawer}>Salir</Button>
+        </Toolbar>
+      </AppBar>
+ </ThemeProvider>  
+
+
+
+<Drawer variant="permanent" open={open}>
+          <Toolbar
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              px: [1],
+            }}
+          >
+            <IconButton onClick={toggleDrawer}>
+              
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
+          <Divider />
+          <List component="nav">
+            {<MainListItems/>}
+            <Divider sx={{ my: 1 }} />
+           
+          </List>
+        </Drawer>
+
+
+
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh', 
+            
+            overflow: 'auto',
+          }}
+        >
+         
+          <Toolbar />
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            <Grid container spacing={3}>
+            
+             
+             <WhiteBoard/>
+             
+              {/* Chart */}
+           {/*    <Grid item xs={12} md={8} lg={9}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+               
+                </Paper>
+              </Grid> */}
+              {/* Recent Deposits */}
+        {/*       <Grid item xs={12} md={4} lg={3}>
+                <Paper
+                  sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: 240,
+                  }}
+                >
+                 
+                </Paper>
+              </Grid> */}
+              {/* Recent Orders */}
+         {/*      <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+                  
+                </Paper>
+              </Grid> */}
+
+
+
+
+
+            </Grid>
+          
+          </Container>
+        </Box>
+
+
+</Box>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* 
 
 <NavbarCepoint handleLogout={handleLogout}/>
+<main>
 <Grid  container
-  direction="row"
-  justifyContent="flex-start"
-  alignItems="center"
+  
   xs={12} style={{ height: '100vh' }}
  >
-  <Grid item lg={2} xs={2}    style={{ height: '100vh',   position: 'absolute' }} >
+  
+  
+
+<Grid item lg={2} xs={2}    style={{ height: '100vh',   position: 'absolute' }} >
   <GreyBar />
   </Grid>
 
 <Grid item  lg={10} xs={10} style={{ padding: '2vh' }} >
-<WhiteBoard/>
+
 </Grid>
 
 
   
 </Grid>
 
-
+ */}
 
 
 
@@ -88,39 +318,8 @@ const handleLogout = async()=>{
 
 
  {/* //canvas lateral */}
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel" >
-     
 
-     <div class="offcanvas-header">
-   <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Trabaja en las otras funciones</h5>
-   <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
- </div>
- <div class="offcanvas-body">
-
-
-
-
-   <p>
-     Falta crear:
-   
-     -CONTROL DE ALMACEN POR Qr (APP)
-     -INTERFAZ DE ASISTENCIA RECIBIDO EN "JSON (y)"
-              tecnologias analizado: Ajax y axios para actualizar y detectar cuando recibo datos. 
-               
-     -CONVERTIDOR DE JSON A STRIN Y VICEVERSA 
-     -INTEGRAR SOCKET.IO
-     -SE TENDRA QUE HACER UN SERVER BACK END POSIBLEMENTE 
-     CONECTAR AXIOS (CEpoint) CON EXPRESS (server)
-
-      .</p>
- </div>
-
-
-
-
-</div>
-
-</>
+</ThemeProvider>
     
 
     

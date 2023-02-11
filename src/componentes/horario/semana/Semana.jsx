@@ -3,7 +3,7 @@ import { format, getWeek } from 'date-fns';
 import moment from 'moment';
 import { Card, Button, Accordion, Container, Badge } from 'react-bootstrap'
 
-import '../Horario.css'
+//import '../Horario.css'
 import { CardAsistencia } from './CardAsistencia';
 
 import CEpointContext from '../../../context/CEpointContext';

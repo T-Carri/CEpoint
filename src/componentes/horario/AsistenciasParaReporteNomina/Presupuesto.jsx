@@ -5,7 +5,7 @@ import CEpointContext from '../../../context/CEpointContext';
 
 import * as XLSX from "xlsx"
 
-import '../Horario.css'
+//import '../Horario.css'
 
 
 

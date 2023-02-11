@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react'
 import { Card, Container, Toast,  Nav } from 'react-bootstrap'
 import { FormCreadorUser } from './FormCreadorUser'; 
-import './Usuarios.css'
+//import './Usuarios.css'
 import {useNavigate, Outlet} from 'react-router-dom'
 import CEpointContext from '../../context/CEpointContext';
 

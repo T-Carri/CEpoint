@@ -5,7 +5,7 @@ import CEpointContext from '../../context/CEpointContext';
 import AlmacenContext from '../../context/AlmacenContext';
 import UiContext from '../../context/UiContext';
 
-import './Account.css'
+//import './Account.css'
 import { 
     useNavigate
   } from 'react-router-dom';
@@ -37,7 +37,7 @@ import {
   //  const proyectosActivos = useCallback(getLinks(),[asig])
     return (
 
-<div className="a1" style={{display: "flex", flexDirection: "column", height: '100vh'}}>
+<div className="a1" style={{display: "flex", flexDirection: "column", height: '90vh'}}>
 
 
     

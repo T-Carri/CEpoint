@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { Card, Container, Button } from 'react-bootstrap'
-import './Asignador.css'
+//import './Asignador.css'
 import { useEffect } from 'react';
 import UiContext from '../../context/UiContext';
 

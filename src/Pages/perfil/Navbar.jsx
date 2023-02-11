@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import './Account.css'
+//import './Account.css'
 const NavbarCepoint = ({handleLogout}) => {
 
 

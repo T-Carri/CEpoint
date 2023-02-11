@@ -1,5 +1,5 @@
 import React, {memo, useContext, useEffect} from 'react'
-import '../Usuarios.css'
+//import '../Usuarios.css'
 import { Card } from 'react-bootstrap'
 
 import CEpointContext from '../../../context/CEpointContext';

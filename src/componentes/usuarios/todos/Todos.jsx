@@ -4,7 +4,7 @@ import CEpointContext from '../../../context/CEpointContext';
 
 
 
-import '../Usuarios.css'
+//import '../Usuarios.css'
 import * as XLSX from "xlsx"
 import  CardUsuario from './CardUsuario';
 

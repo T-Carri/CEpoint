@@ -3,7 +3,7 @@ import { Card, Row, Col, Button } from 'react-bootstrap'
 
 import CEpointContext from '../../../context/CEpointContext';
 import { QrGen } from './QrGen';
-import '../Usuarios.css'
+//import '../Usuarios.css'
 import  ActualizaInfoUser  from './ActualizaInfoUser'
 import UiContext from '../../../context/UiContext'
 import {  toDataURL } from 'qrcode';

@@ -1,5 +1,5 @@
 import React, {useEffect, useContext} from 'react'
-import './Horario.css'
+//import './Horario.css'
 import {Row, Form, Col, Button, Spinner, Table, Card } from 'react-bootstrap'
 import { Outlet, useNavigate } from 'react-router-dom'
 import CEpointContext from '../../context/CEpointContext';

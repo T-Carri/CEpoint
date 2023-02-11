@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, memo} from 'react'
 import CEpointContext from '../../../context/CEpointContext';
 import { Card, Button} from 'react-bootstrap'
-import '../Usuarios.css'
+//import '../Usuarios.css'
  const Inactivos = () => {
 
     const {state, getUsersUnable, activateUser} = useContext(CEpointContext)
