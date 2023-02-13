@@ -31,6 +31,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
+import NearMeIcon from '@mui/icons-material/NearMe';
 import { MainListItems } from './listItems';
 
 /* import Chart from './Chart';
@@ -165,7 +166,7 @@ const handleLogout = async()=>{
               ...(open && { display: 'none' }),
             }}
           >
-             <FilterTiltShiftIcon/>
+             <NearMeIcon/>
           </IconButton>
           <Typography variant="h6"  component="h1" sx={{ flexGrow: 1 }} id='cepoint' >
               <strong>
@@ -173,7 +174,7 @@ const handleLogout = async()=>{
 
             </strong>
           </Typography>
-          <Button color="inherit" onClick={toggleDrawer}>Salir</Button>
+          <Button color="inherit" onClick={handleLogout}>Salir</Button>
         </Toolbar>
       </AppBar>
  </ThemeProvider>  

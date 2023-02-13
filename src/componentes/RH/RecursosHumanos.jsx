@@ -8,10 +8,12 @@ import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
 import  Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
+import ButtonBase from '@mui/material/ButtonBase';
 import { addDays } from 'date-fns';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import RH1 from './RH1.jpg'
-
+import RH2 from './RH2.jpg'
+import Typography from '@mui/material/Typography';
 const theme = createTheme({
 
   capaRH1: {
@@ -69,13 +71,113 @@ const Img = styled('img')({
 });
 
 
+
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  position: 'relative',
+  height: 500,
+  [theme.breakpoints.down('sm')]: {
+    width: '100% !important', // Overrides inline-style
+    height: 500,
+  },
+  '&:hover, &.Mui-focusVisible': {
+    zIndex: 1,
+    '& .MuiImageBackdrop-root': {
+      opacity: 0.15,
+    },
+    '& .MuiImageMarked-root': {
+      opacity: 0,
+    },
+    '& .MuiTypography-root': {
+      border: '4px solid currentColor',
+    },
+  },
+}));
+
+const ImageSrc = styled('span')({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center 50%',
+});
+
+const Image = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: theme.palette.common.white,
+}));
+
+const ImageBackdrop = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundColor: theme.palette.common.black,
+  opacity: 0.4,
+  transition: theme.transitions.create('opacity'),
+}));
+
+const ImageMarked = styled('span')(({ theme }) => ({
+  height: 3,
+  width: 18,
+  backgroundColor: theme.palette.common.white,
+  position: 'absolute',
+  bottom: -2,
+  left: 'calc(50% - 9px)',
+  transition: theme.transitions.create('opacity'),
+}));
+
+
+
+
+/* const Img = styled('img')({
+  margin: 'auto',
+  display: 'block',
+  maxWidth: '100%',
+  maxHeight: '70%',
+}); */
+
+
+
+const ImageButtonBT = styled(ButtonBase)(({ theme }) => ({
+  position: 'relative',
+  height: 500,
+  [theme.breakpoints.down('sm')]: {
+    width: '100% !important', // Overrides inline-style
+    height: 500,
+  },
+  '&:hover, &.Mui-focusVisible': {
+    zIndex: 1,
+    '& .MuiImageBackdrop-root': {
+      opacity: 0.15,
+    },
+    '& .MuiImageMarked-root': {
+      opacity: 0,
+    },
+    '& .MuiTypography-root': {
+      border: '4px solid currentColor',
+    },
+  },
+}));
+
+
+
 export const RecursosHumanos = () => {
 
  const {ToggleRH, setToggleRH, setInFormulario}=useContext(UiContext)
 
     const navigate = useNavigate(); 
   
- console.log(ToggleRH)
+ console.log('ToggleRH',ToggleRH)
 return (
  
     ToggleRH
@@ -99,27 +201,42 @@ return (
                     display: 'flex',
                     flexDirection: 'column',
                     height: 500,
-                    url:("RH1.jpg")
+                    
                   }}
                 >
                
-              
-    
-     <div>
-       <h1>Trabajadores</h1>
+              <ImageButton>
+                <ImageSrc  style={{ backgroundImage: `url(${RH1})` }} />             
+                <ImageBackdrop/>
+                <Image>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              color="inherit"
+              sx={{
+                position: 'relative',
+                p: 4,
+                pt: 2,
+                pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+              }}
+            >
+             <h1>Trabajadores</h1>
        <p>Gestion de personal</p>
-     </div>
+              <ImageMarked className="MuiImageMarked-root" />
+            </Typography>
+          </Image>
+                
+                 </ImageButton>
+    
+ 
  
 
 
 
                 </Paper>
               </Grid> 
-              {/* Recent Deposits */}
-             <Grid item xs={12} md={4} lg={4} sx={{flexDirection:'column'}} onClick={() => {
-     setToggleRH(true);
-     navigate('buscadorTrabajador');
-    }}>
+             
+             <Grid item xs={12} md={4} lg={4} sx={{flexDirection:'column'}} >
                 <Paper
                   sx={{
                     p: 2,
@@ -128,12 +245,37 @@ return (
                     height: 240,
                   }}
                 >
-                     <div>
-    <h2>Busca a trabajador</h2>
+
+
+
+<ImageButton onClick={() => {
+     setToggleRH(true);
+     navigate('buscadorTrabajador');
+    }} >
+
+                <ImageSrc  style={{ backgroundImage: `url(${RH2})` }} />             
+                <ImageBackdrop/>
+                <Image>
+            <Typography
+              component="span"
+              variant="subtitle1"
+              color="inherit"
+              sx={{
+                position: 'relative',
+                p: 4,
+                pt: 2,
+                pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+              }}
+            >
+      <h2>Busca a trabajador</h2>
     <p>Informacion de trabajador</p>
-    </div>
-                 
-                </Paper>
+              <ImageMarked className="MuiImageMarked-root" />
+            </Typography>
+          </Image>
+                
+                 </ImageButton>
+    
+ </Paper>
 
 
                          <Paper
@@ -144,7 +286,9 @@ return (
                     height: 240,
                   }}
                 >
-    <Button variant="dark" className='button'>
+    <Button variant="dark" className='button' onClick={()=>{
+       setToggleRH(true);
+      navigate('agregaTrabajador')}}>
     <strong>+ Agregar trabajador nuevo</strong>
     </Button>
     <Button variant="danger" className='button'>
@@ -153,18 +297,7 @@ return (
                  
                 </Paper>
               </Grid> 
-            {/*   <Grid item xs={12} md={4} lg={3}  onClick={() => {
-     setToggleRH(true);
-     navigate('buscadorTrabajador');
-    }}>
        
-              </Grid> */}
-              {/* Recent Orders */}
-         {/*      <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  
-                </Paper>
-              </Grid> */}
 
 
 

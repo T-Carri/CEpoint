@@ -46,7 +46,8 @@ import { CEpointProvider } from './context/CEpointContext';
 import { RecursosHumanos } from './componentes/RH/RecursosHumanos';
 import { Trabajadores } from './componentes/RH/Trabajadores';
 import  BuscadorTrabajador  from './componentes/RH/BuscadorTrabajador';
-import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador';
+import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador:id';
+import { CreadorTrabajador } from './componentes/RH/CrearTrabajador/CreadorTrabajador';
 function App() {
 
   
@@ -92,7 +93,7 @@ function App() {
           <Route path='formulariodatostrabajador' element={<FormularioDatosTrabajador/>}/> 
         </Route> 
        <Route path='buscadorTrabajador' element={<BuscadorTrabajador/>}/> 
-
+       <Route path='agregaTrabajador' element={<CreadorTrabajador/>}/> 
     </Route>
 
 

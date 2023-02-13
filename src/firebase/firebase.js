@@ -4,6 +4,7 @@ import { initializeApp } from "firebase/app";
 //import firebase from 'firebase/app';
 import {getAuth, GoogleAuthProvider} from "firebase/auth"
 import { doc, getDoc, getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage";
 //wtf?REACT_APP_FIREBASE_DATABASE_URL=
 import { getPerformance } from "firebase/performance";
 const firebaseConfig = {
@@ -23,7 +24,7 @@ export const provider = new GoogleAuthProvider();
 export const db = getFirestore()
 //export const db = firebase.firestore();
 const perf = getPerformance(app)
-
+export const storage = getStorage(app);
 
 export default app;
 
