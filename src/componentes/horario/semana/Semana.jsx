@@ -2,12 +2,13 @@ import React, {useState, useContext} from 'react'
 import { format, getWeek } from 'date-fns';
 import moment from 'moment';
 import { Card, Button, Accordion, Container, Badge } from 'react-bootstrap'
-
+import Box from '@mui/material/Box';
 //import '../Horario.css'
 import { CardAsistencia } from './CardAsistencia';
-
+import { CarouselProyectos } from './CarouselProyectos';
 import CEpointContext from '../../../context/CEpointContext';
-
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 export const Semana = () => {
  // const storage = getStorage()
  const {state} = useContext(CEpointContext)
@@ -15,8 +16,14 @@ const weekDays = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domi
   const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
   const [seleccion, setSeleccion]= useState('')
  const [DATA, setData]=useState('')
+ const [alignment, setAlignment] = React.useState('web');
 
- console.log('attendance', DATA)
+ const handleChange = (event, newAlignment) => {
+  setAlignment(newAlignment);
+};
+
+
+ console.log('state in semana:', state)
  const ProyectosFiltrados = test && test.filter(obj => (obj.asistencias || []).length !== 0);
  
 
@@ -168,16 +175,26 @@ const count = (dato,dato1,dato2)=>{
 
      
       return (
-        <Container fluid>  
-        <div className='presupuestos'>
-          {ProyectosFiltrados.map((presupuesto)=>(
-             <Button variant="danger" id={presupuesto.obra} value={presupuesto.presupuesto}
-             onClick={()=>{
-              setSeleccion(presupuesto.asistencias)
-              setExpandedSections({})
-            }}> {presupuesto.presupuesto} </Button>
-           ))} 
-        </div>
+        <Box fluid>  
+        <br />
+
+<ToggleButtonGroup
+      color="success"
+      value={alignment}
+      exclusive
+      onChange={handleChange}
+      aria-label="Platform"
+    >
+      <ToggleButton value="Activos">Activos</ToggleButton>
+      <ToggleButton value="Adicionales">Adicionales</ToggleButton>
+      <ToggleButton value="Garantias">Garantias</ToggleButton>
+      <ToggleButton value="Desactivados">Desactivados</ToggleButton>
+    </ToggleButtonGroup>
+
+        <br />
+        <br />
+
+       <CarouselProyectos/>
         <div>
           {Object.keys(groupedData).map((year) => (
             <div key={year}>
@@ -245,7 +262,7 @@ const count = (dato,dato1,dato2)=>{
 ))}
 
   </div>
-</Container>
+</Box>
      )
     }
 

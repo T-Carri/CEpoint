@@ -13,6 +13,7 @@ const navigate = useNavigate();
 
 
 const {getProyectos,   getNamesProyectos} =useContext(CEpointContext)
+
 useEffect(()=>{
   getProyectos()
   getNamesProyectos()

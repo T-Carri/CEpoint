@@ -3,7 +3,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ListSubheader from '@mui/material/ListSubheader';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import ExtensionIcon from '@mui/icons-material/Extension';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import CEpointContext from '../../context/CEpointContext';
 import UiContext from '../../context/UiContext';
@@ -47,7 +47,7 @@ export const MainListItems=()=>{
             {state.UsuarioSesion.asignador?
           <ListItemButton onClick={()=>navigate("asignadorEndiseño")}>
           <ListItemIcon >
-            <DashboardIcon />
+            <ExtensionIcon />
           </ListItemIcon>
           <ListItemText primary="Asignacion" />
         </ListItemButton>:null
