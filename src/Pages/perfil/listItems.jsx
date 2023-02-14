@@ -25,14 +25,7 @@ export const MainListItems=()=>{
 
     return(
         <>
-        {state.UsuarioSesion.usator?
-          <ListItemButton onClick={()=>{navigate("usuarios")}}>
-          <ListItemIcon >
-            <DashboardIcon />
-          </ListItemIcon>
-          <ListItemText primary="Usuarios" />
-        </ListItemButton>:null
-        }
+      
      {state.UsuarioSesion.rh?
           <ListItemButton   onClick={()=>{navigate("recursosHumanos")
           setToggleRH(false)

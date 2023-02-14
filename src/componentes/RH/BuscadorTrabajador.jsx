@@ -2,17 +2,31 @@ import React, { useState, useEffect, useContext } from 'react';
 import {BsArrowLeftCircle} from 'react-icons/bs'
 import { query, collection, onSnapshot, doc, getDoc, where, setDoc, updateDoc, limit  } from 'firebase/firestore';
 import { db } from '../../firebase/firebase'
-
-import {List, ListItem, ListItemText, Divider} from '@mui/material'
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
 import { Button, Form, InputGroup } from 'react-bootstrap'
 import { 
-  useNavigate, Outlet
+  useNavigate
 } from 'react-router-dom';
 import UiContext from '../../context/UiContext';
+
+
+
+
+const style = {
+  width: '100%',
+  maxWidth: 360,
+  bgcolor: 'background.paper',
+};
+
+
 const BuscadorTrabajador = () => {
+
   const [searchTerm, setSearchTerm] = useState('');
   const [results, setResults] = useState([]);
-  const {ToggleRH, setToggleRH
+  const {ToggleRH, setToggleRH, setInFormulario
   }=useContext(UiContext)
   const navigate = useNavigate();
   useEffect(() => {
@@ -46,21 +60,39 @@ const BuscadorTrabajador = () => {
           placeholder="Busca Trabajador"
           aria-label="Username"
           aria-describedby="basic-addon1"
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          value={searchTerm.toUpperCase()}
+          onChange={e => setSearchTerm(e.target.value).toUpperCase()}
+          onKeyUp={e => e.target.value = e.target.value.toUpperCase()}
         />
       </InputGroup>
 
 
-      <ul>
-        {results.map(result => ( 
+<List sx={style} component="nav" aria-label="mailbox folders">
+      
+        {results.map(result => {
 
+return(
+<div>
+    <ListItemButton>
+    <ListItemText  key={result.id} primary={result.nombre}  onClick={()=>{
+        navigate(`../trabajadores/formulariodatostrabajador/${result.id}`, {replace:true})
+        setInFormulario(true)
+    }}/>
+    </ListItemButton>
+    <Divider />
+    </div>
 
-          <li key={result.id}>{result.nombre}</li>
-          
+)
 
-        ))}
-      </ul>
+      
+      
+      
+      
+      
+      
+})}
+    
+      </List>
     </div>
   );
 };

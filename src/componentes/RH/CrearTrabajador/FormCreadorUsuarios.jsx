@@ -183,6 +183,7 @@ const handleregisterUser = async (e)=> {
         empresa:searchDato(Empresa), 
         area: searchArea(Perfil),
         fechaIngreso:fechaIngresoRef.current, 
+        domicilio: domicilioRef.current,
         email:emailRef.current,
         telefonoTrabajador: telefonoUnoRef.current, 
         telefonoEmergencia:telefonoDosRef.current, 
@@ -205,7 +206,7 @@ const handleregisterUser = async (e)=> {
 
     ).then(
         ()=>{
-          navigate(`formulariodatostrabajador/${IdUsario}`)
+          navigate(`../../recursosHumanos/trabajadores/formulariodatostrabajador/${IdUsario}`, {replace:true})
           setInFormulario(true)
             setPerfil("");
             setEmpresa("");

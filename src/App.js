@@ -48,6 +48,12 @@ import { Trabajadores } from './componentes/RH/Trabajadores';
 import  BuscadorTrabajador  from './componentes/RH/BuscadorTrabajador';
 import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador';
 import { CreadorTrabajador } from './componentes/RH/CrearTrabajador/CreadorTrabajador';
+import { createBrowserHistory } from 'history';
+
+
+let history = createBrowserHistory();
+history.scrollRestoration = 'manual';
+
 
 function App() {
 
@@ -61,7 +67,7 @@ function App() {
  
   <UiProvider>
     <>
-   <Router>
+   <Router history={history}>
    <Routes>
       <Route exact path="/" element={<Bienvenida/>} />
     <Route  path="/login" element={<Totalogin/>} />
@@ -80,13 +86,8 @@ function App() {
 
     <Route index element={<WelcomeHome />}  />
   
-    <Route path="usuarios" element={<Usuarios/> } > 
-    <Route path="todos" element={<Todos/>} />
-    <Route path="inactivos" element={<Inactivos/>} />
-    <Route path="ocupados" element={<Ocupados/>} />
-    <Route path="desocupados" element={<Desocupados/>} />
-    </Route>
 
+ 
 
     <Route path="recursosHumanos" element={<RecursosHumanos/>} >
        <Route path='trabajadores' element={<Trabajadores/>}>

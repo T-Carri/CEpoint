@@ -9,6 +9,8 @@ import {
    useParams
 } from 'react-router-dom';
 import { useEffect } from 'react'
+import Chip from '@mui/material/Chip';
+import {  toDataURL } from 'qrcode';
 export const FormularioDatosTrabajador = () => {
 
   const{ inFormulario, 
@@ -16,7 +18,7 @@ export const FormularioDatosTrabajador = () => {
     const [key, setKey] = useState('almacen');
     const{ state, dispatch, fetchOnlyUser }= useContext(CEpointContext)  
     const [show, setShow] = useState(false);
-    
+    const [QRurl, setQRurl]= useState()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
@@ -26,11 +28,17 @@ algoritmo:
 */ 
 
 useEffect(()=>{
-  if(!state.OnlyUser){
+ 
     fetchOnlyUser(Id)
-  }
-},[state.OnlyUser])
+  
+},[])
 
+
+useEffect(()=>{
+  toDataURL(`${Id}`,  function (err, url) {
+    console.log(url)
+    setQRurl(url) 
+})} ,[])
 
   return (
 
@@ -38,27 +46,23 @@ useEffect(()=>{
         
 
 
-<Row>
-  <Col className='text-center'><Card> <h1>{state.OnlyUser.nombre}</h1>
+   <Row>
+       <Col className='text-center'><Card> <h1>{state.OnlyUser.nombre}</h1>
     
- <Row>
-  <Col className='text-center'>
-  <Badge pill bg="secondary">
-  <strong>{state.OnlyUser.area}</strong>
-      </Badge>
+       <Row>
+       <Col className='text-center'>
+       <Badge pill bg="secondary"> <strong>{state.OnlyUser.area}</strong> </Badge>
    
-   <br />
-   <h3>   <Badge pill bg="warning" text="dark">
-   <strong>{state.OnlyUser.perfil}</strong>
-      </Badge></h3>
+       <br />
+   <h3>   <Badge pill bg="warning" text="dark"> <strong>{state.OnlyUser.perfil}</strong> </Badge> </h3>
 
 
-  </Col>
+       </Col>
 
   <Col>
  <h3>Antiguedad</h3>
  </Col>
-  <Col style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{' '}
+  <Col  style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>{' '}
   <Button variant='danger' onClick={handleShow}><strong>Dar de baja</strong><BsHandThumbsDownFill/></Button>
   <Modal
         show={show}
@@ -84,15 +88,27 @@ useEffect(()=>{
 
   </Row>
  
-
-
-
-
-
 </Card></Col>
-  <Col> <Card className='align-center'  style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#EAE2E0'}}>
+
+  <Col   className='align-center' >
+  <Row  className='align-center'   style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#EAE2E0'}}>
+    <Col className='text-center'>
+    <Card className='align-center'  style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#EAE2E0'}}>
   <BsPersonPlusFill style={{width:'7em', height: '7em'}}/>
-</Card>
+  </Card>
+  <br />
+  <Button>Subir foto</Button>
+    </Col>
+    <Col>
+    <Card className='align-center'  style={{display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#EAE2E0'}}>
+    <img  src={ QRurl } />
+  </Card>
+  
+  <Chip label={state.OnlyUser.UID} color="success" />
+    </Col>
+
+    </Row> 
+
 
  
   </Col>
