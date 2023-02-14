@@ -288,7 +288,9 @@ return (
                 >
     <Button variant="dark" className='button' onClick={()=>{
        setToggleRH(true);
-      navigate('agregaTrabajador')}}>
+      navigate('agregaTrabajador')
+      setInFormulario(false)
+      }}>
     <strong>+ Agregar trabajador nuevo</strong>
     </Button>
     <Button variant="danger" className='button'>

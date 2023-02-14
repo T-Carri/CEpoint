@@ -5,18 +5,18 @@ import {BsArrowLeftCircle} from 'react-icons/bs'
 import { 
   useNavigate
 } from 'react-router-dom';
-import AlmacenContext from '../../../context/AlmacenContext';
+import UiContext from '../../../context/UiContext'
 //import {Almacen} from '../Almacen'
 export const Miscelaneos = () => {
   const navigate = useNavigate();
 
- const {setToggle, Toggle}= useContext(AlmacenContext)
-console.log(Toggle)
+const { setToggleALMACEN}= useContext(UiContext)
+
   return (
     <Container>
 <div>Miscelaneos</div>
 <Button type="button"  variant='outline-dark' className="btn btn-default btn-circle btn-lg" onClick={()=>{navigate("../../almacen",  {replace:true}) 
-setToggle(false)
+setToggleALMACEN(false)
 }}><BsArrowLeftCircle />
                             </Button>
 <Button variant='success'><strong>Totales en existencia</strong></Button> 

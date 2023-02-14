@@ -5,21 +5,31 @@ import UiContext from '../../../context/UiContext'
 import CEpointContext from '../../../context/CEpointContext'
 import { TYPES } from '../../../redux/Types'
 import DatosTrabajador from './DatosTrabajador/DatosTrabajador'
+import { 
+   useParams
+} from 'react-router-dom';
+import { useEffect } from 'react'
 export const FormularioDatosTrabajador = () => {
 
   const{ inFormulario, 
     setInFormulario }= useContext(UiContext)  
     const [key, setKey] = useState('almacen');
-    const{ state, dispatch }= useContext(CEpointContext)  
+    const{ state, dispatch, fetchOnlyUser }= useContext(CEpointContext)  
     const [show, setShow] = useState(false);
     
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
   
+   const {Id} =useParams()
+/*
+algoritmo: 
+*/ 
 
-
-
-
+useEffect(()=>{
+  if(!state.OnlyUser){
+    fetchOnlyUser(Id)
+  }
+},[state.OnlyUser])
 
 
   return (

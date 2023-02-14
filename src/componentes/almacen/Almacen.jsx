@@ -2,22 +2,22 @@ import React, { useState, useContext } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 //import './almacen.css'
 import { useNavigate, Outlet } from 'react-router-dom'
-import AsignacionContext from '../../context/AlmacenContext'
+import UiContext from '../../context/UiContext'
 export const Almacen = () => {
   const navigate = useNavigate(); 
  
-  const {Toggle, setToggle}=useContext(AsignacionContext)
+  const {ToggleALMACEN, setToggleALMACEN}=useContext(UiContext)
  
-console.log('TOGGLE', Toggle)
+
   return (
 
    
 
 
-Toggle
+    ToggleALMACEN
 ?<Outlet/>
 : <Container><div className='prestado' onClick={()=>{
-  setToggle(true)
+  setToggleALMACEN(true)
   navigate("prestado")
   }}>
 <div className="capaPrestado">
@@ -29,7 +29,7 @@ Toggle
 
 <div className='areas'>
 <div className='miscelaneos' onClick={()=>{
-setToggle(true)
+setToggleALMACEN(true)
 navigate("miscelaneos")
 }} >
 
@@ -39,7 +39,7 @@ navigate("miscelaneos")
 </div>
 </div>
 <div className='maquinaria' onClick={()=>{
-setToggle(true)
+setToggleALMACEN(true)
 navigate("maquinaria")
 }}>
 <div className="capaMaquinaria">
@@ -49,7 +49,7 @@ navigate("maquinaria")
 </div>
 </div>
 <div className='herramientas' onClick={()=>{
-setToggle(true)
+setToggleALMACEN(true)
 navigate("herramienta")
 }}>
 <div className="capaHerramientas">

@@ -1,8 +1,8 @@
 //habil
-import React from 'react';
+import React, {useContext} from 'react';
 import './App.css';
 import Bienvenida from "./Pages/bienvenida/bienvenida"
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes, useParams} from 'react-router-dom'
 
 import Totalogin from '../src/Pages/Access/Totalogin'
 import Totalsignup from '../src/Pages/Access/Totalsignup'
@@ -36,7 +36,7 @@ import {Almacen} from './componentes/almacen/Almacen'
 import {Miscelaneos} from './componentes/almacen/miscelaneos/Miscelaneos'
 import { Herramientas } from './componentes/almacen/herramientas/Herramientas';
 import { FormRegistroHerramienta } from './componentes/almacen/herramientas/FormRegistroHerramienta';
-import { AlmacenProvider } from './context/AlmacenContext';
+
 import {Maquinaria} from './componentes/almacen/maquinaria/Maquinaria'
 import {Prestado} from './componentes/almacen/prestado/Prestado'
 import { UiProvider } from './context/UiContext';
@@ -46,11 +46,12 @@ import { CEpointProvider } from './context/CEpointContext';
 import { RecursosHumanos } from './componentes/RH/RecursosHumanos';
 import { Trabajadores } from './componentes/RH/Trabajadores';
 import  BuscadorTrabajador  from './componentes/RH/BuscadorTrabajador';
-import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador:id';
+import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador';
 import { CreadorTrabajador } from './componentes/RH/CrearTrabajador/CreadorTrabajador';
+
 function App() {
 
-  
+ 
 
   return (
  <AuthContextProvider>
@@ -58,7 +59,6 @@ function App() {
 
    
  
-<AlmacenProvider>
   <UiProvider>
     <>
    <Router>
@@ -90,10 +90,16 @@ function App() {
 
     <Route path="recursosHumanos" element={<RecursosHumanos/>} >
        <Route path='trabajadores' element={<Trabajadores/>}>
-          <Route path='formulariodatostrabajador' element={<FormularioDatosTrabajador/>}/> 
+          <Route path="formulariodatostrabajador/:Id" 
+           
+           element={<FormularioDatosTrabajador/>}/> 
         </Route> 
        <Route path='buscadorTrabajador' element={<BuscadorTrabajador/>}/> 
-       <Route path='agregaTrabajador' element={<CreadorTrabajador/>}/> 
+       <Route path='agregaTrabajador' element={<CreadorTrabajador/>}>
+       <Route path="formulariodatostrabajador/:Id" 
+           
+           element={<FormularioDatosTrabajador/>}/>
+        </Route> 
     </Route>
 
 
@@ -134,7 +140,7 @@ function App() {
    
     </>
     </UiProvider>
-      </AlmacenProvider> 
+     
 
   
  

@@ -5,13 +5,14 @@ import CEpointContext from '../../../context/CEpointContext';
 import { QrGen } from './QrGen';
 //import './Trabajadores.css'
 import { 
-  useNavigate, Outlet
+  useNavigate, 
 } from 'react-router-dom';
 import UiContext from '../../../context/UiContext'
 import {  toDataURL } from 'qrcode';
 
 
  const TrabajadorCard = ({prop}) => {
+  
     const {
         desactivaUser,
         fetchOnlyUser
@@ -27,7 +28,7 @@ import {  toDataURL } from 'qrcode';
    
     const [modalShow, setModalShow] =useState(false);
  
- 
+ console.log(inFormulario)
     return (
     
     <Card  className='trabajadores' /* ref={ref} */ >
@@ -43,9 +44,9 @@ import {  toDataURL } from 'qrcode';
      <Button className='actualizarUser' variant='success' onClick={
         ()=>{
           try {
-            fetchOnlyUser(prop.Uid)
-            .then(setInFormulario(true))
-            .then(navigate("formulariodatostrabajador"))
+            navigate(`formulariodatostrabajador/${prop.Uid}`)
+            setInFormulario(true)
+            
           } catch (error) {
             console.log(error)
           }}}>

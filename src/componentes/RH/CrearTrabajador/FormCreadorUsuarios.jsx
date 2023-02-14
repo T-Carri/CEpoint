@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { v4 as uuidv4 } from 'uuid';
 import {BsArrowLeftCircle} from 'react-icons/bs'
 import { 
-    useNavigate
+    useNavigate, Outlet
   } from 'react-router-dom';
 import { ref,  uploadBytes } from "firebase/storage";
   import GppGoodIcon from '@mui/icons-material/GppGood';
@@ -59,14 +59,14 @@ const style = {
 
 export const FormCreadorUser = () => {
 
+ 
 
-
-    const { setToggleRH }=useContext(UiContext)
+    const { setToggleRH, setInFormulario, inFormulario }=useContext(UiContext)
     const {state} = useContext(CEpointContext)    
 
       const navigate = useNavigate();
     
-  
+  console.log('InFormulario', inFormulario)
   const [error, setError] = useState('');
    
 
@@ -98,18 +98,7 @@ function searchDato(dato) {
   return dato;
 }
 
-/* function checkIf(dato) {
-  if(dato==='1'){
-    return false
-  } else if(dato==='5'){
-    return false
-  } else if (dato ==='3'){
-     return false 
-    } else{
-      return true
-    }
-  
-} */
+
 
 
 
@@ -216,6 +205,8 @@ const handleregisterUser = async (e)=> {
 
     ).then(
         ()=>{
+          navigate(`formulariodatostrabajador/${IdUsario}`)
+          setInFormulario(true)
             setPerfil("");
             setEmpresa("");
             setImage(null)
@@ -282,25 +273,26 @@ const handleregisterUser = async (e)=> {
 
 
   return (
-    <>
-      <Backdrop  open={backdropOpen} onClick={handleBackdropClose}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
-        }}
-        open={snackbarOpen}
-        autoHideDuration={3000}
-        onClose={handleSnackbarClose}
-      >
+    <>{
+
+      inFormulario?Outlet:<><Backdrop  open={backdropOpen} onClick={handleBackdropClose}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
+    <Snackbar
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      open={snackbarOpen}
+      autoHideDuration={3000}
+      onClose={handleSnackbarClose}
+    >
 
 <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          This is a success message!
-        </Alert>
-        
-      </Snackbar>
+        This is a success message!
+      </Alert>
+      
+    </Snackbar>
 
 
 
@@ -308,235 +300,238 @@ const handleregisterUser = async (e)=> {
 
 
 <Button type="button"  variant='outline-dark' className="btn btn-default btn-circle btn-lg" 
-    onClick={()=>{
-      navigate("../../recursosHumanos",  {replace:true}) 
-      setToggleRH(false)
-    }}><BsArrowLeftCircle /> Home
-                                </Button>
+  onClick={()=>{
+    navigate("../../recursosHumanos",  {replace:true}) 
+    setToggleRH(false)
+  }}><BsArrowLeftCircle /> Home
+                              </Button>
 
 <Box    component="form"   sx={{
-        '& .MuiTextField-root': { m: 1, width: '25ch' },
-      }}    onSubmit={handleregisterUser}     >
-    <Row>
-        <Col>    <br />
+      '& .MuiTextField-root': { m: 1, width: '25ch' },
+    }}    onSubmit={handleregisterUser}     >
+  <Row>
+      <Col>    <br />
 <Chip label={IdUsario&&<GppGoodIcon/>} color="success"   />
-       </Col>
-        <Col>
-        <CardMedia
-        component="img"
-        sx={{ width: 151 }}
-        image={Image?Image:usuarioImg}
-        alt="Live from space album cover"
-      />
-        </Col>
+     </Col>
+      <Col>
+      <CardMedia
+      component="img"
+      sx={{ width: 151 }}
+      image={Image?Image:usuarioImg}
+      alt="Live from space album cover"
+    />
+      </Col>
 
-    </Row>
+  </Row>
 
- 
+
 <Row>
 <Col> <Form.Group className="mb-2" >
-               <Form.Label>Nombre del trabajador</Form.Label>
-               <br />
+             <Form.Label>Nombre del trabajador</Form.Label>
+             <br />
 
-               <TextField
-          required
-          id="outlined-required"
-          label="Required"
-           
-          onChange={(e) => {
-              
-              nombreRef.current = e.target.value.toUpperCase();
-          }}
-        />
-
-
-
-            </Form.Group></Col>
-            <Col> <Form.Group className="mb-2" >
-               <Form.Label>NSS</Form.Label>
-               <br />
-               <TextField
-          required
-          id="outlined-required"
-          label="Required"
-           
-          onChange={(e) => {
-              
-            NssRef.current = e.target.value.toUpperCase();
-          }}
-        />
+             <TextField
+        required
+        id="outlined-required"
+        label="Required"
+         
+        onChange={(e) => {
+            
+            nombreRef.current = e.target.value.toUpperCase();
+        }}
+      />
 
 
-            </Form.Group></Col>
 
-     
+          </Form.Group></Col>
+          <Col> <Form.Group className="mb-2" >
+             <Form.Label>NSS</Form.Label>
+             <br />
+             <TextField
+        required
+        id="outlined-required"
+        label="Required"
+         
+        onChange={(e) => {
+            
+          NssRef.current = e.target.value.toUpperCase();
+        }}
+      />
 
-    
+
+          </Form.Group></Col>
+
+   
+
+  
 </Row>
 <Row>
 <Col>
- <Form.Group className="mb-2" >
-   <Form.Label>Perfil</Form.Label>
-  <br />
-    <SelectSearch options={options} 
-     /* renderValue={options} */  search
-      value={Perfil} onChange={setPerfil} name="perfil" placeholder="Elige el perfil" />
+<Form.Group className="mb-2" >
+ <Form.Label>Perfil</Form.Label>
+<br />
+  <SelectSearch options={options} 
+   /* renderValue={options} */  search
+    value={Perfil} onChange={setPerfil} name="perfil" placeholder="Elige el perfil" />
 
-  </Form.Group>
+</Form.Group>
 </Col> 
 <Col>
 <Form.Label>Elige su empresa</Form.Label>
 
 <SelectSearch options={optionsEmpresas} 
-       search
-      value={Empresa} onChange={setEmpresa} name="empresa" placeholder="Elige la empresa" />
-     </Col>
+     search
+    value={Empresa} onChange={setEmpresa} name="empresa" placeholder="Elige la empresa" />
+   </Col>
 
 </Row>
 
 
 <Row>
 <Col> <Form.Group className="mb-2" >
-                <Form.Label>Fecha de ingreso</Form.Label>
-                <br />
-                <br />
+              <Form.Label>Fecha de ingreso</Form.Label>
+              <br />
+              <br />
 <DatePicker 
-    
-     
-    selected={startDate} onChange={(date) => {
-     setStartDate(date);
-     fechaIngresoRef.current = date;}} locale={es} />  
-            </Form.Group></Col>
-            <Col> <Form.Group className="mb-2" >
-               <Form.Label>Email</Form.Label>
-               <br />
-               <TextField
-          required
-          id="outlined-required"
-          label="Required"
-           
-          onChange={(e) => {
-              
-            emailRef.current = e.target.value;
-          }}
-        />
+  
+   
+  selected={startDate} onChange={(date) => {
+   setStartDate(date);
+   fechaIngresoRef.current = date;}} locale={es} />  
+          </Form.Group></Col>
+          <Col> <Form.Group className="mb-2" >
+             <Form.Label>Email</Form.Label>
+             <br />
+             <TextField
+        required
+        id="outlined-required"
+        label="Required"
+         
+        onChange={(e) => {
+            
+          emailRef.current = e.target.value;
+        }}
+      />
 
-            </Form.Group></Col>
+          </Form.Group></Col>
 
 </Row>
 
 <Row>
 <Col> <Form.Group className="mb-2" >
-               <Form.Label>Telefono</Form.Label>
-               <br />
-               <TextField
-          required
-          id="outlined-required"
-          label="Required"
-           
-          onChange={(e) => {
-              
-            telefonoUnoRef.current = e.target.value;
-          }}
-        />
+             <Form.Label>Telefono</Form.Label>
+             <br />
+             <TextField
+        required
+        id="outlined-required"
+        label="Required"
+         
+        onChange={(e) => {
+            
+          telefonoUnoRef.current = e.target.value;
+        }}
+      />
 
-            </Form.Group></Col>
-            <Col> <Form.Group className="mb-2" >
-               <Form.Label>Telefono de emergencia</Form.Label>
-               <br />
-               <TextField
-          required
-          id="outlined-required"
-          label="Required"
-           
-          onChange={(e) => {
-              
-            telefonoDosRef.current = e.target.value;
-          }}
-        />
+          </Form.Group></Col>
+          <Col> <Form.Group className="mb-2" >
+             <Form.Label>Telefono de emergencia</Form.Label>
+             <br />
+             <TextField
+        required
+        id="outlined-required"
+        label="Required"
+         
+        onChange={(e) => {
+            
+          telefonoDosRef.current = e.target.value;
+        }}
+      />
 
-            </Form.Group></Col>
+          </Form.Group></Col>
 
 </Row>
 
 <Row>
 <Col>
 <Form.Group className="mb-2" >
-               <Form.Label>Domicilio</Form.Label>
-               <br />
-               <TextField
-          id="outlined-textarea"
-          label="Domicilio"
-          placeholder="Placeholder"
-          multiline 
-          onChange={(e) => {
-              
-            domicilioRef.current = e.target.value;
-          }}
-        />
+             <Form.Label>Domicilio</Form.Label>
+             <br />
+             <TextField
+        id="outlined-textarea"
+        label="Domicilio"
+        placeholder="Placeholder"
+        multiline 
+        onChange={(e) => {
+            
+          domicilioRef.current = e.target.value;
+        }}
+      />
 
 
-            </Form.Group>
-            </Col>
-            <Col> <Form.Group className="mb-2" >
-            <Form.Label>Fecha de nacimiento</Form.Label>
-            <br />
-                <br />
+          </Form.Group>
+          </Col>
+          <Col> <Form.Group className="mb-2" >
+          <Form.Label>Fecha de nacimiento</Form.Label>
+          <br />
+              <br />
 <DatePicker 
-    
-     
-    selected={startDate} onChange={(date) => {
-     setStartDate(date);
-     addFeNacRef.current = date;}} locale={es} />  
-            </Form.Group></Col>
+  
+   
+  selected={startDate} onChange={(date) => {
+   setStartDate(date);
+   addFeNacRef.current = date;}} locale={es} />  
+          </Form.Group></Col>
 </Row>
 
 
 <Row>
 
-          
-    <Col>  
-    <Form.Label>Agrega foto de trabajador</Form.Label>
-      <Stack direction="row" alignItems="center" spacing={2}>
-      <Button variant="contained" component="label">
-        Upload
-        <input hidden accept="image/*" multiple type="file" onChange={handleChange} />
-      </Button>
-      <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleOpen}>
-       
-        <PhotoCamera />
-      </IconButton>
-    </Stack>
+        
+  <Col>  
+  <Form.Label>Agrega foto de trabajador</Form.Label>
+    <Stack direction="row" alignItems="center" spacing={2}>
+    <Button variant="contained" component="label">
+      Upload
+      <input hidden accept="image/*" multiple type="file" onChange={handleChange} />
+    </Button>
+    <IconButton color="primary" aria-label="upload picture" component="label" onClick={handleOpen}>
+     
+      <PhotoCamera />
+    </IconButton>
+  </Stack>
 
-    <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        open={openCamera}
-        onClose={handleClose}
-        closeAfterTransition
-      
-      >
-        <Fade in={openCamera}>
-          <Box sx={style} >
-            <Typography id="transition-modal-title" variant="h6" component="h2">
-              Tomar foto
-            </Typography>
-            <Webcam audio={false} height={350} ref={cameraRef} width={350} />
-      <Button   variant="contained" onClick={capture}>Capture photo</Button>
+  <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={openCamera}
+      onClose={handleClose}
+      closeAfterTransition
+    
+    >
+      <Fade in={openCamera}>
+        <Box sx={style} >
+          <Typography id="transition-modal-title" variant="h6" component="h2">
+            Tomar foto
+          </Typography>
+          <Webcam audio={false} height={350} ref={cameraRef} width={350} />
+    <Button   variant="contained" onClick={capture}>Capture photo</Button>
 
-          </Box>
-        </Fade>
-      </Modal>
+        </Box>
+      </Fade>
+    </Modal>
 
-    </Col>
+  </Col>
 
 
 <Col>
 <br />
-        <Button className='crearUser' variant="contained" type="submit"  size="large" color="success" >Crear</Button>
-     </Col>
+      <Button className='crearUser' variant="contained" type="submit"  size="large" color="success" >Crear</Button>
+   </Col>
 </Row>
 </Box>
+</>
+    }
+   
 </>
   )
 }

@@ -9,7 +9,7 @@ import {
   Outlet
 } from 'react-router-dom';
 import  NavbarCepoint  from './Navbar';
-import  GreyBar  from './GreyBar';
+
 import { WhiteBoard } from './WhiteBoard';
 import  Grid from '@mui/material/Grid'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
