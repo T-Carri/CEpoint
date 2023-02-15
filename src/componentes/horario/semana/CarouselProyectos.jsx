@@ -29,7 +29,7 @@ if(!state.proyectonames){
   return (
     <div className='flex_grid'  style={{display:'flex', overflowX:'scroll'}}>
          <Stack direction="row" spacing={2}>
-          {state.proyectonames.map((presupuesto)=>(
+          {state.proyectonames&&state.proyectonames.map((presupuesto)=>(
              <ColorButton size="large"variant="contained" id={presupuesto} value={presupuesto}
             /*  onClick={()=>{
               setSeleccion(presupuesto.asistencias)

@@ -12,12 +12,9 @@ export const Horario = () => {
 const navigate = useNavigate(); 
 
 
-const {getProyectos,   getNamesProyectos} =useContext(CEpointContext)
 
-useEffect(()=>{
-  getProyectos()
-  getNamesProyectos()
-},[]) 
+
+
 
   return (
     <Container  /* style={{ width: '60em', height:'30em'}} */ fixed>

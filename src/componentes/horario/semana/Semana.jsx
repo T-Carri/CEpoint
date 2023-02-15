@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { format, getWeek } from 'date-fns';
 import moment from 'moment';
 import { Card, Button, Accordion, Container, Badge } from 'react-bootstrap'
@@ -11,16 +11,21 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 export const Semana = () => {
  // const storage = getStorage()
- const {state} = useContext(CEpointContext)
+ const {state, getNamesProyectos} = useContext(CEpointContext)
 const weekDays = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo'];
   const [test, setTest]=useState(state.TotalProyectos?state.TotalProyectos:null)
   const [seleccion, setSeleccion]= useState('')
  const [DATA, setData]=useState('')
- const [alignment, setAlignment] = React.useState('web');
+ const [alignment, setAlignment] = React.useState('Activos');
 
  const handleChange = (event, newAlignment) => {
   setAlignment(newAlignment);
 };
+
+
+
+
+
 
 
  console.log('state in semana:', state)

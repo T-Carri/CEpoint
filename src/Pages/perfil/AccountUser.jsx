@@ -33,10 +33,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { MainListItems } from './listItems';
-
+import moment from 'moment';
 /* import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders'; */
+
 
 
 const drawerWidth = 240;
@@ -168,7 +169,7 @@ const handleLogout = async()=>{
           >
              <NearMeIcon/>
           </IconButton>
-          <Typography variant="h6"  component="h1" sx={{ flexGrow: 1 }} id='cepoint' >
+          <Typography variant="h6" style={{fontFamily: 'Noto Sans, sans-serif'}} component="h1" sx={{ flexGrow: 1 }} id='cepoint' >
               <strong>
            CEpoint 
 
@@ -189,7 +190,7 @@ const handleLogout = async()=>{
               justifyContent: 'flex-end',
               px: [1],
             }}
-          >
+          > <h3 style={{color:'grey'}}><strong>{moment().format('LT ')}</strong></h3> 
             <IconButton onClick={toggleDrawer}>
               
               <ChevronLeftIcon />

@@ -48,11 +48,11 @@ import { Trabajadores } from './componentes/RH/Trabajadores';
 import  BuscadorTrabajador  from './componentes/RH/BuscadorTrabajador';
 import { FormularioDatosTrabajador } from './componentes/RH/Trabajadores/FormularioDatosTrabajador';
 import { CreadorTrabajador } from './componentes/RH/CrearTrabajador/CreadorTrabajador';
-import { createBrowserHistory } from 'history';
+import { ProyectosActivos } from './componentes/horario/semana/proyectosActivos/ProyectosActivos';
+import { ProyectosAdicionales } from './componentes/horario/semana/proyectosAdicionales/ProyectosAdicionales';
+import { ProyectosGarantias } from './componentes/horario/semana/proyectosGarantias/ProyectosGarantias';
+import { ProyectosDesactivados } from './componentes/horario/semana/proyectosDesactivados/ProyectosDesactivados';
 
-
-let history = createBrowserHistory();
-history.scrollRestoration = 'manual';
 
 
 function App() {
@@ -67,7 +67,7 @@ function App() {
  
   <UiProvider>
     <>
-   <Router history={history}>
+   <Router >
    <Routes>
       <Route exact path="/" element={<Bienvenida/>} />
     <Route  path="/login" element={<Totalogin/>} />
@@ -108,7 +108,14 @@ function App() {
             <Route path='generadorreporte' element={<GeneradorReporte/>}/> 
             <Route path='ubicacion' element={<Ubicacion/>}/> 
             <Route path='obra' element={<Obra/>}/> 
-            <Route path='semana' element={<Semana/>}/>
+            <Route path='semana' element={<Semana/>}>
+                   <Route path='proyectosactivos' element={<ProyectosActivos/>}/>
+                   <Route path='proyectosadicionales' element={<ProyectosAdicionales/>}/> 
+                   <Route path='proyectosgarantias' element={<ProyectosGarantias/>}/> 
+                   <Route path='proyectosdesactivados' element={<ProyectosDesactivados/>}/> 
+
+            </Route>
+
             <Route path='trabajador' element={<Trabajador/>}/> 
     </Route>
 

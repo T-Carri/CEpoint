@@ -54,7 +54,7 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
 }
 
 
-
+//PROYECTOS, PRESUPUESTOS
 
 //ASIGNACION ABOUT
 const agregaProyecto = async (dato, datos) => {
@@ -80,10 +80,17 @@ const getProyectos =async()=>{
              })  
         })}  
 
+    
+const getProyecto = async(dato)=>{
+  const q = doc(db, "asignaciones", dato)
+  await getDoc(q).then(res=>{
+   dispatch({type:TYPES.PROYECTO, payload:res.data() })
+          })}
  
-
-
-
+   //GET PROYECTO Estado Activo 
+ //GET PROYECTO Estado Adicional
+ //GET PROYECTO Estado Garantia
+ //GET PROYECTO Estado Desactivado
 
 
 
@@ -122,14 +129,7 @@ dispatch({type:TYPES.ASIGNADO_CHECADOR, payload: res.data()})
 })}
 
     
-    
-const getProyecto = async(dato)=>{
- const q = doc(db, "asignaciones", dato)
- await getDoc(q).then(res=>{
-  dispatch({type:TYPES.PROYECTO, payload:res.data() })
-         })}
-
-   
+ 
     
 
 
