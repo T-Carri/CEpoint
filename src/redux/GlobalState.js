@@ -7,12 +7,58 @@ switch(action.type){
         ...state,
         TotalProyectos : action.payload
     }
-
     case TYPES.GET_NAME_PROYECTOS:
       return {
           ...state,
           proyectonames : action.payload
       }
+
+    case TYPES.PROYECTO:
+      return {
+        ...state, 
+        Proyecto: action.payload
+   }
+
+
+      case TYPES.CALL_PROYECTOS_ACTIVOS_NAME:
+          return {
+              ...state,
+              asignacionesActivasDetails: action.payload
+          }
+       
+       case TYPES.CALL_PROYECTOS_DESACTIVADOS_NAME: 
+        return{
+          ...state, 
+          asignacionesDD: action.payload
+        }    
+
+        case TYPES.CALL_PROYECTOS_ADICIONALES_NAME: 
+        return{
+          ...state, 
+          ProyectosAdicionales: action.payload
+        } 
+    
+        case TYPES.CALL_PROYECTOS_GARANTIA_NAME: 
+        return{
+          ...state, 
+          ProyectosGarantia: action.payload
+        } 
+
+
+  
+    
+        case TYPES.ACTIVA_PROYECTO: 
+        return{
+          ...state, 
+          AP: action.payload
+        }   
+       
+        case TYPES.DESACTIVA_PROYECTO: 
+        return{
+          ...state, 
+          DP: action.payload
+        } 
+        
   
   case TYPES.USUARIO_DATA:
     return {
@@ -58,31 +104,7 @@ switch(action.type){
              OnlyUser : action.payload
                     }   
 
-   case TYPES.CALL_PROYECTOS_ACTIVOS:
-          return {
-              ...state,
-              asignacionesActivasDetails: action.payload
-          }
-       
-       case TYPES.CALL_PROYECTOS_DESACTIVADOS: 
-        return{
-          ...state, 
-          asignacionesDD: action.payload
-        }    
-  
-    
-        case TYPES.ACTIVA_PROYECTO: 
-        return{
-          ...state, 
-          AP: action.payload
-        }   
-       
-        case TYPES.DESACTIVA_PROYECTO: 
-        return{
-          ...state, 
-          DP: action.payload
-        } 
-        
+   
   
     case TYPES.ASIGNADO_CHECADOR:
        return {
@@ -90,11 +112,7 @@ switch(action.type){
         ChecadorAsignadouser: action.payload
     }
   
-    case TYPES.PROYECTO:
-       return {
-         ...state, 
-         Proyecto: action.payload
-    }
+ 
 
     case TYPES.TEST_TEST: 
     return{

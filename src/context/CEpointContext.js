@@ -20,14 +20,16 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
   UsuariosDisponiblesChecador:'',
   UserChecador:'',
   OnlyUser:'',
-  asignacionesActivasDetails: '', 
-  asignacionesDD: '', 
   AP:'',
   DP: '', 
- TotalProyectos:'',
+  TotalProyectos:'',
   ChecadorAsignadouser:'',
   Proyecto:'', 
   proyectonames:'',
+  asignacionesActivasDetails: '', 
+  ProyectosAdicionales:'',
+  ProyectosGarantia:'',
+  asignacionesDD: '', 
   PresupuestosSelecionados:'', 
   test:''
  
@@ -67,7 +69,7 @@ await  setDoc(doc(db, "asignaciones",dato),datos);
 //Voy a crear una sola funcion que sustityua "getLinks", "getProyectosDesactivados"  
 //UNA SOLA CONSULTA DE ASIGNACIONES Y FILTRAR CON JAVASCRIPT 
 
-const getProyectos =async()=>{
+/* const getProyectos =async()=>{
   const q = query(collection(db, "asignaciones"))
   await onSnapshot(q, (query)=>{
      const data=[]
@@ -79,47 +81,105 @@ const getProyectos =async()=>{
       type:TYPES.GET_PROYECTOS, payload:data
              })  
         })}  
-
+ */
     
 const getProyecto = async(dato)=>{
-  const q = doc(db, "asignaciones", dato)
-  await getDoc(q).then(res=>{
-   dispatch({type:TYPES.PROYECTO, payload:res.data() })
-          })}
- 
-   //GET PROYECTO Estado Activo 
- //GET PROYECTO Estado Adicional
- //GET PROYECTO Estado Garantia
- //GET PROYECTO Estado Desactivado
-
-
-
-
-const getLinks =async()=>{
-const q = query(collection(db, "asignaciones"), where("activa","==", true))
-await onSnapshot(q, (query)=>{
-const data=[]
-query.forEach((doc)=>{
-data.push({...doc.data(), id:doc.id})
-console.log('ids: ', doc.id)
-             })
-            
- dispatch({type:TYPES.CALL_PROYECTOS_ACTIVOS, payload: data })
-             })}  
-          
+  const ref=collection(db, "asignaciones")
+  const q = query(ref, where("presupuesto","==", dato) )
+  await onSnapshot(q, 
+     (query)=>{
+       query.forEach((doc)=>{
+         dispatch({type:TYPES.PROYECTO, payload:doc.data().asistencias })
+        })
+        
+        
+      }
+      )
+    }
+    //const data=[]
+  
+  //data.push(doc.data().asistencias) 
     
+    
+    
+    
+    
+    
+
+   
+   //GET PROYECTO Estado Activo 
+   const getProyectosActivos =async()=>{
+    const ref=collection(db, "asignaciones")
+    const q = query(ref, where("Estado","==", "Activo"), where('asistencias', '!=' ,[]) )
+    await onSnapshot(q, (query)=>{
+    const data=[]
+    query.forEach((doc)=>{
+    data.push(doc.data().presupuesto)
+  
+                 })
+                
+     dispatch({type:TYPES.CALL_PROYECTOS_ACTIVOS_NAME, payload: data })
+    })}  
+    //GET PROYECTO Estado Desactivado
        
     
-const getProyectosDesactivados =async()=>{
-const q = query(collection(db, "asignaciones"), where("activa","==", false))
-await onSnapshot(q, (query)=>{
-const data=[]
-query.forEach((doc)=>{
-data.push({...doc.data(), id:doc.id})
-console.log('ids: ', doc.id)
-})
-dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS, payload: data })
-})} 
+    const getProyectosDesactivados = async()=>{
+      const ref=collection(db, "asignaciones")
+      const q = query(ref, where("Estado","==", "Desactivado"), where('asistencias', '!=' ,[]) )
+      await onSnapshot(q, (query)=>{
+      const data=[]
+      query.forEach((doc)=>{
+      data.push(doc.data().presupuesto)
+      
+      })
+      dispatch({type:TYPES.CALL_PROYECTOS_DESACTIVADOS_NAME, payload: data })
+      })} 
+
+ //GET PROYECTO Estado Adicional
+   
+ const getProyectosAdicionales =async()=>{
+  const ref=collection(db, "asignaciones")
+  const q = query(ref, where("Estado","==", "Adicional"), where('asistencias', '!=' ,[]) )
+  await onSnapshot(q, (query)=>{
+  const data=[]
+  query.forEach((doc)=>{
+  data.push(doc.data().presupuesto)
+ 
+  })
+  dispatch({type:TYPES.CALL_PROYECTOS_ADICIONALES_NAME, payload: data })
+  })} 
+ //GET PROYECTO Estado Garantia
+
+  
+ const getProyectosGarantia =async()=>{
+  const ref=collection(db, "asignaciones")
+  const q = query(ref, where("Estado","==", "Garantia"), where('asistencias', '!=' ,[]) )
+  await onSnapshot(q, (query)=>{
+  const data=[]
+  query.forEach((doc)=>{
+  data.push(doc.data().presupuesto)
+ 
+  })
+  dispatch({type:TYPES.CALL_PROYECTOS_GARANTIA_NAME, payload: data })
+  })} 
+
+
+
+  const getNamesProyectos =async()=>{
+    const q = query(collection(db, "asignaciones"), where('asistencias', '!=' ,[]))
+    await onSnapshot(q, (query)=>{
+       const data=[]
+       query.forEach((doc)=>{
+        data.push(doc.data().presupuesto)
+       
+      }) 
+      dispatch({
+        type:TYPES.GET_NAME_PROYECTOS, payload:data
+               })  
+          })}  
+  
+    
+
     
     
 const fetchChecadorAsignadoUser = async(params)=>{
@@ -572,18 +632,6 @@ querySnapshot.forEach((doc) => {
 }
 
 
-const getNamesProyectos =async()=>{
-  const q = query(collection(db, "asignaciones"), where('asistencias', '!=' ,[]))
-  await onSnapshot(q, (query)=>{
-     const data=[]
-     query.forEach((doc)=>{
-      data.push(doc.data().presupuesto)
-     
-    }) 
-    dispatch({
-      type:TYPES.GET_NAME_PROYECTOS, payload:data
-             })  
-        })}  
 
 
 /*  
@@ -629,10 +677,16 @@ const getTest =async()=>{
 value={{
   state,
   dispatch, 
-  getLinks, 
+ 
+
   getProyecto,
+  getNamesProyectos,
+  getProyectosActivos,
+  getProyectosAdicionales,
+  getProyectosGarantia, 
   getProyectosDesactivados, 
   agregaProyecto, 
+
   fetchChecadorAsignadoUser,
   accessKey, 
   getUsuarios, 
@@ -654,7 +708,7 @@ value={{
   desactivaUser, 
   activateProyecto, 
   desactivarProyecto, 
-  getProyectos, 
+   
   
   fetchOnlyUser, 
   addNombre,
@@ -673,7 +727,7 @@ value={{
   acDomicilio,
   addEmail,
   acEmail,
-  getNamesProyectos,
+ 
   getConsultaConstruida
   }}>
   {children}

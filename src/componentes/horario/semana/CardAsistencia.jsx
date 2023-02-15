@@ -3,15 +3,15 @@ import moment from 'moment'
 import { Card, Button, Col, Row, Container, Overlay,Popover } from 'react-bootstrap'
 import { MdNavigation } from "react-icons/md";
 import MyMap from '../MyMap'
-import {getStorage, ref,  getDownloadURL } from "firebase/storage"
-import { useEffect } from 'react';
+
+import { Foto } from './Foto';
 import { useRef } from 'react';
 moment.locale('es');
 
 
 export const CardAsistencia = ({dato}) => {
 
-  const storage = getStorage()
+  
   const [contador, setContador] = useState(0)
   const date = moment(dato.date)
   const day = date.date()
@@ -60,21 +60,8 @@ export const CardAsistencia = ({dato}) => {
 
 
 console.log(dato.trabajador, ':', contador) */
-const [Photo, setPhoto] = useState('')
-useEffect(
 
-  ()=>{
- 
-          
-      getDownloadURL (ref(storage,  `Asistencias/${dato.presupuesto}/${dato.trabajador}/${dato.clave}` )).then((url)=>{
-        //const img= document.getElementById(data.clave)
-        console.log('URL',url)
-       setPhoto(url)
-        })
-   
 
-  }, [dato]
-)
 
 
 return (
@@ -128,8 +115,8 @@ return (
         <Popover id="popover-contained">
           <Popover.Header as="h3"></Popover.Header>
           <Popover.Body>
-          <img  /* id={Pi.clave} */ src={Photo} style={{width: '15em', height:'20em'}}></img>
-                 
+          
+              <Foto  dato={dato} />   
                 
           </Popover.Body>
         </Popover>

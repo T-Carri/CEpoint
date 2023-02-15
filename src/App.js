@@ -52,7 +52,7 @@ import { ProyectosActivos } from './componentes/horario/semana/proyectosActivos/
 import { ProyectosAdicionales } from './componentes/horario/semana/proyectosAdicionales/ProyectosAdicionales';
 import { ProyectosGarantias } from './componentes/horario/semana/proyectosGarantias/ProyectosGarantias';
 import { ProyectosDesactivados } from './componentes/horario/semana/proyectosDesactivados/ProyectosDesactivados';
-
+import { Table } from './componentes/horario/semana/Table';
 
 
 function App() {
@@ -109,10 +109,17 @@ function App() {
             <Route path='ubicacion' element={<Ubicacion/>}/> 
             <Route path='obra' element={<Obra/>}/> 
             <Route path='semana' element={<Semana/>}>
-                   <Route path='proyectosactivos' element={<ProyectosActivos/>}/>
-                   <Route path='proyectosadicionales' element={<ProyectosAdicionales/>}/> 
-                   <Route path='proyectosgarantias' element={<ProyectosGarantias/>}/> 
+                   <Route path='proyectosactivos' element={<ProyectosActivos/>}>
+                   <Route path='table/:presupuesto' element={<Table/>}/> 
+                   </Route>
+                   <Route path='proyectosadicionales' element={<ProyectosAdicionales/>}>
+                   <Route path='table/:presupuesto' element={<Table/>}/> 
+                    </Route> 
+                  <Route path='proyectosgarantias' element={<ProyectosGarantias/>}>
+                       <Route path='table/:presupuesto' element={<Table/>}/> 
+                    </Route> 
                    <Route path='proyectosdesactivados' element={<ProyectosDesactivados/>}/> 
+
 
             </Route>
 
