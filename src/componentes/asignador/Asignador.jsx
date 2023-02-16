@@ -1,25 +1,30 @@
 import React, {useState, useContext} from 'react'
-import { Card, Container, Button } from 'react-bootstrap'
-//import './Asignador.css'
+
+import './Asignador.css'
 import { useEffect } from 'react';
 import UiContext from '../../context/UiContext';
-
-import  CardAsignacion  from './CardAsignacion';
-import { FormCreadorUser } from './FormCreadorUser';
-import {FormCreadorProyecto} from './FormCreadorProyecto'
-import  ProyectosDesactivados from './ProyectosDesactivados'
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 
 import  CEpointContext  from '../../context/CEpointContext';
+import { Outlet, useNavigate } from 'react-router-dom';
+
+
 
  const Asignador = () => {
 
 const {
-      getLinks, 
+  getTotalProyectos,
      
       state
      }=useContext(CEpointContext) 
 
- 
+ const navigate= useNavigate()
   const [modalShow, setModalShow] = useState(false);
     
   
@@ -32,10 +37,7 @@ const {
 
   
 useEffect(()=>{
-  async function fetchData() {
-    await getLinks();
-  }
-  fetchData();
+  getTotalProyectos()
   
 }, [])
 
@@ -44,65 +46,41 @@ useEffect(()=>{
  console.log("datossss", state?state:null)
 
     return (
-      <Container className="cardContenedora" style={{ width: '100em', height:'100%'}}>
-        <Button variant='primary' onClick={() => {
-          setModalShow(true)
-        }}> Proyectos desactivados</Button>
-   <Button variant='success' onClick={toggleShowFCU}> <strong>+</strong> Crear Cuenta para checar en proyecto</Button>
-   
-   <Button onClick={toggleShowFCP} variant='success'>
-         <strong>+</strong>  Agrega asignacion
-       </Button>
-   
+      <>
+    <Box  justifyContent="center" alignItems="center">
+  <Button variant='primary' onClick={() => {
+    setModalShow(true)
+  }}> Proyectos desactivados</Button>
+  <Button variant='success' onClick={toggleShowFCU}> <strong>+</strong> Crear Cuenta para checar en proyecto</Button>
+  <Button onClick={toggleShowFCP} variant='success'>
+    <strong>+</strong>  Agrega asignacion
+  </Button>
 
-    <Card.Body>
-    <ProyectosDesactivados show={modalShow} onHide={() => setModalShow(false)}  /> 
-   <FormCreadorProyecto/> 
-     <FormCreadorUser/> 
-   
-      
+  <h4><strong>Actualiza o agrega proyectos</strong></h4>
 
-      <Card.Subtitle className="mb-2 text-muted">Organiza los proyectos</Card.Subtitle>
-      <Card className='formUsuarios' style={{ display:'contents', width: '70em', height:'45em'}}>
-      <Card.Title> <h4><strong>Actualiza o agrega proyectos</strong></h4></Card.Title>  
-      <Card.Body>
-        <Card className='content-users' style={{height: '40em'}}>
-       <Card > 
-       <div className='proyectos'  style={{width: '74.8em', height: '40em' }} > 
+
+
+  <div class="wrapper">
+<section class="cards">
+{state.asignacionesTotal &&
+      state.asignacionesTotal.map((da, index) => (
+
+        <div class="cards-content" onClick={()=>navigate(`proyecto/${da}`)}>
+    {da}
+      </div>
        
-    
-       {state.asignacionesActivasDetails&&state.asignacionesActivasDetails.map((da)=>(
-       
-       
-      <CardAsignacion prop={da} />
-  
-       
-       
-       
-       ))} 
-         
-  
-       
-      
-        
-       </div>
-        </Card>
-         
-       
-       
-      
-       </Card>
-              
-      
-     
-                  
-      </Card.Body>
-      </Card>
-    
-   
-          
-    </Card.Body>
-  </Container>
+      ))}
+</section>
+</div>
+
+
+
+
+ 
+
+  <Outlet />
+</Box>
+  </>
   
 
   )

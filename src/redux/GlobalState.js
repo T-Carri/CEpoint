@@ -19,6 +19,11 @@ switch(action.type){
         Proyecto: action.payload
    }
 
+   case TYPES.SELECT_PROYECTO:
+    return {
+      ...state, 
+      selectProyecto: action.payload
+    }
 
       case TYPES.CALL_PROYECTOS_ACTIVOS_NAME:
           return {
@@ -26,6 +31,12 @@ switch(action.type){
               asignacionesActivasDetails: action.payload
           }
        
+          case TYPES.CALL_TOTAL:
+            return {
+                ...state,
+                asignacionesTotal: action.payload
+            }    
+
        case TYPES.CALL_PROYECTOS_DESACTIVADOS_NAME: 
         return{
           ...state, 

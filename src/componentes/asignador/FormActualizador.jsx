@@ -27,14 +27,7 @@ export const FormActualizador = () => {
 
      // hooks que reducire proyecto
 
-      useEffect(()=>{
-
-        async function fetchData() {
-          await getUsuariosChecador();
-        }
-        fetchData();
-
-    },[]) 
+   
      
  /*   useEffect( 
         ()=>{
@@ -85,64 +78,6 @@ export const FormActualizador = () => {
    </Badge>
    
    </h3>
-   <Form>
-<Row><Col> <Form.Group className="mb-2" >
-<Form.Label>Actualiza el responsable de checar en proyecto</Form.Label>
- {state.UsuariosDisponiblesChecador&&    
-<Form.Select name="residenteUid"   value={values.residenteUid}  onChange={handleInputChange}  >
- <option>Selcciona una cuenta para este proyecto</option>
-{
- state.UsuariosDisponiblesChecador.map((e)=>( 
-      
-        <option value={e.UID}>{e.nombre}</option>
-       )
-
-)
-} 
-        </Form.Select>}   
-  </Form.Group>
-  </Col>
-  <br />
-  <br />
- <Button  className="mb-2" size='lg' variant='success' onClick={()=>{
-    try {
-      acUsChec( state.Proyecto.idProyecto, values.residenteUid)
-      console.log('yeah you get it')
-     
-    } catch (error) {
-      console.log(error)
-    }
-    
-
-  }}>Actualiza residente</Button> 
-  </Row>
-  <br />
-  <Col> <Form.Group className="mb-2" >
-<Form.Label>Ubicacion</Form.Label>
-{/* <Form.Control type="String" name="ubicacion"  disabled  value={values.ubicacion}   onChange={handleInputChange}  placeholder={candidatoActualizar.ubicacion}  /> */}
-
-</Form.Group></Col>
-        <Row>
-  <Col> <Form.Group className="mb-2" >
-<Form.Label>Numero de presupuesto</Form.Label>
-{/* <Form.Control type="String" name="presupuesto" disabled  value={values.presupuesto} onChange={handleInputChange}   placeholder={candidatoActualizar.presupuesto} />
- */}
-</Form.Group></Col>
-
-<Col> <Form.Group className="mb-2" >
-<Form.Label>Obra</Form.Label>
-<Form.Control type="String" name="obra" disabled /* value={values.obra} onChange={handleInputChange}   placeholder={candidatoActualizar.obra}*/ />
-
-</Form.Group></Col>
-</Row>
-
-
-    </Form>
-
-
-
-
-
 
 
 
@@ -152,11 +87,7 @@ export const FormActualizador = () => {
 
 
       
-     
-        <Form >
-      
-   
-    </Form>    
+       
       </Offcanvas.Body>
    </Offcanvas>
  

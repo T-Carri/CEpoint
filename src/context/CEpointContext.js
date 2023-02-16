@@ -31,7 +31,9 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
   ProyectosGarantia:'',
   asignacionesDD: '', 
   PresupuestosSelecionados:'', 
-  test:''
+  test:'', 
+  selectProyecto:'', 
+  asignacionesTotal:'',
  
 }
 
@@ -100,11 +102,35 @@ const getProyecto = async(dato)=>{
   
   //data.push(doc.data().asistencias) 
     
+  const getSelectProyect = async(dato)=>{
+    const ref=collection(db, "asignaciones")
+    const q = query(ref, where("presupuesto","==", dato) )
+    await onSnapshot(q, 
+       (query)=>{
+         query.forEach((doc)=>{
+           dispatch({type:TYPES.SELECT_PROYECTO, payload:doc.data() })
+          })
+          
+          
+        }
+        )
+      }
     
     
-    
-    
-    
+    //get total proyectos
+
+       const getTotalProyectos =async()=>{
+  
+    const q = query(collection(db, "asignaciones") )
+    await onSnapshot(q, (query)=>{
+    const data=[]
+    query.forEach((doc)=>{
+    data.push(doc.data().presupuesto )
+  
+                 })
+                
+     dispatch({type:TYPES.CALL_TOTAL, payload: data })
+    })}  
 
    
    //GET PROYECTO Estado Activo 
@@ -709,6 +735,7 @@ value={{
   activateProyecto, 
   desactivarProyecto, 
    
+  getTotalProyectos,
   
   fetchOnlyUser, 
   addNombre,
@@ -727,7 +754,7 @@ value={{
   acDomicilio,
   addEmail,
   acEmail,
- 
+  getSelectProyect,
   getConsultaConstruida
   }}>
   {children}

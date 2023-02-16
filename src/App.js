@@ -54,6 +54,13 @@ import { ProyectosGarantias } from './componentes/horario/semana/proyectosGarant
 import { ProyectosDesactivados } from './componentes/horario/semana/proyectosDesactivados/ProyectosDesactivados';
 import { Table } from './componentes/horario/semana/Table';
 
+//ASIGNACION
+import { Proyecto } from './componentes/asignador/Proyecto/Proyecto';
+import { CreaProyecto } from './componentes/asignador/CreacionProyectos/CreaProyecto';
+import { CreaKey } from './componentes/asignador/CreacionKey/CreaKey';
+
+
+
 
 function App() {
 
@@ -127,10 +134,12 @@ function App() {
     </Route>
 
 
-     <Route path="asignadorEndiseño" element={
-       
-       <Asignador/>
-      } /> 
+     <Route path="asignadorEndiseño" element={ <Asignador/> } >
+        
+            <Route path="proyecto/:electo" element={<Proyecto/>} />
+            <Route path="creaproyecto" element={<CreaProyecto/>} />
+            <Route path="creakey" element={<CreaKey/>} />
+        </Route> 
     
     <Route path="almacen" element={<Almacen/>} > 
     <Route path="miscelaneos" element={<Miscelaneos/>} />

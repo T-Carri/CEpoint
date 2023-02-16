@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react'
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap'
-import  CardAsignacion  from './CardAsignacion';
+
 
 import CEpointContext from '../../context/CEpointContext';
  const ProyectosDesactivados = (props) => {
@@ -30,15 +30,7 @@ import CEpointContext from '../../context/CEpointContext';
         </Modal.Header>
         <Modal.Body className="show-grid">
           <Container>
-          {state.asignacionesDD?state.asignacionesDD.map((da)=>(
-       
-       
-       <CardAsignacion prop={da} />
-   
-        
-        
-        
-        )):null}
+     
           </Container>
         </Modal.Body>
         <Modal.Footer>
