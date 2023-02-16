@@ -1,15 +1,116 @@
-import React, {useEffect, useContext} from 'react'
+import React, {useEffect, useContext, useRef} from 'react'
 import { useParams } from 'react-router-dom'
 import CEpointContext from '../../../context/CEpointContext'
+import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
-export const Proyecto = () => {
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Grid } from '@mui/material';
+import { styled } from '@mui/material/styles';
+import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
+import WorkIcon from '@mui/icons-material/Work';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import Divider from '@mui/material/Divider';
+import TextField from '@mui/material/TextField';
+import MenuItem from '@mui/material/MenuItem';
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+}));
+
+
+
+
+const currencies = [
+  {
+    value: 'Activo',
+    label: 'Activo',
+  },
+  {
+    value: 'Adicional',
+    label: 'Adicional',
+  },
+  {
+    value: 'Garantia',
+    label: 'Garantia',
+  },
+  {
+    value: 'Inactivo',
+    label: 'Inactivo',
+  },
+];
+
+
+const empresas = [
+  {
+    value: 'CE2000',
+    label: 'CE2000',
+  },
+  {
+    value: 'MCBRICK',
+    label: 'MCBRICK',
+  },
+  {
+    value: 'SIARSA',
+    label: 'SIARSA',
+  },
+  {
+    value: 'SECMA',
+    label: 'SECMA',
+  },
+  {
+    value: 'SOLCOM',
+    label: 'SOLCOM',
+  },
+];
+
+
+
+export const Proyecto = () => { 
+
     const {electo } = useParams()
 
-    const {state, getSelectProyect }=useContext(CEpointContext)
+    const {state, getSelectProyect, editaEstado }=useContext(CEpointContext)
+
+
+
+    const estadoRef = useRef(null)
+    const empresaRef= useRef(null)
+    const presupuestoRef= useRef(null)
+    const obraRef= useRef(null)
+
+
+
+const handleEstadoChange = (event) => {
+  estadoRef.current = event.target.value;
+  console.log(
+    estadoRef.current,  empresaRef.current, presupuestoRef.current, obraRef.current
+   )
+};
+const handleEmpresaChange = (event) => {
+  empresaRef.current = event.target.value;
+  console.log(
+    estadoRef.current,  empresaRef.current, presupuestoRef.current, obraRef.current
+   )
+};
 
 /*     useEffect(()=>{
 
@@ -25,29 +126,169 @@ useEffect( ()=>{
 } ,[electo])
 
 
+const clickEstado=()=>{
+  editaEstado(state.selectProyecto.presupuesto, estadoRef.current )
+  console.log(state.selectProyecto.presupuesto, estadoRef.current)
+}
+
+
 console.log(state.selectProyecto)
   return (
     <div>
 
 <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
-          {electo}
-        </Typography>
-   
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          adjective
-        </Typography>
-        <Typography variant="body2">
-          well meaning and kindly.
-          <br />
-          {'"a benevolent smile"'}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
-    </Card>
+
+
+ 
+ <Typography sx={{ fontSize: 30 }} color="text.secondary" gutterBottom>
+   {electo}
+ </Typography>
+
+<Grid container spacing={2}>
+<Grid item xs={6}>
+<Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1a-content"
+          id="panel1a-header"
+        >
+          <Typography>
+           <strong>Editar proyecto</strong>  </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+         
+
+        <Box
+      component="form"
+      sx={{
+        '& .MuiTextField-root': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Cambia estado"
+          onChange={handleEstadoChange}
+          helperText="Selecciona estado de proyecto"
+        >
+          {currencies.map((option) => (
+            <MenuItem key={option.value}     value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      <Button onClick={clickEstado}>Aceptar</Button>
+      </div>
+      <div>
+        <TextField
+          id="outlined-select-currency"
+          select
+          label="Cambia empresa"
+       onChange={handleEmpresaChange}
+          helperText="Selecciona empresa de proyecto"
+        >
+          {empresas.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      <Button>Aceptar</Button>
+      </div>
+
+<div>
+  <TextField id="outlined-basic" 
+  onChange={(e) => {
+            
+    presupuestoRef.current = e.target.value;
+  }}
+label="No. Presupuesto" variant="outlined" />  <Button>Aceptar</Button>
+</div>
+
+<div><TextField id="outlined-basic" 
+  onChange={(e) => {
+            
+    obraRef.current = e.target.value;
+  }}
+label="Obra" variant="outlined" />  <Button>Aceptar</Button></div>
+      
+  
+    </Box>
+
+
+
+
+        </AccordionDetails>
+      </Accordion>
+</Grid>
+<Grid item xs={6}>
+<Card sx={{ maxWidth: 345 }}>
+
+<CardContent>
+ <Typography gutterBottom variant="h5" component="div">
+ {state.selectProyecto.presupuesto}
+ </Typography>
+ <Typography variant="body2" color="text.secondary">
+ {state.selectProyecto.horario}
+ </Typography>
+
+ <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+      }}
+    >
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <AssistantPhotoIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Estado" secondary={state.selectProyecto.Estado} />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <WorkIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary="Empresa" secondary= {state.selectProyecto.Empresa} />
+      </ListItem>
+      <Divider variant="inset" component="li" />
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+            <Diversity3Icon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={state.selectProyecto.obra} secondary={state.selectProyecto.ubicacion} />
+      </ListItem>
+    </List>
+
+</CardContent>
+<CardActions>
+ <Button size="small">Share</Button>
+
+ <Button size="small">Learn More</Button>
+
+</CardActions>
+</Card>
+</Grid>
+
+</Grid>
+</Card>
+
+
+
+
+
+
+
 
 
        

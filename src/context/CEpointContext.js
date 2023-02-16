@@ -117,6 +117,32 @@ const getProyecto = async(dato)=>{
       }
     
     
+
+
+
+     /*  const editaEstado = async(id, valor)=>{
+        const userRef= doc(db, 'users',id)
+        await setDoc(userRef, {domicilio: valor}, {merge:true} )
+      } */
+      const editaEmpresa = async(id, valor)=>{
+        const userRef= doc(db, 'users',id)
+        await setDoc(userRef, {domicilio: valor}, {merge:true} )
+      }
+      
+      const editaEstado = async(dato, dato1)=>{
+       
+        const AP = doc(db, "asignaciones", '505')
+
+        await updateDoc(AP, {
+        Estado: dato1,
+      
+        
+        })
+        } 
+
+
+
+
     //get total proyectos
 
        const getTotalProyectos =async()=>{
@@ -734,7 +760,7 @@ value={{
   desactivaUser, 
   activateProyecto, 
   desactivarProyecto, 
-   
+  editaEstado,  
   getTotalProyectos,
   
   fetchOnlyUser, 
