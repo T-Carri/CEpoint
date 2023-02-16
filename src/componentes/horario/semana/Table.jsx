@@ -1,15 +1,15 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { CardAsistencia } from './CardAsistencia';
 import { Card, Button, Accordion, Container, Badge } from 'react-bootstrap'
-import { useParams } from 'react-router-dom';
+import { useParams,  useOutletContext } from 'react-router-dom';
 import moment from 'moment';
 import CEpointContext from '../../../context/CEpointContext';
 export const Table = () => {
   const {state, getProyecto} =useContext(CEpointContext)
 
        const {presupuesto} =useParams()
-    
-
+    const [flag]=useOutletContext()
+console.log(flag)
 
        useEffect(()=>{
         getProyecto(presupuesto)
@@ -40,7 +40,8 @@ export const Table = () => {
 
         let groupedData = {};
         if (state.Proyecto.length > 0) {
-          groupedData = state.Proyecto.reduce((acc, current) => {
+          const filteredData = state.Proyecto.filter((item) => item.flag === `${flag}`);
+          groupedData = filteredData.reduce((acc, current) => {
             const date = moment(current.date);
             const year = date.year();
             const week = date.isoWeek();

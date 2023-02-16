@@ -8,9 +8,13 @@ import Container  from "@mui/system/Container";
 
 
 export const Horario = () => {
-
+const  {state,getNamesProyectos}= useContext(CEpointContext)
 const navigate = useNavigate(); 
 
+useEffect(()=>{
+  if(!state.proyectonames)
+  getNamesProyectos()
+},[state.proyectonames])
 
 
 

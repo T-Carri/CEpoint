@@ -8,6 +8,7 @@ import { Outlet } from 'react-router-dom';
 export const ProyectosGarantias = () => {
  
   const {state, getProyectosGarantia} =useContext(CEpointContext)
+  const [flag, setFlag] =useState('Garantia') 
   const [seleccion, setSeleccion]= useState('')
 
 
@@ -28,7 +29,7 @@ useEffect(()=>{
     <div>Presupuestos Activos
 
     <CarouselProyectos   state={state.ProyectosGarantia&&state.ProyectosGarantia} />
-   <Outlet/>
+   <Outlet context={[flag]}/>
     </div> 
   )
 }

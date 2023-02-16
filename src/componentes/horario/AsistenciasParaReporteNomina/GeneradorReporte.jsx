@@ -1,5 +1,5 @@
 
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
 import Card from '@mui/material/Card';
@@ -13,7 +13,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import  CEpointContext  from "../../../context/CEpointContext";
-import { useEffect } from "react";
+
 import Container  from "@mui/system/Container";
 import TextField from '@mui/material/TextField';
 import { addDays } from 'date-fns';
@@ -56,7 +56,17 @@ export default function GeneradorReporte() {
   dayjs.locale(locale);
   
 
-const {state, getConsultaConstruida} = useContext(CEpointContext)
+const {state, getConsultaConstruida, getNamesProyectos} = useContext(CEpointContext)
+
+useEffect(()=>{
+  if(!state.proyectonames)
+  getNamesProyectos()
+},[state.proyectonames])
+
+
+
+
+
 
 
 const [State, setState] = useState([
@@ -114,7 +124,7 @@ const [State, setState] = useState([
   };
 
 
-console.log(state.proyectonames&&state.proyectonames, 'right:', right, "Fecha?", State[0].startDate, State[0].endDate)
+console.log(state.proyectonames&&state.proyectonames, 'right:', right, "Fecha?", State[0].startDate,  moment(State[0].endDate).format('LL') )
 
   
 
@@ -244,6 +254,19 @@ console.log(state.proyectonames&&state.proyectonames, 'right:', right, "Fecha?",
     )
 
 
+    function filterByDateRange(data, fechaInicial, fechaFinal) {
+      const asistencias = reductora(groupByWorker(data));
+      return asistencias.filter((asistencia) => {
+        const fecha = moment(asistencia.fecha);
+        const fecha1=  moment(fechaInicial).format('LL')
+        const fecha2= moment(fechaFinal).format('LL')
+        return fecha.isBetween(fecha1, fecha2, null, '[]');
+      });
+    }
+
+    useEffect(()=>{
+     console.log(filterByDateRange(state.test&&state.test, State[0].startDate, State[0].endDate)) 
+    },[State[0].endDate])
 
     
 function convertArrayToExcel(array, fileName) {
@@ -316,7 +339,7 @@ useEffect(()=>{
   try {
     
 
-    convertArrayToExcel(reductora(groupByWorker(state.test&&state.test)), 'Reporte' )  
+    convertArrayToExcel(filterByDateRange(state.test&&state.test, State[0].startDate, State[0].endDate), 'Reporte' )  
     
     
   } catch (error) {
