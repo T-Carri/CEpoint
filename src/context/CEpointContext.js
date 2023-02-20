@@ -129,6 +129,7 @@ const getProyecto = async(dato)=>{
         await setDoc(userRef, {domicilio: valor}, {merge:true} )
       }
       
+
       const editaEstado = async(dato, dato1)=>{
        
         const AP = doc(db, "asignaciones", '505')
@@ -237,7 +238,8 @@ const getProyecto = async(dato)=>{
 const fetchChecadorAsignadoUser = async(params)=>{
 const q = doc(db, "cuentas", params )
 await getDoc(q).then(res=>{
-dispatch({type:TYPES.ASIGNADO_CHECADOR, payload: res.data()})
+  
+dispatch({type:TYPES.ASIGNADO_CHECADOR, payload: res.data()}) 
 })}
 
     

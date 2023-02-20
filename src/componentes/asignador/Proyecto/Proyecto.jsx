@@ -1,11 +1,11 @@
-import React, {useEffect, useContext, useRef} from 'react'
+import React, {useEffect, useContext, useRef, useState} from 'react'
 import { useParams } from 'react-router-dom'
 import CEpointContext from '../../../context/CEpointContext'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
+
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Accordion from '@mui/material/Accordion';
@@ -15,19 +15,27 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import AssistantPhotoIcon from '@mui/icons-material/AssistantPhoto';
+
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
+
 import WorkIcon from '@mui/icons-material/Work';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
 import Divider from '@mui/material/Divider';
 import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
+
+import ContentPasteGoIcon from '@mui/icons-material/ContentPasteGo';
+import MyLocationIcon from '@mui/icons-material/MyLocation';
+import PersonIcon from '@mui/icons-material/Person';
+
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
@@ -88,11 +96,12 @@ export const Proyecto = () => {
 
     const {electo } = useParams()
 
-    const {state, getSelectProyect, editaEstado }=useContext(CEpointContext)
+    const {state, getSelectProyect, editaEstado, fetchChecadorAsignadoUser, getUsuariosChecador }=useContext(CEpointContext)
 
 
 
     const estadoRef = useRef(null)
+    const nombreRef = useRef(null)
     const empresaRef= useRef(null)
     const presupuestoRef= useRef(null)
     const obraRef= useRef(null)
@@ -104,6 +113,12 @@ const handleEstadoChange = (event) => {
   console.log(
     estadoRef.current,  empresaRef.current, presupuestoRef.current, obraRef.current
    )
+};
+const [name, setName]=useState()
+const handleNameChange = (event) => {
+  nombreRef.current = event.target.value;
+  setName( event.target.value)
+   console.log(nombreRef.current)
 };
 const handleEmpresaChange = (event) => {
   empresaRef.current = event.target.value;
@@ -122,9 +137,34 @@ const handleEmpresaChange = (event) => {
     },[])  */
 
 useEffect( ()=>{
+  
     getSelectProyect(electo)
+ 
+    
+ 
+    
 } ,[electo])
 
+useEffect(()=>{
+  fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
+},[state.selectProyecto.presupuesto])
+
+
+
+const [open, setOpen] = useState(false)
+
+
+
+useEffect(()=>{
+  const fetchAccounts = ()=>{
+    if(open){
+      getUsuariosChecador()
+      console.log('fetched :)')
+    } 
+  }
+  fetchAccounts()
+
+} ,[open])
 
 const clickEstado=()=>{
   editaEstado(state.selectProyecto.presupuesto, estadoRef.current )
@@ -133,6 +173,15 @@ const clickEstado=()=>{
 
 
 console.log(state.selectProyecto)
+
+console.log(state.selectProyecto.residenteUid?state.selectProyecto.residenteUid:null)
+
+
+console.log(open)
+
+
+
+
   return (
     <div>
 
@@ -151,6 +200,7 @@ console.log(state.selectProyecto)
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
+          onClick={()=>setOpen(!open)}
         >
           <Typography>
            <strong>Editar proyecto</strong>  </Typography>
@@ -172,16 +222,50 @@ console.log(state.selectProyecto)
           select
           label="Cambia estado"
           onChange={handleEstadoChange}
+          
           helperText="Selecciona estado de proyecto"
         >
           {currencies.map((option) => (
             <MenuItem key={option.value}     value={option.value}>
               {option.label}
-            </MenuItem>
+            </MenuItem>  
           ))}
         </TextField>
       <Button onClick={clickEstado}>Aceptar</Button>
       </div>
+
+
+      <div>
+      <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={name}
+          label="Cuenta"
+          onChange={handleNameChange}
+        >
+              {state.UsuariosDisponiblesChecador.map((option) => (
+            <MenuItem key={option.UID} value={option.email}>
+              {option.email}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+
+
+
+
+
+
+
+
+      <Button>Aceptar</Button>
+      </div>
+
+
+
       <div>
         <TextField
           id="outlined-select-currency"
@@ -189,6 +273,7 @@ console.log(state.selectProyecto)
           label="Cambia empresa"
        onChange={handleEmpresaChange}
           helperText="Selecciona empresa de proyecto"
+          
         >
           {empresas.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -229,10 +314,10 @@ label="Obra" variant="outlined" />  <Button>Aceptar</Button></div>
 
 <CardContent>
  <Typography gutterBottom variant="h5" component="div">
- {state.selectProyecto.presupuesto}
+  {state.selectProyecto.presupuesto&&state.selectProyecto.presupuesto} 
  </Typography>
  <Typography variant="body2" color="text.secondary">
- {state.selectProyecto.horario}
+ {state.selectProyecto.horario&&state.selectProyecto.horario}
  </Typography>
 
  <List
@@ -245,10 +330,10 @@ label="Obra" variant="outlined" />  <Button>Aceptar</Button></div>
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <AssistantPhotoIcon />
+            <ContentPasteGoIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Estado" secondary={state.selectProyecto.Estado} />
+        <ListItemText primary="Estado" secondary={state.selectProyecto.Estado&&state.selectProyecto.Estado} />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
@@ -257,16 +342,25 @@ label="Obra" variant="outlined" />  <Button>Aceptar</Button></div>
             <WorkIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary="Empresa" secondary= {state.selectProyecto.Empresa} />
+        <ListItemText primary="Empresa" secondary= {state.selectProyecto.Empresa&&state.selectProyecto.Empresa} />
       </ListItem>
       <Divider variant="inset" component="li" />
       <ListItem>
         <ListItemAvatar>
           <Avatar>
-            <Diversity3Icon />
+          
+            <PersonIcon/>
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={state.selectProyecto.obra} secondary={state.selectProyecto.ubicacion} />
+        <ListItemText primary="Cuenta" secondary={state.ChecadorAsignadouser.email?state.ChecadorAsignadouser.email:'NOT FOUND'} />
+      </ListItem>
+      <ListItem>
+        <ListItemAvatar>
+          <Avatar>
+          <MyLocationIcon/>
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={state.selectProyecto.obra&&state.selectProyecto.obra} secondary={state.selectProyecto.ubicacion&&state.selectProyecto.ubicacion} />
       </ListItem>
     </List>
 

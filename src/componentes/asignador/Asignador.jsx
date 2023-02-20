@@ -10,7 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-
+import Chip from '@mui/material/Chip';
 import  CEpointContext  from '../../context/CEpointContext';
 import { Outlet, useNavigate } from 'react-router-dom';
 
@@ -66,7 +66,8 @@ useEffect(()=>{
       state.asignacionesTotal.map((da, index) => (
 
         <div class="cards-content" onClick={()=>navigate(`proyecto/${da}`)}>
-    {da}
+          <Chip label={da} color="primary" />
+    
       </div>
        
       ))}
