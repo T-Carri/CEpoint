@@ -3,7 +3,7 @@ import { Row, Col} from 'react-bootstrap'
 import { UserAuth } from '../../context/AuthContext';
 //import './Account.css'
 
-import React, { useEffect} from 'react'
+import React, { useEffect, useContext} from 'react'
 import { 
   useNavigate, 
   Outlet
@@ -34,6 +34,7 @@ import FilterTiltShiftIcon from '@mui/icons-material/FilterTiltShift';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { MainListItems } from './listItems';
 import moment from 'moment';
+import CEpointContext from '../../context/CEpointContext';
 /* import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders'; */
@@ -98,6 +99,7 @@ const navbar = createTheme( {
 
 export const AccountUser= () => {
 
+  const {state}= useContext(CEpointContext)
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -107,7 +109,7 @@ export const AccountUser= () => {
   const {logout}= UserAuth();
   const navigate = useNavigate();
   
-
+console.log(state)
 
   useEffect(()=>{
     let authToken = sessionStorage.getItem('Auth Token')

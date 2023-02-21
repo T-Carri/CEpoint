@@ -11,7 +11,9 @@ export default CEpointContext;
 
 export const CEpointProvider = ({children}) => {
     const {user} = useContext(UserContext)
-const initialstate=JSON.parse(localStorage.getItem('state'))|| {
+   const key=user?user.uid:null
+
+const initialstate=JSON.parse(localStorage.getItem(`state-${key}`))|| {
   UsuarioSesion:'',
   UsuariosActivosDetail:'',
   UsuariosInactivosDetail:'',
@@ -41,10 +43,10 @@ const initialstate=JSON.parse(localStorage.getItem('state'))|| {
 
  //USUARIO ABOUT 
  useEffect(() => {
-  localStorage.setItem('state', JSON.stringify(state));
+  localStorage.setItem(`state-${key}`, JSON.stringify(state));
 }, [state]);
 
-
+ console.log(user?user.uid:null) 
 
  
  const accessKey = async ()=>{
@@ -132,7 +134,7 @@ const getProyecto = async(dato)=>{
 
       const editaEstado = async(dato, dato1)=>{
        
-        const AP = doc(db, "asignaciones", '505')
+        const AP = doc(db, "asignaciones", `${dato}`)
 
         await updateDoc(AP, {
         Estado: dato1,

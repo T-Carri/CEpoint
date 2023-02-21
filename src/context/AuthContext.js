@@ -23,7 +23,7 @@ export const UserAuth = () => {
 
 
 export const AuthContextProvider = ({ children }) => {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState();
   // const dispatch=useDispatch() ;
   const firestore= getFirestore(app)
   
@@ -56,7 +56,7 @@ export const AuthContextProvider = ({ children }) => {
     return () => unsubscribe();
   
   },[]);
-console.log(user)
+console.log(JSON.stringify(user))
   return (
     <UserContext.Provider value={{createUsuario, user, logout, signIn }}>
       {children}
