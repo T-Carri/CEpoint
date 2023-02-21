@@ -127,8 +127,13 @@ const getProyecto = async(dato)=>{
         await setDoc(userRef, {domicilio: valor}, {merge:true} )
       } */
       const editaEmpresa = async(id, valor)=>{
-        const userRef= doc(db, 'users',id)
-        await setDoc(userRef, {domicilio: valor}, {merge:true} )
+        const AP = doc(db, "asignaciones", `${id}`)
+
+        await updateDoc(AP, {
+        Empresa: valor,
+      
+        
+        })
       }
       
 
@@ -144,7 +149,50 @@ const getProyecto = async(dato)=>{
         } 
 
 
+        const editaPresupuesto = async(dato, dato1)=>{
+       
+          const AP = doc(db, "asignaciones", `${dato}`)
+  
+          await updateDoc(AP, {
+          presupuesto: dato1,
+        
+          
+          })
+          } 
+  
+          const editaObra = async(dato, dato1)=>{
+       
+            const AP = doc(db, "asignaciones", `${dato}`)
+    
+            await updateDoc(AP, {
+            obra: dato1,
+          
+            
+            })
+            } 
+           
+            const editaUbicacion = async(dato, dato1)=>{
+       
+              const AP = doc(db, "asignaciones", `${dato}`)
+      
+              await updateDoc(AP, {
+              ubicacion: dato1,
+            
+              
+              })
+              } 
 
+              const editaResidenteUid = async(dato, dato1)=>{
+       
+                const AP = doc(db, "asignaciones", `${dato}`)
+        
+                await updateDoc(AP, {
+                residenteUid: dato1,
+              
+                
+                })
+                } 
+      
 
     //get total proyectos
 
@@ -765,6 +813,11 @@ value={{
   activateProyecto, 
   desactivarProyecto, 
   editaEstado,  
+  editaEmpresa,
+  editaPresupuesto,
+  editaObra, 
+   editaUbicacion,
+   editaResidenteUid,
   getTotalProyectos,
   
   fetchOnlyUser, 

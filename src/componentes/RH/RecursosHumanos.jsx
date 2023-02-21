@@ -1,19 +1,30 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState} from 'react'
 import { Container, Row, Col,  } from 'react-bootstrap'
 import { useNavigate, Outlet } from 'react-router-dom'
 //import './recursoshumanos.css'
 import UiContext from '../../context/UiContext'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHospitalUser } from "@fortawesome/free-solid-svg-icons";
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import  Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import DrawerComp from './DrawerComp';
 import { addDays } from 'date-fns';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import RH1 from './RH1.jpg'
 import RH2 from './RH2.jpg'
 import Typography from '@mui/material/Typography';
+
 const theme = createTheme({
 
   capaRH1: {
@@ -178,6 +189,24 @@ export const RecursosHumanos = () => {
     const navigate = useNavigate(); 
   
  console.log('ToggleRH',ToggleRH)
+
+
+
+const [x, setX]=useState(false)
+const [state, setState] = React.useState(false);
+const toggleDrawer = () => () => {
+  /*    if (
+       event &&
+       event.type === 'keydown' &&
+       (event.key === 'Tab' || event.key === 'Shift')
+     ) {
+       return;
+     }
+  */
+     setState(!state);
+   };
+
+
 return (
  
     ToggleRH
@@ -283,24 +312,34 @@ return (
                     p: 2,
                     display: 'flex',
                     flexDirection: 'column',
-                    height: 240,
+                    height: 260,
                   }}
                 >
-    <Button variant="dark" className='button' onClick={()=>{
+    <Button variant="contained" color="success" className='button' onClick={()=>{
        setToggleRH(true);
       navigate('agregaTrabajador')
       setInFormulario(false)
       }}>
     <strong>+ Agregar trabajador nuevo</strong>
     </Button>
-    <Button variant="danger" className='button'>
+    <Button variant="contained" color="success" className='button' onClick={toggleDrawer()}>
+    <strong>+ Agregar perfil</strong>
+    </Button>
+    <Button variant="outlined" color="error" className='button'>
     <FontAwesomeIcon icon={faHospitalUser} /> <strong>Trabajadores de incapacidad</strong>
     </Button>
                  
                 </Paper>
               </Grid> 
        
-
+     {/*          <SwipeableDrawer
+       
+            open={x} 
+            onClose={setX(false)}
+            onOpen={setX(true)}  
+          >
+         
+          </SwipeableDrawer>  */}
 
 
 
@@ -313,7 +352,7 @@ return (
 
    
     </Grid>
-  
+   <DrawerComp state={state} toggleDrawer={toggleDrawer}/>
 
 
 

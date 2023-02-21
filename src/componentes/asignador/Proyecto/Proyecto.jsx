@@ -96,7 +96,8 @@ export const Proyecto = () => {
 
     const {electo } = useParams()
 
-    const {state, getSelectProyect, editaEstado, fetchChecadorAsignadoUser, getUsuariosChecador }=useContext(CEpointContext)
+  
+  const {state, getSelectProyect, editaEstado, fetchChecadorAsignadoUser, getUsuariosChecador, editaEmpresa, editaPresupuesto,  editaObra, editaUbicacion, editaResidenteUid  }=useContext(CEpointContext)
 
 
 
@@ -105,6 +106,7 @@ export const Proyecto = () => {
     const empresaRef= useRef(null)
     const presupuestoRef= useRef(null)
     const obraRef= useRef(null)
+    const ubicacionRef= useRef(null)
 
 
 
@@ -149,6 +151,15 @@ useEffect(()=>{
   fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
 },[state.selectProyecto.presupuesto])
 
+useEffect(()=>{
+  fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
+},[state.selectProyecto.residenteUid])
+
+
+/* useEffect(()=>{
+  fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
+},[state.selectProyecto.residenteUid])
+ */
 
 
 const [open, setOpen] = useState(false)
@@ -167,14 +178,37 @@ useEffect(()=>{
 } ,[open])
 
 const clickEstado=()=>{
-  editaEstado(state.selectProyecto.presupuesto, estadoRef.current )
-  console.log(state.selectProyecto.presupuesto, estadoRef.current)
+  editaEstado(state.selectProyecto.idProyecto, estadoRef.current )
+  
 }
 
+const clickEmpresa=()=>{
+  editaEmpresa(state.selectProyecto.idProyecto, empresaRef.current )
 
-console.log(state.selectProyecto)
+}
 
-console.log(state.selectProyecto.residenteUid?state.selectProyecto.residenteUid:null)
+const clickPresupuesto=()=>{
+  editaPresupuesto(state.selectProyecto.idProyecto, presupuestoRef.current )
+ 
+}
+
+const clickObra=()=>{
+  editaObra(state.selectProyecto.idProyecto, obraRef.current )
+ 
+}
+const clickUbicacion=()=>{
+  editaUbicacion(state.selectProyecto.idProyecto, ubicacionRef.current )
+  
+}
+
+const clickName=()=>{
+  editaResidenteUid(state.selectProyecto.idProyecto, nombreRef.current )
+  
+}
+
+//console.log(state.selectProyecto)
+
+//console.log(state.selectProyecto.residenteUid?state.selectProyecto.residenteUid:null)
 
 
 console.log(open)
@@ -216,8 +250,12 @@ console.log(open)
       noValidate
       autoComplete="off"
     >
-      <div>
+      <Grid container   direction="row"
+  justifyContent="center"
+  alignItems="center">
+        <Grid item >
         <TextField
+       
           id="outlined-select-currency"
           select
           label="Cambia estado"
@@ -231,14 +269,26 @@ console.log(open)
             </MenuItem>  
           ))}
         </TextField>
-      <Button onClick={clickEstado}>Aceptar</Button>
-      </div>
+
+        </Grid>
+        <Grid item sx={{pb:3}}>
+  
+        <Button variant="contained" color="success" onClick={clickEstado}>Aceptar</Button>
+
+        </Grid>
+
+     
+      </Grid>
 
 {state.UsuariosDisponiblesChecador&&
-  <div>
-  <FormControl fullWidth>
+  <Grid container  direction="row"
+  justifyContent="center"
+  alignItems="center">
+    <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+    <FormControl fullWidth>
     <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
     <Select
+   
       labelId="demo-simple-select-label"
       id="demo-simple-select"
       value={name}
@@ -246,16 +296,23 @@ console.log(open)
       onChange={handleNameChange}
     >
           {state.UsuariosDisponiblesChecador.map((option) => (
-        <MenuItem key={option.UID} value={option.email}>
+        <MenuItem key={option.UID} value={option.UID}>
           {option.email}
         </MenuItem>
       ))}
     </Select>
   </FormControl>
+    </Grid>
+    <Grid item sx={{pl:1}}>
+
+    <Button variant="contained" color="success" onClick={clickName}>Aceptar</Button>
+    </Grid>
+
+ 
 
 
-  <Button>Aceptar</Button>
-  </div>
+
+  </Grid>
 
 
 }
@@ -263,14 +320,17 @@ console.log(open)
 
 
 
-
+<br />
 
 
     
 
 
-      <div>
-        <TextField
+      <Grid container direction="row"
+  justifyContent="center"
+  alignItems="center">
+
+        <Grid item ><TextField
           id="outlined-select-currency"
           select
           label="Cambia empresa"
@@ -283,27 +343,70 @@ console.log(open)
               {option.label}
             </MenuItem>
           ))}
-        </TextField>
-      <Button>Aceptar</Button>
-      </div>
+        </TextField></Grid>
+        <Grid item sx={{pb:2}}><Button  variant="contained" color="success" onClick={clickEmpresa}>Aceptar</Button></Grid>
 
-<div>
+        
+      
+      </Grid>
+
+<Grid container direction="row"
+  justifyContent="center"
+  alignItems="center">
+
+  <Grid item>
   <TextField id="outlined-basic" 
   onChange={(e) => {
             
     presupuestoRef.current = e.target.value;
   }}
-label="No. Presupuesto" variant="outlined" />  <Button>Aceptar</Button>
-</div>
+label="No. Presupuesto" variant="outlined" /> 
 
-<div><TextField id="outlined-basic" 
+  </Grid>
+  <Grid item><Button  variant="contained" color="success" onClick={clickPresupuesto}>Aceptar</Button></Grid>
+
+ 
+
+ 
+</Grid>
+
+<Grid container  direction="row"
+  justifyContent="center"
+  alignItems="center" >
+  <Grid item >
+  <TextField id="outlined-basic" 
   onChange={(e) => {
             
     obraRef.current = e.target.value;
   }}
-label="Obra" variant="outlined" />  <Button>Aceptar</Button></div>
-      
+label="Obra" variant="outlined" /> 
+  </Grid>
+  <Grid item >
+  <Button variant="contained" color="success" onClick={clickObra}>Aceptar</Button>
+  </Grid>
+
   
+</Grid>
+      
+<Grid container  direction="row"
+  justifyContent="center"
+  alignItems="center" >
+  <Grid item >
+  <TextField id="outlined-basic" 
+  onChange={(e) => {
+            
+    ubicacionRef.current = e.target.value;
+  }}
+label="Ubicacion" variant="outlined" /> 
+  </Grid>
+  <Grid item >
+  <Button variant="contained" color="success" onClick={clickUbicacion}>Aceptar</Button>
+  </Grid>
+
+  
+</Grid>
+      
+
     </Box>
 
 
