@@ -234,36 +234,39 @@ console.log(open)
       <Button onClick={clickEstado}>Aceptar</Button>
       </div>
 
-
-      <div>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={name}
-          label="Cuenta"
-          onChange={handleNameChange}
-        >
-              {state.UsuariosDisponiblesChecador.map((option) => (
-            <MenuItem key={option.UID} value={option.email}>
-              {option.email}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
-
-
+{state.UsuariosDisponiblesChecador&&
+  <div>
+  <FormControl fullWidth>
+    <InputLabel id="demo-simple-select-label">Cuenta</InputLabel>
+    <Select
+      labelId="demo-simple-select-label"
+      id="demo-simple-select"
+      value={name}
+      label="Cuenta"
+      onChange={handleNameChange}
+    >
+          {state.UsuariosDisponiblesChecador.map((option) => (
+        <MenuItem key={option.UID} value={option.email}>
+          {option.email}
+        </MenuItem>
+      ))}
+    </Select>
+  </FormControl>
 
 
+  <Button>Aceptar</Button>
+  </div>
+
+
+}
 
 
 
 
 
-      <Button>Aceptar</Button>
-      </div>
 
+
+    
 
 
       <div>
