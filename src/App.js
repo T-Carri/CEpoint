@@ -1,8 +1,8 @@
 //habil
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import './App.css';
 import Bienvenida from "./Pages/bienvenida/bienvenida"
-import {BrowserRouter as Router, Route, Routes, useParams} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Routes, useParams,  useLocation} from 'react-router-dom'
 
 import Totalogin from '../src/Pages/Access/Totalogin'
 import Totalsignup from '../src/Pages/Access/Totalsignup'
@@ -63,9 +63,8 @@ import { CreaKey } from './componentes/asignador/CreacionKey/CreaKey';
 
 
 function App() {
-
- 
-
+  const location = useLocation();
+  console.log(location)
   return (
  <AuthContextProvider>
   <CEpointProvider>
@@ -74,14 +73,14 @@ function App() {
  
   <UiProvider>
     <>
-   <Router >
+   
    <Routes>
       <Route exact path="/" element={<Bienvenida/>} />
     <Route  path="/login" element={<Totalogin/>} />
     <Route  path="/signup" element={<Totalsignup/>} />
     
 
-    <Route  path="account/*" element={ 
+    <Route  path="account/*"  state={{ from: location}} element={ 
       <ProtectedRoute>
 
         <AccountUser/>
@@ -160,7 +159,7 @@ function App() {
    
     
       </Routes>
-  </Router>
+
    
     </>
     </UiProvider>
