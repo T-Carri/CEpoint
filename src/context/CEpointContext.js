@@ -64,7 +64,7 @@ const initialstate=JSON.parse(localStorage.getItem(`state-${key}`))|| {
 
 //ASIGNACION ABOUT
 const agregaProyecto = async (dato, datos) => {
-await  setDoc(doc(db, "asignaciones",dato),datos);
+await  setDoc(doc(db, "asignaciones", dato),datos);
 }
     
     
@@ -147,6 +147,7 @@ const getProyecto = async(dato)=>{
         
         })
         } 
+
 
 
         const editaPresupuesto = async(dato, dato1)=>{
@@ -416,13 +417,13 @@ console.log('done :)')
 
 //checa si es un usuario con checador true
 const ableChecador = async(dato)=>{
-const AC = doc(db, "users", dato)
+const AC = doc(db, "cuentas", dato)
 await updateDoc(AC, { checador: true } )} 
 
 //checa si es un usuario con checador false
 
 const enableChecador = async(dato)=>{
-const DC = doc(db, "users", dato)
+const DC = doc(db, "cuentas", dato)
 await updateDoc(DC, {checador: false}  )}  
 
 
@@ -558,7 +559,7 @@ const desactivarProyecto = async(params)=>{
                         //INFORMACION DEL TRABAJADOR 
 
 const fetchOnlyUser = async(params)=>{
-  const q = doc(db, "users", params )
+  const q = doc(db, "cuentas", params )
   await getDoc(q).then(res=>{
   dispatch({type: TYPES.FETCH_ONLYUSER, payload:res.data() })
   

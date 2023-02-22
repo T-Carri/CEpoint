@@ -224,7 +224,7 @@ const handleLogout = async()=>{
          
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
+            <Grid container sm={7} md={9} xl={12} spacing={3}>
             
              
              <WhiteBoard/>

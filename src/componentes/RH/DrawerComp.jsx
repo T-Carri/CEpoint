@@ -127,7 +127,7 @@ const handleClose = () => {
         <DialogContent>
      
         <FormControl sx={{ m: 1 }} variant="standard">
-        <InputLabel htmlFor="demo-customized-select-native">Age</InputLabel>
+        <InputLabel htmlFor="demo-customized-select-native">AREA</InputLabel>
         <NativeSelect
           id="demo-customized-select-native"
           /* alue={age} */

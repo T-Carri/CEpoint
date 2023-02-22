@@ -122,12 +122,14 @@ const handleNameChange = (event) => {
   setName( event.target.value)
    console.log(nombreRef.current)
 };
+
 const handleEmpresaChange = (event) => {
   empresaRef.current = event.target.value;
   console.log(
     estadoRef.current,  empresaRef.current, presupuestoRef.current, obraRef.current
    )
 };
+
 
 /*     useEffect(()=>{
 
@@ -142,24 +144,34 @@ useEffect( ()=>{
   
     getSelectProyect(electo)
  
-    
+    console.log(state.selectProyecto.residenteUid)
  
     
 } ,[electo])
 
-useEffect(()=>{
-  fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
-},[state.selectProyecto.presupuesto])
+
+ useEffect(()=>{
+  try {
+    fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
+  } catch (error) {
+    console.log(error)
+  }
+ 
+},[state.selectProyecto.presupuesto]) 
 
 useEffect(()=>{
-  fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
+  try {
+    fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
+    console.log('LOS TIENES!', state.ChecadorAsignadouser.email)
+  } catch (error) {
+    console.log(error)
+  }
+ 
 },[state.selectProyecto.residenteUid])
 
 
-/* useEffect(()=>{
-  fetchChecadorAsignadoUser(state.selectProyecto.residenteUid)
-},[state.selectProyecto.residenteUid])
- */
+
+
 
 
 const [open, setOpen] = useState(false)
@@ -258,7 +270,7 @@ console.log(open)
        
           id="outlined-select-currency"
           select
-          label="Cambia estado"
+          label="Selecciona estado de proyecto"
           onChange={handleEstadoChange}
           
           helperText="Selecciona estado de proyecto"

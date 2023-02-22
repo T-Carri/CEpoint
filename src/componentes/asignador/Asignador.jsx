@@ -47,21 +47,23 @@ useEffect(()=>{
 
     return (
       <>
-    <Box  justifyContent="center" alignItems="center">
+    <Box sm={7} md={9} xl={12} justifyContent="center" alignItems="center">
   <Button variant='primary' onClick={() => {
     setModalShow(true)
   }}> Proyectos desactivados</Button>
-  <Button variant='success' onClick={toggleShowFCU}> <strong>+</strong> Crear Cuenta para checar en proyecto</Button>
-  <Button onClick={toggleShowFCP} variant='success'>
+<Button onClick={()=>navigate('creaproyecto')} variant='success'>
     <strong>+</strong>  Agrega asignacion
   </Button>
+  <Button variant='success' onClick={()=>navigate('creakey')}> <strong>+</strong> Crea llave para ingresar en app</Button>
+ 
+  
 
   <h4><strong>Actualiza o agrega proyectos</strong></h4>
 
 
 
-  <div class="wrapper">
-<section class="cards">
+  <div class="wrapper"  >
+<section class="cards" >
 {state.asignacionesTotal &&
       state.asignacionesTotal.map((da, index) => (
 
