@@ -16,7 +16,7 @@ export const FormularioDatosTrabajador = () => {
   const{ inFormulario, 
     setInFormulario }= useContext(UiContext)  
     const [key, setKey] = useState('almacen');
-    const{ state, dispatch, fetchOnlyUser }= useContext(CEpointContext)  
+    const{ state, dispatch, fetchOnlyTrabajador }= useContext(CEpointContext)  
     const [show, setShow] = useState(false);
     const [QRurl, setQRurl]= useState()
     const handleClose = () => setShow(false);
@@ -29,7 +29,7 @@ algoritmo:
 
 useEffect(()=>{
  
-    fetchOnlyUser(Id)
+  fetchOnlyTrabajador(Id)
   
 },[])
 
@@ -47,14 +47,14 @@ useEffect(()=>{
 
 
    <Row>
-       <Col className='text-center'><Card> <h1>{state.OnlyUser.nombre}</h1>
+       <Col className='text-center'><Card> <h1>{state.OnlyTrabajador.nombre}</h1>
     
        <Row>
        <Col className='text-center'>
-       <Badge pill bg="secondary"> <strong>{state.OnlyUser.area}</strong> </Badge>
+       <Badge pill bg="secondary"> <strong>{state.OnlyTrabajador.area}</strong> </Badge>
    
        <br />
-   <h3>   <Badge pill bg="warning" text="dark"> <strong>{state.OnlyUser.perfil}</strong> </Badge> </h3>
+   <h3>   <Badge pill bg="warning" text="dark"> <strong>{state.OnlyTrabajador.perfil}</strong> </Badge> </h3>
 
 
        </Col>
@@ -75,7 +75,7 @@ useEffect(()=>{
           <Modal.Title>Se dara de baja a:  </Modal.Title>
         </Modal.Header> 
         <Modal.Body className='text-center'>
-        <strong><h3>{state.OnlyUser.nombre}</h3></strong>
+        <strong><h3>{state.OnlyTrabajador.nombre}</h3></strong>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
@@ -104,7 +104,7 @@ useEffect(()=>{
     <img  src={ QRurl } />
   </Card>
   
-  <Chip label={state.OnlyUser.UID} color="success" />
+  <Chip label={state.OnlyTrabajador.UID} color="success" />
     </Col>
 
     </Row> 
@@ -122,7 +122,7 @@ useEffect(()=>{
         <Accordion.Header><strong>Informacion de Trabajador</strong>  </Accordion.Header>
         <Accordion.Body  style={{backgroundColor: '#EAE2E0' }}>
 <h2>Datos del trabajador</h2>
-    <DatosTrabajador prop={state.OnlyUser} />
+    <DatosTrabajador prop={state.OnlyTrabajador} />
 
         </Accordion.Body>
       </Accordion.Item>
@@ -265,7 +265,7 @@ useEffect(()=>{
 <Button type="button"  variant='outline-dark' className="btn btn-default btn-circle btn-lg" 
          onClick={()=>{
           setInFormulario(false)
-          dispatch({type: TYPES.FETCH_ONLYUSER, payload:'' })
+          dispatch({type: TYPES.FETCH_TRABAJADOR, payload:'' })
          }}>  
          <BsArrowLeftCircle /> Trabajadores  </Button>
 

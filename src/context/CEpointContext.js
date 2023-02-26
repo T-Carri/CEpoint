@@ -14,28 +14,30 @@ export const CEpointProvider = ({children}) => {
    const key=user?user.uid:null
 
 const initialstate=JSON.parse(localStorage.getItem(`state-${key}`))|| {
-  UsuarioSesion:'',
-  UsuariosActivosDetail:'',
-  UsuariosInactivosDetail:'',
-  UsuariosOcupados:'', 
-  UsuariosDesocupados:'',
-  UsuariosDisponiblesChecador:'',
-  UserChecador:'',
-  OnlyUser:'',
   AP:'',
-  DP: '', 
-  TotalProyectos:'',
   ChecadorAsignadouser:'',
+  DP: '', 
+  OnlyUser:'',
+  OnlyTrabajador:'',
+  PresupuestosSelecionados:'', 
   Proyecto:'', 
-  proyectonames:'',
-  asignacionesActivasDetails: '', 
   ProyectosAdicionales:'',
   ProyectosGarantia:'',
+  TotalProyectos:'',
+  UserChecador:'',
+  UsuarioSesion:'',
+  UsuariosActivosDetail:'',
+  UsuariosDesocupados:'',
+  UsuariosDisponiblesChecador:'',
+  UsuariosInactivosDetail:'',
+  UsuariosOcupados:'', 
+  asignacionesActivasDetails: '', 
   asignacionesDD: '', 
-  PresupuestosSelecionados:'', 
-  test:'', 
-  selectProyecto:'', 
   asignacionesTotal:'',
+  proyectonames:'',
+  selectProyecto:'', 
+
+  test:''
  
 }
 
@@ -61,7 +63,7 @@ const initialstate=JSON.parse(localStorage.getItem(`state-${key}`))|| {
 
 
 //PROYECTOS, PRESUPUESTOS
-
+//MUTATION
 //ASIGNACION ABOUT
 const agregaProyecto = async (dato, datos) => {
 await  setDoc(doc(db, "asignaciones", dato),datos);
@@ -566,6 +568,15 @@ const fetchOnlyUser = async(params)=>{
   }) 
   }
 
+
+  const fetchOnlyTrabajador = async(params)=>{
+    const q = doc(db, "users", params )
+    await getDoc(q).then(res=>{
+    dispatch({type: TYPES.FETCH_TRABAJADOR, payload:res.data() })
+    
+    }) 
+    }
+
   //NOMBRE
      //AGREGA
      const addNombre = async(id, valor)=>{
@@ -820,7 +831,7 @@ value={{
    editaUbicacion,
    editaResidenteUid,
   getTotalProyectos,
-  
+  fetchOnlyTrabajador,
   fetchOnlyUser, 
   addNombre,
   acNombre,

@@ -115,7 +115,11 @@ switch(action.type){
              OnlyUser : action.payload
                     }   
 
-   
+                    case TYPES.FETCH_TRABAJADOR:
+                      return {
+                       ...state,
+                      OnlyTrabajador : action.payload
+                             } 
   
     case TYPES.ASIGNADO_CHECADOR:
        return {
