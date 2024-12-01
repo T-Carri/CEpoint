@@ -26,7 +26,7 @@ export const MainListItems=()=>{
     return(
         <>
       
-     {state.UsuarioSesion.rh?
+    
           <ListItemButton   onClick={()=>{navigate("recursosHumanos")
           setToggleRH(false)
           }}>
@@ -35,24 +35,23 @@ export const MainListItems=()=>{
           </ListItemIcon>
           <ListItemText primary="Recursos Humanos" />
         </ListItemButton>:null
-        }
-    {state.UsuarioSesion.lectoreAsistencia?
+       
+
           <ListItemButton   onClick={()=>navigate("horario")}>
           <ListItemIcon>
             <WatchLaterIcon />
           </ListItemIcon>
           <ListItemText primary="Asistencia" />
         </ListItemButton>:null
-        }
-            {state.UsuarioSesion.asignador?
+       
+         
           <ListItemButton onClick={()=>navigate("asignadorEndiseño")}>
           <ListItemIcon >
             <ExtensionIcon />
           </ListItemIcon>
           <ListItemText primary="Asignacion" />
         </ListItemButton>:null
-        }
-            {state.UsuarioSesion.almacen?
+     
           <ListItemButton  onClick={()=>{navigate("almacen")
           setToggleALMACEN(false)
           }}>
@@ -61,7 +60,7 @@ export const MainListItems=()=>{
           </ListItemIcon>
           <ListItemText primary="Almacen" />
         </ListItemButton>:null
-        }
+      
 
         </>
     )
